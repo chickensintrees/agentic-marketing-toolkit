@@ -51,6 +51,7 @@ describe('buildMarkdown (SPEC §2.5)', () => {
     expect(md).toContain('**Strongest force(s):** Competitive rivalry')
     // 5 + 3 + 4 + 3 + 3 = 18 / 5 = 3.6
     expect(md).toContain('**Overall structure (indicative):** Challenging structure')
+    expect(md).toContain("_Averages hide what matters: the strongest force or forces usually shape an industry's profitability most._")
   })
 
   it('has one section per force, in the standard order', () => {

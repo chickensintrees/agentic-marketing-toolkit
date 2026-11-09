@@ -1,7 +1,7 @@
 # Five Forces Explorer — Tool Specification
 
 > Tool #1 of the [Agentic Marketing Toolkit](../../../SPEC.md). **This file is
-> the single source of truth for this tool**; the suite spec (`/SPEC.md`)
+> the source of truth for this tool**, under INTENT.md (Bill's intent, which outranks every spec); the suite spec (`/SPEC.md`)
 > governs everything shared: the shell, routing, the tool contract,
 > accessibility and design rules (suite §2.4), quality gates, and deployment.
 > Changes flow through this spec before they flow into code. See
@@ -162,6 +162,7 @@ discarding it.
 
 **Strongest force(s):** <names>  (omitted if nothing rated)
 **Overall structure (indicative):** <label>  (omitted unless all five rated)
+_Averages hide what matters: the strongest force or forces usually shape an industry's profitability most._  (always directly under the structure line)
 
 ## Competitive rivalry
 **Rating:** 4 – High
@@ -180,13 +181,21 @@ _Generated with Five Forces Explorer. Ratings marked "Illustrative" are
 teaching examples, not verified market research._
 ```
 
+Each bold field line is its own paragraph (a blank line follows it) so the
+lines don't run together when rendered. Free text is escaped so a line that
+looks like Markdown structure (a heading, a rule, a table row) stays text.
+A force with input but no rating still shows its evidence and source.
+
 ### 2.6 Persistence
 
 - The current analysis and the current Analyze step are saved to
   `localStorage` under the key `agentic-marketing-toolkit:five-forces:v1` on every change.
 - Loading must tolerate missing, unavailable (throws), or corrupted storage
-  and must validate the stored shape; anything invalid falls back to a fresh
-  blank state without crashing.
+  and must validate the stored shape without crashing. Unreadable or
+  wrong-shaped data falls back to a fresh blank state. Small, safe problems are
+  repaired instead of discarding the student's work: unknown driver ids are
+  dropped, an analysis whose preset no longer exists becomes a custom
+  industry, and an out-of-range step resets to the first step.
 - A **Start over** action (with confirmation) clears the analysis.
 
 ### 2.7 Accessibility and design
@@ -347,6 +356,10 @@ The suite quality gates apply (suite spec §6). This tool's tests must include:
 
 ## 6. Changelog
 
+- **0.2.1** — Export: the structure caveat is printed under the structure
+  line (it was required on screen but missing from the hand-in). Documented
+  paragraph spacing, escaping, evidence for unrated forces, and the storage
+  repair rules. Spec now sits under INTENT.md.
 - **0.2.0** — Moved into the Agentic Marketing Toolkit as tool #1: routes under
   `#/five-forces/…`, shell provides header/footer, storage key namespaced,
   paths relative to the tool folder. Added Porter's fifth rivalry condition

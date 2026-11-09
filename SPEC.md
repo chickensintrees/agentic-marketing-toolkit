@@ -1,6 +1,7 @@
 # Agentic Marketing Toolkit — Specification
 
-> **This file is the single source of truth for the toolkit as a whole.**
+> **This file is the source of truth for the toolkit as a whole, under
+> [INTENT.md](INTENT.md)** (Bill's intent, which outranks every spec).
 > Each tool also has its own spec at `src/tools/<tool-id>/SPEC.md`, which is
 > the source of truth for that tool. Changes flow through the relevant spec
 > before they flow into code. If code and spec disagree, the spec wins: fix the
@@ -143,8 +144,8 @@ export interface WantedTool {
 
 - `src/tools/index.ts` exports `TOOLS: ToolDefinition[]`, in Home order. Adding
   a tool = adding its folder and one line here.
-- `src/tools/wanted.ts` exports `WANTED_TOOLS: WantedTool[]`. Version 1 lists at
-  least: SWOT Builder, STP Planner (segmentation, targeting, positioning),
+- `src/tools/wanted.ts` exports `WANTED_TOOLS: WantedTool[]`. Version 1 started
+  with: SWOT Builder, STP Planner (segmentation, targeting, positioning),
   Customer Persona Builder, Marketing Mix (4Ps) Planner, Value Proposition
   Mapper, Customer Journey Map, Perceptual Map, PESTEL Scanner, Break-even &
   Pricing Calculator, Customer Lifetime Value Calculator. When a wanted tool is
@@ -217,6 +218,8 @@ Each tool's spec defines that tool's own required tests.
 
 ## 8. Changelog
 
+- **0.2.1** — The spec sits under INTENT.md. §3.3 names the wanted tools
+  version 1 started with, so removing a built tool no longer contradicts it.
 - **0.2.0** — Suite. The project becomes the Agentic Marketing Toolkit; Five
   Forces Explorer becomes tool #1 under `src/tools/five-forces/` with its own
   spec; the tool contract, registry, wanted-tools list, and shell are added.

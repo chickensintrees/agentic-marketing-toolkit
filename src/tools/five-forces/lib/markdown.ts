@@ -15,6 +15,10 @@ import {
   strongestForces,
 } from './analysis'
 
+/** Printed under the structure line: Porter's point that the strongest force(s) matter most (tool SPEC §2.4, §2.5). */
+export const STRUCTURE_CAVEAT =
+  "_Averages hide what matters: the strongest force or forces usually shape an industry's profitability most._"
+
 export const UNTITLED_INDUSTRY = 'Untitled industry'
 const EMPTY = '—'
 
@@ -102,6 +106,7 @@ export function buildMarkdown(analysis: Analysis, prepared: Date): string {
   const structure = overallStructure(analysis)
   if (structure) {
     push(`**Overall structure (indicative):** ${structure.label}`, '')
+    push(STRUCTURE_CAVEAT, '')
   }
 
   FORCES.forEach((force) => {
