@@ -1,7 +1,7 @@
 # Slides: source text and speaker notes
 
 Plain-text mirror of the deck at
-https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 50).
+https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 51).
 The deck is the master. When it changes, update this file to match. 17
 slides; timings match `run-of-show.md`.
 
@@ -70,20 +70,23 @@ Part 1 · Harnesses
 
 **What a harness does**
 
-| Power | Harness | Work |
+| | Horse and cart | AI agent |
 |---|---|---|
-| Horse | Harness | Cart and driver |
-| AI agent | Spec, rules, skills, checks | Software |
+| Power | Horse | AI agent |
+| Harness | Harness and reins | Spec, rules, skills, checks |
+| Load | Cart | The software being built |
+| Control | Driver | **You** |
 
 Footer: From Old French *harneis*, "equipment"
 
 > **Notes:** Etymology: *harneis* meant equipment, including a
 > man-at-arms' gear and the fittings for a draft animal. A harness connects
-> a source of power to a load so that a person can direct it. An AI agent
-> is a source of power in the same sense; a harness is what directs it.
-> "Harness engineering" is the term for building that structure. Source
-> example: Anthropic Engineering, "Effective harnesses for long-running
-> agents" (Justin Young, 26 November 2025).
+> a source of power to a load, and the driver steers that power through it.
+> With AI agents, the agent is the power, the spec, rules, skills and checks
+> are the harness, the software is the load, and the person directing the
+> work is the driver. "Harness engineering" is the term for building that
+> structure. Source example: Anthropic Engineering, "Effective harnesses for
+> long-running agents" (Justin Young, 26 November 2025).
 
 ## 5. Components of a harness (0:11)
 

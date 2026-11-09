@@ -24,7 +24,7 @@ its own tab.
 | 0:00 | 1 | 1 Cover | Thank the professor. State the two topics. | — |
 | 0:01 | 4 | 2 About me | billmoore.ai; background and GENE. | Site won't load: speak from the notes. |
 | 0:05 | 3 | 3 Poll 1 | Word cloud. Read the most common answers. | Slido fails: take five ideas by show of hands and note them for slide 8. |
-| 0:08 | 3 | 4 What a harness does | Etymology; horse, harness, cart. | — |
+| 0:08 | 3 | 4 What a harness does | Etymology. Power, harness, load, control: horse, harness and reins, cart, driver; AI agent, spec/rules/skills/checks, the software, you. | — |
 | 0:11 | 3 | 5 Components of a harness | Spec, rules, skills, checks. | — |
 | 0:14 | 4 | 6 Connecting an agent to GitHub | In the terminal, run `gh auth status`. | Signed out: show the sign-in screenshot and plan to use the fallback PR. |
 | 0:18 | 4 | 7 How this was built | Spec, split, coordinate, integrate; the build graph. | No graph: talk through the four steps. |
