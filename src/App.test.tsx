@@ -27,7 +27,10 @@ describe('suite shell', () => {
     }
     for (const wanted of WANTED_TOOLS) {
       expect(screen.getByRole('heading', { level: 3, name: wanted.name })).toBeInTheDocument()
-      expect(screen.getByText(wanted.pitch)).toBeInTheDocument()
+      // The pitch is on demand: the link's description, shown on hover or focus.
+      const link = screen.getByRole('heading', { level: 3, name: wanted.name }).closest('a')!
+      expect(link).toHaveAccessibleDescription(wanted.pitch)
+      expect(link).toHaveAttribute('href', BUILD_A_TOOL_URL)
     }
     expect(screen.getByRole('link', { name: 'How to propose and build a tool' })).toHaveAttribute(
       'href',
@@ -77,14 +80,14 @@ describe('suite shell', () => {
     render(<App />)
     await user.click(screen.getByRole('link', { name: /Open Five Forces Explorer/ }))
     await waitFor(() => expect(mainHeading()).toHaveTextContent('Five Forces Explorer'))
-    await user.click(screen.getByRole('link', { name: 'Analyze' }))
+    await user.click(screen.getByRole('link', { name: 'Summary' }))
     await waitFor(() =>
-      expect(screen.getByRole('heading', { level: 2, name: 'Analyze an industry' })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { level: 2, name: 'Summary' })).toBeInTheDocument(),
     )
 
     window.history.back()
     await waitFor(() =>
-      expect(screen.getByRole('heading', { level: 2, name: 'Learn the framework' })).toBeInTheDocument(),
+      expect(screen.getByRole('button', { name: /^Competitive rivalry,/ })).toBeInTheDocument(),
     )
     window.history.back()
     await waitFor(() => expect(mainHeading()).toHaveTextContent(PRODUCT_NAME))

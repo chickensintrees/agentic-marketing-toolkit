@@ -1,6 +1,6 @@
 import { CONTRIBUTING_URL, DISCLAIMER, REPO_URL } from '../config'
 
-/** Repository link, Contribute link, and the disclaimer. SPEC §2.1. */
+/** Colophon: the disclaimer, the repository and the Contribute link. SPEC §2.1. */
 export function SiteFooter() {
   return (
     <footer className="site-footer">
