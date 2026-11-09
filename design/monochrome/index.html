@@ -375,7 +375,7 @@ const MARKS = {
   clv: '<path d="M4 58 H60"/><rect x="8" y="46" width="8" height="12" class="f"/><rect x="20" y="38" width="8" height="20" class="f"/><rect x="32" y="28" width="8" height="30" class="f"/><rect x="44" y="14" width="8" height="44" class="f"/>',
 };
 const WANTED = [['swot','SWOT'],['stp','STP'],['persona','Personas'],['mix','Marketing mix'],['vp','Value proposition'],['journey','Journey map'],['perceptual','Perceptual map'],['pestel','PESTEL'],['breakeven','Break-even & pricing'],['clv','Lifetime value']];
-document.getElementById('shelf').innerHTML = WANTED.map(([m, n], i) => `<li><a href="https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/build-a-tool.md"><svg class="mk" viewBox="0 0 64 64" aria-hidden="true">${MARKS[m]}</svg><span class="nm">${n}</span><span class="no mono">${String(i + 2).padStart(2, '0')} · open</span></a></li>`).join('');
+document.getElementById('shelf').innerHTML = WANTED.map(([m, n], i) => `<li><a href="https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/build-a-tool.md"><svg class="mk" viewBox="0 0 64 64" aria-hidden="true">${MARKS[m]}</svg><span class="nm">${n}</span><span class="no mono">${String(i + 2).padStart(2, '0')} · to build</span></a></li>`).join('');
 
 /* ---------- canvas ---------- */
 const strip = document.getElementById('strip');
