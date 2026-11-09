@@ -111,6 +111,41 @@ actually build these things"
 | D15 | ~03:15 | "This website that you're showing me is terrible. It's a wall of text. It should be visual. We're going to need to think through and generate images. And visuals through various means. And much simpler. Not a wall of text. And this design system, this aesthetic, it looks like AI slop. Software as a service. Get rich quick. We need to think through this whole thing here." |
 | D16 | ~03:17 | "We need a slide on github basics... We are missing things from the original chatgpt conversation." |
 | D17 | ~03:18 | "We need to pull and codify all of my intent from that chatgpt conversation into a durable artifact that drives our design and content decisions." |
+| D18 | ~13:00 | The deck's job and order (governs the deck; quoted in full below the table). |
+
+**D18 (verbatim).** "For the deck, the important thing here is that it provides me with what
+I need as the speaker to remember what I'm saying and provides the information that the
+audience needs. I'm going to introduce myself. I'm going to show some of my work. I'm going to
+explain what it is that I do, which is that I help businesses translate vague notions and ideas
+into usable software and experiences and products. I'm going to show examples of that, and then
+we need to explain to the students, like, we can't just jump right into, here's how you use
+GitHub. We need to explain to them why they need to learn this stuff, that the world is
+changing, that expectations are changing, and that they're going to be expected to be able to
+use these agentic tooling when they get to their jobs. They're going to be expected to
+understand how to use Claude Code or Codex to build at least things like dashboards, simple
+software, interactive graphs and things like that. And so what they need, what I'm here to
+teach you now is, here's how we build software in the agentic age. These are the tools that we
+use. This is the process that we use. You need to understand a little bit about GitHub if
+you're going to work on projects with other people. And then we need slides that explain what
+all those GitHub actions mean and what the process looks like for working with GitHub, what the
+process looks like for working with Claude Code or Codex, how do we use a harness. And then at
+the end, I'm going to invite them to join a repo. And that repo is a agentic toolkit for
+marketing that they will be able to use and contribute to in their class, in their schoolwork,
+and in their and maybe in their work. This is an open repository that they can all contribute
+to, or they can use as a starting point to build tools. Okay, so the deck needs, that's the
+focus of the deck. The deck is not here to explain Porter's five forces. We don't even really
+need to show that. That's just an example in the repo. The deck is about teaching them, first,
+who I am. Second, based on my experience, what the market's going to expect of them. And then
+third, how to do it, how to use GitHub, what the tools are, what is GitHub, what is Claude
+Code, what is Codex, why would they use them, how to use them, and then invite them to do the
+repo. We'll have one Slido moment in there where, like, later, after I've explained all that
+stuff, we can have a Slido moment that's like, what would you build if you could build
+anything? If you had a software team at your disposal and you wanted to build a dashboard or an
+interactive graph or a piece of software or a digital tool or presentation, and you had access
+to a software team that could build you anything you wanted, what would you build? And then
+that's what we'll pull into our repo, and I'll show them how, we'll like walk through, here's
+how you do, you know, we're going to add one simple feature to our app, let's walk through it
+step by step. So that's what the deck needs to be able to be."
 
 ### 2.3 Answers to the orchestrator's questions
 
@@ -166,7 +201,29 @@ carry only what earns its place, and the speaker does the editorializing (2.3).
 **The key unlock** (D9): connect the coding agent to the GitHub API so the agent
 manages git for the student.
 
-**Required segments** (each from Bill's words):
+**The deck's job and order** (D18, which governs where the rows below differ):
+
+- **Job.** The deck gives the speaker what he needs to remember what he is saying (the speaker
+  notes are his memory aid), and it gives the audience the information they need.
+- **Order.**
+  1. Who I am: About me, my work, what I do ("I help businesses translate vague notions and
+     ideas into usable software and experiences and products"), and examples.
+  2. Why this matters: based on my experience, what the market will expect of you. The world
+     and expectations are changing, and you will be expected to use agentic tools (Claude Code
+     or Codex) to build dashboards, simple software and interactive graphs.
+  3. How: here's how we build software in the agentic age. The tools (what GitHub, Claude Code
+     and Codex are, why and how to use them), the process with Claude Code or Codex, the
+     harness, the GitHub actions and process.
+  4. One Slido moment, after all of that: what would you build?
+  5. A step-by-step walkthrough: the ideas are pulled into the repo, and we add one simple
+     feature.
+  6. The invitation: join the repo, an open agentic toolkit for marketing to use and contribute
+     to in class, schoolwork and maybe work, or a starting point for your own tools.
+- **Five Forces.** The deck does not explain Porter's Five Forces and need not show it; it is
+  an example in the repo.
+
+**Required segments** (each from Bill's words; rows marked *superseded* are kept for the
+record):
 
 | Segment | Source |
 |---|---|
@@ -178,12 +235,15 @@ manages git for the student.
 | Collaborating on a large project via agents: agent comms and PRs | D6 |
 | Harness deep dive, starting from where the word came from; source of power, harness, cart, human steering; rules, skills, tooling stored in repos | M4 |
 | One of the shared repos is the harness | M4 |
-| The Porter's Five Forces app as the example: built, shown in class, with the prompt shared | M4 |
-| Several live audience moments (Slido), including a word cloud | M3 |
+| *Superseded by D18:* The Porter's Five Forces app as the example: built, shown in class, with the prompt shared. Now: the deck neither explains nor tours it; it is the first tool in the repo, at the invitation | M4, D18 |
+| *Superseded by 2.3 and D18:* Several live audience moments (Slido), including a word cloud. Now: one Slido poll ("what would you build?") after everything is explained, then Slido Q&A at the end | M3, 2.3, D18 |
+| Why this matters: what the market will expect of them, as Bill's view from his experience | D18 |
+| How we build software in the agentic age: what GitHub, Claude Code and Codex are, why and how to use them; the process with a coding agent; the harness | D18 |
+| A step-by-step walkthrough of adding one simple feature to the app | D18 |
 | The invitation: homework is a pull request; voluntary unless the instructor assigns it; Bill available to any student who wants to contribute | M1, M2 |
 | What students need: a GitHub account, an agentic coding tool (Cursor, Replit, Lovable, Claude Code or Codex), initial instructions and prompts | M2 |
 | A repo link students paste into their coding app; the repo's AGENTS.md instructs the agent to fork and includes Bill's AI coding rules and spec-driven framework | M2 |
-| Show the live site via a simple placeholder slide; Bill switches to the browser | 2.3 |
+| *Superseded by D18:* Show the live site via a simple placeholder slide; Bill switches to the browser | 2.3 |
 
 **Live demonstration agent:** Claude Code (2.3).
 
@@ -266,6 +326,7 @@ Each principle is traceable to Bill's words.
 | ~03:25 | One Slido poll ("what would you have them build?"), asked after everything is explained; Slido Q&A at the end. The industry vote and the force-rating poll are removed. | Bill |
 | ~03:25 | Harness components are five: spec, rules, skills, tools, checks. | Bill |
 | ~03:25 | One simple setup prompt that has the agent read AGENTS.md, connect to GitHub, fork and run the project; the detailed steps live in AGENTS.md (starter prompt v4). | Bill (wording by the orchestrator) |
+| ~13:00 | The deck's job and order are D18: who I am, then why it matters (what the market will expect), then how (tools, process, harness, GitHub), then one Slido, a step-by-step walkthrough of one simple feature, and the invitation to the repo. Five Forces is not explained or toured. The speaker notes are Bill's memory aid. | Bill |
 
 ---
 
