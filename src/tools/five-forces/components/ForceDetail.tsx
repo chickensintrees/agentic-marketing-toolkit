@@ -3,12 +3,12 @@ import type { ForceDefinition } from '../types'
 interface ForceDetailProps {
   force: ForceDefinition
   /** Heading level for the detail's sub-sections, to fit the surrounding outline. */
-  headingLevel: 4 | 5
+  headingLevel: 3 | 4 | 5
 }
 
 /** Full explanation of one force: summary, drivers, high/low, example, misconception. */
 export function ForceDetail({ force, headingLevel }: ForceDetailProps) {
-  const H = headingLevel === 4 ? 'h4' : 'h5'
+  const H = (`h${headingLevel}` as 'h3' | 'h4' | 'h5')
   return (
     <div className="force-detail">
       <p className="force-summary">{force.summary}</p>

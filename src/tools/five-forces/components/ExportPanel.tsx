@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Button } from '../../../shared/components/Button'
-import { Card } from '../../../shared/components/Card'
 import { StatusMessage, type StatusTone } from '../../../shared/components/StatusMessage'
 import { copyText } from '../../../shared/clipboard'
 import { downloadTextFile } from '../../../shared/download'
@@ -44,12 +43,10 @@ export function ExportPanel({ analysis }: ExportPanelProps) {
   }
 
   return (
-    <Card as="section" className="export-panel no-print" aria-labelledby="export-heading">
-      <h3 id="export-heading">Export</h3>
-      <p>
-        Copy your analysis as Markdown to paste into a document or discussion post, download
-        it as a file, or print this page.
-      </p>
+    <section className="export-panel no-print" aria-labelledby="export-heading">
+      <h3 id="export-heading" className="visually-hidden">
+        Export
+      </h3>
       <div className="button-row">
         <Button variant="primary" onClick={copy}>
           Copy as Markdown
@@ -58,6 +55,6 @@ export function ExportPanel({ analysis }: ExportPanelProps) {
         <Button onClick={() => window.print()}>Print</Button>
       </div>
       <StatusMessage tone={status?.tone}>{status?.text ?? null}</StatusMessage>
-    </Card>
+    </section>
   )
 }

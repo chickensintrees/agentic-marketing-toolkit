@@ -1,24 +1,31 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import type { ToolProps } from '../types'
-import { AnalyzeView } from './components/AnalyzeView'
-import { LearnView } from './components/LearnView'
+import { CanvasView } from './components/CanvasView'
 import { SummaryView } from './components/SummaryView'
 import { createBlankAnalysis, createPresetAnalysis, findPreset, hasUserInput } from './lib/analysis'
-import { VIEWS, viewFromSubpath, type View } from './lib/navigation'
 import { freshState, loadState, saveState, type PersistedState } from './lib/storage'
-import type { Analysis } from './types'
+import { canvasViewFromSubpath, forceFromStep, stepForForce, subpathForView, type CanvasView as View } from './lib/views'
+import type { Analysis, ForceId } from './types'
 import './five-forces.css'
 
-const VIEW_HREF = (view: View) => `#/five-forces/${view}`
+const VIEW_LINKS: readonly { id: View; label: string }[] = [
+  { id: 'canvas', label: 'Canvas' },
+  { id: 'summary', label: 'Summary' },
+]
+
+const viewHref = (view: View) => {
+  const sub = subpathForView(view)
+  return sub ? `#/five-forces/${sub}` : '#/five-forces'
+}
 
 const CONFIRM_SWITCH =
   'Switch industry? Your ratings, notes, and implications for the current industry will be replaced.'
 const CONFIRM_START_OVER =
   'Start over? This clears your whole analysis from this browser and cannot be undone.'
 
-/** Five Forces Explorer: view navigation plus the Learn, Analyze, and Summary views. */
+/** Five Forces Explorer: the Canvas and the Summary. See SPEC §2. */
 export function FiveForcesTool({ subpath, navigate }: ToolProps) {
-  const view = viewFromSubpath(subpath)
+  const view = canvasViewFromSubpath(subpath)
   const [state, setState] = useState<PersistedState>(() => loadState())
 
   // Save on every change (SPEC §2.6). saveState never throws.
@@ -37,8 +44,9 @@ export function FiveForcesTool({ subpath, navigate }: ToolProps) {
     document.getElementById('view-heading')?.focus()
   }, [view])
 
+  const selected: ForceId = forceFromStep(state.step) ?? 'rivalry'
   const setAnalysis = (analysis: Analysis) => setState((s) => ({ ...s, analysis }))
-  const setStep = (step: number) => setState((s) => ({ ...s, step }))
+  const selectForce = (forceId: ForceId) => setState((s) => ({ ...s, step: stepForForce(forceId) }))
 
   const selectIndustry = (presetId: string | null) => {
     if (presetId === state.analysis.presetId) return
@@ -52,52 +60,46 @@ export function FiveForcesTool({ subpath, navigate }: ToolProps) {
     setState(freshState())
   }
 
+  const go = (target: View) => navigate(subpathForView(target))
   const onNavClick = (event: MouseEvent<HTMLAnchorElement>, target: View) => {
     event.preventDefault()
-    navigate(target)
+    go(target)
   }
 
   return (
     <div className="five-forces">
-      <div className="tool-intro">
-        <h1>Five Forces Explorer</h1>
-        <p className="tool-purpose">
-          Learn Porter’s Five Forces, then use them to analyze a real industry and export
-          what you find.
-        </p>
+      <div className="tool-bar">
+        <h1 className="tool-title">Five Forces Explorer</h1>
+        <nav className="view-nav no-print" aria-label="Five Forces Explorer">
+          <ul>
+            {VIEW_LINKS.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={viewHref(item.id)}
+                  aria-current={item.id === view ? 'page' : undefined}
+                  onClick={(event) => onNavClick(event, item.id)}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
 
-      <nav className="view-nav" aria-label="Five Forces Explorer">
-        <ul>
-          {VIEWS.map((item) => (
-            <li key={item.id}>
-              <a
-                href={VIEW_HREF(item.id)}
-                aria-current={item.id === view ? 'page' : undefined}
-                onClick={(event) => onNavClick(event, item.id)}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      {view === 'learn' ? <LearnView onStartAnalysis={() => navigate('analyze')} /> : null}
-      {view === 'analyze' ? (
-        <AnalyzeView
+      {view === 'canvas' ? (
+        <CanvasView
           analysis={state.analysis}
-          step={state.step}
-          onStepChange={setStep}
+          selected={selected}
+          onSelectForce={selectForce}
           onChange={setAnalysis}
           onSelectIndustry={selectIndustry}
           onStartOver={startOver}
-          onViewSummary={() => navigate('summary')}
+          onViewSummary={() => go('summary')}
         />
-      ) : null}
-      {view === 'summary' ? (
-        <SummaryView analysis={state.analysis} onGoToAnalyze={() => navigate('analyze')} />
-      ) : null}
+      ) : (
+        <SummaryView analysis={state.analysis} onChange={setAnalysis} onGoToCanvas={() => go('canvas')} />
+      )}
     </div>
   )
 }
