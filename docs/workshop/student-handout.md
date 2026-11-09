@@ -1,4 +1,7 @@
-# How Products Get Built Now
+# How products get built
+
+*Harnesses steer the agents. GitHub is where we build together: tools,
+products, even businesses.*
 
 **Bill Moore · Guest lecture · West Virginia University · 9 November 2026**
 

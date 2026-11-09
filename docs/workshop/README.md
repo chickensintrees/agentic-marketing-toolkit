@@ -1,10 +1,10 @@
 # Workshop materials
 
-Guest lecture, *How Products Get Built Now: many people, many agents, one
-repo*, by Bill Moore. WVU marketing MBA class, 9 November 2026, 60 minutes.
+Guest lecture, *How products get built* (harnesses steer the agents;
+GitHub is where we build together), by Bill Moore. WVU marketing MBA class, 9 November 2026, 60 minutes.
 
 **Deck:** https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (a Claude Slides
-artifact, 17 slides. It is private until shared from its Share menu.)
+artifact, 16 slides. It is private until shared from its Share menu.)
 
 | File | What it is |
 |---|---|

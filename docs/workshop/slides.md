@@ -12,8 +12,8 @@ file, so keep the two in agreement. Timings match `run-of-show.md`.
 | REPO | github.com/chickensintrees/agentic-marketing-toolkit |
 | SITE | chickensintrees.github.io/agentic-marketing-toolkit |
 | TOOL_1_URL | SITE + `#/five-forces` |
-| TITLE | How Products Get Built Now |
-| SUBTITLE | Many people, many agents, one repo |
+| TITLE | How products get built |
+| SUBTITLE | Harnesses steer the agents. GitHub is where we build together: tools, products, even businesses. |
 | LINE | My agent does the git. I make the calls. |
 
 If any of these change, search this folder for the old value and replace it
@@ -27,20 +27,28 @@ Placeholders in brackets: `[SLIDO CODE]`, `[SCREENSHOT: …]`, `[QR: …]`,
 
 ## 1. Cover (0:00)
 
-**How Products Get Built Now**
+**How products get built**
 
-Many people, many agents, one repo
+Harnesses steer the agents. GitHub is where we build together: tools,
+products, even businesses.
 
 Bill Moore · West Virginia University · 9 November 2026
 
-> **Notes:** Say hello and thank the professor. Then make the promise: "By
+> **Notes:** (Cover wording is Bill's own.) Say hello and thank the
+> professor. Name the two ideas the hour is about: how we use harnesses to
+> control AI agents so they build the tools we actually want, and how people
+> and their agents collaborate in GitHub to build tools, products, even
+> businesses. Then make the promise: "By
 > the end of this hour you'll have watched an AI agent make a real change to
 > a product this room is going to build together, and you'll know how to
 > make your own agent do the same."
 
 ---
 
-## 2. This didn't exist yesterday (0:01)
+## (Removed) This didn't exist yesterday
+
+*Bill removed this slide from the deck. The text below is kept for reference.
+The live toolkit tour can still happen from the browser after the cover.*
 
 **This didn't exist yesterday.**
 
@@ -60,21 +68,24 @@ chickensintrees.github.io/agentic-marketing-toolkit
 
 ---
 
-## 3. Join in (0:03)
+## 2. Join in (0:03)
 
-**What tool do you wish you had for your MBA work?**
+**If you could hire a team of software developers to build you a digital
+tool (dashboard, app, experience, etc)…**
+
+*(Bill is rewording this question in the deck. Copy his final wording here.)*
 
 slido.com · #[SLIDO CODE] · [QR: Slido]
 
 > **Notes:** Poll 1, a word cloud. Allow two or three words per person.
 > Give it about 2 minutes, and read the biggest answers aloud. Say: "Hold
 > on to this. These might be tools number two, three and four." This word
-> cloud comes back on slide 13. Tell them the Q&A tab is open all hour. If
+> cloud comes back on slide 12. Tell them the Q&A tab is open all hour. If
 > Slido fails, take five ideas by show of hands and write them down.
 
 ---
 
-## 4. Who's talking (0:06)
+## 3. Who's talking (0:06)
 
 **Twenty years in video and media. Eight at BCG designing AI products.**
 
@@ -95,7 +106,7 @@ slido.com · #[SLIDO CODE] · [QR: Slido]
 
 ---
 
-## 5. How this was built last night (0:11)
+## 4. How this was built last night (0:11)
 
 **Last night, people and agents built this together.**
 
@@ -119,27 +130,33 @@ slido.com · #[SLIDO CODE] · [QR: Slido]
 
 ---
 
-## 6. What a harness is (0:15)
+## 5. What a harness is (0:15)
+
+*IDEA 1 · HARNESSES STEER THE AGENTS*
 
 **A harness connects power to useful work, under a human's control.**
 
 Horse → harness → cart and driver
 
-AI agent → harness → useful work, with you deciding
+AI agent → harness (spec, rules, checks) → the tools you want
 
 *From Old French* harneis, *"equipment"*
 
 > **Notes:** The word first. Harneis meant equipment: a man-at-arms' gear,
 > and the fittings for a draft animal. A harness connects a source of power
 > to a load so a person can steer it. A horse with no harness is strong and
-> goes where it wants. An agent is the same. "Harness engineering" is
+> goes where it wants. An agent is the same. This is the first of the
+> two ideas today: harnesses are how we control agents so they build the
+> tools we actually want. "Harness engineering" is
 > building that gear. It's a term the AI labs use. Anthropic's engineering
 > blog, for example, has a post called "Effective harnesses for long-running
 > agents" (Justin Young, 26 November 2025). Pause here.
 
 ---
 
-## 7. The harness in this repo (0:17)
+## 6. The harness in this repo (0:17)
+
+*IDEA 1 · HARNESSES STEER THE AGENTS*
 
 **Four parts keep every agent pointed the same way.**
 
@@ -161,7 +178,9 @@ AI agent → harness → useful work, with you deciding
 
 ---
 
-## 8. The key (0:20)
+## 7. The key (0:20)
+
+*IDEA 2 · GITHUB IS WHERE WE BUILD TOGETHER*
 
 **Connect your agent to GitHub. Then it does the git.**
 
@@ -173,7 +192,10 @@ One browser sign-in. Never paste a password or token into a chat.
 
 In Claude Code: `gh auth login` → browser → done
 
-> **Notes:** This is the most important slide of the talk. I'm demoing with
+> **Notes:** This is the second idea, and the most important slide of the
+> talk. GitHub is where people and their agents collaborate to build tools,
+> products, even businesses, and connecting your agent to GitHub is the
+> key. I'm demoing with
 > Claude Code. The connection is the GitHub CLI: `gh auth login`, a
 > one-time code, and you approve it in the browser. That works in any agent
 > that runs terminal commands: Claude Code, Codex, Cursor, Replit's Shell.
@@ -190,7 +212,7 @@ In Claude Code: `gh auth login` → browser → done
 
 ---
 
-## 9. You choose what we build (0:23)
+## 8. You choose what we build (0:23)
 
 **Which industry should Five Forces add, right now?**
 
@@ -202,7 +224,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 
 ---
 
-## 10. The whole instruction (0:24)
+## 9. The whole instruction (0:24)
 
 **This is everything I'll tell the agent.**
 
@@ -219,7 +241,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 
 ---
 
-## 11. While it works: Porter on the agents themselves (0:26)
+## 10. While it works: Porter on the agents themselves (0:26)
 
 **Let's run Five Forces on the AI coding agent industry.**
 
@@ -236,7 +258,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 
 ---
 
-## 12. The harness says yes or no (0:33)
+## 11. The harness says yes or no (0:33)
 
 **The agent proposes. The checks test. A human decides.**
 
@@ -255,7 +277,9 @@ Plan → change → npm run check → push → pull request → comment → huma
 
 ---
 
-## 13. This class is a product team (0:38)
+## 12. This class is a product team (0:38)
+
+*THE WORKED EXAMPLE · AGENTIC MARKETING TOOLKIT*
 
 **This class is a product team.**
 
@@ -267,18 +291,24 @@ Agentic Marketing Toolkit
 
 Each tool is its own folder with its own SPEC.md. Extend a tool, or start one.
 
-> **Notes:** Bring back the word cloud. "These are product ideas, and the
+The same harness and GitHub pattern builds tools, products, even businesses.
+
+> **Notes:** The toolkit is the worked example of both ideas, not the
+> whole point. Bring back the word cloud. "These are product ideas, and the
 > repo is set up for exactly this. Every tool lives in its own folder with
 > its own spec, so one student's tool can't break another's, and the same
 > checks referee everyone." Say plainly that the next tools are ideas, not
 > built yet: that's the point. The smallest real contribution is adding an
 > industry to Five Forces. The biggest is proposing a whole new tool. "It's
 > what you saw last night, at class scale: you plus your agent are one more
-> contributor, working one issue, proposing it as a pull request."
+> contributor, working one issue, proposing it as a pull request." Then widen it: "This isn't
+> just how a class project works. It's how teams build products, and how
+> people start businesses now: a harness to steer the agents, and GitHub to
+> build together."
 
 ---
 
-## 14. Your turn (0:45)
+## 13. Your turn (0:45)
 
 **Your turn: one prompt, your agent, a pull request.**
 
@@ -299,7 +329,7 @@ instructor assigns it, and I'll help anyone who wants to try.
 
 ---
 
-## 15. What you'll need (0:47)
+## 14. What you'll need (0:47)
 
 **What you'll need**
 
@@ -326,7 +356,7 @@ the pull request for you.
 
 ---
 
-## 16. Questions (0:50)
+## 15. Questions (0:50)
 
 **Questions**
 
@@ -342,15 +372,20 @@ slido.com · #[SLIDO CODE]
 
 ---
 
-## 17. Close (0:57)
+## 16. Close (0:57)
 
 **My agent does the git. I make the calls.**
 
-Let's build the Agentic Marketing Toolkit together. I'll help.
+Harnesses steer the agents. GitHub is where we build together: tools,
+products, even businesses.
+
+Let's start with the Agentic Marketing Toolkit. I'll help.
 
 chickensintrees.github.io/agentic-marketing-toolkit · github.com/chickensintrees/agentic-marketing-toolkit
 
-> **Notes:** Say the line. Then the invitation: "This is a product we're
+> **Notes:** Say the line. Then the two ideas once more: harnesses steer
+> the agents, and GitHub is where we build together, for tools, products,
+> even businesses. Then the invitation: "This is a product we're
 > building together, for your MBA and beyond. Five Forces is just the
 > first tool. I'll keep helping anyone who wants to build the next one.
 > Find me in the repo's issues." Thank the professor and the class, and
