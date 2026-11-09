@@ -74,7 +74,8 @@ marketing copy, and at most about 40 words by default.
    `CONTRIBUTING.md`.
 2. **Tools:** each registered tool, in registry order, as a large sketch
    that links to `#/<tool-id>` (accessible name "Open <tool name>"), with the
-   tool's name as an `h2`, the framework it teaches (if any), and its tagline.
+   tool's name as an `h2` and the framework it teaches (if any). The tagline
+   is the link's accessible description, so it stays off the default screen.
 3. **"Next up":** the wanted-tools list (§3.3) as a shelf of small dashed
    sketches, one per wanted tool, each a button showing its name. Pressing one
    reveals its one-line pitch below the shelf. A wanted tool without a sketch

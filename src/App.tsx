@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, type MouseEvent } from 'react'
 import { PRODUCT_NAME } from './config'
+import { MarkerDefs } from './shared/components/Marker'
+import { createPen } from './shared/sketch'
 import { Home } from './shell/Home'
 import { SiteFooter } from './shell/SiteFooter'
 import { SiteHeader } from './shell/SiteHeader'
@@ -11,6 +13,20 @@ import { TOOLS, findTool } from './tools'
 
 const TOOL_IDS = TOOLS.map((tool) => tool.id)
 const MAIN_ID = 'main-content'
+
+/** A few faint, erased marker loops behind the page (decorative). */
+const GHOST = (() => {
+  const pen = createPen('board-ghost')
+  const spots: [number, number, number, number][] = [
+    [180, 140, 150, 60],
+    [860, 120, 110, 70],
+    [760, 560, 170, 60],
+    [140, 600, 90, 80],
+  ]
+  return spots
+    .map(([x, y, rx, ry]) => pen.ellipse(x, y, rx, ry, { overshoot: 0.6, wobble: 0.08 }) + pen.line(x - 90, y + ry, x + rx, y + ry * 0.4))
+    .join('')
+})()
 
 /** Focus the page's main heading, making it focusable first if needed. */
 function focusMainHeading() {
@@ -56,6 +72,10 @@ export default function App() {
 
   return (
     <>
+      <MarkerDefs />
+      <svg className="board-ghost" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d={GHOST} />
+      </svg>
       <a className="skip-link" href={`#${MAIN_ID}`} onClick={skipToMain}>
         Skip to main content
       </a>
