@@ -4,57 +4,69 @@ In order. Items marked **decide** need your call.
 
 ## 1. Decide
 
-- [ ] **decide** Title: "If You Can Write a Brief, You Can Build Software"
-      (recommended) or another from `deck-rationale.md`. If you change it,
-      also update the deck cover, the close, and the handout.
+- [ ] **decide** Title: "How Products Get Built Now" (recommended) or
+      another from `deck-rationale.md`. If you change it, update the
+      Names table at the top of `slides.md`, the deck cover, and the
+      handout.
 - [ ] **decide** Poll 2 options: ski resorts, craft breweries, food trucks.
-      Swap any of them now, before the fallback branches are built.
-- [ ] **decide** Which coding agent to demo with (Claude Code or Codex).
-- [ ] **decide** Ask the professor whether contributing is assigned or
-      voluntary, so slide 13 says it right.
+      Swap them now, before the fallback branches are built.
+- [ ] **decide** The coding agent you'll demo with, and how it connects to
+      GitHub (`gh` CLI, MCP server, or the tool's own connection).
+- [ ] **decide** Which GENE clip or screen to show on slide 4.
+- [ ] **decide** Ask the professor: is contributing assigned or voluntary?
 
-## 2. Ship the app
+## 2. Ship the toolkit
 
-- [ ] Merge the app branch into `main` and enable GitHub Pages.
-- [ ] Open https://chickensintrees.github.io/five-forces-explorer/ on a
-      laptop and a phone. Check Learn, Analyze (whitewater rafting), and
-      Summary (radar chart, Compare with).
-- [ ] Confirm `add-industry` skill name, `npm run check`, the "question"
-      issue template, `docs/students/START-HERE.md` and
-      `docs/students/first-issues.md` all exist on `main`. If a name
-      differs, fix slide 9, `live-demo-script.md` and the handout.
+- [ ] Merge to `main` and enable GitHub Pages. Open
+      https://chickensintrees.github.io/agentic-marketing-toolkit/ and
+      `#/five-forces` on a laptop and a phone. Check Learn, Analyze
+      (whitewater rafting), and Summary (radar chart, Compare).
+- [ ] On `main`, confirm these exist: the `add-industry` skill,
+      `npm run check`, the "question" issue template,
+      `docs/students/START-HERE.md`, `docs/students/first-issues.md`.
+      If a name differs, fix slide 10, `live-demo-script.md` and the
+      handout.
 
-## 3. Rehearse the demo
+## 3. Connect and rehearse
 
-- [ ] Fresh clone of `main`, `npm ci`, `npm run check` passes.
-- [ ] Run the live prompt once end to end and time it. If it takes much more
-      than 10 minutes, consider showing the fallback PR as the main path.
-- [ ] Build the three fallback branches and draft PRs
-      (`live-demo-script.md` §4). All three green.
+- [ ] Connect the demo agent to GitHub with a browser sign-in
+      (`live-demo-script.md` §1). Take a screenshot of the code-entry
+      screen for slide 8.
+- [ ] Open the class issue "Add an industry chosen by the WVU class". Put
+      its number on slide 10 and in the prompt.
+- [ ] Run the live prompt end to end once, then time it. If it takes much
+      more than 10 minutes, plan to show the fallback PR as the main path.
+- [ ] Build the three fallback branches and draft PRs (§5). All green.
 
 ## 4. Fill the deck placeholders
 
-- [ ] Screenshot of the Learn view, for slide 2.
-- [ ] Screenshot of a green draft PR, for slide 11 (use a fallback PR).
-- [ ] Slido event code, on slides 3, 8, 10 and 14, plus a Slido QR on slide 3.
-- [ ] Repo QR on slide 13.
+- [ ] Slide 2: screenshot of the Five Forces Summary view.
+- [ ] Slide 4: GENE demo clip or screen.
+- [ ] Slide 5: the build graph (the orchestrator is sending it).
+- [ ] Slide 8: GitHub sign-in screenshot.
+- [ ] Slide 10: `[ISSUE #]`.
+- [ ] Slide 12: screenshot of a draft PR with green checks and the agent's
+      comment (use a fallback PR).
+- [ ] Slides 3, 9, 11, 16: the Slido code. Slide 3: the Slido QR.
+      Slide 14: the repo QR.
+- [ ] Handout: `[PER-TOOL STEPS]` (from the orchestrator's research) and
+      the two QR codes.
 
 ## 5. Slido
 
-- [ ] Create the event. Check the free-plan limits
-      (`audience-participation.md`).
-- [ ] Add polls 1–3 in order, all inactive. Turn on Q&A.
-- [ ] Test joining from a phone.
+- [ ] Create the event, add polls 1–3 in order (inactive), and turn on Q&A.
+- [ ] Join from a phone to test.
 
-## 6. Handout
+## 6. Print
 
-- [ ] Add the two QR codes to `student-handout.md` and print one copy per
-      student, plus a few spares.
+- [ ] One handout per student, plus spares.
 
 ## 7. Morning of
 
-- [ ] Laptop charged, charger, HDMI/USB-C adapter, phone hotspot ready.
-- [ ] Agent signed in and warmed up with a throwaway prompt.
-- [ ] Browser tabs: deck, live app, repo PRs, SPEC.md, Slido presenter.
+- [ ] Laptop charged, charger, display adapter, phone hotspot.
+- [ ] `gh auth status` shows you're signed in. Warm up the agent with a
+      throwaway prompt.
+- [ ] Tabs open: deck, live toolkit, repo PRs, the class issue, Slido
+      presenter.
 - [ ] Terminal at 20 pt or larger.
-- [ ] Read `run-of-show.md` hard stops one more time: 0:24, 0:36, 0:56.
+- [ ] Hard stops: 0:26, 0:36, 0:57.

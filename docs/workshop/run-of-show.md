@@ -1,41 +1,46 @@
 # Run of show
 
-60 minutes, 9 November 2026. Slide numbers refer to `slides.md` and the deck.
-Times are from the start of the session. The schedule has about 4 minutes of
-slack in Q&A. If you run long, cut the extra Porter forces in Act 4 first,
-then shorten Q&A. Never cut the close.
+60 minutes, 9 November 2026. Slide numbers match `slides.md` and the deck
+(17 slides). Times are from the start of the session. There are about 3
+minutes of slack in Q&A. If you run long, cut the Porter discussion on
+slide 11 first, then shorten Q&A. Never cut slide 8 (the key) or the close.
 
-**Screens:** the deck in one browser window, the live app in a second
-browser tab, the terminal with the coding agent in a third window. Slido runs
-on its own presenter tab. Practice the switching tonight.
+**Screens:** the deck in one window, the live toolkit in a browser tab, and
+the terminal with the coding agent in another window, already signed in to
+GitHub. The Slido presenter view goes in its own tab. Practice the switching
+tonight.
 
 | Time | Slide | What happens | If it goes wrong |
 |---|---|---|---|
-| 0:00 | 1 Cover | Hello, thank the professor, one-line promise. | — |
-| 0:01 | 2 Yesterday | Live app tour, about 90 s: Learn, then Analyze with whitewater rafting, then Summary with the radar chart and Compare with U.S. airlines. | Site down: use the local build (`npm run preview`, open the URL it prints). Both down: talk over the screenshot. |
-| 0:03 | 3 Join in | Slido join, then **poll 1** (word cloud). Read three or four words aloud. | Slido fails or Wi-Fi is weak: show of hands (excited / worried / both). Skip the "did your word change" callback at the close. |
-| 0:06 | 4 Who's talking | 60 seconds. GENE, media background, "everything starts with a brief". | — |
-| 0:08 | 5 Brief = spec | Open `SPEC.md` on GitHub, scroll 20 s, read one non-goal. | GitHub slow: the slide table is enough. |
-| 0:12 | 6 Harness | The etymology. Pause. | — |
-| 0:15 | 7 Four parts | Spend the time on Checks. | — |
-| 0:20 | 8 Vote | **Poll 2**: which industry to add. Announce the winner. | Show of hands. Tie: Bill picks. |
-| 0:22 | 9 Prompt | Read the prompt aloud, switch to the terminal, paste it, read and approve the agent's plan. **Start the agent by 0:24.** | Agent won't start (auth, network): switch to the prepared fallback branch at once (`live-demo-script.md` §4) and narrate it as a recording of "what this looks like". |
-| 0:25 | 10 Porter | **Poll 3** (threat of new entrants, 1–5). Enter "AI coding agents" as a custom industry in the app, take the class rating, discuss two or three opinions. Glance at the agent every few minutes. | Running long: stop after one force. Agent still going at 0:33: do rivalry by discussion, up to 0:36. |
-| 0:33 | 11 Checks | Back to the terminal: `npm run check` passes, then show the draft PR and its CI. | Agent failed or is still running at 0:36: say so plainly and open the fallback PR for the winning option. A red check is a teaching moment: "the harness just said no". |
-| 0:38 | 12 Scarce | The "so what" for marketers. The evidence labels. | — |
-| 0:44 | 13 Build with us | Hand out the handout. Starter prompt, approvals, voluntary/assigned (defer to the professor), how to get help. | Handouts missing: leave this slide up longer; the repo QR leads to `docs/students/START-HERE.md`. |
-| 0:48 | 14 Questions | Slido Q&A top-voted first, then hands. | No Slido: hands only. |
-| 0:56 | 15 Close | "Did your word change?" Then the sentence. Thank-yous. | — |
+| 0:00 | 1 Cover | Hello, thank the professor, the promise. | — |
+| 0:01 | 2 Yesterday | Live toolkit tour, about 90 s: Five Forces Learn, then Analyze with whitewater rafting, then Summary with the radar chart and Compare. | Site down: run the local build (`npm run preview`). Both down: talk over the screenshot. |
+| 0:03 | 3 Join in | **Poll 1** word cloud: tools they wish they had. Read the top answers aloud. | Slido fails: take five ideas by show of hands and write them on the board, for slide 13. |
+| 0:06 | 4 Who's talking | GENE and one short demo, about 4 min. | Demo clip won't play: describe it, move on. |
+| 0:11 | 5 Last night | The build graph: spec first, split, talk, integrate. One redirect story. | Graph missing: talk through the four numbered steps. |
+| 0:15 | 6 Harness | Etymology, horse and cart, pause. | — |
+| 0:17 | 7 Four parts | A SPEC.md is a brief, AGENTS.md is the shared contract, and the checks are the referee. | — |
+| 0:20 | 8 **The key** | Connect your agent to GitHub. Terminal: `gh auth status`. Say the line. | `gh` missing or signed out: show the sign-in screenshot and switch to the fallback PR for the live demo. |
+| 0:23 | 9 Vote | **Poll 2**: which industry. Announce the winner. | Show of hands. Tie: Bill picks. |
+| 0:24 | 10 Prompt | Read the prompt aloud, paste it, read and approve the plan. **Agent running by 0:26.** | Agent won't start: open the fallback PR for the winner right away and narrate it (`live-demo-script.md` §5). |
+| 0:26 | 11 Porter | **Poll 3**: threat of new entrants for AI coding agents. Enter it into a custom industry in Five Forces, and take two opinions. Glance at the agent. | Agent still going at 0:33: one more force by discussion, until 0:35. |
+| 0:33 | 12 Checks | Terminal: `npm run check` green. GitHub: the draft PR, CI, and the agent's comment on the issue. | Agent stalled or red at 0:36: say so plainly and open the fallback PR. A red check is "the harness said no". |
+| 0:38 | 13 Product team | The suite, tool #1, word cloud results as candidate tools. | — |
+| 0:45 | 14 Your turn | Hand out the handout. Starter prompt, approvals, voluntary/assigned (defer to the professor). | No handouts: leave the QR up longer. |
+| 0:47 | 15 What you'll need | Plans, honestly, and the free web-editor path. | — |
+| 0:50 | 16 Questions | Slido Q&A, top-voted first, then hands. | Hands only. |
+| 0:57 | 17 Close | The line, the invitation, thanks. | — |
 | 1:00 | — | End. | — |
 
 ## Hard stops
 
-- **0:24**: the agent must be running, or switch to the fallback.
-- **0:36**: return to the deck whatever state the agent is in.
-- **0:56**: start the close whatever is happening in Q&A.
+- **0:26**: the agent must be running, or switch to the fallback PR.
+- **0:36**: back to the deck, whatever state the agent is in.
+- **0:57**: start the close, whatever is happening in Q&A.
 
 ## After the session
 
-- Merge the live PR only after reviewing it properly (it's a real change to
-  the class project), or close it and thank the room.
+- Review the live PR properly before merging it (it's a real change), or
+  close it and keep the fallback. Close the unused fallback PRs.
+- Turn the top word-cloud answers into issues labeled as new-tool ideas,
+  so students have something to pick up.
 - Post the deck link and the handout where the professor wants them.

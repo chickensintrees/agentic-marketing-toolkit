@@ -1,27 +1,42 @@
 # Slides: source text and speaker notes
 
-Plain-text source for the deck *If You Can Write a Brief, You Can Build
-Software*. The Claude Slides artifact is built from this file, so keep the two
-in agreement. Bracketed items like `[SLIDO CODE]` are placeholders to fill
-tonight (see `tonight-checklist.md`).
+Plain-text source for the deck. The Claude Slides artifact is built from this
+file, so keep the two in agreement. Timings match `run-of-show.md`.
 
-Fifteen slides. Timings match `run-of-show.md`.
+## Names used throughout (change here first)
+
+| Token | Value |
+|---|---|
+| PRODUCT | Agentic Marketing Toolkit |
+| TOOL_1 | Five Forces Explorer |
+| REPO | github.com/chickensintrees/agentic-marketing-toolkit |
+| SITE | chickensintrees.github.io/agentic-marketing-toolkit |
+| TOOL_1_URL | SITE + `#/five-forces` |
+| TITLE | How Products Get Built Now |
+| SUBTITLE | Many people, many agents, one repo |
+| LINE | My agent does the git. I make the calls. |
+
+If any of these change, search this folder for the old value and replace it
+everywhere (the deck, the handout, the scripts).
+
+Placeholders in brackets: `[SLIDO CODE]`, `[SCREENSHOT: …]`, `[QR: …]`,
+`[BUILD GRAPH]`, `[ISSUE #]`, `[PER-TOOL STEPS]`. Each one is listed in
+`tonight-checklist.md`.
 
 ---
 
 ## 1. Cover (0:00)
 
-**If You Can Write a Brief, You Can Build Software**
+**How Products Get Built Now**
 
-Harness engineering for people who don't code
+Many people, many agents, one repo
 
 Bill Moore · West Virginia University · 9 November 2026
 
-> **Notes:** Don't read the title. Say hello, thank the professor, and say:
-> "In the next hour you'll watch a piece of software get changed by an AI
-> agent, live, because this room asked for it. And I'll try to convince you
-> the hardest part of that is something you already know how to do." Then
-> go to the app.
+> **Notes:** Say hello and thank the professor. Then make the promise: "By
+> the end of this hour you'll have watched an AI agent make a real change to
+> a product this room is going to build together, and you'll know how to
+> make your own agent do the same."
 
 ---
 
@@ -29,34 +44,33 @@ Bill Moore · West Virginia University · 9 November 2026
 
 **This didn't exist yesterday.**
 
-[SCREENSHOT: Five Forces Explorer, Learn view]
+Agentic Marketing Toolkit · tool #1: Five Forces Explorer
 
-chickensintrees.github.io/five-forces-explorer
+[SCREENSHOT: Five Forces Explorer, Summary view with radar chart]
 
-> **Notes:** Switch to the live site in the browser. Click through for about
-> 90 seconds: Learn (open one force card), then Analyze (load the
-> whitewater-rafting preset, a nod to the New River Gorge), then Summary
-> (the radar chart, then Compare with U.S. airlines). Say: "I built this with
-> coding agents last night, for you, because you're studying Porter. It's
-> free and open source, and by the end of today you'll know how to change
-> it." Don't explain the code. If the site won't load, use the local build
-> (`npm run preview`) or stay on this screenshot.
+chickensintrees.github.io/agentic-marketing-toolkit
+
+> **Notes:** Switch to the live site and spend about 90 seconds there. Open
+> Five Forces: Learn (one force card), Analyze (load whitewater rafting, a
+> nod to the New River Gorge), Summary (the radar chart, then Compare with
+> U.S. airlines). Say: "People and agents built this last night, for this
+> class, because you're studying Porter. It's tool number one of a product
+> you're going to help build." If the site won't load, run the local build
+> or stay on this screenshot.
 
 ---
 
 ## 3. Join in (0:03)
 
-**slido.com · #[SLIDO CODE]**
+**What tool do you wish you had for your MBA work?**
 
-[QR: Slido event]
+slido.com · #[SLIDO CODE] · [QR: Slido]
 
-*One word: how do you feel about AI building software?*
-
-> **Notes:** Poll 1, a word cloud. Give it about 90 seconds. Read three or
-> four words aloud, and name the mixed feelings honestly, because skeptical
-> words are welcome. Say: "Keep that word in mind. I'll ask whether it
-> changed at the end." Tell them the Q&A tab is open all session. If Slido
-> fails, ask for a show of hands: excited, worried, both.
+> **Notes:** Poll 1, a word cloud. Allow two or three words per person.
+> Give it about 2 minutes, and read the biggest answers aloud. Say: "Hold
+> on to this. These might be tools number two, three and four." This word
+> cloud comes back on slide 13. Tell them the Q&A tab is open all hour. If
+> Slido fails, take five ideas by show of hands and write them down.
 
 ---
 
@@ -67,41 +81,45 @@ chickensintrees.github.io/five-forces-explorer
 - **GENE:** BCG's conversational AI. I designed its personality and voice,
   then co-hosted 52 podcast episodes with it. It was the first non-human to
   win a Webby for Best Podcast Cohost (2024).
-- **Building since 2019:** generative AI for interactive fiction, a
-  deck-to-video pipeline, and product prototypes made in days.
+- **Building since 2019:** interactive fiction with a hidden director,
+  a deck-to-video pipeline, a product vision and prototype in an 8-day
+  sprint.
 
-> **Notes:** Keep this to 60 seconds. The point isn't the résumé. It's that
-> I come from storytelling and media, not computer science. GENE did live
+[DEMO: one short GENE clip or screen, Bill's choice]
+
+> **Notes:** About four minutes, including one short demo. GENE did live
 > interviews at Davos, Cannes Lions and WIRED/Condé Nast, and was covered by
-> Forbes, WIRED, the BBC and The Sunday Times. Mention one if the room seems
-> interested. Bridge: "Every one of those projects started the same way:
-> with a brief."
+> Forbes, WIRED, the BBC and The Sunday Times. The point: "I come from
+> storytelling and media, not computer science. Everything I build now, I
+> build with agents." Bridge: "Here's how last night went."
 
 ---
 
-## 5. You already write specs (0:08)
+## 5. How this was built last night (0:11)
 
-**A creative brief and a software spec have the same skeleton.**
+**Last night, people and agents built this together.**
 
-| Creative brief | SPEC.md for this app |
-|---|---|
-| Objective | What this is |
-| Target audience | Who it is for |
-| Mandatories | Product requirements |
-| What we won't do | Non-goals |
-| How we'll judge it | Quality gates (definition of done) |
+[BUILD GRAPH: sessions, agents, messages, PRs, timings, sent by the orchestrator]
 
-> **Notes:** These are the real section headings of `SPEC.md` in the
-> repository. Open it in a browser tab and scroll for 20 seconds so they see
-> it's prose, not code. Read one non-goal aloud: "No calls to AI or other
-> paid APIs, and no credentials of any kind." Say: "That sentence is a
-> mandatory. The agent read it and obeyed it." Key line: "The spec is the
-> single source of truth. If the code and the spec disagree, the spec wins."
-> That is a brief with teeth.
+1. Spec first: one SPEC.md as the shared truth.
+2. Split the work: builder, research, reviewer and fixer agents, plus separate sessions.
+3. Talk: agents messaged each other, and I redirected them mid-flight.
+4. Integrate: branches and pull requests into one repo, with tests and CI as the referee.
+
+> **Notes:** This is the case study, and it's real. An orchestrator agent
+> took my planning notes, wrote SPEC.md first, and split the work. A
+> builder agent wrote the app. A research agent checked current tool
+> facts. Four reviewer agents each looked through a different lens (Porter
+> accuracy, code against the spec, accessibility, beginner onboarding),
+> fixer agents addressed what they found, and a verifier checked the
+> fixes. Separate sessions handled other chunks, including the one that
+> made this deck. Point at the graph. Tell one true redirect story: I
+> rejected the first deck and title, and the agents changed course. Then:
+> "That's how products get built now. And it's the same pattern you'll use."
 
 ---
 
-## 6. What a harness is (0:12)
+## 6. What a harness is (0:15)
 
 **A harness connects power to useful work, under a human's control.**
 
@@ -109,174 +127,224 @@ Horse → harness → cart and driver
 
 AI agent → harness → useful work, with you deciding
 
-> **Notes:** Start with the word. A harness is the gear that connects a
-> source of power (a horse) to a load (the cart) so a driver can steer it. A
-> horse with no harness is strong and goes wherever it wants. A coding agent
-> is the same: lots of power, no judgment about your goals. "Harness
-> engineering" is the work of building that gear: the written expectations,
-> the rules, and the checks that keep the power pointed where you want. No
-> slide needs code for this. Pause here.
+*From Old French* harneis, *"equipment"*
+
+> **Notes:** The word first. Harneis meant equipment: a man-at-arms' gear,
+> and the fittings for a draft animal. A harness connects a source of power
+> to a load so a person can steer it. A horse with no harness is strong and
+> goes where it wants. An agent is the same. "Harness engineering" is
+> building that gear. It's a term the AI labs use. Anthropic's engineering
+> blog, for example, has a post called "Effective harnesses for long-running
+> agents" (Justin Young, 26 November 2025). Pause here.
 
 ---
 
-## 7. The harness in this project (0:15)
+## 7. The harness in this repo (0:17)
 
-**The harness in this project has four parts.**
+**Four parts keep every agent pointed the same way.**
 
 | Part | In this repo | What it does |
 |---|---|---|
-| **Spec** | `SPEC.md` | What good looks like |
-| **Rules** | `AGENTS.md` | How the agent must work: plan first, ask before acting |
-| **Skills** | add-industry, propose-feature… | Repeatable recipes for common jobs |
-| **Checks** | Tests and CI | Automatic "no" when something breaks |
+| **Spec** | SPEC.md | What good looks like: the shared truth |
+| **Rules** | AGENTS.md | The shared contract: plan first, ask before anything public, never push to main |
+| **Skills** | add-industry, propose-feature… | Repeatable recipes |
+| **Checks** | Tests and CI | An automatic "no" when something breaks |
 
-> **Notes:** Spend most of the time on Checks. Say: "When a student adds an
-> industry, tests automatically check it: all five forces rated 1 to 5,
-> drivers that actually exist, a rationale, and the right labels. If
-> anything's off, the pull request goes red before a human ever looks." That
-> is how an instructor can let 40 people contribute without reading every
-> line. Bill's reusable rules are public at
+> **Notes:** The marketing hook: a SPEC.md is a creative brief. It has an
+> objective, an audience, mandatories and non-goals. Read one non-goal from
+> the real spec: "No calls to AI or other paid APIs, and no credentials of
+> any kind." Then Checks: when anyone adds an industry, tests automatically
+> check all five ratings, the drivers, the rationale and the labels. "That's
+> how 40 people and 40 agents can work on one repo without one person
+> reading every line." My reusable rules are public at
 > github.com/chickensintrees/ai-coding-rules.
 
 ---
 
-## 8. You choose what we build (0:20)
+## 8. The key (0:20)
 
-**Which industry should the app add, right now?**
+**Connect your agent to GitHub. Then it does the git.**
+
+You decide → your agent → GitHub: fork · branch · commit · push · pull request · comment
+
+One browser sign-in. Never paste a password or token into a chat.
+
+[SCREENSHOT: GitHub browser sign-in / device code screen]
+
+> **Notes:** This is the most important slide of the talk. Once your agent
+> is connected to GitHub, through a browser sign-in with the GitHub CLI,
+> GitHub's MCP server, or the tool's own GitHub connection, it can do every
+> git step for you. It can also talk to other people and agents through
+> pull requests and comments. You stay the decision-maker. Switch to the
+> terminal and run `gh auth status` so they see "Logged in to github.com".
+> Say: "I did the sign-in last night. It took a minute, in a browser." The
+> per-tool steps are on the handout: [PER-TOOL STEPS]. Say it out loud:
+> "My agent does the git. I make the calls."
+
+---
+
+## 9. You choose what we build (0:23)
+
+**Which industry should Five Forces add, right now?**
 
 A. Ski resorts · B. Craft breweries · C. Food trucks
 
-> **Notes:** Poll 2, multiple choice. Give it about 60 seconds. Announce the
-> winner. Every option has a prepared fallback branch (see
-> `live-demo-script.md`), so whichever wins, the demo can finish. If Slido is
-> down, take a show of hands.
+> **Notes:** Poll 2, multiple choice. About 60 seconds. Announce the
+> winner. Every option has a prepared fallback branch and PR
+> (`live-demo-script.md`). If Slido is down, take a show of hands.
 
 ---
 
-## 9. The whole instruction (0:22)
+## 10. The whole instruction (0:24)
 
 **This is everything I'll tell the agent.**
 
-> Use the add-industry skill to add an illustrative preset for
-> **[WINNING INDUSTRY]**. Follow AGENTS.md. Show me your plan before you
-> write anything. Then run `npm run check` and open a draft pull request.
+> Use the add-industry skill to add an illustrative **[WINNING INDUSTRY]**
+> industry to Five Forces. Follow AGENTS.md and show me your plan first.
+> Then run npm run check, push a branch, open a draft pull request for issue
+> **[ISSUE #]**, and comment on the issue with the link.
 
-No code, no file names. The harness supplies the rest.
-
-> **Notes:** Read it aloud. Point out what's missing: no code, no file
-> names, no React. The harness supplies the rest, because the skill knows
-> where industry files go and the tests know what a valid one looks like.
-> Switch to the terminal and paste the prompt (exact text in
-> `live-demo-script.md`). When the agent shows its plan, read it aloud and
-> approve it. Approving is the human's job. Then come back to the next slide
-> while it works.
+> **Notes:** Read it aloud. There's no code and no git commands in it. The
+> harness and the GitHub connection supply the rest. Paste it into the
+> agent (exact text in `live-demo-script.md`). When the plan appears, read
+> it aloud and approve it. Approving is my job. Then go to the next slide
+> while the agent works.
 
 ---
 
-## 10. While it works: Porter on the agents themselves (0:25)
+## 11. While it works: Porter on the agents themselves (0:26)
 
 **Let's run Five Forces on the AI coding agent industry.**
 
 *Threat of new entrants: how easy is it for a new competitor to enter? (1 = very low … 5 = very high)*
 
-> **Notes:** Poll 3, a rating from 1 to 5. In the app: Analyze → Custom
-> industry. Name it "AI coding agents". Scope: "AI coding assistants for
-> software teams and individuals, worldwide". Go to Threat of new entrants,
-> enter the class's most common answer, tick the drivers people argue for,
-> and type a one-line rationale from the room. Ask two or three people to
-> defend a rating, because disagreement is the point. Note the evidence
-> label: it says "My judgment / assumption", because a class poll isn't a
-> source. Do rivalry and buyer power by discussion if there's time. Check on
-> the agent every few minutes. This exercise exists so a slow agent is never
-> dead air.
+> **Notes:** Poll 3, a rating from 1 to 5. In the app, start a custom
+> industry: "AI coding agents", scope "AI coding assistants for software
+> teams and individuals, worldwide". Enter the class's most common rating
+> for Threat of new entrants, tick the drivers people argue for, and type a
+> one-line rationale from the room. Ask two people at the extremes to
+> defend their rating. Point out the evidence label: "My judgment /
+> assumption", because a class poll isn't a source. Check on the agent
+> every few minutes. This exercise exists so a slow agent is never dead air.
 
 ---
 
-## 11. The harness says yes or no (0:33)
+## 12. The harness says yes or no (0:33)
 
 **The agent proposes. The checks test. A human decides.**
 
-Plan → change → `npm run check` → pull request → human review → merge
+Plan → change → npm run check → push → pull request → comment → human merges
 
-[SCREENSHOT: the pull request with green checks]
+[SCREENSHOT: the draft PR with green checks and the agent's issue comment]
 
-> **Notes:** Back in the terminal, show `npm run check` passing: lint, types,
-> tests, build. Then open the pull request on GitHub and show the CI check.
-> Say: "Notice what I didn't do. I didn't read the code line by line. I
-> checked the plan, and the harness checked the work. The merge button is
-> still mine." If the agent stalled or failed, say so, because that's
-> honest and useful, and switch to the prepared fallback PR for the winning
-> option. A failure the checks catch proves the harness works.
-
----
-
-## 12. What actually got scarce (0:38)
-
-**Making got cheap. Knowing what good looks like didn't.**
-
-The app labels every rating:
-
-- *Illustrative example (not verified)*
-- *My judgment / assumption*
-- *Supported by a source*
-
-> **Notes:** This is the "so what" for marketers. When an agent can build
-> anything you describe, the value moves to the description: who it's for,
-> what it must and must not do, how you'll know it's right. Those are
-> strategy and marketing skills. The evidence labels are the same lesson in
-> miniature. The agent can fill in a rationale for you, but only you can
-> say whether it's evidence or a guess. Tie it back to Porter: an analysis is
-> only as good as the evidence behind the ratings.
+> **Notes:** Back to the terminal: `npm run check` passes (lint, types,
+> tests, build). Open the PR on GitHub: the description the agent wrote, CI
+> running or green, and its comment on the issue. "That's agent comms: my
+> agent just reported back to everyone working on this repo." Say: "I
+> didn't read every line. I approved the plan, and the harness checked the
+> work. The merge button is still mine." If the agent stalled or failed,
+> say so honestly and open the fallback PR. A red check is the harness
+> doing its job.
 
 ---
 
-## 13. Build it with us (0:44)
+## 13. This class is a product team (0:38)
 
-**This is a class project. You can change it.**
+**This class is a product team.**
 
-1. Open a coding agent: Codex, Claude Code, Cursor, Replit or Lovable.
-2. Paste the starter prompt from your handout.
-3. It walks you through it: fork, run, change, pull request.
+Agentic Marketing Toolkit
+
+- **Tool #1:** Five Forces Explorer (live)
+- **Next, maybe:** SWOT · STP · personas · marketing mix · value proposition · journey map · pricing
+- **Your word cloud:** [TOP 3 ANSWERS FROM POLL 1]
+
+Each tool is its own folder with its own SPEC.md. Extend a tool, or start one.
+
+> **Notes:** Bring back the word cloud. "These are product ideas, and the
+> repo is set up for exactly this. Every tool lives in its own folder with
+> its own spec, so one student's tool can't break another's, and the same
+> checks referee everyone." Say plainly that the next tools are ideas, not
+> built yet: that's the point. The smallest real contribution is adding an
+> industry to Five Forces. The biggest is proposing a whole new tool. "It's
+> what you saw last night, at class scale: you plus your agent are one more
+> contributor, working one issue, proposing it as a pull request."
+
+---
+
+## 14. Your turn (0:45)
+
+**Your turn: one prompt, your agent, a pull request.**
+
+1. Make a free GitHub account.
+2. Open a coding agent and paste the starter prompt from your handout.
+3. It connects to GitHub, forks, and walks you through your first contribution.
 
 You approve every fork, push and pull request. Voluntary unless your
 instructor assigns it, and I'll help anyone who wants to try.
 
-[QR: github.com/chickensintrees/five-forces-explorer]
+[QR: REPO]
 
-> **Notes:** Hand out the one-page handout now. The starter prompt is on it,
-> word for word. Stress three things. (1) The agent asks before it forks,
-> pushes or opens a pull request: you stay in control. (2) Good first
-> contributions are listed in `docs/students/first-issues.md`, and adding
-> an industry is a great one. (3) Stuck? Open an issue with the "question"
-> template and I'll answer. Defer to the professor on whether it's assigned.
+> **Notes:** Hand out the handout now. The starter prompt is on it, word for
+> word. It asks the agent to connect with a browser sign-in, never a pasted
+> token, and to wait for your OK before anything public. Stuck? Open an
+> issue with the "question" template and I'll answer. Defer to the
+> professor on whether it's assigned.
 
 ---
 
-## 14. Questions (0:48)
+## 15. What you'll need (0:47)
+
+**What you'll need**
+
+| Tool | Plan you need |
+|---|---|
+| Claude Code | Pro or higher (no free tier) |
+| Codex | Free/Go: desktop app only. Web, CLI and IDE need Plus |
+| Cursor | Has a free plan |
+| Replit | Free Starter, limited agent use. Fork first |
+| Lovable | Free credits, but can't attach to an existing repo. Use the web editor path |
+
+**No paid plan?** Edit one file in GitHub's web editor. It forks and opens
+the pull request for you.
+
+*Footer: Checked against official docs, 8 November 2026. Plans change, so check before you buy.*
+
+> **Notes:** Be honest that the strongest agents cost money. Codex on Plus is
+> $20 a month. Lovable gives students 50% off Pro, and Cursor's student
+> discount closed to new sign-ups on 25 June 2026. Verified students get
+> Copilot free through GitHub Education, but verification can take days, so
+> that's for homework, not for today. The zero-cost path is real: open an
+> industry file in the browser, click edit, and GitHub forks and opens the
+> pull request. That's a perfectly good first contribution.
+
+---
+
+## 16. Questions (0:50)
 
 **Questions**
 
 slido.com · #[SLIDO CODE]
 
-> **Notes:** Take the top-voted Slido questions first, then hands. Likely
-> questions: "Will this take marketing jobs?" (be honest: it changes which
-> part of the job matters most, and the judgment part grows). "Which tool
-> should I start with?" (any of the five on the handout; the starter prompt
-> works in all of them). "Is the code any good?" (the checks are the answer,
-> and it's open source, so look). "What did it cost?" (answer only with what
-> you actually know). Leave four minutes for the close.
+> **Notes:** Top-voted Slido questions first, then hands. Likely questions:
+> "Is it safe to let an agent push for me?" (it pushes to your fork, asks
+> first, and nothing reaches the live product without review and green
+> checks). "Will this take marketing jobs?" (it changes which part of the
+> job matters: deciding what good looks like grows). "Which tool should I
+> start with?" (whichever you can get; the prompt works in all of them).
+> Leave three minutes for the close.
 
 ---
 
-## 15. Close (0:56)
+## 17. Close (0:57)
 
-**If you can write a brief, you can build software.**
+**My agent does the git. I make the calls.**
 
-Bring the brief. The harness keeps it honest.
+Let's build the Agentic Marketing Toolkit together. I'll help.
 
-chickensintrees.github.io/five-forces-explorer · github.com/chickensintrees/five-forces-explorer
+chickensintrees.github.io/agentic-marketing-toolkit · github.com/chickensintrees/agentic-marketing-toolkit
 
-> **Notes:** Go back to the word cloud from the start and ask, "Did your word
-> change?" Then say the sentence, and let it sit. Thank the professor and the
-> class, and remind them that the handout has everything and that the
-> issues page is where to find you. End on time.
+> **Notes:** Say the line. Then the invitation: "This is a product we're
+> building together, for your MBA and beyond. Five Forces is just the
+> first tool. I'll keep helping anyone who wants to build the next one.
+> Find me in the repo's issues." Thank the professor and the class, and
+> end on time.
