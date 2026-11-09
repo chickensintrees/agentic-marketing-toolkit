@@ -378,6 +378,7 @@ input[type='checkbox'] {
 .disclosure-heading {
   margin: 0;
   font-size: inherit;
+  text-wrap: wrap;
 }
 
 .disclosure-toggle {

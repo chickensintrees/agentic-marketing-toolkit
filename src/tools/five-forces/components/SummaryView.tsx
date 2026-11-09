@@ -4,6 +4,8 @@ import { Card } from '../../../shared/components/Card'
 import { FORCES, SHORT_NAMES, getForce } from '../data/forces'
 import { INDUSTRY_PRESETS } from '../data/industries'
 import {
+  NOT_RATED_LABEL,
+  RATING_LABELS,
   driverLabels,
   evidenceLabel,
   evidenceSummary,
@@ -16,7 +18,7 @@ import {
 } from '../lib/analysis'
 import { industryTitle } from '../lib/markdown'
 import { chartDescription, comparisonRows, formatDifference, ratingsInOrder } from '../lib/summary'
-import type { Analysis, ForceAssessment } from '../types'
+import type { Analysis, ForceAssessment, Rating } from '../types'
 import { ExportPanel } from './ExportPanel'
 import { RadarChart } from './RadarChart'
 import { RatingPips } from './RatingPips'
@@ -180,9 +182,11 @@ function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number
             </p>
           ) : null}
 
-          <div className="table-wrap">
-            <table className="data-table">
-              <caption>
+          {/* Scrolls sideways inside the card on very narrow phones; focusable so
+              keyboard users can scroll it too. */}
+          <div className="table-wrap" role="region" aria-labelledby={`${id}-caption`} tabIndex={0}>
+            <table className="data-table ratings-table">
+              <caption id={`${id}-caption`}>
                 Ratings from 1 (very low) to 5 (very high pressure on profitability)
               </caption>
               <thead>
@@ -192,7 +196,9 @@ function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number
                   {comparison ? (
                     <>
                       <th scope="col">{comparison.profile.name}</th>
-                      <th scope="col">Difference</th>
+                      <th scope="col" className="nowrap" aria-label="Difference" title="Difference">
+                        Diff.
+                      </th>
                     </>
                   ) : null}
                 </tr>
@@ -201,11 +207,11 @@ function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number
                 {rows.map((row) => (
                   <tr key={row.forceId}>
                     <th scope="row">{row.name}</th>
-                    <td>{ratingLabel(row.rating)}</td>
+                    <RatingCell rating={row.rating} />
                     {comparison ? (
                       <>
-                        <td>{ratingLabel(row.comparison)}</td>
-                        <td>{formatDifference(row.difference)}</td>
+                        <RatingCell rating={row.comparison} />
+                        <td className="table-number">{formatDifference(row.difference)}</td>
                       </>
                     ) : null}
                   </tr>
@@ -288,6 +294,23 @@ function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number
 
       <ExportPanel analysis={analysis} />
     </>
+  )
+}
+
+/** A table cell with the number first and its word on a smaller line below. */
+function RatingCell({ rating }: { rating: Rating | null }) {
+  if (rating === null) {
+    return (
+      <td>
+        <span className="table-word">{NOT_RATED_LABEL}</span>
+      </td>
+    )
+  }
+  return (
+    <td>
+      <span className="table-number">{rating}</span>{' '}
+      <span className="table-word">{RATING_LABELS[rating]}</span>
+    </td>
   )
 }
 

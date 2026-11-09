@@ -60,7 +60,7 @@ export function ForceStep({ analysis, force, stepLabel, onChange }: ForceStepPro
 
       <Disclosure
         className="learn-more"
-        summary="About this force: what drives it, what high and low look like, and a common misconception"
+        summary="About this force: drivers, examples, and a common misconception"
       >
         <ForceDetail force={force} headingLevel={4} />
       </Disclosure>

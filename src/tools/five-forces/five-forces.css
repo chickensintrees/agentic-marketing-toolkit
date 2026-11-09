@@ -260,6 +260,17 @@
   font-weight: 700;
 }
 
+/* Underline only the force name on hover, so the question doesn't read as a link. */
+.five-forces .force-card .disclosure-toggle:hover .disclosure-summary {
+  text-decoration: none;
+}
+
+.five-forces .force-card .disclosure-toggle:hover .force-card-name {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
 .five-forces .force-card-question {
   display: block;
   margin-top: 0.15rem;
@@ -289,7 +300,12 @@
 
 .five-forces .force-summary {
   max-width: 48rem;
-  font-size: var(--text-lg);
+}
+
+@media (min-width: 40rem) {
+  .five-forces .force-summary {
+    font-size: var(--text-lg);
+  }
 }
 
 .five-forces .detail-heading {
@@ -753,7 +769,7 @@
 .five-forces .radar {
   display: block;
   width: 100%;
-  max-width: 34rem;
+  max-width: 30rem;
   height: auto;
   margin: 0 auto var(--space-3);
   overflow: visible;
@@ -776,11 +792,17 @@
 
 .five-forces .radar-ticks text {
   font-size: 12px;
+  font-weight: 600;
   fill: var(--color-text-muted);
+  /* A halo in the card color keeps the scale readable over the series. */
+  stroke: var(--color-surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  paint-order: stroke;
 }
 
 .five-forces .radar-labels text {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 650;
   fill: var(--color-text);
 }
@@ -858,6 +880,46 @@
   fill: var(--color-surface);
   stroke: var(--color-text-muted);
   stroke-width: 2;
+}
+
+.five-forces .ratings-table thead th {
+  hyphens: auto;
+}
+
+.five-forces .ratings-table .nowrap {
+  white-space: nowrap;
+}
+
+@media (min-width: 30rem) {
+  .five-forces .ratings-table td {
+    white-space: nowrap;
+  }
+}
+
+.five-forces .table-number {
+  font-weight: 700;
+}
+
+.five-forces .table-word {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 30rem) {
+  .five-forces .ratings-table {
+    font-size: 0.875rem;
+  }
+
+  .five-forces .ratings-table th,
+  .five-forces .ratings-table td {
+    padding-inline: var(--space-2);
+  }
+
+  .five-forces .ratings-table th:first-child,
+  .five-forces .ratings-table td:first-child {
+    padding-left: 0;
+  }
 }
 
 .five-forces .unrated-note {

@@ -12,12 +12,14 @@ interface RadarChartProps {
   ariaLabel: string
 }
 
-const VIEW_WIDTH = 460
-const VIEW_HEIGHT = 300
-const GEOMETRY: RadarGeometry = { cx: 230, cy: 158, radius: 118, max: 5, axes: 5 }
-const LABEL_OFFSET = 16
-const FONT_SIZE = 18
-const LINE_HEIGHT = 20
+// The viewBox is sized to the pentagon plus its labels, so the chart stays as
+// large as possible on a phone. Labels are 18 units high (see five-forces.css).
+const VIEW_WIDTH = 404
+const VIEW_HEIGHT = 288
+const GEOMETRY: RadarGeometry = { cx: 216, cy: 154, radius: 125, max: 5, axes: 5 }
+const GAP = 12 // space between a corner of the pentagon and its label
+const NUDGE = 6 // upper side labels start this far inside their corner
+const LINE_HEIGHT = 21
 const RINGS = [1, 2, 3, 4, 5]
 
 interface AxisLabel {
@@ -27,31 +29,29 @@ interface AxisLabel {
   anchor: 'start' | 'middle' | 'end'
 }
 
-function layoutLabel(text: string, index: number, axes: number): AxisLabel {
-  const angle = axisAngle(index, axes)
+/**
+ * Where to put the label for one corner of the chart, outside the pentagon:
+ * the top label above its corner, the upper side labels just above theirs
+ * (one word per line, growing upward), and the lower labels centered below.
+ */
+function layoutLabel(text: string, index: number, geometry: RadarGeometry): AxisLabel {
+  const angle = axisAngle(index, geometry.axes)
   const cos = Math.cos(angle)
   const sin = Math.sin(angle)
-  const r = GEOMETRY.radius + LABEL_OFFSET
-  const x = GEOMETRY.cx + r * cos
-  const y = GEOMETRY.cy + r * sin
-  if (Math.abs(cos) < 0.2) {
-    // Top (or bottom) label: one line, centered on the axis.
+  const corner = radarPoint(geometry, index, geometry.max)
+  if (sin < 0 && Math.abs(cos) < 0.2) {
+    return { x: corner.x, lines: [text], firstBaseline: corner.y - GAP, anchor: 'middle' }
+  }
+  if (sin < 0) {
+    const lines = text.split(' ')
     return {
-      x,
-      lines: [text],
-      firstBaseline: sin < 0 ? y - 4 : y + FONT_SIZE,
-      anchor: 'middle',
+      x: cos > 0 ? corner.x - NUDGE : corner.x + NUDGE,
+      lines,
+      firstBaseline: corner.y - GAP - (lines.length - 1) * LINE_HEIGHT,
+      anchor: cos > 0 ? 'start' : 'end',
     }
   }
-  // Side labels wrap one word per line and are centered on the axis end.
-  const lines = text.split(' ')
-  const block = (lines.length - 1) * LINE_HEIGHT
-  return {
-    x,
-    lines,
-    firstBaseline: y - block / 2 + FONT_SIZE * 0.35,
-    anchor: cos > 0 ? 'start' : 'end',
-  }
+  return { x: corner.x, lines: [text], firstBaseline: corner.y + GAP + 14, anchor: 'middle' }
 }
 
 /** Hand-written SVG radar (pentagon) chart of ratings on a 0–5 scale. */
@@ -89,16 +89,6 @@ export function RadarChart({ labels, primary, comparison, ariaLabel }: RadarChar
         })}
       </g>
 
-      <g className="radar-ticks">
-        {RINGS.map((ring) => {
-          const p = radarPoint(geometry, 0, ring)
-          return (
-            <text key={ring} x={p.x + 6} y={p.y + 4}>
-              {ring}
-            </text>
-          )
-        })}
-      </g>
 
       {comparison ? (
         <g className="radar-series radar-series-comparison" data-series="comparison">
@@ -129,9 +119,20 @@ export function RadarChart({ labels, primary, comparison, ariaLabel }: RadarChar
         })}
       </g>
 
+      <g className="radar-ticks" aria-hidden="true">
+        {RINGS.map((ring) => {
+          const p = radarPoint(geometry, 0, ring)
+          return (
+            <text key={ring} x={p.x + 6} y={p.y + 4}>
+              {ring}
+            </text>
+          )
+        })}
+      </g>
+
       <g className="radar-labels">
         {labels.map((label, i) => {
-          const layout = layoutLabel(label, i, axes)
+          const layout = layoutLabel(label, i, geometry)
           return (
             <text key={label} x={layout.x} y={layout.firstBaseline} textAnchor={layout.anchor}>
               {layout.lines.map((line, n) => (
