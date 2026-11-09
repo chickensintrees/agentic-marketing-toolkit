@@ -24,20 +24,27 @@ because the Five Forces spec says "at least" five presets.
 Do this once tonight on the demo laptop, so the room sees a working
 connection, not a sign-in over venue Wi-Fi.
 
-- **GitHub CLI route (Claude Code, Codex CLI, Cursor's terminal):** install
-  `gh`, run `gh auth login`, and choose GitHub.com, HTTPS, and *Login with
-  a web browser*. It shows a one-time code. Enter it in the browser and
-  approve. Check with `gh auth status`.
-- **Other routes:** GitHub's MCP server, or the tool's own GitHub
-  connection. [PER-TOOL STEPS: from the orchestrator's research.]
+The demo agent is **Claude Code**.
+
+- **Primary route, the GitHub CLI:** install `gh`, run `gh auth login`, and
+  choose GitHub.com, HTTPS, and *Login with a web browser*. It shows a
+  one-time code. Enter it in the browser and approve. Check with
+  `gh auth status`. Claude Code then uses `git` and `gh` from its terminal
+  to push, open PRs and comment.
+- **Alternative route, GitHub's MCP server in Claude Code:**
+  [CLAUDE CODE MCP STEPS: from the orchestrator's research]. Use only one
+  route on stage, and rehearse with it.
+- Run `claude` in the repo folder and ask it: "Check whether you can reach
+  GitHub for this repo, without changing anything." Confirm it reports
+  your account.
 - Take a screenshot of the browser code-entry screen, for slide 8.
 - Never paste a token into a chat. The starter prompt and AGENTS.md both
   say so. Say it out loud in the room.
 
 ## 2. Prepare the class issue (tonight)
 
-Open an issue on the repo: **"Add an industry chosen by the WVU class"**.
-Note its number. That number replaces `[ISSUE #]` on slide 10 and in the
+The orchestrator is creating the issue **"Add an industry chosen by the
+class"** and will send its number. That number replaces `#[ISSUE]` on slide 10 and in the
 prompt below. The agent's PR links to it, and the agent comments on it.
 
 ## 3. The prompt
@@ -76,7 +83,7 @@ there. Say this in the room, because it's what they'll see.
 6. **On GitHub:** the draft PR, its description, CI running or green, and
    the agent's comment on the issue: "That's agent comms. Anyone else on
    this repo, human or agent, can see it and respond."
-7. **The close of the demo:** "It's a draft. I'll review it after class
+7. **Wrapping up the demo:** "It's a draft. I'll review it after class
    before anything reaches the live site."
 
 Ask the room about the rationale the agent wrote: "Would you change any of

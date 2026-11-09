@@ -20,7 +20,7 @@ If any of these change, search this folder for the old value and replace it
 everywhere (the deck, the handout, the scripts).
 
 Placeholders in brackets: `[SLIDO CODE]`, `[SCREENSHOT: …]`, `[QR: …]`,
-`[BUILD GRAPH]`, `[ISSUE #]`, `[PER-TOOL STEPS]`. Each one is listed in
+`[BUILD GRAPH]`, `#[ISSUE]`, `[PER-TOOL STEPS]`. Each one is listed in
 `tonight-checklist.md`.
 
 ---
@@ -171,14 +171,18 @@ One browser sign-in. Never paste a password or token into a chat.
 
 [SCREENSHOT: GitHub browser sign-in / device code screen]
 
-> **Notes:** This is the most important slide of the talk. Once your agent
-> is connected to GitHub, through a browser sign-in with the GitHub CLI,
-> GitHub's MCP server, or the tool's own GitHub connection, it can do every
-> git step for you. It can also talk to other people and agents through
+In Claude Code: `gh auth login` → browser → done
+
+> **Notes:** This is the most important slide of the talk. I'm demoing with
+> Claude Code. Once it's connected to GitHub, through a browser sign-in with
+> the GitHub CLI (`gh auth login`) or GitHub's MCP server, it can do every
+> git step for you. Other tools have their own GitHub connection, and
+> they're on slide 15 and the handout. It can also talk to other people and agents through
 > pull requests and comments. You stay the decision-maker. Switch to the
 > terminal and run `gh auth status` so they see "Logged in to github.com".
 > Say: "I did the sign-in last night. It took a minute, in a browser." The
-> per-tool steps are on the handout: [PER-TOOL STEPS]. Say it out loud:
+> per-tool steps for other agents are on the handout: [PER-TOOL STEPS].
+> Say it out loud:
 > "My agent does the git. I make the calls."
 
 ---
@@ -202,7 +206,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 > Use the add-industry skill to add an illustrative **[WINNING INDUSTRY]**
 > industry to Five Forces. Follow AGENTS.md and show me your plan first.
 > Then run npm run check, push a branch, open a draft pull request for issue
-> **[ISSUE #]**, and comment on the issue with the link.
+> **#[ISSUE]**, and comment on the issue with the link.
 
 > **Notes:** Read it aloud. There's no code and no git commands in it. The
 > harness and the GitHub connection supply the rest. Paste it into the

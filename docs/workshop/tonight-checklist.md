@@ -4,14 +4,11 @@ In order. Items marked **decide** need your call.
 
 ## 1. Decide
 
-- [ ] **decide** Title: "How Products Get Built Now" (recommended) or
-      another from `deck-rationale.md`. If you change it, update the
-      Names table at the top of `slides.md`, the deck cover, and the
-      handout.
+- [x] Title: "How Products Get Built Now" (decided).
 - [ ] **decide** Poll 2 options: ski resorts, craft breweries, food trucks.
       Swap them now, before the fallback branches are built.
-- [ ] **decide** The coding agent you'll demo with, and how it connects to
-      GitHub (`gh` CLI, MCP server, or the tool's own connection).
+- [x] Demo agent: Claude Code (decided). **decide** Its GitHub route:
+      `gh auth login` (recommended) or GitHub's MCP server.
 - [ ] **decide** Which GENE clip or screen to show on slide 4.
 - [ ] **decide** Ask the professor: is contributing assigned or voluntary?
 
@@ -32,8 +29,9 @@ In order. Items marked **decide** need your call.
 - [ ] Connect the demo agent to GitHub with a browser sign-in
       (`live-demo-script.md` §1). Take a screenshot of the code-entry
       screen for slide 8.
-- [ ] Open the class issue "Add an industry chosen by the WVU class". Put
-      its number on slide 10 and in the prompt.
+- [ ] The orchestrator creates the class issue "Add an industry chosen by
+      the class" and sends its number. Put it on slide 10 (`#[ISSUE]`) and
+      in the prompt.
 - [ ] Run the live prompt end to end once, then time it. If it takes much
       more than 10 minutes, plan to show the fallback PR as the main path.
 - [ ] Build the three fallback branches and draft PRs (§5). All green.
@@ -44,7 +42,7 @@ In order. Items marked **decide** need your call.
 - [ ] Slide 4: GENE demo clip or screen.
 - [ ] Slide 5: the build graph (the orchestrator is sending it).
 - [ ] Slide 8: GitHub sign-in screenshot.
-- [ ] Slide 10: `[ISSUE #]`.
+- [ ] Slide 10: `#[ISSUE]`.
 - [ ] Slide 12: screenshot of a draft PR with green checks and the agent's
       comment (use a fallback PR).
 - [ ] Slides 3, 9, 11, 16: the Slido code. Slide 3: the Slido QR.
