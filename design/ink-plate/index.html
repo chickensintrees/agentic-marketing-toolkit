@@ -11,7 +11,7 @@
   --ink: #1b1815;        /* letterpress black */
   --ink-2: #4b443b;      /* secondary text, 8:1 on paper */
   --rule: #8c8374;       /* hairlines only, never text */
-  --accent: #8f2a1c;     /* rubrication red, 7:1 on paper */
+  --accent: #8f2a1c;     /* rubrication red, 7:1 on paper. Means one thing: selected / you are here */
   --display: "EB Garamond", "Garamond", "Iowan Old Style", Georgia, serif;
   --text: "Source Serif 4", "Iowan Old Style", Georgia, serif;
   color-scheme: light;
@@ -41,7 +41,7 @@ nav { display: flex; gap: 22px; margin-left: auto; }
 nav a { font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .1em; font-size: 19px;
   text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; }
 nav a[aria-current="page"] { border-bottom-color: var(--accent); }
-nav a:hover { border-bottom-color: var(--rule); }
+nav a:not([aria-current]):hover { border-bottom-color: var(--rule); }
 
 h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
 .view { padding-top: 26px; }
@@ -56,7 +56,7 @@ h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: ba
 .cap { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-top: 10px; }
 .cap .fig { font-family: var(--display); font-size: 19px; }
 .cap .fig b { font-weight: 500; font-variant-caps: all-small-caps; letter-spacing: .08em; margin-right: .4em; }
-.cap .go { font-family: var(--display); font-style: italic; font-size: 19px; color: var(--accent); }
+.cap .go { font-family: var(--display); font-style: italic; font-size: 19px; border-bottom: 1px solid var(--ink); }
 .shelf h2 { font-size: 20px; font-variant-caps: all-small-caps; letter-spacing: .1em; font-weight: 500;
   border-bottom: .5px solid var(--ink); padding-bottom: 6px; margin-top: 8px; }
 .shelf ol { list-style: none; margin: 0; padding: 18px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 18px; }
@@ -107,16 +107,16 @@ figcaption i { color: var(--ink-2); }
 .drivers input { appearance: none; -webkit-appearance: none; margin: 3px 0 0; width: 15px; height: 15px; border: 1px solid var(--ink); background: var(--paper); display: grid; place-items: center; }
 .drivers input:checked { background: var(--ink); box-shadow: inset 0 0 0 2.5px var(--paper); }
 .drivers input:not(:checked) + span { color: var(--ink-2); }
-.more { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--accent); margin-top: 8px; text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: 3px; }
+.more { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--ink); margin-top: 8px; text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: 3px; }
 details { margin-top: 16px; }
 summary { font-family: var(--display); font-style: italic; font-size: 17px; cursor: pointer; color: var(--ink-2); }
 details p { margin: 6px 0 0; font-size: 16px; }
-.adj { font-family: var(--display); font-style: italic; color: var(--accent); font-size: 16px; margin-left: 6px; }
+.adj { font-family: var(--display); font-style: italic; color: var(--ink-2); font-size: 16px; margin-left: 6px; }
 .empty { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink-2); margin: 4px 0 18px; }
 .key { display: grid; gap: 7px; }
 .key div { display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 10px; font-family: var(--display); font-size: 16px; }
 .next { margin-top: 26px; display: inline-block; font-family: var(--display); font-size: 19px; text-decoration: none; border-bottom: 1px solid var(--ink); }
-.next:hover { color: var(--accent); border-color: var(--accent); }
+.next:hover { border-bottom-width: 2px; }
 
 /* ---------- Summary ---------- */
 .sum { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 52px; align-items: start; padding-top: 18px; }
@@ -131,11 +131,10 @@ tbody th { font-family: var(--display); font-weight: 400; font-size: 20px; }
 td.n { font-family: var(--display); font-size: 22px; font-variant-numeric: lining-nums tabular-nums; text-align: right; }
 td svg { width: 120px; height: 18px; display: block; }
 .heavy { margin: 18px 0 0; font-family: var(--display); font-size: 21px; }
-.heavy i { color: var(--accent); }
 .exports { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
 .exports button { font-family: var(--display); font-size: 19px; padding: 8px 16px; border: 1px solid var(--ink); }
 .exports button:hover { background: var(--ink); color: var(--paper); }
-.status { font-family: var(--display); font-style: italic; color: var(--accent); min-height: 1.4em; margin-top: 8px; }
+.status { font-family: var(--display); font-style: italic; color: var(--ink-2); min-height: 1.4em; margin-top: 8px; }
 textarea.fallback { width: 100%; height: 160px; font: 13px/1.4 ui-monospace, Menlo, monospace; background: var(--paper-hi); color: var(--ink); border: .5px solid var(--ink); margin-top: 8px; }
 
 @media (max-width: 980px) {
@@ -443,7 +442,7 @@ function viewSummary() {
           <caption><b>Table 1.</b>Schedule of forces</caption>
           <thead><tr><th scope="col">Force</th><th scope="col">Weight</th><th scope="col" style="text-align:right">Pressure</th></tr></thead>
           <tbody>${ORDER.map(f => `<tr><th scope="row">${SHORT[f]}${isAdjusted(id, f) ? ' <span class="adj">adj.</span>' : ''}</th>
-            <td><svg viewBox="0 0 120 18" aria-hidden="true"><line x1="0" y1="9" x2="${24 * W[f].r}" y2="9" stroke="var(--ink)" stroke-width="${weight(W[f].r)}"/><line x1="0" y1="9" x2="120" y2="9" stroke="var(--rule)" stroke-width=".5" stroke-dasharray="1 3"/></svg></td>
+            <td><svg viewBox="0 0 120 18" aria-hidden="true"><line x1="0" y1="9" x2="120" y2="9" stroke="var(--rule)" stroke-width=".5" stroke-dasharray="1 3"/><line x1="0" y1="9" x2="${24 * W[f].r}" y2="9" stroke="var(--ink)" stroke-width="${weight(W[f].r)}"/></svg></td>
             <td class="n">${W[f].r}<span style="font-size:15px;color:var(--ink-2)">&thinsp;/&thinsp;5</span></td></tr>`).join('')}</tbody>
         </table>
         <p class="heavy">Heaviest: <i>${heavy.join(' and ')}</i></p>
