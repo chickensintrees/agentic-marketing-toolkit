@@ -326,7 +326,7 @@ export const FORCES: ForceDefinition[] = [
     name: 'Threat of substitutes',
     question: 'How easily can buyers meet the same need another way?',
     summary:
-      'A substitute performs the same or a similar function by a different means, such as videoconferencing instead of business travel. When substitutes are attractive, they put a ceiling on the prices an industry can charge.',
+      'A substitute performs the same or a similar function by a different means, such as videoconferencing instead of business travel, and attractive substitutes put a ceiling on the prices an industry can charge. The first two drivers below are Porter’s two conditions for a strong threat; the last two are reminders of where substitutes come from: changes in other industries, and doing without, buying used, or doing it yourself.',
     drivers: [
       {
         id: 'attractive-price-performance',
@@ -405,7 +405,7 @@ export const FACTORS_NOT_FORCES: FrameworkFactor[] = [
   {
     name: 'Complementary products and services',
     explanation:
-      'Complements, like software for computers, raise the value of an industry’s product. They matter through their effect on the forces, for example by raising switching costs or barriers to entry.',
+      'Complements, like software for computers, raise the value of an industry’s product. They matter through their effect on the forces, which can cut either way: for example, they can raise or lower barriers to entry.',
   },
 ]
 

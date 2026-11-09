@@ -21,9 +21,9 @@ const preset: IndustryPreset = {
     },
     newEntrants: {
       rating: 2,
-      driverIds: ['modest-capital-requirements', 'low-customer-switching-costs'],
+      driverIds: ['low-customer-switching-costs', 'few-regulatory-hurdles'],
       rationale:
-        'Small brands can launch using contract bottlers and sell online or through specialty stores, and shoppers readily try new flavors. But building a national brand takes years of heavy advertising, and established players’ relationships with bottlers, retailers, restaurants, and vending operators give them privileged access to shelf space and fountains. The threat of entry at national scale is low.',
+        'Small brands can launch using contract bottlers and sell online or through specialty stores, little licensing is needed to start, and shoppers readily try new flavors. But building a national brand takes years of heavy advertising, and established players’ relationships with bottlers, retailers, restaurants, and vending operators give them privileged access to shelf space and fountains. The threat of entry at national scale is low.',
       evidence: 'illustrative',
       source: '',
     },

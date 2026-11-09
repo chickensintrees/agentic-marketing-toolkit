@@ -99,6 +99,7 @@ describe('faithfulness to Porter (2008)', () => {
       'attractive-price-performance',
       'low-cost-to-switch-to-substitute',
     ])
+    expect(getForce('substitutes').summary).toMatch(/first two drivers below are Porter’s two conditions/)
   })
 
   it('treats growth, technology, government, and complements as factors, not forces', () => {

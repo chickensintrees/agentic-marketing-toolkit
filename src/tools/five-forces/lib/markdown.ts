@@ -5,7 +5,7 @@
 
 import { slugify } from '../../../shared/download'
 import { FORCES } from '../data/forces'
-import type { Analysis } from '../types'
+import type { Analysis, ForceAssessment } from '../types'
 import {
   driverLabels,
   evidenceLabel,
@@ -41,16 +41,40 @@ function orDash(text: string): string {
   return trimmed === '' ? EMPTY : trimmed
 }
 
+/**
+ * Keep free text from changing the document's structure: escape a line that
+ * starts like a heading, quote, or table row, and a line made only of "-" or
+ * "=" (which would turn the line above it into a heading).
+ */
+function plainText(text: string): string {
+  return text
+    .split('\n')
+    .map((line) => line.replace(/^( {0,3})([#>|]|[-=]+\s*$)/, '$1\\$2'))
+    .join('\n')
+}
+
 export function industryTitle(analysis: Analysis): string {
   return oneLine(analysis.profile.name) || UNTITLED_INDUSTRY
 }
 
-/** Evidence text for one force; "—" when the force is not rated. */
+/** Evidence text for the table; "—" when the force is not rated. */
 function evidenceText(analysis: Analysis, forceIndex: number): string {
   const force = FORCES[forceIndex]
   const a = analysis.assessments[force.id]
   if (a.rating === null) return EMPTY
   return evidenceLabel(a)
+}
+
+/**
+ * Evidence text for a force's own section, with its source. Shown whenever the
+ * force has any input, even without a rating, so a source is never dropped.
+ */
+function sectionEvidence(a: ForceAssessment): string {
+  const hasInput =
+    a.rating !== null || a.driverIds.length > 0 || a.rationale.trim() !== '' || a.evidence === 'sourced'
+  if (!hasInput) return EMPTY
+  const source = a.evidence === 'sourced' ? oneLine(a.source) : ''
+  return source ? `${evidenceLabel(a)} — Source: ${source}` : evidenceLabel(a)
 }
 
 export function buildMarkdown(analysis: Analysis, prepared: Date): string {
@@ -62,7 +86,7 @@ export function buildMarkdown(analysis: Analysis, prepared: Date): string {
   push(`**Prepared:** ${formatDate(prepared)}`, '')
 
   const description = analysis.profile.description.trim()
-  if (description) push(description, '')
+  if (description) push(plainText(description), '')
 
   push('| Force | Rating | Evidence |', '|---|---|---|')
   FORCES.forEach((force, i) => {
@@ -80,23 +104,19 @@ export function buildMarkdown(analysis: Analysis, prepared: Date): string {
     push(`**Overall structure (indicative):** ${structure.label}`, '')
   }
 
-  FORCES.forEach((force, i) => {
+  FORCES.forEach((force) => {
     const a = analysis.assessments[force.id]
     const drivers = driverLabels(force.id, a.driverIds)
-    let evidence = evidenceText(analysis, i)
-    if (a.rating !== null && a.evidence === 'sourced' && a.source.trim() !== '') {
-      evidence += ` — Source: ${oneLine(a.source)}`
-    }
     push(`## ${force.name}`, '')
     push(`**Rating:** ${ratingLabel(a.rating)}`, '')
     push(`**Drivers present:** ${drivers.length ? drivers.join(', ') : 'None selected'}`, '')
-    push(`**Rationale:** ${orDash(a.rationale)}`, '')
-    push(`**Evidence:** ${evidence}`, '')
+    push(`**Rationale:** ${plainText(orDash(a.rationale))}`, '')
+    push(`**Evidence:** ${sectionEvidence(a)}`, '')
   })
 
   push('## Implications', '')
-  push(`**Which forces matter most:** ${orDash(analysis.implications.keyForces)}`, '')
-  push(`**How a company could respond:** ${orDash(analysis.implications.response)}`, '')
+  push(`**Which forces matter most:** ${plainText(orDash(analysis.implications.keyForces))}`, '')
+  push(`**How a company could respond:** ${plainText(orDash(analysis.implications.response))}`, '')
 
   push(
     '---',

@@ -108,6 +108,58 @@ describe('buildMarkdown with nothing rated', () => {
   })
 })
 
+/** The lines of one force's section, from its heading to the next heading. */
+const section = (md: string, name: string) => md.split(`## ${name}\n`)[1].split('\n## ')[0]
+
+describe('buildMarkdown with a force that is not rated yet', () => {
+  let a = setSource(setEvidence(createBlankAnalysis(), 'newEntrants', 'sourced'), 'newEntrants', 'Trade report 2026')
+  a = editAssessment(a, 'supplierPower', { rationale: 'Few suppliers.' })
+  const md = buildMarkdown(a, PREPARED)
+
+  it('keeps the evidence and source in the force section, but not in the table', () => {
+    expect(md).toContain('| Threat of new entrants | Not rated | — |')
+    expect(section(md, 'Threat of new entrants')).toContain(
+      '**Evidence:** Supported by a source — Source: Trade report 2026',
+    )
+    expect(section(md, 'Supplier power')).toContain('**Evidence:** My judgment / assumption')
+  })
+
+  it('shows "—" for the evidence of a force with no input', () => {
+    expect(section(md, 'Competitive rivalry')).toContain('**Evidence:** —')
+  })
+})
+
+describe('buildMarkdown with free text that looks like Markdown structure', () => {
+  let a = updateProfile(createBlankAnalysis(), { description: '# Not a title\nNotes' })
+  a = editAssessment(a, 'rivalry', {
+    rationale: 'one\n## two\nthree\n---\n> quoted\n| a | b |\n- a list item',
+  })
+  a = updateImplications(a, { keyForces: 'Rivalry\n===', response: '' })
+  const md = buildMarkdown(a, PREPARED)
+  const lines = md.split('\n')
+
+  it('adds no headings, rules, or tables of its own', () => {
+    expect(lines.filter((l) => /^ {0,3}#/.test(l))).toEqual([
+      '# Five Forces Analysis: Untitled industry',
+      '## Competitive rivalry',
+      '## Threat of new entrants',
+      '## Supplier power',
+      '## Buyer power',
+      '## Threat of substitutes',
+      '## Implications',
+    ])
+    expect(lines.filter((l) => /^ {0,3}[-=]+\s*$/.test(l))).toEqual(['---'])
+  })
+
+  it('escapes only the line starts that would change the structure', () => {
+    expect(md).toContain('\\# Not a title\nNotes')
+    expect(md).toContain(
+      '**Rationale:** one\n\\## two\nthree\n\\---\n\\> quoted\n\\| a | b |\n- a list item',
+    )
+    expect(md).toContain('**Which forces matter most:** Rivalry\n\\===')
+  })
+})
+
 describe('file names and dates', () => {
   it('formats the local date as YYYY-MM-DD', () => {
     expect(formatDate(new Date(2026, 0, 5))).toBe('2026-01-05')
