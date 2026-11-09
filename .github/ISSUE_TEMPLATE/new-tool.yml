@@ -1,0 +1,71 @@
+name: New tool
+description: Propose a new tool for the suite, or claim one from the wanted list. Tools are built spec first.
+title: "Build a new tool: "
+labels: ["new-tool", "spec"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every tool is one folder, `src/tools/<tool-id>/`, built in two pull requests: first its `SPEC.md` (from `docs/specs/TOOL-TEMPLATE.md`), then its code. See [build a tool](https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/build-a-tool.md). Please check the open issues first in case someone is already on it.
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      description: The wanted list is in `src/tools/wanted.ts` and on the app's Home page.
+      options:
+        - SWOT Builder (swot-builder)
+        - STP Planner (stp-planner)
+        - Customer Persona Builder (persona-builder)
+        - Marketing Mix (4Ps) Planner (marketing-mix-planner)
+        - Value Proposition Mapper (value-proposition-mapper)
+        - Customer Journey Map (customer-journey-map)
+        - Perceptual Map (perceptual-map)
+        - PESTEL Scanner (pestel-scanner)
+        - Break-even & Pricing Calculator (break-even-pricing)
+        - Customer Lifetime Value Calculator (customer-lifetime-value)
+        - Something else (describe below)
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: Tool name and suggested id (only for "Something else")
+      placeholder: Ansoff Matrix Explorer (ansoff-matrix)
+  - type: textarea
+    id: framework
+    attributes:
+      label: Framework and sources
+      description: What does it teach, and where does the framework come from (author, title, year)?
+    validations:
+      required: true
+  - type: textarea
+    id: users
+    attributes:
+      label: Who it helps, and what they walk away with
+      description: For example, a student preparing a case discussion who leaves with an exported summary.
+    validations:
+      required: true
+  - type: textarea
+    id: smallest
+    attributes:
+      label: Smallest useful version
+      description: If we built only one view, which one would still help someone in class?
+    validations:
+      required: true
+  - type: dropdown
+    id: building
+    attributes:
+      label: Will you build it?
+      options:
+        - Yes, I'd like to write the spec and build it
+        - I'd like to write the spec only
+        - No, it's an idea for someone else
+    validations:
+      required: true
+  - type: checkboxes
+    id: fit
+    attributes:
+      label: Fit with the project
+      options:
+        - label: It needs no backend, accounts, tracking, AI or paid APIs, and no chart, router or CSS library (the suite's non-goals in SPEC.md).
+          required: true

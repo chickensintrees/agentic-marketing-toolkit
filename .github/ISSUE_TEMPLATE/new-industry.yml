@@ -1,0 +1,54 @@
+name: New industry preset
+description: Propose or claim a new example industry for Five Forces Explorer.
+title: "Add industry preset: "
+labels: ["new-industry", "five-forces", "good first issue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A preset is one new file in `src/tools/five-forces/data/industries/` plus one line in that folder's `index.ts`. Ideas: [first issues](https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/first-issues.md). Please check the open issues first so we don't add the same industry twice.
+  - type: input
+    id: industry
+    attributes:
+      label: Industry
+      description: A short name for the industry.
+      placeholder: Craft beer
+    validations:
+      required: true
+  - type: input
+    id: preset-id
+    attributes:
+      label: Suggested id
+      description: Lowercase words joined by hyphens. It becomes the file name.
+      placeholder: craft-beer
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Which product and which geography? Too broad or too narrow a scope distorts the analysis.
+      placeholder: Independent craft breweries selling in one U.S. state
+    validations:
+      required: true
+  - type: textarea
+    id: thoughts
+    attributes:
+      label: Why this industry, and first thoughts on the forces
+      description: Optional. What makes it interesting to analyze? Any forces you expect to be strong or weak?
+  - type: dropdown
+    id: building
+    attributes:
+      label: Will you build it?
+      options:
+        - Yes, I'd like to work on this
+        - No, it's an idea for someone else
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules
+      options:
+        - label: I understand example ratings are illustrative teaching material, with no statistics, market shares or claims about named companies.
+          required: true

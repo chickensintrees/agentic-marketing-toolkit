@@ -1,8 +1,13 @@
 {
-  "name": "five-forces-explorer",
+  "name": "agentic-marketing-toolkit",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "A free, open-source suite of marketing and strategy tools for MBA students, built by a class with coding agents.",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -31,10 +36,5 @@
     "typescript": "~7.0.2",
     "vite": "^8.3.6",
     "vitest": "^5.1.0"
-  },
-  "description": "An interactive Porter's Five Forces learning tool, built with coding agents and improved by students through pull requests.",
-  "license": "MIT",
-  "engines": {
-    "node": ">=20"
   }
 }

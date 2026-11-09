@@ -1,0 +1,102 @@
+/*
+ * Design tokens for the whole toolkit. See SPEC.md §2.4.
+ *
+ * The look is a printed plate: ink on uncoated paper, serif type, hairline
+ * rules. One accent (rubrication red) with one meaning: "selected" or "you
+ * are here". Text colors meet WCAG AA (4.5:1) on --color-bg and
+ * --color-surface in both themes. Tools use these properties, never their
+ * own colors.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --font-display: 'EB Garamond', Garamond, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-text: 'Source Serif 4', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  /* Kept for tools that still ask for it. */
+  --font-sans: var(--font-text);
+
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.625rem, 1.35rem + 1vw, 2.125rem);
+  --text-3xl: clamp(2.25rem, 1.7rem + 2.4vw, 3.5rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --radius: 0;
+  --max-width: 78rem;
+  --measure: 40rem;
+  --hairline: 0.5px;
+
+  /* Light: ink on paper. */
+  --color-bg: #efe9dc;
+  --color-surface: #f7f3ea;
+  --color-surface-2: #e6dfcf;
+  --color-text: #1b1815;
+  --color-text-muted: #4b443b;
+  --color-border: #8c8374;
+  --color-ink: #1b1815;
+  --color-accent: #8f2a1c;
+  --color-accent-strong: #741f13;
+  --color-on-accent: #f7f3ea;
+  --color-focus: #8f2a1c;
+  --color-success: #2f5a2a;
+  --color-warning: #6e4a06;
+  --color-error: #8f2a1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark: pale ink on a soot-black plate. */
+    --color-bg: #171513;
+    --color-surface: #211e1a;
+    --color-surface-2: #2b2722;
+    --color-text: #ece5d6;
+    --color-text-muted: #bdb3a2;
+    --color-border: #7a7163;
+    --color-ink: #ece5d6;
+    --color-accent: #e8937a;
+    --color-accent-strong: #f2b09c;
+    --color-on-accent: #171513;
+    --color-focus: #e8937a;
+    --color-success: #9cc58f;
+    --color-warning: #e2bd6c;
+    --color-error: #f0a08a;
+  }
+}
+
+/* Print on white paper in ink, whatever the screen theme. */
+@media print {
+  :root {
+    --color-bg: #fff;
+    --color-surface: #fff;
+    --color-surface-2: #eee;
+    --color-text: #000;
+    --color-text-muted: #3d3832;
+    --color-border: #7a7163;
+    --color-ink: #000;
+    --color-accent: #8f2a1c;
+    --color-accent-strong: #741f13;
+    --color-on-accent: #fff;
+    --color-focus: #8f2a1c;
+    --color-success: #2f5a2a;
+    --color-warning: #6e4a06;
+    --color-error: #8f2a1c;
+  }
+}
+
+/* Wide projector screens: a wider page so the plate can grow. */
+@media screen and (min-width: 1800px) {
+  :root {
+    --max-width: 86rem;
+  }
+}

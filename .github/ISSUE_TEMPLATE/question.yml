@@ -1,0 +1,46 @@
+name: Question
+description: Ask for help with setup, GitHub, your coding agent, or the project.
+title: "Question: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        No question is too basic. [Start here](https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/START-HERE.md) has a troubleshooting table that may answer it quickly.
+
+        **Never paste a password, token or one-time code here.** Error messages are fine.
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool are you using?
+      options:
+        - Codex
+        - Claude Code
+        - Cursor
+        - Replit
+        - Lovable
+        - GitHub web editor (no install)
+        - Something else
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Your computer
+      options:
+        - Mac
+        - Windows
+        - Linux
+        - Browser only (Chromebook, tablet, or a cloud tool)
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What you tried, and any error message
+      description: Paste the error text, or what your agent said.
+      render: text

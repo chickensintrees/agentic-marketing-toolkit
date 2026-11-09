@@ -1,367 +1,234 @@
-# Five Forces Explorer — Specification
+# Agentic Marketing Toolkit — Specification
 
-> **This file is the single source of truth.** Changes flow through this spec
-> before they flow into code. If the code and this spec disagree, the spec wins
-> and the code is fixed (or the spec is deliberately updated first, in the same
-> pull request). See [AGENTS.md](AGENTS.md) for the workflow.
+> **This file is the source of truth for the toolkit as a whole, under
+> [INTENT.md](INTENT.md)** (Bill's intent, which outranks every spec).
+> Each tool also has its own spec at `src/tools/<tool-id>/SPEC.md`, which is
+> the source of truth for that tool. Changes flow through the relevant spec
+> before they flow into code. If code and spec disagree, the spec wins: fix the
+> code, or deliberately update the spec first in the same pull request. See
+> [AGENTS.md](AGENTS.md) for the workflow.
 
 ## 1. What this is
 
-Five Forces Explorer is a free, open-source, single-page web app that teaches
-**Porter's Five Forces** by having the user analyze a real industry.
+The **Agentic Marketing Toolkit** is a free, open-source suite of small,
+practical marketing and strategy tools for MBA students and anyone else who
+uses them. It is **built together by a class**: many people, each working with
+their own coding agent, contributing through GitHub pull requests.
 
-It was built live with coding agents for a marketing MBA guest lecture, and it
-is designed to be **extended by students through pull requests**. Its second
-purpose is to be a clean, worked example of *harness engineering*: the
-repository carries the rules, specs, skills, and automated checks that let a
-coding agent work on it safely.
+It began with a marketing MBA guest lecture on how products get built now:
+many humans and agents collaborating on one repository through specs, agent
+messages, branches, and pull requests. The first tool, **Five Forces
+Explorer**, was built with coding agents the night before that lecture. Every
+tool after it is meant to come from students.
+
+The repository is also a worked example of **harness engineering**. It carries
+the rules (`AGENTS.md`), the sources of truth (the specs), the skills, and the
+automated checks that let many agents work on it safely at the same time.
 
 ### Who it is for
 
 | User | Needs |
 |---|---|
-| **Student learning the framework** | Clear explanations of each force, its drivers, and what "high" and "low" look like. |
-| **Student analyzing an industry** | A guided, step-by-step exercise; a way to explain reasoning; a visual summary; an export to hand in or discuss. |
-| **Instructor / presenter** | A reliable demo with credible example industries and no setup, accounts, or API keys. |
-| **Student contributor** | A small, well-organized codebase where adding an industry or a feature is a contained change that automated checks can verify. |
+| **Student using a tool** | Clear, accurate, interactive help with a framework they are studying, with a result they can export. |
+| **Student contributor** (usually not a programmer) | A codebase where adding a tool, or improving one, is a contained change in one folder that automated checks can verify. |
+| **Instructor / presenter** | A reliable demo with no setup, accounts, or API keys. |
+| **Maintainer** (Bill Moore) | Pull requests that are small, well-explained, and verified by CI before review. |
 
 ### Non-goals (version 1)
 
 - No backend, accounts, database, analytics, or tracking.
 - No calls to AI or other paid APIs, and no credentials of any kind.
 - No router library, chart library, or CSS framework. Plain React + CSS.
-- Not market research. Example ratings are teaching illustrations.
+- Not market research. Example data is teaching material.
 
-## 2. Product requirements
+## 2. The suite shell
 
-### 2.1 Layout and navigation
+### 2.1 Layout
 
-- One page with a header (app name, one-line purpose), three primary views,
-  and a footer.
-- Primary views, in order: **Learn**, **Analyze**, **Summary**. Navigation is
-  a set of buttons with `aria-current="page"` (or an ARIA tabs pattern) that
-  works with keyboard alone.
-- The selected view is reflected in the URL hash (`#learn`, `#analyze`,
-  `#summary`) so a presenter can link straight to a view. Unknown or missing
-  hash → Learn.
-- Footer: link to the GitHub repository (from `src/config.ts`, so a fork can
-  change one constant), "Contribute" link to `CONTRIBUTING.md` on GitHub, and
-  the disclaimer: *"Example ratings are illustrative teaching material, not
-  verified market research."*
+- **Header:** the product name (links to Home) and, inside a tool, the tool's
+  name.
+- **Main:** Home, or the active tool.
+- **Footer:** link to the GitHub repository (`REPO_URL` in `src/config.ts`, so a
+  fork changes one constant), a "Contribute" link to `CONTRIBUTING.md` on
+  GitHub, and the disclaimer: *"These tools are teaching aids. Example data is
+  illustrative, not verified market research."*
 
-### 2.2 Learn view
+### 2.2 Routing (URL hash)
 
-1. **Framework overview.** What the framework is for (industry structure
-   shapes the average profitability of an industry and therefore strategy),
-   the five forces with rivalry at the center, and a short reminder that the
-   strongest force or forces matter most.
-2. **Five force cards.** One card per force showing its name and its core
-   question. Selecting a card reveals that force's full detail (expandable
-   card, disclosure, or detail panel — keyboard accessible either way).
-3. **Force detail** contains:
-   - a 1–2 sentence summary,
-   - the **drivers** that make the force stronger (from `src/data/forces.ts`),
-   - *The force is high when…* and *The force is low when…* bullet lists,
-   - one short illustrative example,
-   - one common misconception.
-4. **"Factors, not forces."** A callout explaining that industry growth rate,
-   technology and innovation, government policy, and complementary products
-   are *factors* that act through the five forces rather than forces
-   themselves.
-5. **Sources.** Porter, M. E. (1979), "How Competitive Forces Shape
-   Strategy," *Harvard Business Review*; Porter, M. E. (2008), "The Five
-   Competitive Forces That Shape Strategy," *Harvard Business Review* 86(1).
-6. A call to action that moves the user to Analyze.
-
-### 2.3 Analyze view (the guided exercise)
-
-A stepper with these steps. The user can move Back/Next and also jump to any
-step from a step list that shows completion state.
-
-| Step | Content |
+| Hash | Shows |
 |---|---|
-| 0. **Industry** | Choose a preset industry or "Custom industry". Edit the profile: **name**, **scope** (which product and which geography — e.g. "U.S. domestic passenger air travel"), and **description/notes**. Explain why defining scope matters (too broad or too narrow distorts the analysis). |
-| 1–5. **One step per force**, in this order: rivalry, threat of new entrants, supplier power, buyer power, threat of substitutes | See *Force step* below. |
-| 6. **Implications** | Two free-text prompts: (a) *Which force or forces matter most here, and why?* (b) *How could a company respond — position where the forces are weakest, reshape a force, or exploit a change?* Then a button to view the Summary. |
+| empty, `#`, `#/` | Home |
+| `#/<tool-id>` | That tool's default view |
+| `#/<tool-id>/<subpath>` | That tool, with `<subpath>` passed to it (e.g. `#/five-forces/summary`) |
+| anything else (unknown tool id) | Home |
 
-**Force step** shows the force's question and a link/disclosure to its Learn
-detail, then:
+Back/forward buttons work. Moving between Home and a tool moves keyboard focus
+to the new main heading. Each route sets `document.title` to
+`<Tool name> · Agentic Marketing Toolkit` (or just the product name on Home).
 
-- **Rating** — a radio group (fieldset + legend) on a 1–5 scale of *force
-  intensity*: 1 Very low, 2 Low, 3 Moderate, 4 High, 5 Very high. For every
-  force, a **higher rating means more pressure on industry profitability**
-  (e.g. "Threat of new entrants: High" means entry is easy). This must be
-  stated on screen.
-- **Drivers present** — a checklist of that force's drivers; the user ticks
-  the ones that apply.
-- **Rationale** — a text area: "Explain your rating."
-- **Evidence** — a choice of:
-  - `illustrative` — shown only for values that came from a preset, labelled
-    *"Illustrative example (not verified)"*;
-  - `assumption` — *"My judgment / assumption"*;
-  - `sourced` — *"Supported by a source"*, which reveals a **source** text
-    field (citation or URL).
-- **Evidence rules:**
-  - Loading a preset sets every assessment's evidence to `illustrative`.
-  - When the user changes the rating, rationale, or drivers of an
-    `illustrative` assessment, its evidence becomes `assumption`
-    automatically, and the UI says so.
-  - `sourced` with an empty source shows an inline hint and is reported as
-    *"Assumption (source missing)"* in the summary and export.
+### 2.3 Home
 
-**Progress** — the view shows how many of the five forces are rated.
+Home is a short contents page, visual first, with no marketing copy.
 
-**Switching industry** when the current analysis has any user input
-(a rating, a rationale, a ticked driver, or implications text that differs
-from a freshly loaded preset/blank) must ask for confirmation before
-discarding it.
+1. **Title:** the product name as the `h1`.
+2. **Tools:** each registered tool as a "plate", in registry order: a drawn
+   thumbnail, its name, the framework it teaches (if any) and its tagline, and
+   an "Open" link to `#/<tool-id>`.
+3. **"Plates in preparation":** the wanted-tools list (§3.3) as a shelf of
+   drawn thumbnails with the tool's name. Each pitch is available on demand
+   (shown in one line on hover or focus, and as the link's accessible
+   description). Each item and one "How to propose and build a tool" link go
+   to `docs/students/build-a-tool.md` on GitHub.
 
-### 2.4 Summary view
-
-- **Industry header:** name, scope, and an evidence badge summary (e.g.
-  "3 illustrative · 1 assumption · 1 sourced").
-- **Radar chart** (pentagon, SVG, hand-written — no chart library) of the five
-  ratings on a 0–5 scale. Unrated forces plot at 0 and are listed as unrated.
-  The chart has `role="img"` and a descriptive `aria-label`, and a visible data
-  table carries the same numbers.
-- **Comparison:** a "Compare with" select listing every preset (and "None").
-  When chosen, the chart overlays the preset as a second series that is
-  distinguishable without color (e.g. dashed outline), with a legend, and the
-  table adds the comparison column and the difference.
-- **Strongest force(s):** the force(s) with the highest rating (all ties).
-  Hidden until at least one force is rated.
-- **Overall structure (indicative):** based on the mean rating of *rated*
-  forces: mean ≤ 2.0 → "Favorable structure", ≤ 3.4 → "Mixed structure",
-  otherwise → "Challenging structure". Always shown with the caveat that
-  averages hide what matters — the strongest force(s) usually shape
-  profitability most. Hidden until all five forces are rated.
-- **Per-force recap:** rating label, ticked drivers, rationale, evidence label,
-  and source.
-- **Implications:** the two Implications answers.
-- **Export:** "Copy as Markdown" (clipboard, with a visible success/failure
-  status message) and "Download .md". Also a print stylesheet that prints the
-  summary cleanly (no navigation chrome).
-- An empty state when nothing has been rated, pointing to Analyze.
-
-### 2.5 Markdown export format
-
-```markdown
-# Five Forces Analysis: <industry name>
-
-**Scope:** <scope>
-**Prepared:** <YYYY-MM-DD>
-
-<description, if any>
-
-| Force | Rating | Evidence |
-|---|---|---|
-| Competitive rivalry | 4 – High | Illustrative example (not verified) |
-| ... five rows, unrated forces show "Not rated" ... |
-
-**Strongest force(s):** <names>  (omitted if nothing rated)
-**Overall structure (indicative):** <label>  (omitted unless all five rated)
-
-## Competitive rivalry
-**Rating:** 4 – High
-**Drivers present:** <comma-separated labels or "None selected">
-**Rationale:** <text or "—">
-**Evidence:** <label>[ — Source: <source>]
-
-... one section per force, in the standard order ...
-
-## Implications
-**Which forces matter most:** <text or "—">
-**How a company could respond:** <text or "—">
-
----
-_Generated with Five Forces Explorer. Ratings marked "Illustrative" are
-teaching examples, not verified market research._
-```
-
-### 2.6 Persistence
-
-- The current analysis and the current Analyze step are saved to
-  `localStorage` under the key `five-forces-explorer:v1` on every change.
-- Loading must tolerate missing, unavailable (throws), or corrupted storage
-  and must validate the stored shape; anything invalid falls back to a fresh
-  blank state without crashing.
-- A **Start over** action (with confirmation) clears the analysis.
-
-### 2.7 Accessibility and design
+### 2.4 Accessibility and design (applies to every tool)
 
 - WCAG 2.1 AA intent: semantic landmarks (`header`, `nav`, `main`, `footer`),
-  one `h1`, logical heading order, labels on every control, visible focus
-  styles, color contrast ≥ 4.5:1 for text, no information conveyed by color
-  alone, `prefers-reduced-motion` respected.
+  exactly one `h1` per route, logical heading order, labels on every control,
+  visible focus styles, text contrast ≥ 4.5:1, no information carried by
+  color alone, and `prefers-reduced-motion` respected.
 - Fully keyboard operable.
-- Responsive from 320 px wide phones to desktop with no horizontal scrolling.
+- Responsive from 320 px phones to desktop with no horizontal scrolling.
 - Light and dark themes via `prefers-color-scheme`, defined as CSS custom
-  properties on `:root`.
-- Calm, professional visual style suitable for projecting in a lecture hall:
-  generous type size, high contrast, one accent color.
+  properties on `:root` in `src/shared/`. Tools use these tokens rather than
+  their own colors.
+- Calm, professional style that projects well in a lecture hall: generous type,
+  high contrast, one accent color. The look is a printed plate: ink on paper,
+  serif type (EB Garamond for display, Source Serif 4 for text, from Google
+  Fonts with system serif fallbacks), hairline rules, drawings made in code.
+  No cards with shadows, gradients, pill badges or emoji.
 
-## 3. Data
+## 3. The tool contract
 
-### 3.1 Types (`src/types.ts`)
+### 3.1 A tool is one folder
+
+```text
+src/tools/<tool-id>/
+  SPEC.md          the tool's spec (required) — copy docs/specs/TOOL-TEMPLATE.md
+  index.ts         exports `tool: ToolDefinition` (required)
+  *.tsx, lib/, data/, components/ …   the tool's own code
+  *.test.ts(x)     the tool's tests (required: at least one)
+```
+
+- `<tool-id>` is kebab-case and is the folder name.
+- A tool may import from `src/shared/` and from its own folder. **It never
+  imports from another tool's folder.** Code two tools need moves to
+  `src/shared/` in its own pull request.
+- A tool keeps its business logic in pure functions with unit tests. Its
+  components stay thin.
+- Storage keys are namespaced: `agentic-marketing-toolkit:<tool-id>:<version>`.
+  Reads tolerate missing, unavailable, or corrupted storage.
+
+### 3.2 Types (`src/tools/types.ts`)
 
 ```ts
-export type ForceId =
-  | 'rivalry'
-  | 'newEntrants'
-  | 'supplierPower'
-  | 'buyerPower'
-  | 'substitutes'
+import type { ComponentType } from 'react'
 
-export type Rating = 1 | 2 | 3 | 4 | 5
-export type EvidenceStatus = 'illustrative' | 'assumption' | 'sourced'
-
-export interface Driver {
-  id: string          // kebab-case, unique within its force
-  label: string       // short, e.g. "High switching costs for buyers"
-  description: string // one sentence: why this strengthens the force
+export interface ToolProps {
+  /** Hash path after `#/<tool-id>/`, '' for the tool's default view. */
+  subpath: string
+  /** Navigate within this tool; navigate('summary') → #/<tool-id>/summary. */
+  navigate: (subpath: string) => void
 }
 
-export interface ForceDefinition {
-  id: ForceId
-  name: string        // "Threat of new entrants"
-  question: string    // "How easy is it for new competitors to enter?"
-  summary: string
-  drivers: Driver[]   // 4–8 drivers
-  highWhen: string[]
-  lowWhen: string[]
-  example: string
-  misconception: string
+export interface ToolDefinition {
+  id: string           // kebab-case, equals the folder name
+  name: string         // "Five Forces Explorer"
+  framework?: string   // "Porter's Five Forces"
+  tagline: string      // one line for the Home card
+  Component: ComponentType<ToolProps>
 }
 
-export interface ForceAssessment {
-  rating: Rating | null
-  driverIds: string[]
-  rationale: string
-  evidence: EvidenceStatus
-  source: string
-}
-
-export interface IndustryProfile {
-  name: string
-  scope: string
-  description: string
-}
-
-export interface IndustryPreset {
-  id: string                 // kebab-case, unique, equals the file name
-  profile: IndustryProfile
-  assessments: Record<ForceId, ForceAssessment> // evidence: 'illustrative'
-}
-
-export interface Analysis {
-  presetId: string | null    // null = custom industry
-  profile: IndustryProfile
-  assessments: Record<ForceId, ForceAssessment>
-  implications: { keyForces: string; response: string }
+export interface WantedTool {
+  id: string           // kebab-case; must not clash with a registered tool
+  name: string         // "SWOT Builder"
+  pitch: string        // one line: what it would help a student do
 }
 ```
 
-### 3.2 Framework content (`src/data/forces.ts`)
+### 3.3 Registry
 
-Exports `FORCES: ForceDefinition[]` in the standard order above. Content must
-be faithful to Porter (1979, 2008). Driver lists follow Porter's 2008 article,
-for example:
+- `src/tools/index.ts` exports `TOOLS: ToolDefinition[]`, in Home order. Adding
+  a tool = adding its folder and one line here.
+- `src/tools/wanted.ts` exports `WANTED_TOOLS: WantedTool[]`. Version 1 started
+  with: SWOT Builder, STP Planner (segmentation, targeting, positioning),
+  Customer Persona Builder, Marketing Mix (4Ps) Planner, Value Proposition
+  Mapper, Customer Journey Map, Perceptual Map, PESTEL Scanner, Break-even &
+  Pricing Calculator, Customer Lifetime Value Calculator. When a wanted tool is
+  built, its entry is removed in the same pull request.
 
-- **New entrants** (barriers to entry): supply-side economies of scale,
-  demand-side benefits of scale (network effects), customer switching costs,
-  capital requirements, incumbency advantages independent of size, unequal
-  access to distribution channels, restrictive government policy, expected
-  retaliation from incumbents.
-- **Supplier power:** supplier concentration relative to the industry,
-  industry is not an important customer to suppliers, switching costs for
-  industry participants, differentiated supplier inputs, no substitutes for
-  the supplier's input, credible threat of forward integration.
-- **Buyer power:** few buyers or large-volume purchases, standardized
-  products, low buyer switching costs, credible threat of backward
-  integration, plus price sensitivity (product is a large share of buyer
-  costs, buyer earns low profits, product has little effect on the quality of
-  the buyer's own product).
-- **Substitutes:** attractive price–performance trade-off of the substitute,
-  low buyer cost of switching to the substitute.
-- **Rivalry:** numerous or equally balanced competitors, slow industry growth,
-  high exit barriers, rivals committed beyond economic goals; price
-  competition is likeliest with undifferentiated products and low switching
-  costs, high fixed and low marginal costs, large capacity increments, and
-  perishable products.
+### 3.4 Shared code (`src/shared/`)
 
-### 3.3 Example industries (`src/data/industries/`)
+Version 1 provides what Five Forces needs and the next tools will reuse:
+design tokens and base styles; small UI components (e.g. button, card,
+disclosure, status message); and helpers to copy text to the clipboard and to
+download a text file. Nothing tool-specific lives here.
 
-- **One preset per file**, `src/data/industries/<id>.ts`, default-exporting an
-  `IndustryPreset`, registered in `src/data/industries/index.ts` (exported as
-  `INDUSTRY_PRESETS`, displayed in that order).
-- Version 1 ships at least these five illustrative presets:
-  1. `us-airlines` — U.S. passenger airlines
-  2. `video-streaming` — subscription video streaming
-  3. `coffee-shops` — independent and chain coffee shops
-  4. `soft-drinks` — carbonated soft drinks
-  5. `whitewater-rafting` — commercial whitewater rafting outfitters (a nod
-     to West Virginia's New River Gorge)
-- Each preset gives all five assessments: a rating, 2–4 valid driver ids, a
-  2–4 sentence rationale, evidence `illustrative`, empty source.
-- Rationales use cautious, general language. No precise statistics, market
-  shares, or named-company claims that would need a citation.
+## 4. Tools in version 1
 
-## 4. Architecture
+| Tool | Folder | Spec |
+|---|---|---|
+| Five Forces Explorer | `src/tools/five-forces/` | [`src/tools/five-forces/SPEC.md`](src/tools/five-forces/SPEC.md) |
+
+## 5. Architecture
 
 ```text
 src/
-  main.tsx                 entry
-  App.tsx                  layout, navigation, view switching
-  config.ts                REPO_URL and other fork-editable constants
-  types.ts                 types from §3.1
-  data/forces.ts           framework content
-  data/industries/         one file per preset + index.ts
-  lib/                     pure, unit-tested logic (no React)
-    analysis.ts            blank/preset analysis, edits, evidence rules,
-                           strongest forces, structure label, completion
-    markdown.ts            export (§2.5)
-    storage.ts             load/save/validate (§2.6)
-  components/              React components, one per file
-  styles/ or *.css         plain CSS with custom properties
+  main.tsx                  entry
+  App.tsx                   shell: header, routing, footer
+  config.ts                 PRODUCT_NAME, REPO_URL, CONTRIBUTING_URL
+  shell/                    Home, router (pure, tested), shell components
+  shared/                   tokens, base CSS, UI components, helpers
+  tools/
+    types.ts                §3.2
+    index.ts                TOOLS registry
+    wanted.ts               WANTED_TOOLS
+    registry.test.ts        §6 registry integrity
+    five-forces/            tool #1 (its own SPEC.md)
   test/setup.ts
 ```
 
-Rules: business logic lives in `src/lib` as pure functions with unit tests;
-components stay thin. No new runtime dependencies without updating this spec.
+No new runtime dependencies without updating this spec first.
 
-## 5. Quality gates (definition of done)
+## 6. Quality gates (definition of done)
 
-`npm run check` must pass. It runs, in order:
+`npm run check` must pass. It runs `npm run lint` (oxlint, warnings are errors),
+`npm run typecheck` (TypeScript, strict), `npm run test` (Vitest), and
+`npm run build`. CI runs the same on every push and pull request.
 
-1. `npm run lint` — oxlint, warnings are errors
-2. `npm run typecheck` — TypeScript, strict
-3. `npm run test` — Vitest
-4. `npm run build` — production build
+Suite-level tests must include:
 
-The test suite must include at least:
+- **Registry integrity** — the safety net for pull requests that add tools:
+  tool ids are unique, kebab-case, and equal their folder names; every folder
+  under `src/tools/` with an `index.ts` is registered in `TOOLS`, and every
+  registered tool has a `SPEC.md` and at least one test file (checked with
+  `import.meta.glob`); wanted-tool ids are unique and don't clash with
+  registered tools.
+- **Router:** parsing for every row of §2.2, including unknown ids and trailing
+  slashes.
+- **Shell:** Home lists every registered tool and every wanted tool; opening a
+  tool renders it and sets the title; an unknown route shows Home; the browser
+  back button returns to the previous route.
 
-- **Data integrity** (`src/data/*.test.ts`): five forces in standard order;
-  unique ids; every force has 4–8 drivers, non-empty highWhen/lowWhen; every
-  preset has all five assessments with a rating 1–5, 2–4 driver ids that exist
-  on that force, a non-empty rationale, evidence `illustrative`; preset ids are
-  unique kebab-case and match their file names; every preset is registered.
-  *This is the safety net for student pull requests that add industries.*
-- **Logic** (`src/lib/*.test.ts`): evidence auto-switch, strongest-force ties,
-  structure thresholds (including boundaries 2.0 and 3.4), completion count,
-  Markdown export (golden-style assertions on structure and labels), storage
-  fallback on corrupt / missing / throwing storage.
-- **Components:** the main journey — load a preset, change a rating, see the
-  evidence switch to assumption, see it reflected in Summary; custom industry
-  flow; compare select overlays a second series; hash navigation; persistence
-  across a remount.
+Each tool's spec defines that tool's own required tests.
 
-## 6. Deployment
+## 7. Deployment
 
 - GitHub Actions: `ci.yml` runs `npm ci && npm run check` on pushes and pull
-  requests; `deploy.yml` publishes `dist/` to GitHub Pages on pushes to `main`.
-- The Vite `base` is `./` so the build works on any static host and at any
-  path, including a fork's own Pages site.
+  requests; `deploy.yml` publishes `dist/` to GitHub Pages on pushes to `main`
+  (Pages source: GitHub Actions). Live at
+  https://chickensintrees.github.io/agentic-marketing-toolkit/.
+- Vite `base` is `./`, so the build works on any static host and at any path,
+  including a fork's own Pages site.
+- Node.js 22.12 or newer (required by Vite 8 and Vitest 5).
 
-## 7. Changelog
+## 8. Changelog
 
-- **0.1.0** — Initial specification.
+- **0.3.0** — Home becomes a visual contents page (§2.3): tools and wanted
+  tools as drawn plates, pitches on demand. The design language becomes ink
+  on paper with serif type (§2.4).
+- **0.2.1** — The spec sits under INTENT.md. §3.3 names the wanted tools
+  version 1 started with, so removing a built tool no longer contradicts it.
+- **0.2.0** — Suite. The project becomes the Agentic Marketing Toolkit; Five
+  Forces Explorer becomes tool #1 under `src/tools/five-forces/` with its own
+  spec; the tool contract, registry, wanted-tools list, and shell are added.
+- **0.1.0** — Initial specification (single-tool Five Forces Explorer).

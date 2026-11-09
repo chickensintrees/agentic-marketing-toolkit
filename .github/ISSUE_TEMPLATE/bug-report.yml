@@ -1,0 +1,55 @@
+name: Bug report
+description: Something in the app doesn't work the way it should.
+title: "Bug: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where?
+      options:
+        - Five Forces Explorer
+        - Home page or the suite shell
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What did you click or type, in order?
+      placeholder: |
+        1. Open #/five-forces/analyze
+        2. Choose "Coffee shops"
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Browser and device
+      placeholder: Chrome on Windows 11, Safari on iPhone
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Optional. Drag images here.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: I haven't included passwords, tokens or other personal information.
+          required: true

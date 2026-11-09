@@ -1,0 +1,48 @@
+name: Feature idea
+description: Suggest an improvement to a tool, the Home page, or the docs.
+title: "Idea: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ideas are contributions. If yours changes how the app behaves, it becomes a spec proposal (`docs/specs/TEMPLATE.md`) before any code. For a whole new tool, use the **New tool** form instead.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part?
+      options:
+        - Five Forces Explorer
+        - Home page or the suite shell
+        - Student docs and guides
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's hard or missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: What would the user see and do? The smallest useful version is best.
+    validations:
+      required: true
+  - type: textarea
+    id: who
+    attributes:
+      label: Who it helps
+      description: For example, a student analyzing an industry, a presenter, or a contributor.
+  - type: dropdown
+    id: building
+    attributes:
+      label: Will you work on it?
+      options:
+        - Yes, I'd like to write the proposal and build it
+        - I'd like to write the proposal only
+        - No, it's an idea for someone else
+    validations:
+      required: true

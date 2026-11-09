@@ -1,0 +1,403 @@
+/*
+ * Base styles and shared UI classes. See SPEC.md §2.4 and §3.4.
+ * Print conventions do the structuring: hairline rules, small caps, figure
+ * numbers. No shadows, rounded cards, gradients or pills.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p,
+ul,
+ol,
+dl {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+cite {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 600;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Small caps label: the printer's way to mark a category. */
+.sc,
+.eyebrow {
+  font-family: var(--font-display);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  font-weight: 500;
+}
+
+.eyebrow {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.lead {
+  font-size: var(--text-lg);
+}
+
+/* Buttons: set type in a ruled box. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+
+.button-primary {
+  border-width: 1.5px;
+  box-shadow: inset 0 0 0 2px var(--color-bg), inset 0 0 0 2.5px var(--color-ink);
+}
+
+.button-primary:hover {
+  box-shadow: none;
+}
+
+.button-quiet {
+  border-color: transparent;
+  padding-inline: var(--space-1);
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.button-quiet:hover {
+  background: transparent;
+  color: var(--color-text);
+  text-decoration-thickness: 2px;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* A framed surface, drawn as a hairline double rule. */
+.card {
+  border: 1px solid var(--color-ink);
+  outline: var(--hairline) solid var(--color-ink);
+  outline-offset: -5px;
+  padding: var(--space-5);
+  background: transparent;
+}
+
+.callout {
+  border-left: 1px solid var(--color-ink);
+  padding-left: var(--space-4);
+}
+
+/* Form fields */
+.field {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  min-width: 0;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+legend,
+.field > label {
+  font-family: var(--font-display);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  font-weight: 500;
+  font-size: var(--text-lg);
+  padding: 0;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+.hint-warning {
+  color: var(--color-warning);
+  font-style: normal;
+}
+
+input[type='text'],
+select,
+textarea {
+  width: 100%;
+  min-width: 0;
+  padding: var(--space-2) var(--space-1);
+  border: 0;
+  border-bottom: 1px solid var(--color-ink);
+  border-radius: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+textarea {
+  border: var(--hairline) solid var(--color-ink);
+  padding: var(--space-2);
+  resize: vertical;
+  line-height: 1.45;
+}
+
+select {
+  padding-right: var(--space-5);
+}
+
+/* The browser's grey placeholder falls below 4.5:1 on these papers. */
+::placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+  opacity: 1;
+}
+
+/* Disclosure: an italic toggle with a drawn triangle. */
+.disclosure-heading {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.disclosure-toggle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+.disclosure-toggle:hover {
+  color: var(--color-text);
+}
+
+.disclosure-chevron {
+  order: -1;
+  width: 0;
+  height: 0;
+  border-left: 0.4em solid currentColor;
+  border-top: 0.28em solid transparent;
+  border-bottom: 0.28em solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.is-open > .disclosure-toggle .disclosure-chevron,
+.is-open > .disclosure-heading .disclosure-chevron {
+  transform: rotate(90deg);
+}
+
+.disclosure-panel {
+  padding-top: var(--space-3);
+}
+
+/* Live status messages: a mark plus words, never color alone. */
+.status-region:empty {
+  display: none;
+}
+
+.notice {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  margin-top: var(--space-2);
+}
+
+.notice-success {
+  color: var(--color-success);
+}
+
+.notice-warning {
+  color: var(--color-warning);
+}
+
+.notice-error {
+  color: var(--color-error);
+}
+
+.notice-icon {
+  font-style: normal;
+}
+
+/* Tables: rules top and bottom, hairlines between rows. */
+.table-wrap {
+  position: relative; /* keeps visually hidden cells inside the scroller */
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.data-table caption {
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  padding-bottom: var(--space-2);
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: var(--space-2) var(--space-2);
+  border-top: var(--hairline) solid var(--color-border);
+  vertical-align: middle;
+}
+
+.data-table thead th {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  color: var(--color-text-muted);
+  border-top: 0;
+}
+
+.badge {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    font-size: 11pt;
+    background: #fff;
+    color: #000;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  :focus,
+  :focus-visible {
+    outline: none !important;
+  }
+}
