@@ -68,6 +68,14 @@ export function createBlankAnalysis(): Analysis {
   }
 }
 
+/** Driver ids in the force's own order (the order of data/forces.ts), unknown ids dropped. */
+export function inDriverOrder(forceId: ForceId, driverIds: readonly string[]): string[] {
+  const selected = new Set(driverIds)
+  return getForce(forceId)
+    .drivers.map((d) => d.id)
+    .filter((id) => selected.has(id))
+}
+
 export function findPreset(id: string | null): IndustryPreset | undefined {
   if (id === null) return undefined
   return INDUSTRY_PRESETS.find((p) => p.id === id)
@@ -82,7 +90,7 @@ export function createPresetAnalysis(preset: IndustryPreset): Analysis {
       const a = preset.assessments[id]
       return {
         rating: a.rating,
-        driverIds: [...a.driverIds],
+        driverIds: inDriverOrder(id, a.driverIds),
         rationale: a.rationale,
         evidence: 'illustrative',
         source: '',
@@ -149,13 +157,11 @@ export function toggleDriver(
   forceId: ForceId,
   driverId: string,
 ): Analysis {
-  const selected = new Set(analysis.assessments[forceId].driverIds)
-  if (selected.has(driverId)) selected.delete(driverId)
-  else selected.add(driverId)
-  const driverIds = getForce(forceId)
-    .drivers.map((d) => d.id)
-    .filter((id) => selected.has(id))
-  return editAssessment(analysis, forceId, { driverIds })
+  const current = analysis.assessments[forceId].driverIds
+  const next = current.includes(driverId)
+    ? current.filter((id) => id !== driverId)
+    : [...current, driverId]
+  return editAssessment(analysis, forceId, { driverIds: inDriverOrder(forceId, next) })
 }
 
 export function setEvidence(

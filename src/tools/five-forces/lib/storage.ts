@@ -2,7 +2,7 @@
 // Everything here tolerates missing, unavailable (throwing), or corrupted
 // storage and falls back to a fresh blank state.
 
-import { FORCE_ORDER, getForce } from '../data/forces'
+import { FORCE_ORDER } from '../data/forces'
 import type {
   Analysis,
   EvidenceStatus,
@@ -11,7 +11,7 @@ import type {
   IndustryProfile,
   Rating,
 } from '../types'
-import { STEP_COUNT, createBlankAnalysis, findPreset } from './analysis'
+import { STEP_COUNT, createBlankAnalysis, findPreset, inDriverOrder } from './analysis'
 
 // Namespaced per the suite's tool contract (SPEC.md §3.1):
 // agentic-marketing-toolkit:<tool-id>:<version>
@@ -66,12 +66,10 @@ function parseAssessment(forceId: ForceId, value: unknown): ForceAssessment | nu
   if (!Array.isArray(value.driverIds) || !value.driverIds.every(isString)) return null
   if (!isString(value.rationale) || !isString(value.source)) return null
   if (!EVIDENCE.includes(value.evidence as EvidenceStatus)) return null
-  // Drop driver ids that no longer exist (e.g. after a content update).
-  const known = getForce(forceId).drivers.map((d) => d.id)
-  const ticked = new Set(value.driverIds)
   return {
     rating,
-    driverIds: known.filter((id) => ticked.has(id)),
+    // Drops driver ids that no longer exist (e.g. after a content update).
+    driverIds: inDriverOrder(forceId, value.driverIds),
     rationale: value.rationale,
     evidence: value.evidence as EvidenceStatus,
     source: value.source,

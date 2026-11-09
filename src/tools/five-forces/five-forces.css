@@ -1,0 +1,1031 @@
+/*
+ * Five Forces Explorer styles. Uses only the shared tokens (src/shared/
+ * tokens.css) and builds on the shared base styles. Every selector is scoped
+ * under .five-forces so this tool cannot affect other tools.
+ */
+
+/* ------------------------------------------------------- Intro and views */
+
+.five-forces .tool-intro {
+  margin-bottom: var(--space-4);
+}
+
+.five-forces .tool-intro h1 {
+  margin-bottom: var(--space-2);
+}
+
+.five-forces .tool-purpose {
+  max-width: 44rem;
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.five-forces .view-nav {
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.five-forces .view-nav ul {
+  display: flex;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.five-forces .view-nav li {
+  margin: 0;
+}
+
+.five-forces .view-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: -1px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+
+.five-forces .view-nav a:hover {
+  color: var(--color-text);
+  border-bottom-color: var(--color-border-strong);
+}
+
+.five-forces .view-nav a[aria-current='page'] {
+  font-weight: 750;
+  color: var(--color-text);
+  border-bottom-color: var(--color-accent);
+}
+
+.five-forces .view-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.five-forces .view-header h2 {
+  margin-bottom: var(--space-1);
+}
+
+.five-forces .view-subtitle {
+  max-width: 42rem;
+  color: var(--color-text-muted);
+}
+
+.five-forces .disclaimer {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ------------------------------------------------------------------ Learn */
+
+.five-forces .learn-intro {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+  margin-bottom: var(--space-7);
+}
+
+@media (min-width: 60rem) {
+  .five-forces .learn-intro {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+}
+
+.five-forces .learn-intro .lead {
+  max-width: 40rem;
+}
+
+.five-forces .key-points {
+  padding: 0;
+  list-style: none;
+}
+
+.five-forces .key-points li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.five-forces .key-points li + li {
+  margin-top: var(--space-3);
+}
+
+.five-forces .key-points li::before {
+  content: '';
+  position: absolute;
+  left: 0.2rem;
+  top: 0.55em;
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* Porter's diagram: four outside forces around rivalry at the center. */
+.five-forces .framework-diagram {
+  margin: 0;
+}
+
+.five-forces .diagram-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.25fr) auto minmax(0, 1fr);
+  grid-template-areas:
+    '. . entrants . .'
+    '. . down . .'
+    'suppliers right rivalry left buyers'
+    '. . up . .'
+    '. . substitutes . .';
+  align-items: center;
+  justify-items: stretch;
+  gap: var(--space-1);
+}
+
+.five-forces .diagram-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 4rem;
+  padding: var(--space-2);
+  font-size: clamp(0.8125rem, 0.75rem + 0.3vw, 0.9375rem);
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  hyphens: manual;
+}
+
+.five-forces .tile-entrants {
+  grid-area: entrants;
+}
+
+.five-forces .tile-suppliers {
+  grid-area: suppliers;
+}
+
+.five-forces .tile-rivalry {
+  grid-area: rivalry;
+  min-height: 5.5rem;
+  font-size: clamp(0.875rem, 0.8rem + 0.4vw, 1.0625rem);
+  background: var(--color-accent-soft);
+  border: 2px solid var(--color-accent);
+}
+
+.five-forces .tile-buyers {
+  grid-area: buyers;
+}
+
+.five-forces .tile-substitutes {
+  grid-area: substitutes;
+}
+
+.five-forces .diagram-arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.five-forces .arrow-down {
+  grid-area: down;
+}
+
+.five-forces .arrow-up {
+  grid-area: up;
+}
+
+.five-forces .arrow-right {
+  grid-area: right;
+}
+
+.five-forces .arrow-left {
+  grid-area: left;
+}
+
+.five-forces .framework-diagram figcaption {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.five-forces .learn-section {
+  margin-bottom: var(--space-7);
+}
+
+.five-forces .section-intro {
+  color: var(--color-text-muted);
+}
+
+.five-forces .force-cards {
+  display: grid;
+  gap: var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.five-forces .force-cards > li {
+  margin: 0;
+}
+
+.five-forces .force-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.five-forces .force-card.is-open {
+  border-color: var(--color-accent);
+}
+
+.five-forces .force-card .disclosure-toggle {
+  padding: var(--space-4) var(--space-4);
+}
+
+.five-forces .force-card-name {
+  display: block;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.five-forces .force-card-question {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.five-forces .force-card .disclosure-panel {
+  padding: 0 var(--space-4) var(--space-5);
+}
+
+@media (min-width: 40rem) {
+  .five-forces .force-card .disclosure-toggle {
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .five-forces .force-card .disclosure-panel {
+    padding: 0 var(--space-5) var(--space-5);
+  }
+}
+
+.five-forces .force-detail {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.five-forces .force-summary {
+  max-width: 48rem;
+  font-size: var(--text-lg);
+}
+
+.five-forces .detail-heading {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: var(--text-base);
+  font-weight: 750;
+}
+
+.five-forces .driver-list li + li {
+  margin-top: var(--space-2);
+}
+
+.five-forces .high-low {
+  display: grid;
+  gap: 0 var(--space-6);
+}
+
+@media (min-width: 44rem) {
+  .five-forces .high-low {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.five-forces .detail-box {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-surface-muted);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.five-forces .detail-box .detail-heading {
+  margin-top: 0;
+}
+
+.five-forces .detail-box-myth {
+  background: transparent;
+  border: 1px dashed var(--color-border-strong);
+  border-left: 4px solid var(--color-border-strong);
+}
+
+.five-forces .factors {
+  margin-bottom: var(--space-7);
+  padding: var(--space-5);
+}
+
+.five-forces .factor-list {
+  display: grid;
+  gap: var(--space-4) var(--space-6);
+  margin: var(--space-4) 0 0;
+}
+
+@media (min-width: 44rem) {
+  .five-forces .factor-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.five-forces .factor-list dt {
+  font-weight: 700;
+}
+
+.five-forces .factor-list dd {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+}
+
+.five-forces .source-list {
+  padding-left: 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.five-forces .cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+}
+
+.five-forces .cta-text {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- Analyze */
+
+.five-forces .analyze-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+
+.five-forces .progress-text {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-sm);
+}
+
+.five-forces .meter {
+  width: 10rem;
+  height: 0.5rem;
+  overflow: hidden;
+  background: var(--color-surface-muted);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+}
+
+.five-forces .meter > span {
+  display: block;
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 200ms ease;
+}
+
+.five-forces .analyze-layout {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 60rem) {
+  .five-forces .analyze-layout {
+    grid-template-columns: 14rem minmax(0, 1fr);
+  }
+
+  .five-forces .step-list {
+    position: sticky;
+    top: var(--space-4);
+  }
+}
+
+.five-forces .step-list ol {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 60rem) {
+  .five-forces .step-list ol {
+    grid-template-columns: 1fr;
+  }
+}
+
+.five-forces .step-list li {
+  margin: 0;
+}
+
+.five-forces .step-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-align: left;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.five-forces .step-button:hover {
+  border-color: var(--color-border-strong);
+}
+
+.five-forces .step-button.is-current {
+  font-weight: 750;
+  background: var(--color-accent-soft);
+  border: 2px solid var(--color-accent);
+  padding: calc(var(--space-2) - 1px) calc(var(--space-3) - 1px);
+}
+
+.five-forces .step-marker {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: 50%;
+}
+
+.five-forces .step-button.is-complete .step-marker {
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.five-forces .step-panel {
+  min-width: 0;
+}
+
+@media (min-width: 40rem) {
+  .five-forces .step-panel {
+    padding: var(--space-6);
+  }
+}
+
+.five-forces .step-heading {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.five-forces .force-question {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.five-forces .learn-more {
+  margin-bottom: var(--space-5);
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-sm);
+}
+
+.five-forces .learn-more .disclosure-summary {
+  font-weight: 650;
+  color: var(--color-accent);
+}
+
+.five-forces .learn-more .force-detail {
+  border-top-color: var(--color-border-strong);
+}
+
+.five-forces .learn-more .detail-box {
+  background: var(--color-surface);
+}
+
+.five-forces .rating-field legend {
+  font-size: var(--text-lg);
+}
+
+.five-forces .rating-options {
+  display: grid;
+  gap: var(--space-2);
+}
+
+@media (min-width: 36rem) {
+  .five-forces .rating-options {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.five-forces .rating-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+@media (min-width: 36rem) {
+  .five-forces .rating-option {
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-2);
+    text-align: center;
+  }
+}
+
+.five-forces .rating-option:hover {
+  border-color: var(--color-accent);
+}
+
+.five-forces .rating-option:has(input:checked) {
+  background: var(--color-accent-soft);
+  border: 2px solid var(--color-accent);
+  padding: calc(var(--space-2) - 1px) calc(var(--space-3) - 1px);
+}
+
+@media (min-width: 36rem) {
+  .five-forces .rating-option:has(input:checked) {
+    padding: calc(var(--space-3) - 1px) calc(var(--space-2) - 1px);
+  }
+}
+
+.five-forces .rating-number {
+  font-size: var(--text-xl);
+  font-weight: 750;
+  line-height: 1;
+}
+
+.five-forces .rating-text {
+  font-size: var(--text-sm);
+}
+
+.five-forces .rating-option:has(input:checked) .rating-text {
+  font-weight: 700;
+}
+
+.five-forces .checklist {
+  display: grid;
+  gap: var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.five-forces .checklist li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.five-forces .checklist li:has(input:checked) {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.five-forces .checklist input {
+  margin-top: 0.25rem;
+}
+
+.five-forces .check-text label {
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.five-forces .check-desc {
+  margin: 0.1rem 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.five-forces .evidence-options {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.five-forces .radio-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.five-forces .radio-row:has(input:checked) {
+  font-weight: 650;
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.five-forces .source-field {
+  margin: var(--space-4) 0 0;
+}
+
+.five-forces .callout-note {
+  border-left-color: var(--color-border-strong);
+}
+
+.five-forces .step-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: space-between;
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.five-forces .step-nav .button-primary {
+  margin-left: auto;
+}
+
+/* ---------------------------------------------------------------- Summary */
+
+.five-forces .empty-state {
+  max-width: 40rem;
+  padding: var(--space-6) var(--space-5);
+}
+
+.five-forces .summary-header {
+  margin-bottom: var(--space-5);
+}
+
+.five-forces .summary-title {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.five-forces .summary-scope,
+.five-forces .summary-description {
+  max-width: 48rem;
+  margin-bottom: var(--space-3);
+}
+
+.five-forces .summary-description {
+  color: var(--color-text-muted);
+}
+
+.five-forces .evidence-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-4) 0 0;
+}
+
+.five-forces .summary-grid {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 62rem) {
+  .five-forces .summary-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  }
+}
+
+.five-forces .chart-card {
+  min-width: 0;
+}
+
+.five-forces .chart-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+.five-forces .chart-card-header h3 {
+  margin: 0;
+}
+
+.five-forces .compare-field {
+  flex: 1 1 14rem;
+  max-width: 20rem;
+  margin: 0;
+}
+
+/* The radar chart (SVG). */
+.five-forces .radar {
+  display: block;
+  width: 100%;
+  max-width: 34rem;
+  height: auto;
+  margin: 0 auto var(--space-3);
+  overflow: visible;
+}
+
+.five-forces .radar-ring {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.five-forces .radar-ring-outer {
+  stroke: var(--color-border-strong);
+}
+
+.five-forces .radar-axis {
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.five-forces .radar-ticks text {
+  font-size: 12px;
+  fill: var(--color-text-muted);
+}
+
+.five-forces .radar-labels text {
+  font-size: 17px;
+  font-weight: 650;
+  fill: var(--color-text);
+}
+
+.five-forces .radar-series-primary polygon {
+  fill: var(--color-accent);
+  fill-opacity: 0.16;
+  stroke: var(--color-accent);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.five-forces .radar-series-primary .radar-marker {
+  fill: var(--color-accent);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+
+.five-forces .radar-series-comparison polygon {
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 2.5;
+  stroke-dasharray: 8 6;
+  stroke-linejoin: round;
+}
+
+.five-forces .radar-series-comparison .radar-marker {
+  fill: var(--color-surface);
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+}
+
+.five-forces .chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+}
+
+.five-forces .chart-legend li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.five-forces .legend-swatch {
+  width: 2.25rem;
+  height: 0.75rem;
+  flex: none;
+  overflow: visible;
+}
+
+.five-forces .legend-line {
+  stroke-width: 2.5;
+}
+
+.five-forces .legend-line-primary {
+  stroke: var(--color-accent);
+}
+
+.five-forces .legend-marker-primary {
+  fill: var(--color-accent);
+}
+
+.five-forces .legend-line-comparison {
+  stroke: var(--color-text-muted);
+  stroke-dasharray: 5 4;
+}
+
+.five-forces .legend-marker-comparison {
+  fill: var(--color-surface);
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+}
+
+.five-forces .unrated-note {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.five-forces .highlights {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.five-forces .highlight h3 {
+  font-size: var(--text-lg);
+}
+
+.five-forces .strongest-list {
+  margin-bottom: var(--space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.five-forces .strongest-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-2) 0;
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.five-forces .strongest-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.five-forces .strongest-rating {
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.five-forces .structure-label {
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xl);
+  font-weight: 750;
+}
+
+.five-forces .structure-mean {
+  margin-bottom: var(--space-3);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.five-forces .structure-pending {
+  font-weight: 600;
+}
+
+.five-forces .highlight .muted {
+  font-size: var(--text-sm);
+}
+
+.five-forces .recap {
+  margin-bottom: var(--space-6);
+}
+
+.five-forces .recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+  gap: var(--space-4);
+}
+
+.five-forces .recap-item h4 {
+  margin-bottom: var(--space-2);
+}
+
+.five-forces .recap-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  font-weight: 700;
+}
+
+.five-forces .rating-pips {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.five-forces .pip {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: 2px;
+}
+
+.five-forces .pip.is-filled {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.five-forces .field-list {
+  margin: 0;
+}
+
+.five-forces .field-list > div + div {
+  margin-top: var(--space-3);
+}
+
+.five-forces .field-list dt {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.five-forces .field-list dd {
+  margin: 0.1rem 0 0;
+}
+
+.five-forces .prose {
+  white-space: pre-wrap;
+}
+
+.five-forces .compact-list {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.five-forces .compact-list li + li {
+  margin-top: 0;
+}
+
+.five-forces .implications-recap {
+  margin-bottom: var(--space-6);
+}
+
+/* ------------------------------------------------------------------ Print */
+
+@media print {
+  .five-forces .view-nav,
+  .five-forces .tool-purpose,
+  .five-forces .view-subtitle,
+  .five-forces .learn-more,
+  .five-forces .step-nav,
+  .five-forces button {
+    display: none !important;
+  }
+
+  .five-forces .summary-grid {
+    display: block;
+  }
+
+  .five-forces .summary-grid > * + * {
+    margin-top: var(--space-4);
+  }
+
+  .five-forces .radar {
+    max-width: 26rem;
+  }
+
+  .five-forces .recap-grid {
+    display: block;
+  }
+
+  .five-forces .recap-item {
+    margin-bottom: var(--space-3);
+  }
+}

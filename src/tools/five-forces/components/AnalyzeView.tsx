@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { FORCES, FORCE_ORDER } from '../data/forces'
+import { Button } from '../../../shared/components/Button'
+import { FORCES, FORCE_ORDER, SHORT_NAMES } from '../data/forces'
 import { IMPLICATIONS_STEP, STEP_COUNT, isStepComplete, ratedCount } from '../lib/analysis'
 import type { Analysis } from '../types'
 import { ForceStep } from './ForceStep'
@@ -19,7 +20,7 @@ interface AnalyzeViewProps {
 
 const STEP_LABELS: string[] = [
   'Industry',
-  ...FORCES.map((f) => f.shortName),
+  ...FORCES.map((f) => SHORT_NAMES[f.id]),
   'Implications',
 ]
 
@@ -104,9 +105,9 @@ export function AnalyzeView({
               <span style={{ width: `${(rated / total) * 100}%` }} />
             </div>
           </div>
-          <button type="button" className="button button-quiet" onClick={onStartOver}>
+          <Button variant="quiet" onClick={onStartOver}>
             Start over
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -121,27 +122,19 @@ export function AnalyzeView({
           {content}
           <div className="step-nav">
             {step > 0 ? (
-              <button
-                type="button"
-                className="button button-secondary"
-                onClick={() => goTo(step - 1)}
-              >
+              <Button variant="secondary" onClick={() => goTo(step - 1)}>
                 <span aria-hidden="true">← </span>Back
-              </button>
+              </Button>
             ) : null}
             {step < IMPLICATIONS_STEP ? (
-              <button
-                type="button"
-                className="button button-primary"
-                onClick={() => goTo(step + 1)}
-              >
+              <Button variant="primary" onClick={() => goTo(step + 1)}>
                 Next: {STEP_LABELS[step + 1]}
                 <span aria-hidden="true"> →</span>
-              </button>
+              </Button>
             ) : (
-              <button type="button" className="button button-primary" onClick={onViewSummary}>
+              <Button variant="primary" onClick={onViewSummary}>
                 View summary<span aria-hidden="true"> →</span>
-              </button>
+              </Button>
             )}
           </div>
         </div>

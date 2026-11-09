@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { Button } from '../../../shared/components/Button'
 import { FACTORS_NOT_FORCES, FORCES, SOURCES } from '../data/forces'
-import type { ForceId } from '../types'
 import { ForceCard } from './ForceCard'
 import { FrameworkDiagram } from './FrameworkDiagram'
 
@@ -9,17 +8,6 @@ interface LearnViewProps {
 }
 
 export function LearnView({ onStartAnalysis }: LearnViewProps) {
-  const [open, setOpen] = useState<ReadonlySet<ForceId>>(new Set())
-
-  const toggle = (id: ForceId) => {
-    setOpen((current) => {
-      const next = new Set(current)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-  }
-
   return (
     <section className="view learn-view" aria-labelledby="view-heading">
       <div className="learn-intro">
@@ -65,11 +53,7 @@ export function LearnView({ onStartAnalysis }: LearnViewProps) {
         <ul className="force-cards">
           {FORCES.map((force) => (
             <li key={force.id}>
-              <ForceCard
-                force={force}
-                expanded={open.has(force.id)}
-                onToggle={() => toggle(force.id)}
-              />
+              <ForceCard force={force} />
             </li>
           ))}
         </ul>
@@ -109,9 +93,9 @@ export function LearnView({ onStartAnalysis }: LearnViewProps) {
 
       <div className="cta">
         <p className="cta-text">Ready to apply it to a real industry?</p>
-        <button type="button" className="button button-primary" onClick={onStartAnalysis}>
-          Analyze an industry
-        </button>
+        <Button variant="primary" onClick={onStartAnalysis}>
+          Analyze an industry<span aria-hidden="true"> →</span>
+        </Button>
       </div>
     </section>
   )

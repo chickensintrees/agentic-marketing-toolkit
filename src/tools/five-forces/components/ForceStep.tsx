@@ -1,4 +1,6 @@
 import { useId, useState } from 'react'
+import { Disclosure } from '../../../shared/components/Disclosure'
+import { StatusMessage } from '../../../shared/components/StatusMessage'
 import {
   EVIDENCE_LABELS,
   RATINGS,
@@ -22,7 +24,7 @@ interface ForceStepProps {
   onChange: (next: Analysis) => void
 }
 
-/** Steps 2–6: rate one force, tick its drivers, explain, and state the evidence. */
+/** Analyze steps 1–5: rate one force, tick its drivers, explain, and state the evidence. */
 export function ForceStep({ analysis, force, stepLabel, onChange }: ForceStepProps) {
   const id = useId()
   const assessment = analysis.assessments[force.id]
@@ -56,16 +58,18 @@ export function ForceStep({ analysis, force, stepLabel, onChange }: ForceStepPro
       </h3>
       <p className="force-question">{force.question}</p>
 
-      <details className="learn-more">
-        <summary>About this force: drivers, high vs. low, and a common misconception</summary>
+      <Disclosure
+        className="learn-more"
+        summary="About this force: what drives it, what high and low look like, and a common misconception"
+      >
         <ForceDetail force={force} headingLevel={4} />
-      </details>
+      </Disclosure>
 
       <fieldset className="field rating-field" aria-describedby={`${id}-rating-hint`}>
         <legend>Rating: how strong is this force?</legend>
         <p className="hint" id={`${id}-rating-hint`}>
-          A higher rating means more pressure on industry profitability. For example,
-          “Threat of new entrants: High” means entry is easy.
+          For every force, a higher rating means more pressure on industry profitability.
+          For example, “Threat of new entrants: High” means entry is easy.
         </p>
         <div className="rating-options">
           {RATINGS.map((rating) => (
@@ -84,16 +88,15 @@ export function ForceStep({ analysis, force, stepLabel, onChange }: ForceStepPro
         </div>
       </fieldset>
 
-      <div role="status" aria-live="polite" className="status-region">
+      <StatusMessage tone="info">
         {autoSwitched ? (
-          <p className="notice">
-            <span aria-hidden="true">ⓘ </span>
+          <>
             You changed this illustrative example, so its evidence is now “
             {EVIDENCE_LABELS.assumption}.” If you can cite a source, choose “
             {EVIDENCE_LABELS.sourced}.”
-          </p>
+          </>
         ) : null}
-      </div>
+      </StatusMessage>
 
       <fieldset className="field" aria-describedby={`${id}-drivers-hint`}>
         <legend>Drivers present</legend>
