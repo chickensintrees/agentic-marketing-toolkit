@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Fit Ranker Mockup</title>
+<!-- Static mockup for src/tools/job-fit-ranker/SPEC.md (draft 0.1.0). Not app code.
+     Shows the Ranking view (spec §2.4) with the fictional example jobs (§3.2). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Same tokens as src/shared/tokens.css */
+:root {
+  color-scheme: light dark;
+  --display: 'EB Garamond', Garamond, 'Iowan Old Style', Georgia, serif;
+  --text: 'Source Serif 4', 'Iowan Old Style', Georgia, serif;
+  --bg: #efe9dc; --surface: #f7f3ea; --surface-2: #e6dfcf;
+  --ink: #1b1815; --muted: #4b443b; --rule: #8c8374;
+  --accent: #8f2a1c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171513; --surface: #211e1a; --surface-2: #2b2722;
+    --ink: #ece5d6; --muted: #bdb3a2; --rule: #7a7163; --accent: #e8937a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171513; --surface: #211e1a; --surface-2: #2b2722;
+  --ink: #ece5d6; --muted: #bdb3a2; --rule: #7a7163; --accent: #e8937a;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { margin: 0; padding: 0 16px 48px; font: 400 17px/1.45 var(--text); font-variant-numeric: lining-nums tabular-nums; }
+.wrap { max-width: 1240px; margin: 0 auto; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sc { font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .09em; font-weight: 500; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Shell header (suite §2.1) */
+.head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; padding: 18px 0 10px; border-bottom: 1px solid var(--ink); }
+.mark { font-family: var(--display); font-size: 21px; font-style: italic; text-decoration: none; color: inherit; }
+.head .here { color: var(--muted); font-family: var(--display); font-size: 19px; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; }
+h1 { font-size: clamp(36px, 4.5vw, 56px); line-height: 1.05; margin-top: 28px; }
+.purpose { color: var(--muted); margin: 6px 0 0; max-width: 40rem; }
+
+/* View nav (spec §2.1) */
+.views { display: flex; gap: 22px; margin: 20px 0 0; padding: 0; list-style: none; border-bottom: .5px solid var(--rule); }
+.views a { display: inline-block; padding: 6px 0; font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .1em; font-size: 19px; text-decoration: none; color: inherit; border-bottom: 2px solid transparent; }
+.views a[aria-current="page"] { border-bottom-color: var(--accent); }
+
+.disclaimer { font-style: italic; color: var(--muted); font-size: 15px; margin: 14px 0 0; }
+
+/* Ranking layout */
+.ranking { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 40px; margin-top: 24px; align-items: start; }
+@media (max-width: 860px) { .ranking { grid-template-columns: minmax(0, 1fr); } }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; padding-bottom: 14px; border-bottom: .5px solid var(--rule); }
+.field { display: flex; flex-direction: column; gap: 2px; font-size: 15px; }
+.field span { color: var(--muted); }
+.field input, .field select { background: var(--surface); border: 1px solid var(--rule); padding: 4px 8px; min-height: 36px; }
+.field input { width: 6.5em; }
+.hidden-note { font-size: 15px; color: var(--muted); margin-left: auto; }
+
+/* Chart */
+.figure { border: 1px solid var(--ink); padding: 6px; margin-top: 18px; }
+.figure > .inner { border: .5px solid var(--ink); padding: 14px 16px 10px; background: var(--surface); }
+.axis { display: grid; grid-template-columns: var(--label-w) minmax(0, 1fr) 3.2em; font-size: 13px; color: var(--muted); }
+.axis .ticks { position: relative; height: 18px; }
+.axis .ticks span { position: absolute; transform: translateX(-50%); }
+.chart { --label-w: minmax(9rem, 34%); position: relative; }
+.rows { position: relative; }
+.row { position: absolute; left: 0; right: 0; height: 56px; display: grid; grid-template-columns: var(--label-w) minmax(0, 1fr) 3.2em; align-items: center; gap: 0 12px;
+  width: 100%; text-align: left; background: none; border: 0; border-top: .5px solid var(--rule); padding: 0 4px; cursor: pointer;
+  transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) { .row { transition: none; } }
+@media (max-width: 560px) {
+  .row, .axis { grid-template-columns: minmax(0, 1fr) 3.2em; gap: 0 12px; }
+  .axis > span:first-child { display: none; }
+  .row { height: 76px; grid-template-rows: auto 30px; align-content: center; }
+  .row .who { grid-column: 1 / -1; }
+  .row svg { grid-column: 1; grid-row: 2; }
+  .row .score { grid-column: 2; grid-row: 2; }
+}
+.row .who { line-height: 1.2; min-width: 0; }
+.row .who b { font-weight: 600; font-size: 15px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .who small { color: var(--muted); font-size: 13px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .who .flag { color: var(--accent); font-style: italic; }
+.row svg { width: 100%; height: 26px; display: block; overflow: visible; }
+.row .score { font-family: var(--display); font-size: 22px; text-align: right; }
+.row[aria-pressed="true"] { background: var(--surface-2); }
+.row[aria-pressed="true"] .score, .row[aria-pressed="true"] .who b { color: var(--accent); }
+.row.miss svg { opacity: .55; }
+.seg { stroke: var(--ink); stroke-width: .75; transition: opacity .2s; }
+.dim .seg { opacity: .18; }
+.dim .seg.on { opacity: 1; }
+.gridline { stroke: var(--rule); stroke-width: .5; stroke-dasharray: 2 3; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 12px 0 0; padding: 0; list-style: none; font-size: 15px; }
+.legend button { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; padding: 4px 2px; cursor: pointer; border-bottom: 2px solid transparent; }
+.legend button[aria-pressed="true"] { border-bottom-color: var(--accent); }
+.legend svg { width: 22px; height: 14px; }
+
+/* Side panel */
+aside h2 { font-size: 22px; }
+.weights { margin-top: 10px; }
+.weight { padding: 10px 0; border-top: .5px solid var(--rule); }
+.weight label { display: flex; justify-content: space-between; gap: 8px; font-size: 15px; }
+.weight label svg { width: 22px; height: 14px; vertical-align: -2px; margin-right: 6px; }
+.weight label output { font-family: var(--display); font-size: 18px; }
+.weight input[type=range] { width: 100%; accent-color: var(--accent); margin: 6px 0 0; }
+.weight .must { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); margin-top: 2px; }
+.weight .must select { background: var(--surface); border: 1px solid var(--rule); font-size: 13px; padding: 1px 4px; }
+.share { font-size: 13px; color: var(--muted); }
+
+.detail { margin-top: 26px; border: 1px solid var(--ink); padding: 6px; }
+.detail .inner { border: .5px solid var(--ink); padding: 12px 14px; background: var(--surface); }
+.detail h3 { font-size: 20px; line-height: 1.2; }
+.detail p { margin: 2px 0 8px; font-size: 14px; color: var(--muted); }
+.detail table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.detail td, .detail th { padding: 3px 0; border-top: .5px solid var(--rule); text-align: right; }
+.detail td:first-child, .detail th:first-child { text-align: left; }
+.detail th { font-weight: 400; color: var(--muted); }
+
+/* Data table (spec §2.4.8) */
+.data { margin-top: 34px; }
+.data h2 { font-size: 22px; }
+.scroll { overflow-x: auto; }
+table.full { border-collapse: collapse; width: 100%; font-size: 15px; margin-top: 8px; }
+table.full th, table.full td { padding: 6px 8px; border-bottom: .5px solid var(--rule); text-align: right; white-space: nowrap; }
+table.full th:nth-child(2), table.full td:nth-child(2) { text-align: left; white-space: normal; }
+table.full thead th { font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .08em; font-weight: 500; border-bottom: 1px solid var(--ink); }
+.actions { display: flex; gap: 18px; margin-top: 18px; flex-wrap: wrap; }
+.actions button { background: none; border: 1px solid var(--ink); padding: 6px 14px; cursor: pointer; }
+.note { margin-top: 30px; font-size: 13px; color: var(--muted); border-top: .5px solid var(--rule); padding-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <a class="mark" href="#">Agentic Marketing Toolkit</a>
+    <span class="here">· Job Fit Ranker</span>
+  </header>
+
+  <main>
+    <h1>Job Fit Ranker</h1>
+    <p class="purpose">Weigh the jobs open to you against the criteria you set, and see how the order changes as your priorities change.</p>
+
+    <nav aria-label="Job Fit Ranker views">
+      <ul class="views">
+        <li><a href="#" aria-current="page">Ranking</a></li>
+        <li><a href="#criteria">Criteria</a></li>
+        <li><a href="#jobs">Jobs</a></li>
+      </ul>
+    </nav>
+    <p class="disclaimer">Example jobs are fictional and illustrative, not real listings.</p>
+
+    <div class="ranking">
+      <section aria-labelledby="chart-title">
+        <h2 id="chart-title" class="visually-hidden">Ranking chart</h2>
+        <div class="toolbar">
+          <label class="field"><span>Sort by</span>
+            <select id="sortBy"></select>
+          </label>
+          <label class="field"><span>Within (minutes)</span>
+            <input id="maxCommute" type="number" min="0" max="240" step="5" placeholder="Any">
+          </label>
+          <span class="hidden-note" id="hiddenNote" aria-live="polite"></span>
+        </div>
+
+        <div class="figure"><div class="inner">
+          <div class="chart" id="chart">
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+              <defs id="patterns"></defs>
+            </svg>
+            <div class="axis" aria-hidden="true"><span></span><div class="ticks" id="ticks"></div><span></span></div>
+            <div class="rows" id="rows" role="group" aria-labelledby="chart-summary"></div>
+            <p id="chart-summary" class="visually-hidden"></p>
+          </div>
+          <ul class="legend" id="legend" aria-label="Criteria: choose one to highlight it"></ul>
+        </div></div>
+        <p class="visually-hidden" aria-live="polite" id="announce"></p>
+      </section>
+
+      <aside aria-labelledby="weights-title">
+        <h2 id="weights-title">How much each matters</h2>
+        <div class="weights" id="weights"></div>
+        <div class="detail" id="detail" aria-live="polite"></div>
+      </aside>
+    </div>
+
+    <section class="data" aria-labelledby="table-title">
+      <h2 id="table-title">The same numbers, as a table</h2>
+      <div class="scroll"><table class="full" id="table"></table></div>
+      <div class="actions">
+        <button type="button" disabled>Copy as Markdown</button>
+        <button type="button" disabled>Download .md</button>
+        <button type="button" disabled>Start over</button>
+      </div>
+    </section>
+
+    <p class="note">Mockup for the draft spec at src/tools/job-fit-ranker/SPEC.md. Only the Ranking view is interactive here; Criteria and Jobs are described in the spec (§2.2, §2.3). Export buttons are placeholders.</p>
+  </main>
+</div>
+
+<script>
+// ---- Data (spec §3.2): fictional employers, 1–5 ratings, no salary figures ----
+const criteria = [
+  { id: 'pay',     name: 'Pay',              weight: 3, mustHave: null },
+  { id: 'commute', name: 'Commute',          weight: 3, mustHave: null },
+  { id: 'growth',  name: 'Growth',           weight: 3, mustHave: null },
+  { id: 'culture', name: 'Team and culture', weight: 3, mustHave: null },
+  { id: 'flex',    name: 'Flexibility',      weight: 3, mustHave: null },
+];
+const jobs = [
+  { id: 'j1', title: 'Product Marketing Associate', employer: 'Riverbend Software', commute: 35, r: { pay: 4, commute: 2, growth: 5, culture: 4, flex: 3 } },
+  { id: 'j2', title: 'Brand Coordinator',           employer: 'Hollow Creek Grocers', commute: 12, r: { pay: 2, commute: 5, growth: 3, culture: 4, flex: 2 } },
+  { id: 'j3', title: 'Marketing Analyst',           employer: 'Northfield Health',  commute: 20, r: { pay: 3, commute: 4, growth: 3, culture: 3, flex: 4 } },
+  { id: 'j4', title: 'Account Executive',           employer: 'Ashgrove Agency',    commute: 55, r: { pay: 5, commute: 1, growth: 4, culture: 2, flex: 2 } },
+  { id: 'j5', title: 'Digital Marketing Specialist', employer: 'Mountain State College', commute: 8, r: { pay: 2, commute: 5, growth: 2, culture: 5, flex: 5 } },
+  { id: 'j6', title: 'Market Research Associate',   employer: 'Laurel Consumer Goods', commute: 40, r: { pay: 4, commute: 2, growth: 4, culture: 3, flex: 4 } },
+];
+
+// ---- Scoring (spec §2.5): would live in lib/scoring.ts ----
+function rank(list) {
+  const active = criteria.filter(c => c.weight > 0);
+  const total = active.reduce((s, c) => s + c.weight, 0);
+  const top = [...active].sort((a, b) => b.weight - a.weight)[0];
+  const ranked = list.map(job => {
+    const rated = active.filter(c => job.r[c.id] != null);
+    const denom = rated.reduce((s, c) => s + c.weight, 0);
+    const contributions = {};
+    rated.forEach(c => { contributions[c.id] = denom ? (c.weight * job.r[c.id]) / denom : 0; });
+    const score = denom ? Object.values(contributions).reduce((a, b) => a + b, 0) : null;
+    const missed = criteria.filter(c => c.mustHave != null && !(job.r[c.id] >= c.mustHave)).map(c => c.id);
+    return { job, score, contributions, missed };
+  });
+  const by = sortBy.value;
+  const key = x => by === 'score' ? (x.score ?? -1) : (x.job.r[by] ?? -1);
+  ranked.sort((a, b) =>
+    (a.missed.length > 0) - (b.missed.length > 0) ||
+    key(b) - key(a) ||
+    (top ? (b.job.r[top.id] ?? 0) - (a.job.r[top.id] ?? 0) : 0) ||
+    a.job.title.localeCompare(b.job.title));
+  ranked.forEach((x, i) => x.rank = i + 1);
+  return { ranked, total };
+}
+
+// ---- Patterns: meaning by pattern + label, never color alone (spec §2.4.1) ----
+const PATTERNS = [
+  '<rect width="6" height="6" fill="currentColor"/>',
+  '<path d="M-1,1 l2,-2 M0,6 l6,-6 M5,7 l2,-2" stroke="currentColor" stroke-width="1.4"/>',
+  '<path d="M0,0 l6,6 M6,0 l-6,6" stroke="currentColor" stroke-width="1"/>',
+  '<circle cx="3" cy="3" r="1.3" fill="currentColor"/>',
+  '<path d="M0,1.5 h6 M0,4.5 h6" stroke="currentColor" stroke-width="1"/>',
+  '<path d="M1.5,0 v6 M4.5,0 v6" stroke="currentColor" stroke-width="1"/>',
+];
+const $ = id => document.getElementById(id);
+const sortBy = $('sortBy'), maxCommute = $('maxCommute');
+const ROW_H = () => matchMedia('(max-width: 560px)').matches ? 76 : 56;
+let focusCrit = null, selected = 'j1', lastTop = null;
+
+$('patterns').innerHTML = criteria.map((c, i) =>
+  `<pattern id="p-${c.id}" width="6" height="6" patternUnits="userSpaceOnUse" style="color:var(--ink)">
+     <rect width="6" height="6" fill="var(--surface)"/>${PATTERNS[i % PATTERNS.length]}</pattern>`).join('');
+
+sortBy.innerHTML = '<option value="score">Overall score</option>' +
+  criteria.map(c => `<option value="${c.id}">${c.name} only</option>`).join('');
+
+$('ticks').innerHTML = [0, 1, 2, 3, 4, 5].map(t => `<span style="left:${t * 20}%">${t}</span>`).join('');
+
+function swatch(c) {
+  return `<svg viewBox="0 0 22 14" aria-hidden="true"><rect class="seg" x=".5" y=".5" width="21" height="13" fill="url(#p-${c.id})"/></svg>`;
+}
+
+function renderLegend() {
+  $('legend').innerHTML = criteria.map(c =>
+    `<li><button type="button" data-crit="${c.id}" aria-pressed="${focusCrit === c.id}">${swatch(c)}${c.name}</button></li>`).join('');
+}
+
+function renderWeights() {
+  $('weights').innerHTML = criteria.map(c => `
+    <div class="weight">
+      <label for="w-${c.id}"><span>${swatch(c)} ${c.name}</span><output id="o-${c.id}">${c.weight}</output></label>
+      <input id="w-${c.id}" type="range" min="0" max="5" step="1" value="${c.weight}" data-crit="${c.id}" aria-describedby="s-${c.id}">
+      <div class="must"><span class="share" id="s-${c.id}"></span>
+        <label>Must-have <select data-must="${c.id}" aria-label="${c.name}: must-have minimum">
+          <option value="">none</option>${[1,2,3,4,5].map(n => `<option value="${n}" ${c.mustHave === n ? 'selected' : ''}>at least ${n}</option>`).join('')}
+        </select></label></div>
+    </div>`).join('');
+}
+
+function render() {
+  const limit = maxCommute.value === '' ? null : Number(maxCommute.value);
+  const visible = jobs.filter(j => limit == null || j.commute == null || j.commute <= limit);
+  const hidden = jobs.length - visible.length;
+  $('hiddenNote').textContent = hidden ? `${hidden} job${hidden > 1 ? 's' : ''} hidden by the commute limit` : '';
+
+  const { ranked, total } = rank(visible);
+  criteria.forEach(c => {
+    $('o-' + c.id).textContent = c.weight;
+    $('s-' + c.id).textContent = total ? `${Math.round(c.weight / total * 100)}% of the score` : 'not counted';
+  });
+
+  const rows = $('rows');
+  rows.style.height = (ranked.length * ROW_H()) + 'px';
+  rows.className = 'rows' + (focusCrit ? ' dim' : '');
+  if (!total) {
+    rows.innerHTML = '<p style="padding:20px 0">Give at least one criterion a weight above 0 to see a ranking.</p>';
+    rows.style.height = 'auto';
+  }
+  // keep one button per job, so moving rows can slide (spec §2.4.2)
+  const keep = new Set(ranked.map(x => x.job.id));
+  [...rows.querySelectorAll('.row')].forEach(el => { if (!keep.has(el.dataset.job)) el.remove(); });
+  if (total) ranked.forEach(x => {
+    let el = rows.querySelector(`[data-job="${x.job.id}"]`);
+    if (!el) { el = document.createElement('button'); el.type = 'button'; el.className = 'row'; el.dataset.job = x.job.id; rows.append(el); }
+    let xPos = 0;
+    const segs = criteria.filter(c => x.contributions[c.id] != null).map(c => {
+      const w = x.contributions[c.id] / 5 * 100;
+      const s = `<rect class="seg ${focusCrit === c.id ? 'on' : ''}" x="${xPos}%" y="1" width="${Math.max(w, 0)}%" height="24" fill="url(#p-${c.id})"><title>${c.name}: ${x.job.r[c.id]} of 5</title></rect>`;
+      xPos += w; return s;
+    }).join('');
+    const grid = [1, 2, 3, 4].map(t => `<line class="gridline" x1="${t * 20}%" x2="${t * 20}%" y1="-6" y2="32"/>`).join('');
+    const missNames = x.missed.map(id => criteria.find(c => c.id === id).name).join(', ');
+    el.classList.toggle('miss', x.missed.length > 0);
+    el.setAttribute('aria-pressed', String(selected === x.job.id));
+    el.setAttribute('aria-label', `${x.job.title}, ${x.job.employer}: score ${x.score?.toFixed(1)} of 5, rank ${x.rank} of ${ranked.length}` + (missNames ? `, misses a must-have: ${missNames}` : ''));
+    el.innerHTML = `
+      <span class="who"><b>${x.rank}. ${x.job.title}</b><small>${x.job.employer} · ${x.job.commute} min${missNames ? ` · <span class="flag">Misses a must-have: ${missNames}</span>` : ''}</small></span>
+      <svg aria-hidden="true">${grid}${segs}</svg>
+      <span class="score">${x.score == null ? '—' : x.score.toFixed(1)}</span>`;
+    el.style.transform = `translateY(${(x.rank - 1) * ROW_H()}px)`;
+  });
+
+  $('chart-summary').textContent = 'Jobs ranked by weighted score. ' +
+    ranked.slice(0, 3).map(x => `${x.rank}: ${x.job.title}, ${x.score?.toFixed(1)}`).join('; ') + '.';
+  const topNow = ranked[0]?.job.id;
+  if (lastTop && topNow && topNow !== lastTop) $('announce').textContent = `Now first: ${ranked[0].job.title}`;
+  lastTop = topNow;
+
+  renderDetail(ranked);
+  renderTable(ranked);
+}
+
+function renderDetail(ranked) {
+  const x = ranked.find(r => r.job.id === selected) || ranked[0];
+  if (!x) { $('detail').innerHTML = ''; return; }
+  $('detail').innerHTML = `<div class="inner">
+    <h3>${x.job.title}</h3><p>${x.job.employer} · ${x.job.commute} min · rank ${x.rank} of ${ranked.length}</p>
+    <table><thead><tr><th>Criterion</th><th>Rating</th><th>Weight</th><th>Adds</th></tr></thead><tbody>
+    ${criteria.map(c => `<tr><td>${c.name}</td><td>${x.job.r[c.id] ?? '—'}</td><td>${c.weight}</td><td>${x.contributions[c.id] != null ? x.contributions[c.id].toFixed(2) : '—'}</td></tr>`).join('')}
+    <tr><td><b>Score</b></td><td></td><td></td><td><b>${x.score?.toFixed(1) ?? '—'}</b></td></tr></tbody></table></div>`;
+}
+
+function renderTable(ranked) {
+  $('table').innerHTML = `<thead><tr><th>Rank</th><th>Job</th>${criteria.map(c => `<th>${c.name}</th>`).join('')}<th>Score</th><th>Must-haves</th></tr></thead>
+    <tbody>${ranked.map(x => `<tr><td>${x.rank}</td><td>${x.job.title}, ${x.job.employer}</td>
+      ${criteria.map(c => `<td>${x.job.r[c.id] ?? '—'}</td>`).join('')}
+      <td>${x.score?.toFixed(1) ?? '—'}</td><td>${x.missed.length ? 'Misses ' + x.missed.map(id => criteria.find(c => c.id === id).name).join(', ') : 'Met'}</td></tr>`).join('')}</tbody>`;
+}
+
+// ---- Events ----
+$('weights').addEventListener('input', e => {
+  const id = e.target.dataset.crit; if (!id) return;
+  criteria.find(c => c.id === id).weight = Number(e.target.value); render();
+});
+$('weights').addEventListener('change', e => {
+  const id = e.target.dataset.must; if (!id) return;
+  criteria.find(c => c.id === id).mustHave = e.target.value ? Number(e.target.value) : null; render();
+});
+$('legend').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  focusCrit = focusCrit === b.dataset.crit ? null : b.dataset.crit; renderLegend(); render();
+});
+$('rows').addEventListener('click', e => {
+  const b = e.target.closest('.row'); if (!b) return;
+  selected = b.dataset.job; render();
+});
+$('rows').addEventListener('focusin', e => {
+  const b = e.target.closest('.row'); if (!b || selected === b.dataset.job) return;
+  selected = b.dataset.job; render();
+});
+sortBy.addEventListener('change', render);
+maxCommute.addEventListener('input', render);
+matchMedia('(max-width: 560px)').addEventListener('change', render);
+
+renderLegend(); renderWeights(); render();
+</script>
+</body>
+</html>
