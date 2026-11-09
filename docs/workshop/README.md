@@ -4,7 +4,7 @@ Guest lecture, *How products get built: harnesses for AI agents, and
 collaboration on GitHub*, by Bill Moore. WVU marketing class, 9 November 2026, 60 minutes.
 
 **Deck:** https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (a Claude Slides
-artifact, 17 slides. It is private until shared from its Share menu.)
+artifact, 18 slides. It is private until shared from its Share menu.)
 
 | File | What it is |
 |---|---|

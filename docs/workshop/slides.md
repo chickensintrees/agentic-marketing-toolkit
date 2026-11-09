@@ -1,8 +1,8 @@
 # Slides: source text and speaker notes
 
 Plain-text mirror of the deck at
-https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 51).
-The deck is the master. When it changes, update this file to match. 17
+https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 52).
+The deck is the master. When it changes, update this file to match. 18
 slides; timings match `run-of-show.md`.
 
 ## Names
@@ -17,7 +17,7 @@ slides; timings match `run-of-show.md`.
 | SITE | chickensintrees.github.io/agentic-marketing-toolkit (Five Forces at `#/five-forces`) |
 
 Open placeholders: `[SLIDO CODE]`, `[QR: …]`, `[BUILD GRAPH]`,
-`[SCREENSHOT: …]`, `#[ISSUE]`, `[WINNING INDUSTRY]`, `[TOP 3 ANSWERS]`.
+`[SCREENSHOT: …]`, `[DEMO: BCG work]`, `#[ISSUE]`, `[WINNING INDUSTRY]`, `[TOP 3 ANSWERS]`.
 
 ---
 
@@ -139,25 +139,17 @@ You approve each action. Never paste a password or token into a chat.
 > browser sign-in only, no tokens in chat, approve each public action,
 > revoke at github.com → Settings → Applications.
 
-## 7. How this was built (0:18)
+## 7. Work at BCG (0:18)
 
-**How this was built**
+**Work at BCG**
 
-1. **Spec.** One shared source of truth.
-2. **Split.** Builder, research, review and fix agents.
-3. **Coordinate.** Agents message each other; a person redirects.
-4. **Integrate.** Pull requests into one repo; tests check every change.
+[DEMO: BCG work]
 
-[BUILD GRAPH: sessions, agents, messages, PRs, timings]
-
-> **Notes:** An orchestrator agent took my planning notes, wrote SPEC.md
-> first, and split the work. A builder agent wrote the app. A research
-> agent checked current tool facts. Four reviewer agents each took one
-> lens: Porter accuracy, code against the spec, accessibility, and beginner
-> onboarding. Fixer agents addressed their findings, and a verifier checked
-> the fixes. Separate sessions handled other chunks, including this deck.
-> Point at the graph. One redirect story: I rejected the first deck and
-> title, and the agents changed course.
+> **Notes:** Live demos of BCG work. GENE: BCG's conversational AI;
+> designed its prompt architecture, personality and voice; co-hosted 52
+> podcast episodes with it; live interviews at Davos, Cannes Lions (2024)
+> and WIRED/Condé Nast; first non-human Webby winner for Best Podcast
+> Cohost (2024). Then move to the Agentic Marketing Toolkit.
 
 ## 8. The Agentic Marketing Toolkit (0:22)
 
@@ -181,14 +173,37 @@ Each tool is a separate folder with its own SPEC.md.
 
 ## 9. Live site (0:25)
 
-[LIVE SITE: chickensintrees.github.io/agentic-marketing-toolkit]
+[Screenshot: Five Forces Explorer Summary view, U.S. passenger airlines
+compared with subscription video streaming on the radar chart]
+
+chickensintrees.github.io/agentic-marketing-toolkit
 
 > **Notes:** Switch to the browser, about 90 seconds. Five Forces: Learn
 > (open one force card), Analyze (load the whitewater rafting preset),
 > Summary (radar chart, then Compare with U.S. airlines). If the site won't
-> load: local build with `npm run preview`.
+> load, use this screenshot, or run the local build with `npm run preview`.
 
-## 10. Poll 2 (0:27)
+## 10. How this was built (0:27)
+
+**How this was built**
+
+1. **Spec.** One shared source of truth.
+2. **Split.** Builder, research, review and fix agents.
+3. **Coordinate.** Agents message each other; a person redirects.
+4. **Integrate.** Pull requests into one repo; tests check every change.
+
+[BUILD GRAPH: sessions, agents, messages, PRs, timings]
+
+> **Notes:** An orchestrator agent took my planning notes, wrote SPEC.md
+> first, and split the work. A builder agent wrote the app. A research
+> agent checked current tool facts. Four reviewer agents each took one
+> lens: Porter accuracy, code against the spec, accessibility, and beginner
+> onboarding. Fixer agents addressed their findings, and a verifier checked
+> the fixes. Separate sessions handled other chunks, including this deck.
+> Point at the graph. One redirect story: I rejected the first deck and
+> title, and the agents changed course.
+
+## 11. Poll 2 (0:31)
 
 Poll 2 · slido.com · #[SLIDO CODE]
 
@@ -200,7 +215,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 > option has a prepared fallback branch and pull request
 > (`live-demo-script.md`). If Slido is unavailable, use a show of hands.
 
-## 11. The prompt (0:28)
+## 12. The prompt (0:32)
 
 **The prompt**
 
@@ -215,7 +230,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 > appears, read it and approve it. Move to the next slide while the agent
 > works.
 
-## 12. Five Forces: the AI coding agent industry (0:30)
+## 13. Five Forces: the AI coding agent industry (0:34)
 
 Poll 3 · slido.com · #[SLIDO CODE]
 
@@ -235,7 +250,7 @@ Footer: Higher rating = more pressure on industry profitability
 > is not a source. Cover rivalry and buyer power by discussion if time
 > allows. Check the agent's progress periodically.
 
-## 13. From change to merge (0:37)
+## 14. From change to merge (0:41)
 
 **From change to merge**
 
@@ -253,7 +268,7 @@ issue comment]
 > stalled or failed, say so and open the prepared fallback pull request. A
 > failing check is the harness working as intended.
 
-## 14. How to contribute (0:41)
+## 15. How to contribute (0:45)
 
 **How to contribute**
 
@@ -274,7 +289,7 @@ unless assigned by your instructor.
 > available to help anyone who wants to contribute. Defer to the professor
 > on whether it is assigned.
 
-## 15. Tools and plans (0:44)
+## 16. Tools and plans (0:47)
 
 **Tools and plans**
 
@@ -298,7 +313,7 @@ Footer: Source: vendor documentation, 8 November 2026
 > open an industry file on GitHub, choose edit, and GitHub creates the fork
 > and the pull request.
 
-## 16. Summary (0:46)
+## 17. Summary (0:49)
 
 **Summary**
 
@@ -314,7 +329,7 @@ github.com/chickensintrees/agentic-marketing-toolkit
 > and I will continue to help through the repository's issues. Then open
 > questions.
 
-## 17. Questions (0:48)
+## 18. Questions (0:51)
 
 **Questions**
 
