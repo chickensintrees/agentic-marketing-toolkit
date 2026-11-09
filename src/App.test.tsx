@@ -13,26 +13,30 @@ function mainHeading() {
 }
 
 describe('suite shell', () => {
-  it('Home lists every registered tool and every wanted tool', () => {
+  it('Home lists every registered tool and every wanted tool, with pitches on demand', async () => {
+    const user = userEvent.setup()
     render(<App />)
     expect(mainHeading()).toHaveTextContent(PRODUCT_NAME)
     expect(document.title).toBe(PRODUCT_NAME)
     for (const tool of TOOLS) {
-      expect(screen.getByRole('heading', { level: 3, name: tool.name })).toBeInTheDocument()
-      expect(screen.getByText(tool.tagline)).toBeInTheDocument()
-      expect(screen.getByRole('link', { name: `Open ${tool.name}` })).toHaveAttribute(
-        'href',
-        `#/${tool.id}`,
-      )
+      expect(screen.getByRole('heading', { level: 2, name: tool.name })).toBeInTheDocument()
+      const link = screen.getByRole('link', { name: `Open ${tool.name}` })
+      expect(link).toHaveAttribute('href', `#/${tool.id}`)
+      expect(link).toHaveAccessibleDescription(tool.tagline)
     }
     for (const wanted of WANTED_TOOLS) {
-      expect(screen.getByRole('heading', { level: 3, name: wanted.name })).toBeInTheDocument()
+      const item = screen.getByRole('button', { name: wanted.name })
+      expect(item).toHaveAttribute('aria-expanded', 'false')
+      expect(screen.queryByText(wanted.pitch)).not.toBeInTheDocument()
+      await user.click(item)
+      expect(item).toHaveAttribute('aria-expanded', 'true')
       expect(screen.getByText(wanted.pitch)).toBeInTheDocument()
     }
     expect(screen.getByRole('link', { name: 'How to propose and build a tool' })).toHaveAttribute(
       'href',
       BUILD_A_TOOL_URL,
     )
+    expect(screen.getByRole('link', { name: 'How to contribute' })).toHaveAttribute('href', CONTRIBUTING_URL)
   })
 
   it('has the landmarks, the footer links, and the disclaimer', () => {
@@ -62,7 +66,7 @@ describe('suite shell', () => {
   it('passes the subpath to the tool', () => {
     window.location.hash = '#/five-forces/summary'
     render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: 'Summary' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 2, name: 'Nothing to summarize yet' })).toBeInTheDocument()
   })
 
   it('shows Home for an unknown route', () => {
@@ -77,14 +81,14 @@ describe('suite shell', () => {
     render(<App />)
     await user.click(screen.getByRole('link', { name: /Open Five Forces Explorer/ }))
     await waitFor(() => expect(mainHeading()).toHaveTextContent('Five Forces Explorer'))
-    await user.click(screen.getByRole('link', { name: 'Analyze' }))
+    await user.click(screen.getByRole('link', { name: /Summary/ }))
     await waitFor(() =>
-      expect(screen.getByRole('heading', { level: 2, name: 'Analyze an industry' })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { level: 2, name: 'Nothing to summarize yet' })).toBeInTheDocument(),
     )
 
     window.history.back()
     await waitFor(() =>
-      expect(screen.getByRole('heading', { level: 2, name: 'Learn the framework' })).toBeInTheDocument(),
+      expect(screen.getByRole('group', { name: 'Five forces diagram' })).toBeInTheDocument(),
     )
     window.history.back()
     await waitFor(() => expect(mainHeading()).toHaveTextContent(PRODUCT_NAME))

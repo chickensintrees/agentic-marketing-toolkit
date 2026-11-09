@@ -38,7 +38,8 @@ h4,
 h5,
 h6 {
   margin: 0 0 var(--space-3);
-  line-height: 1.25;
+  font-family: var(--font-hand);
+  line-height: 1.1;
   font-weight: 700;
   color: var(--color-text);
   text-wrap: balance;
@@ -46,12 +47,10 @@ h6 {
 
 h1 {
   font-size: var(--text-3xl);
-  letter-spacing: -0.02em;
 }
 
 h2 {
   font-size: var(--text-2xl);
-  letter-spacing: -0.01em;
 }
 
 h3 {
@@ -89,8 +88,8 @@ li + li {
 
 a {
   color: var(--color-accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
 }
 
 a:hover {
@@ -107,8 +106,8 @@ strong {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
+  outline: 3px dashed var(--color-focus);
+  outline-offset: 3px;
   border-radius: 2px;
 }
 
@@ -167,12 +166,14 @@ strong {
   justify-content: center;
   gap: var(--space-1);
   min-height: 44px;
-  padding: 0.55rem 1.1rem;
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  font: inherit;
-  font-weight: 650;
+  padding: 0.45rem 1.15rem;
+  border: 2.5px solid transparent;
+  border-radius: var(--radius-sketch);
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  font-weight: 700;
   line-height: 1.2;
+  background: transparent;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -187,34 +188,35 @@ strong {
 }
 
 .button-primary {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-}
-
-.button-primary:hover {
-  background: var(--color-accent-hover);
-  color: var(--color-on-accent);
-}
-
-.button-secondary {
-  background: var(--color-surface);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
-.button-secondary:hover {
+.button-primary:hover {
   background: var(--color-accent-soft);
   color: var(--color-accent-hover);
 }
 
-.button-quiet {
-  background: transparent;
-  border-color: var(--color-border-strong);
+.button-secondary {
+  border-color: var(--color-text);
   color: var(--color-text);
 }
 
-.button-quiet:hover {
+.button-secondary:hover {
   background: var(--color-surface-muted);
+}
+
+.button-quiet {
+  padding-inline: 0.25rem;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+}
+
+.button-quiet:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
 }
 
 .button-row {
@@ -228,9 +230,8 @@ strong {
 
 .card {
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border: 2px solid var(--color-border-strong);
+  border-radius: var(--radius-sketch);
   padding: var(--space-5) var(--space-4);
 }
 
@@ -289,7 +290,7 @@ textarea {
   font: inherit;
   color: var(--color-text);
   background: var(--color-surface);
-  border: 1px solid var(--color-border-strong);
+  border: 2px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
 }
 
@@ -318,8 +319,8 @@ input[type='checkbox'] {
   margin: 0 0 var(--space-5);
   padding: var(--space-4);
   background: var(--color-surface-muted);
-  border-left: 4px solid var(--color-accent);
-  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-text);
+  border-radius: 0;
 }
 
 .callout > :is(h2, h3, h4, h5) {
@@ -388,10 +389,13 @@ input[type='checkbox'] {
   justify-content: space-between;
   gap: var(--space-3);
   min-height: 44px;
-  padding: var(--space-3) var(--space-4);
-  font: inherit;
+  padding: var(--space-2) 0;
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
   text-align: left;
-  color: var(--color-text);
+  color: var(--color-accent);
   background: transparent;
   border: 0;
   border-radius: inherit;
@@ -421,7 +425,7 @@ input[type='checkbox'] {
 }
 
 .disclosure-panel {
-  padding: 0 var(--space-4) var(--space-4);
+  padding: var(--space-1) 0 var(--space-4);
 }
 
 /* ------------------------------------------------------------------ Badge */
@@ -497,6 +501,18 @@ input[type='checkbox'] {
     font-size: 11pt;
   }
 
+  .disclosure-panel[hidden] {
+    display: block !important;
+  }
+
+  .disclosure-toggle {
+    color: var(--color-text);
+  }
+
+  .disclosure-chevron {
+    display: none;
+  }
+
   .card {
     box-shadow: none;
     break-inside: avoid;
@@ -510,4 +526,81 @@ input[type='checkbox'] {
   :focus-visible {
     outline: none !important;
   }
+}
+
+/* ----------------------------------------------------------- Sketch (§2.4) */
+
+.marker-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.stroke {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ink-ink {
+  stroke: var(--color-text);
+}
+
+.ink-pencil {
+  stroke: var(--color-text-muted);
+}
+
+.ink-accent {
+  stroke: var(--color-accent);
+}
+
+.ink-pressure {
+  stroke: var(--color-pressure);
+}
+
+.sketch-wobble {
+  filter: url('#marker-wobble');
+}
+
+.sketch-underline {
+  position: absolute;
+  left: -0.25rem;
+  bottom: -0.55rem;
+  width: calc(100% + 0.5rem);
+  height: 0.9rem;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.sketch-circled {
+  position: absolute;
+  inset: -0.3rem -0.45rem;
+  width: calc(100% + 0.9rem);
+  height: calc(100% + 0.6rem);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.draw-in {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: draw-in 0.45s ease-out;
+}
+
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+svg text {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  fill: var(--color-text);
+}
+
+.hand {
+  font-family: var(--font-hand);
+  font-weight: 700;
 }

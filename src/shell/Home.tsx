@@ -1,72 +1,86 @@
+import { useState } from 'react'
 import { BUILD_A_TOOL_URL, CONTRIBUTING_URL, PRODUCT_NAME } from '../config'
+import { Circled, Underline } from '../shared/components/Marker'
 import { TOOLS } from '../tools'
 import { WANTED_TOOLS } from '../tools/wanted'
 import { formatHash } from './router'
+import { ToolSketch, WantedSketch } from './sketches'
 
-/** Home: hero, one card per registered tool, and the wanted-tools list. SPEC §2.3. */
+/** Home: a sketch of each tool, then a "Next up" shelf of wanted tools. SPEC §2.3. */
 export function Home() {
+  const [openWanted, setOpenWanted] = useState<string | null>(null)
+  const wanted = WANTED_TOOLS.find((item) => item.id === openWanted)
+
   return (
     <div className="home">
-      <section className="hero" aria-labelledby="home-heading">
-        <p className="eyebrow">Free and open source</p>
-        <h1 id="home-heading">{PRODUCT_NAME}</h1>
-        <p className="hero-lead">
-          Small, practical tools that help MBA students learn the classic frameworks of
-          marketing and strategy, and apply them to real markets.
-        </p>
-        <p className="hero-sub">
-          It is built by a class: each student works with a coding agent and adds to the
-          toolkit through GitHub pull requests.{' '}
-          <a href={CONTRIBUTING_URL}>See how to contribute</a>.
-        </p>
-      </section>
+      <div className="home-top">
+        <h1 id="home-heading" className="home-title visually-hidden">
+          {PRODUCT_NAME}
+        </h1>
+        <a className="home-contribute" href={CONTRIBUTING_URL}>
+          How to contribute
+        </a>
+      </div>
 
-      <section className="home-section" aria-labelledby="tools-heading">
-        <h2 id="tools-heading">Tools</h2>
-        <ul className="tool-cards">
-          {TOOLS.map((tool) => (
-            <li key={tool.id}>
-              <article className="card tool-card">
-                <h3>{tool.name}</h3>
-                {tool.framework ? (
-                  <p className="tool-framework">
-                    <span className="visually-hidden">Framework: </span>
-                    {tool.framework}
-                  </p>
-                ) : null}
-                <p className="tool-tagline">{tool.tagline}</p>
-                <a
-                  className="button button-primary"
-                  href={formatHash({ kind: 'tool', toolId: tool.id, subpath: '' })}
+      <ul className="home-tools" aria-label="Tools">
+        {TOOLS.map((tool) => (
+          <li key={tool.id}>
+            <a
+              className="home-tool"
+              href={formatHash({ kind: 'tool', toolId: tool.id, subpath: '' })}
+              aria-label={`Open ${tool.name}`}
+              aria-describedby={`tagline-${tool.id}`}
+            >
+              <ToolSketch id={tool.id} name={tool.name} />
+              <span className="home-tool-text">
+                <h2 className="home-tool-name">{tool.name}</h2>
+                {tool.framework ? <span className="home-tool-framework">{tool.framework}</span> : null}
+                <span id={`tagline-${tool.id}`} className="visually-hidden">
+                  {tool.tagline}
+                </span>
+                <span className="home-tool-open" aria-hidden="true">
+                  Open the board <span className="home-arrow">→</span>
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <section className="shelf" aria-labelledby="wanted-heading">
+        <div className="shelf-head">
+          <h2 id="wanted-heading">Next up</h2>
+          <a href={BUILD_A_TOOL_URL}>How to propose and build a tool</a>
+        </div>
+        <ul className="shelf-tray">
+          {WANTED_TOOLS.map((item) => {
+            const open = item.id === openWanted
+            return (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  className="shelf-item"
+                  aria-expanded={open}
+                  aria-controls="wanted-pitch"
+                  onClick={() => setOpenWanted(open ? null : item.id)}
                 >
-                  Open <span className="visually-hidden">{tool.name}</span>
-                  <span aria-hidden="true"> →</span>
-                </a>
-              </article>
-            </li>
-          ))}
+                  <WantedSketch id={item.id} name={item.name} />
+                  <span className="shelf-name">{item.name}</span>
+                  {open ? <Circled seed={`shelf-${item.id}`} /> : null}
+                </button>
+              </li>
+            )
+          })}
         </ul>
-      </section>
-
-      <section className="home-section" aria-labelledby="wanted-heading">
-        <h2 id="wanted-heading">Help build the next tool</h2>
-        <p className="section-lead">
-          These are the tools the class wants next. Pick one, write a short proposal, and
-          build it with your coding agent. Every tool follows the same simple pattern, so
-          you never have to understand the whole codebase.
-        </p>
-        <ul className="wanted-list">
-          {WANTED_TOOLS.map((wanted) => (
-            <li key={wanted.id} className="wanted-item">
-              <h3 className="wanted-name">{wanted.name}</h3>
-              <p className="wanted-pitch">{wanted.pitch}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="wanted-cta">
-          <a className="button button-secondary" href={BUILD_A_TOOL_URL}>
-            How to propose and build a tool
-          </a>
+        <div className="shelf-ledge" aria-hidden="true">
+          <Underline seed="ledge" width={3} />
+        </div>
+        <p id="wanted-pitch" className="shelf-pitch" aria-live="polite">
+          {wanted ? (
+            <>
+              <strong className="hand">{wanted.name}:</strong> {wanted.pitch}
+            </>
+          ) : null}
         </p>
       </section>
     </div>
