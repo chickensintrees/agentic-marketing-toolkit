@@ -1,0 +1,730 @@
+/* Five Forces Explorer: the board and the Summary. See this tool's SPEC.md §2. */
+
+.ff-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-2);
+}
+
+.ff-title {
+  position: relative;
+  margin: 0;
+  font-size: var(--text-2xl);
+}
+
+.ff-nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 0.35rem;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* --------------------------------------------------------------- Picker */
+
+.picker {
+  flex: 1 1 32rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.picker-row {
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  padding: var(--space-2) var(--space-2) var(--space-3);
+  scrollbar-width: thin;
+}
+
+.picker-option {
+  position: relative;
+  flex: 0 0 auto;
+  display: flex;
+  width: 8rem;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-1) var(--space-2) var(--space-2);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+
+.picker-option.is-checked {
+  color: var(--color-text);
+}
+
+.picker-option:hover {
+  color: var(--color-text);
+}
+
+.picker-option:has(input:focus-visible) {
+  outline: 3px dashed var(--color-focus);
+  outline-offset: 2px;
+}
+
+.doodle {
+  width: 5.5rem;
+  height: 4.4rem;
+}
+
+.picker-label {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------- Confirmation */
+
+.confirm {
+  margin: var(--space-3) 0;
+  padding: var(--space-3) var(--space-4) 0;
+  border: 2.5px solid var(--color-pressure);
+  border-radius: var(--radius-sketch);
+}
+
+.confirm:focus {
+  outline: 3px dashed var(--color-focus);
+  outline-offset: 3px;
+}
+
+.confirm-question {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.confirm .button-row {
+  margin-bottom: var(--space-3);
+}
+
+/* ----------------------------------------------------------------- Board */
+
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24rem;
+  gap: var(--space-5) var(--space-6);
+  align-items: start;
+  margin-top: var(--space-2);
+}
+
+.board-canvas {
+  min-width: 0;
+}
+
+.board-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 15rem);
+  min-height: 18rem;
+  margin-inline: auto;
+}
+
+.board-label {
+  fill: var(--color-text);
+}
+
+.board-unrated {
+  fill: var(--color-text-muted);
+}
+
+.board-num-ink {
+  fill: var(--color-text);
+}
+
+.board-num-pencil {
+  fill: var(--color-text-muted);
+}
+
+.board-num-pressure {
+  fill: var(--color-pressure);
+}
+
+.board-force {
+  cursor: pointer;
+  outline: none;
+}
+
+.board-force:hover .board-label {
+  fill: var(--color-accent);
+}
+
+.board-force[aria-pressed='true'] .board-label {
+  fill: var(--color-accent);
+}
+
+.board-hit {
+  fill: transparent;
+}
+
+.board-focus {
+  fill: none;
+  stroke: var(--color-focus);
+  stroke-width: 3;
+  stroke-dasharray: 10 8;
+  opacity: 0;
+}
+
+.board-force:focus-visible .board-focus {
+  opacity: 1;
+}
+
+.board-foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-1) var(--space-4);
+  margin-top: var(--space-1);
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+}
+
+.board-foot p {
+  margin: 0;
+}
+
+.board-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.board-legend svg {
+  width: 5.5rem;
+  height: 1.4rem;
+}
+
+.board-side {
+  min-width: 0;
+  padding-top: var(--space-4);
+}
+
+.notes-title {
+  margin: 0 0 var(--space-2);
+  font-size: clamp(2rem, 1.6rem + 1.4vw, 2.75rem);
+}
+
+.notes-title:focus {
+  outline: none;
+}
+
+.notes-question {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-lg);
+}
+
+.notes-prompt {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+  color: var(--color-text-muted);
+}
+
+.notes-sub {
+  margin-top: var(--space-4);
+  font-size: var(--text-lg);
+}
+
+.notes-more {
+  border-top: 2px dashed var(--color-border);
+}
+
+.notes-more:last-of-type {
+  border-bottom: 2px dashed var(--color-border);
+}
+
+.board-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+/* ---------------------------------------------------------------- Rating */
+
+.rate {
+  margin: 0 0 var(--space-3);
+}
+
+.rate-legend {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.rate-options {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.rate-option {
+  position: relative;
+  display: flex;
+  width: 3.9rem;
+  height: 4.75rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.1rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+
+.rate-option:has(input:focus-visible) {
+  outline: 3px dashed var(--color-focus);
+  outline-offset: 2px;
+}
+
+.rate-tally {
+  width: 2.75rem;
+  height: 1.9rem;
+}
+
+.rate-number {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+.rate-option.is-checked .rate-number {
+  color: var(--color-text);
+}
+
+.rate-option:hover .rate-number {
+  color: var(--color-text);
+}
+
+.rate-word {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* --------------------------------------------------------------- Drivers */
+
+.drivers {
+  margin: 0 0 var(--space-3);
+}
+
+.driver-checks {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  list-style: none;
+}
+
+.driver-checks li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+.driver-checks input {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.15rem;
+}
+
+.driver-checks label {
+  cursor: pointer;
+  line-height: 1.35;
+}
+
+.driver-off {
+  color: var(--color-text-muted);
+}
+
+.text-button {
+  min-height: 44px;
+  padding: 0;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-accent);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.evidence-options {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.radio-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.source-field {
+  margin: var(--space-3) 0 0;
+}
+
+/* --------------------------------------------- About this force (detail) */
+
+.force-summary {
+  margin-top: 0;
+}
+
+.detail-heading {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.driver-list,
+.high-low ul {
+  padding-left: 1.2rem;
+}
+
+.detail-box p {
+  margin-top: 0;
+}
+
+.factor-list {
+  margin: 0;
+}
+
+.factor-list dt {
+  font-weight: 700;
+}
+
+.factor-list dd {
+  margin: 0 0 var(--space-3);
+}
+
+.source-list {
+  padding-left: 1.2rem;
+}
+
+/* --------------------------------------------------------------- Summary */
+
+.summary {
+  margin-top: var(--space-4);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-5) var(--space-7);
+  align-items: start;
+}
+
+.summary-left,
+.summary-right {
+  min-width: 0;
+}
+
+.summary-id {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.doodle-big {
+  flex: none;
+  width: 7.5rem;
+  height: 6rem;
+}
+
+.summary-id-text {
+  min-width: 0;
+}
+
+.summary-id h2 {
+  margin: 0;
+  font-size: clamp(2rem, 1.5rem + 1.6vw, 2.75rem);
+}
+
+.summary-id h2:focus {
+  outline: none;
+}
+
+.summary-scope,
+.summary-evidence {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+}
+
+.summary-evidence {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+}
+
+.board-mini {
+  max-height: none;
+  min-height: 0;
+  margin-top: var(--space-4);
+}
+
+.pressure-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pressure-table th,
+.pressure-table td {
+  padding: var(--space-2) var(--space-2);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.pressure-table thead th {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  border-bottom: 2px dashed var(--color-border);
+}
+
+.pressure-table tbody th {
+  white-space: nowrap;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
+.pressure-name {
+  position: relative;
+  display: inline-block;
+}
+
+.pressure-bar-cell {
+  width: 100%;
+  min-width: 6rem;
+}
+
+.pressure-bar {
+  display: block;
+  width: 100%;
+  height: 2.9rem;
+  overflow: visible;
+}
+
+.pressure-num {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.pressure-compare,
+.pressure-diff {
+  font-size: 1.3rem;
+  color: var(--color-text-muted);
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-5);
+  margin: var(--space-2) 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.chart-legend svg {
+  width: 2.5rem;
+  height: 1rem;
+  overflow: visible;
+}
+
+.compare-field {
+  max-width: 22rem;
+}
+
+.compare-field label {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+}
+
+.summary-findings {
+  margin-bottom: var(--space-3);
+}
+
+.finding-label {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.finding-value {
+  margin: 0;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.finding-note {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 34rem;
+}
+
+.export {
+  margin-top: var(--space-4);
+}
+
+.implications {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 2px dashed var(--color-border);
+}
+
+.implications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--space-6);
+}
+
+.recap {
+  border-block: 2px dashed var(--color-border);
+}
+
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: var(--space-5);
+}
+
+.recap-item h4 {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.recap-item dl {
+  margin: 0;
+}
+
+.recap-item dt {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.recap-item dd {
+  margin: 0 0 var(--space-2);
+}
+
+.recap-item dd ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.disclaimer {
+  margin-top: var(--space-5);
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: var(--color-text-muted);
+}
+
+.summary-empty {
+  max-width: 36rem;
+}
+
+/* ------------------------------------------------------------ Responsive */
+
+@media (max-width: 60rem) {
+  .board,
+  .summary-grid,
+  .implications-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .board-diagram {
+    max-height: none;
+    min-height: 0;
+  }
+
+  .board-side {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 36rem) {
+  .board-label {
+    font-size: 56px;
+  }
+
+  .picker-option {
+    width: 6.4rem;
+  }
+
+  .doodle {
+    width: 4.5rem;
+    height: 3.6rem;
+  }
+
+  .picker-label {
+    font-size: 1.05rem;
+  }
+
+  .rate-option {
+    width: 3.4rem;
+  }
+
+  .pressure-table tbody th {
+    white-space: normal;
+    font-size: 1.1rem;
+  }
+
+  .pressure-num {
+    font-size: 1.3rem;
+  }
+}
+
+/* ----------------------------------------------------------------- Print */
+
+@media print {
+  .picker,
+  .board-actions,
+  .compare-field,
+  .site-header,
+  .site-footer {
+    display: none !important;
+  }
+
+  .summary-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .implications textarea {
+    border: 0;
+    padding: 0;
+    resize: none;
+  }
+}

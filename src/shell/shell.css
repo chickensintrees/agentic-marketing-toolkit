@@ -1,0 +1,312 @@
+/* The suite shell: skip link, header, main, footer, and Home. SPEC.md §2. */
+
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 10;
+  padding: var(--space-2) var(--space-4);
+  font-weight: 700;
+  color: var(--color-on-accent);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+  color: var(--color-on-accent);
+}
+
+/* Faint ghosting of old marker, the way a used whiteboard looks. */
+.board-ghost {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.board-ghost path {
+  fill: none;
+  stroke: var(--color-ghost);
+  opacity: 0.8;
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+
+/* ----------------------------------------------------------------- Header */
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-2);
+  margin: 0;
+  padding: var(--space-3) 0 0;
+  list-style: none;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.breadcrumb-separator,
+.breadcrumb-current {
+  color: var(--color-text-muted);
+}
+
+/* ------------------------------------------------------------------- Main */
+
+.site-main {
+  flex: 1;
+  padding-block: var(--space-2) var(--space-7);
+}
+
+.site-main:focus {
+  outline: none;
+}
+
+/* ----------------------------------------------------------------- Footer */
+
+.site-footer {
+  padding-block: var(--space-4) var(--space-5);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  border-top: 2px dashed var(--color-border);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+}
+
+.footer-disclaimer {
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links li + li {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------------------- Home */
+
+.home-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: var(--space-2) var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.home-title {
+  margin: 0;
+  font-size: var(--text-2xl);
+}
+
+.home-contribute {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.home-tools {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-tool {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-5) var(--space-7);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.home-tool:hover {
+  color: var(--color-text);
+}
+
+.tool-sketch {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+  max-height: 58vh;
+}
+
+.home-tool-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.home-tool-name {
+  margin: 0;
+  font-size: clamp(3rem, 1.5rem + 5vw, 6.5rem);
+  line-height: 0.95;
+}
+
+.home-tool-framework {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+}
+
+.home-tool-open {
+  margin-top: var(--space-4);
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--color-accent);
+}
+
+.home-arrow {
+  display: inline-block;
+  transition: transform 150ms ease;
+}
+
+.home-tool:hover .home-tool-open,
+.home-tool:focus-visible .home-tool-open {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.2em;
+}
+
+.home-tool:hover .home-arrow {
+  transform: translateX(0.3rem);
+}
+
+.shelf {
+  margin-top: var(--space-6);
+}
+
+.shelf-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-5);
+}
+
+.shelf-head h2 {
+  margin: 0;
+}
+
+.shelf-head a {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.shelf-tray {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.25rem, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shelf-tray li + li {
+  margin-top: 0;
+}
+
+.shelf-item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1);
+  font: inherit;
+  color: var(--color-text-muted);
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.shelf-item:hover,
+.shelf-item[aria-expanded='true'] {
+  color: var(--color-text);
+}
+
+.wanted-sketch {
+  width: 100%;
+  max-width: 7rem;
+  height: auto;
+}
+
+.sketch-pencil-text {
+  fill: var(--color-text-muted);
+}
+
+.shelf-name {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.shelf-ledge {
+  position: relative;
+  height: 0.6rem;
+}
+
+.shelf-pitch {
+  min-height: 1.6em;
+  margin: var(--space-4) 0 0;
+  font-size: var(--text-lg);
+}
+
+@media (max-width: 52rem) {
+  .home-tool {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-tool-text {
+    order: -1;
+  }
+
+  .tool-sketch {
+    max-height: none;
+  }
+}

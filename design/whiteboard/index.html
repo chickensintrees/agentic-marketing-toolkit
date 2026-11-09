@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Five Forces Whiteboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Kalam:wght@400;700&display=swap">
+<style>
+/* Layout: one whiteboard. The Porter sketch is the interface; a narrow margin column holds the notes for the force you tapped. */
+:root{
+  --board:#fbfbf8;      /* whiteboard */
+  --ink:#1c1d21;        /* black marker */
+  --red:#b3261e;        /* red marker: strong pressure */
+  --blue:#1f4a8a;       /* blue marker: your selection */
+  --green:#1d6b3c;      /* green marker: checked drivers */
+  --pencil:#5d6066;     /* dry, faded marker: weak pressure, secondary text */
+  --ghost:rgba(28,29,33,.035);
+  --hand:"Kalam","Segoe Print","Bradley Hand",cursive;
+  --text:"Atkinson Hyperlegible","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{background:var(--board);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+*{box-sizing:border-box}
+#ghost{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.view{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding-block:18px 28px}
+.hand{font-family:var(--hand);font-weight:700;letter-spacing:0}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:3px dashed var(--blue);outline-offset:4px;border-radius:2px}
+svg text{font-family:var(--hand);font-weight:700;fill:var(--ink)}
+.mk{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.wob{filter:url(#wob)}
+.loop{stroke-dasharray:1;stroke-dashoffset:0;animation:draw .45s ease-out}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:reduce){.loop{animation:none}}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:56px}
+.mark{font-family:var(--hand);font-weight:700;font-size:24px;text-decoration:none;line-height:1}
+.nav{font-family:var(--hand);font-weight:700;font-size:24px;text-decoration:none;position:relative;padding:4px 2px;white-space:nowrap}
+.nav svg{position:absolute;left:-4px;right:-4px;bottom:-6px;width:calc(100% + 8px);height:14px;overflow:visible}
+
+/* HOME */
+.feature{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px 48px;align-items:center;margin-top:8px;text-decoration:none}
+.feature .sketch{width:100%;height:auto;max-height:56vh}
+.feature h1{font-family:var(--hand);font-weight:700;font-size:clamp(56px,7.4vw,112px);line-height:.95;margin:0}
+.feature p{font-size:20px;margin:14px 0 0;color:var(--pencil);max-width:28ch}
+.open{display:inline-flex;align-items:center;gap:10px;margin-top:22px;font-family:var(--hand);font-weight:700;font-size:30px;color:var(--blue)}
+.open svg{width:70px;height:28px}
+.feature:hover .open,.feature:focus-visible .open{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+.shelf{margin-top:30px}
+.shelf-head{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.shelf h2{font-family:var(--hand);font-weight:700;font-size:34px;margin:0}
+.shelf .hint{font-family:var(--hand);font-size:21px;color:var(--pencil)}
+.shelf .hint a{color:var(--blue);text-decoration-thickness:2px;text-underline-offset:4px}
+.tray{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:8px}
+.tray li a{display:flex;flex-direction:column;align-items:center;text-decoration:none;padding:6px 2px;border-radius:4px}
+.tray svg{width:100%;max-width:120px;height:auto}
+.tray span{font-family:var(--hand);font-weight:700;font-size:19px;line-height:1.1;text-align:center;color:var(--pencil)}
+.tray li a:hover span,.tray li a:focus-visible span{color:var(--ink)}
+.ledge{display:block;width:100%;height:20px;margin-top:-4px}
+
+/* BOARD */
+.title{font-family:var(--hand);font-weight:700;font-size:40px;margin:0;line-height:1;position:relative;display:inline-block}
+.title svg{position:absolute;left:-6px;bottom:-12px;width:calc(100% + 12px);height:16px;overflow:visible}
+.head{display:flex;align-items:center;gap:20px 36px;flex-wrap:wrap;margin-top:2px}
+.picker{display:flex;gap:6px;margin:0;min-width:0;max-width:100%;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin}
+.ind{position:relative;flex:0 0 auto;width:132px;display:flex;flex-direction:column;align-items:center;padding:4px 6px 6px;border-radius:6px}
+.ind svg.dood{width:92px;height:72px}
+.ind span{font-family:var(--hand);font-weight:700;font-size:20px;line-height:1.1;color:var(--pencil);white-space:nowrap}
+.ind[aria-checked="true"] span{color:var(--ink)}
+.ind svg.ring{position:absolute;inset:-2px -4px -4px -4px;width:calc(100% + 8px);height:calc(100% + 6px);overflow:visible;pointer-events:none}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;align-items:start}
+.diagram{width:100%;height:auto;max-height:calc(100vh - 245px);display:block;margin:0 auto}
+.force{cursor:pointer;outline:none}
+.fr{opacity:0}
+.force:focus-visible .fr{opacity:1}
+.force:hover .lab{fill:var(--blue)}
+.legend{font-family:var(--hand);font-size:19px;color:var(--pencil);display:flex;align-items:center;gap:8px;justify-content:center;margin-top:-6px}
+.legend svg{width:120px;height:26px}
+
+.notes{border-left:3px solid transparent;padding:6px 0 0 0;min-width:0}
+.notes h2{font-family:var(--hand);font-weight:700;font-size:44px;line-height:1;margin:0}
+.notes .q{margin:8px 0 18px;font-size:18px}
+.rate{display:flex;gap:4px;align-items:flex-end}
+.rate button{position:relative;width:62px;height:76px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px}
+.rate button svg.t{width:44px;height:30px}
+.rate button b{font-family:var(--hand);font-size:30px;line-height:1;color:var(--pencil)}
+.rate button[aria-checked="true"] b{color:var(--ink)}
+.rate button svg.ring{position:absolute;inset:-4px;width:calc(100% + 8px);height:calc(100% + 8px);overflow:visible;pointer-events:none}
+.ends{display:flex;justify-content:space-between;width:322px;max-width:100%;font-family:var(--hand);font-size:19px;color:var(--pencil);margin:2px 0 14px}
+.drivers{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.drivers label{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start;cursor:pointer;font-size:17px;line-height:1.3}
+.drivers input{position:absolute;opacity:0;width:1px;height:1px}
+.drivers svg{width:28px;height:28px;overflow:visible}
+.drivers input:focus-visible + svg{outline:3px dashed var(--blue);outline-offset:2px}
+.drivers .off{color:var(--pencil)}
+.links{display:flex;gap:22px;margin-top:14px;flex-wrap:wrap}
+.links button{font-family:var(--hand);font-weight:700;font-size:21px;color:var(--blue);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.why{margin:10px 0 0;font-family:var(--hand);font-size:20px;line-height:1.35;color:var(--ink);max-width:36ch}
+
+/* SUMMARY */
+.sum{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px 56px;align-items:start;margin-top:12px}
+.sum-id{display:flex;align-items:center;gap:18px}
+.sum-id svg{width:130px;height:100px;flex:0 0 auto}
+.sum h1{font-family:var(--hand);font-weight:700;font-size:clamp(36px,4vw,56px);line-height:1;margin:0}
+.sum .ill{font-family:var(--hand);font-size:19px;color:var(--pencil);margin:6px 0 0}
+.sum .mini{width:100%;height:auto;margin-top:8px}
+.rank{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.rank li{display:grid;grid-template-columns:200px minmax(0,1fr) 44px;align-items:center;gap:12px;position:relative;min-height:66px}
+.rank .nm{font-family:var(--hand);font-weight:700;font-size:26px;line-height:1.05}
+.rank svg.bar{width:100%;height:46px;overflow:visible}
+.rank .n{font-family:var(--hand);font-weight:700;font-size:34px;text-align:right}
+.export{display:flex;gap:16px;align-items:center;margin-top:26px;flex-wrap:wrap}
+.btn{position:relative;font-family:var(--hand);font-weight:700;font-size:24px;padding:10px 22px}
+.btn svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.status{font-family:var(--hand);font-size:20px;color:var(--green)}
+.mdout{width:100%;max-width:560px;height:120px;font:14px/1.4 ui-monospace,Menlo,monospace;margin-top:10px;color:var(--ink);background:var(--board);border:2px dashed var(--pencil);padding:8px}
+
+@media (max-width:1100px){.tray{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media (max-width:940px){
+  .work{grid-template-columns:minmax(0,1fr)}
+  .diagram{max-height:none}
+  .feature,.sum{grid-template-columns:minmax(0,1fr)}
+  .feature .text{order:-1}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .mark{font-size:20px}.nav{font-size:21px}
+  .title{font-size:34px}
+  .tray{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ind{width:104px}.ind svg.dood{width:76px;height:60px}.ind span{font-size:18px}
+  .notes h2{font-size:38px}
+  .diagram text.lab{font-size:54px}
+  .rate button{width:56px}
+  .ends{width:292px}
+  .rank li{grid-template-columns:120px minmax(0,1fr) 34px}
+  .rank .nm{font-size:21px}
+  .feature p{font-size:18px}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="wob" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6"/>
+    </filter>
+  </defs>
+</svg>
+<svg id="ghost" aria-hidden="true" focusable="false" preserveAspectRatio="none" viewBox="0 0 1000 700"></svg>
+
+<main id="app"></main>
+
+<script>
+const DATA = {"forces": {"rivalry": {"name": "Competitive rivalry", "q": "How intensely do existing competitors fight, and on what basis?", "drivers": [["numerous-or-balanced-competitors", "Numerous or equally balanced competitors"], ["slow-industry-growth", "Slow industry growth"], ["high-exit-barriers", "High exit barriers"], ["commitment-beyond-economics", "Rivals committed beyond economic goals"], ["cannot-read-signals", "Rivals cannot read each other’s signals"], ["similar-products-low-switching", "Similar products and low switching costs"], ["high-fixed-low-marginal-costs", "High fixed costs and low marginal costs"], ["large-capacity-increments", "Capacity added in large increments"], ["perishable-product", "Perishable product or capacity"]]}, "newEntrants": {"name": "Threat of new entrants", "q": "How easy is it for new competitors to enter?", "drivers": [["weak-supply-side-scale", "Little advantage from supply-side scale"], ["weak-network-effects", "Weak network effects (demand-side scale)"], ["low-customer-switching-costs", "Low customer switching costs"], ["modest-capital-requirements", "Modest capital requirements"], ["few-incumbency-advantages", "Few incumbency advantages"], ["open-distribution-access", "Open access to distribution channels"], ["few-regulatory-hurdles", "Few licensing or regulatory hurdles"], ["little-expected-retaliation", "Little expected retaliation"]]}, "supplierPower": {"name": "Supplier power", "q": "How much leverage do suppliers have over the industry?", "drivers": [["concentrated-suppliers", "Suppliers more concentrated than the industry"], ["industry-not-key-customer", "Industry is not an important customer to suppliers"], ["high-switching-costs", "High costs to switch suppliers"], ["differentiated-inputs", "Differentiated supplier inputs"], ["no-substitute-inputs", "No substitute for the supplier’s input"], ["forward-integration-threat", "Credible threat of forward integration"]]}, "buyerPower": {"name": "Buyer power", "q": "How much leverage do customers have over the industry?", "drivers": [["few-or-large-buyers", "Few buyers or large-volume purchases"], ["standardized-products", "Standardized or undifferentiated products"], ["low-buyer-switching-costs", "Low buyer switching costs"], ["backward-integration-threat", "Credible threat of backward integration"], ["large-share-of-buyer-costs", "Purchase is a large share of buyers’ costs or budgets"], ["buyers-under-cost-pressure", "Buyers earn low profits or face tight budgets"], ["little-effect-on-buyer-quality", "Product has little effect on buyers’ own quality"], ["little-effect-on-buyer-other-costs", "Product has little effect on buyers’ other costs"]]}, "substitutes": {"name": "Threat of substitutes", "q": "How easily can buyers meet the same need another way?", "drivers": [["attractive-price-performance", "Attractive price–performance trade-off"], ["low-cost-to-switch-to-substitute", "Low cost for buyers to switch to the substitute"], ["improving-substitutes", "Substitutes improving quickly"], ["do-without-or-diy", "Easy to do without or do it yourself"]]}}, "industries": [{"id": "us-airlines", "name": "U.S. passenger airlines", "a": {"rivalry": {"r": 5, "d": ["numerous-or-balanced-competitors", "similar-products-low-switching", "high-fixed-low-marginal-costs", "perishable-product"], "why": "Several large carriers of broadly similar strength compete on many of the same routes, and many travelers see a seat as a seat and shop mainly on price."}, "newEntrants": {"r": 3, "d": ["low-customer-switching-costs", "open-distribution-access", "modest-capital-requirements"], "why": "Travelers switch airlines easily, online booking lets a start-up reach customers directly, and aircraft can be leased rather than bought."}, "supplierPower": {"r": 4, "d": ["concentrated-suppliers", "high-switching-costs", "no-substitute-inputs"], "why": "Large commercial aircraft and engines come from a small number of manufacturers, and changing aircraft types brings retraining and maintenance costs."}, "buyerPower": {"r": 4, "d": ["standardized-products", "low-buyer-switching-costs", "large-share-of-buyer-costs"], "why": "Each traveler is a small buyer, but online fare comparison makes prices transparent and switching between airlines nearly costless."}, "substitutes": {"r": 3, "d": ["attractive-price-performance", "low-cost-to-switch-to-substitute"], "why": "On shorter trips, driving, and in a few corridors rail or bus, can compete with flying on total door-to-door time and cost."}}}, {"id": "coffee-shops", "name": "Coffee shops", "a": {"rivalry": {"r": 4, "d": ["numerous-or-balanced-competitors", "high-fixed-low-marginal-costs", "perishable-product"], "why": "Most cities have many cafés within a short walk or drive, from national chains to independents, plus fast-food restaurants and convenience stores that also sell coffee."}, "newEntrants": {"r": 4, "d": ["modest-capital-requirements", "low-customer-switching-costs", "weak-supply-side-scale"], "why": "Opening a single café takes a lease, equipment, and permits, but far less capital than most industries, and customers happily try a new place."}, "supplierPower": {"r": 2, "d": ["differentiated-inputs", "no-substitute-inputs"], "why": "Coffee beans, milk, cups, and equipment are available from many suppliers, so most inputs give cafés plenty of choice."}, "buyerPower": {"r": 3, "d": ["low-buyer-switching-costs", "buyers-under-cost-pressure"], "why": "Individual customers buy in small amounts and have no bargaining leverage, but they can walk to the café next door at no cost."}, "substitutes": {"r": 4, "d": ["attractive-price-performance", "low-cost-to-switch-to-substitute", "do-without-or-diy"], "why": "Brewing at home or at the office, including with single-serve pods, delivers coffee for a fraction of café prices with almost no switching cost."}}}, {"id": "video-streaming", "name": "Subscription video streaming", "a": {"rivalry": {"r": 4, "d": ["numerous-or-balanced-competitors", "high-fixed-low-marginal-costs", "commitment-beyond-economics"], "why": "Many well-funded services compete for the same households’ subscriptions and viewing time."}, "newEntrants": {"r": 3, "d": ["low-customer-switching-costs", "open-distribution-access"], "why": "Streaming technology is widely available, and new services can reach viewers through app stores, smart TVs, and the open internet, where subscribers can sign up or cancel in minutes."}, "supplierPower": {"r": 4, "d": ["differentiated-inputs", "no-substitute-inputs", "forward-integration-threat"], "why": "Hit series, films, and live sports are highly differentiated inputs with no close substitutes."}, "buyerPower": {"r": 3, "d": ["low-buyer-switching-costs", "buyers-under-cost-pressure"], "why": "Each subscriber is a tiny buyer with no individual bargaining power."}, "substitutes": {"r": 4, "d": ["attractive-price-performance", "low-cost-to-switch-to-substitute", "do-without-or-diy"], "why": "Viewers can fill the same time with free ad-supported video, short-form social video, gaming, traditional TV, or simply doing without."}}}, {"id": "soft-drinks", "name": "Carbonated soft drinks", "a": {"rivalry": {"r": 3, "d": ["numerous-or-balanced-competitors", "slow-industry-growth"], "why": "The category is led by a few large, well-matched brand owners in a mature market, so growth often comes at a rival’s expense."}, "newEntrants": {"r": 2, "d": ["modest-capital-requirements", "low-customer-switching-costs"], "why": "Small brands can launch using contract bottlers and sell online or through specialty stores, and shoppers readily try new flavors."}, "supplierPower": {"r": 2, "d": ["concentrated-suppliers", "high-switching-costs"], "why": "Most ingredients, such as sweeteners, carbon dioxide, and water, are commodities available from multiple sources."}, "buyerPower": {"r": 3, "d": ["few-or-large-buyers", "buyers-under-cost-pressure", "backward-integration-threat"], "why": "Large grocery chains, mass merchants, and restaurant chains buy in very large volumes and control shelf space and fountain contracts."}, "substitutes": {"r": 4, "d": ["attractive-price-performance", "low-cost-to-switch-to-substitute", "improving-substitutes"], "why": "Consumers can easily choose water, sparkling water, juice, sports and energy drinks, coffee, or tea instead."}}}, {"id": "whitewater-rafting", "name": "Commercial whitewater rafting", "a": {"rivalry": {"r": 3, "d": ["numerous-or-balanced-competitors", "high-fixed-low-marginal-costs", "perishable-product"], "why": "Several outfitters typically run trips on the same stretches of river and compete for the same visitors."}, "newEntrants": {"r": 2, "d": ["low-customer-switching-costs", "modest-capital-requirements"], "why": "Visitors have no switching costs and often book whichever outfitter they find first online, and rafts, gear, and vans require less capital than many businesses."}, "supplierPower": {"r": 3, "d": ["differentiated-inputs", "no-substitute-inputs"], "why": "Experienced, trained guides are the most critical input: they shape both safety and the customer experience, and outfitters compete to hire and keep them each season."}, "buyerPower": {"r": 3, "d": ["low-buyer-switching-costs", "large-share-of-buyer-costs", "few-or-large-buyers"], "why": "Most customers are individuals and families who can compare outfitters online and switch freely, and for a family a guided trip can be a meaningful share of the vacation budget."}, "substitutes": {"r": 4, "d": ["attractive-price-performance", "low-cost-to-switch-to-substitute", "do-without-or-diy"], "why": "Visitors can fill a day with many other outdoor activities, such as hiking, mountain biking, climbing, zip lines, or fishing, or choose a different vacation altogether, often for less money."}}}]};
+const REPO = 'https://github.com/chickensintrees/agentic-marketing-toolkit';
+const C = {ink:'var(--ink)',red:'var(--red)',blue:'var(--blue)',green:'var(--green)',pencil:'var(--pencil)'};
+const SHORT = {rivalry:['Rivalry'],newEntrants:['New entrants'],supplierPower:['Supplier','power'],buyerPower:['Buyer','power'],substitutes:['Substitutes']};
+const ONE = {rivalry:'Rivalry',newEntrants:'New entrants',supplierPower:'Supplier power',buyerPower:'Buyer power',substitutes:'Substitutes'};
+const ORDER = ['rivalry','newEntrants','supplierPower','buyerPower','substitutes'];
+const IND_LABEL = {'us-airlines':'Airlines','coffee-shops':'Coffee shops','video-streaming':'Streaming','soft-drinks':'Soft drinks','whitewater-rafting':'Rafting'};
+
+/* ---------- a tiny rough-marker engine ---------- */
+let s = 1;
+function seed(str){ s = 2166136261; for (const ch of String(str)) { s ^= ch.charCodeAt(0); s = Math.imul(s, 16777619); } }
+function rnd(){ s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+const j = a => (rnd() * 2 - 1) * a;
+const f = n => Math.round(n * 10) / 10;
+function line(x1,y1,x2,y2,r=1){
+  const dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy)||1, nx=-dy/L, ny=dx/L, b=Math.min(L*.025,7)*r, o=j(b);
+  const mx=(x1+x2)/2+nx*o, my=(y1+y2)/2+ny*o;
+  return `M${f(x1+j(1.4*r))} ${f(y1+j(1.4*r))}Q${f(mx)} ${f(my)} ${f(x2+j(1.4*r))} ${f(y2+j(1.4*r))}`;
+}
+function smooth(p, closed){
+  if (p.length < 3) return `M${p[0][0]} ${p[0][1]}L${p[1][0]} ${p[1][1]}`;
+  const P = closed ? [p[p.length-1], ...p, p[0], p[1]] : [p[0], ...p, p[p.length-1]];
+  let d = `M${f(P[1][0])} ${f(P[1][1])}`;
+  for (let i=1;i<P.length-2;i++){
+    const a=P[i-1], b=P[i], c=P[i+1], e=P[i+2];
+    d += `C${f(b[0]+(c[0]-a[0])/6)} ${f(b[1]+(c[1]-a[1])/6)} ${f(c[0]-(e[0]-b[0])/6)} ${f(c[1]-(e[1]-b[1])/6)} ${f(c[0])} ${f(c[1])}`;
+  }
+  return d;
+}
+function ell(cx,cy,rx,ry,{over=.32,wob=.045,start=null,n=16}={}){
+  const a0 = start ?? rnd()*Math.PI*2, pts=[], span=Math.PI*2+over;
+  for (let i=0;i<=n;i++){ const a=a0+span*i/n, k=1+j(wob); pts.push([cx+Math.cos(a)*rx*k, cy+Math.sin(a)*ry*k]); }
+  return smooth(pts,false);
+}
+function rect(x,y,w,h,r=1){ const o=4*r; return [line(x-o,y,x+w+o*.6,y,r),line(x+w,y-o*.5,x+w,y+h+o,r),line(x+w+o*.4,y+h,x-o*.6,y+h,r),line(x,y+h+o*.5,x,y-o,r)].join(''); }
+function poly(pts,closed){ let d=''; for(let i=0;i<pts.length-(closed?0:1);i++){ const a=pts[i], b=pts[(i+1)%pts.length]; d+=line(a[0],a[1],b[0],b[1],.6);} return d; }
+function wave(x1,x2,y,amp=3,step=10){ const p=[]; for(let x=x1,i=0;x<=x2+.1;x+=step,i++) p.push([x,y+(i%2?amp:-amp)+j(.8)]); return smooth(p,false); }
+function arrowHead(x1,y1,x2,y2,size){ const a=Math.atan2(y2-y1,x2-x1), sp=.5+j(.06); return line(x2,y2,x2-size*Math.cos(a-sp),y2-size*Math.sin(a-sp),.5)+line(x2,y2,x2-size*Math.cos(a+sp),y2-size*Math.sin(a+sp),.5); }
+function P(d,color=C.ink,w=3,extra=''){ return `<path class="mk" d="${d}" stroke="${color}" stroke-width="${w}" ${extra}/>`; }
+function tally(x,y,n,{h=34,gap=12,color=C.ink,w=3.4}={}){
+  let d='', fifth='';
+  for(let i=0;i<Math.min(n,4);i++){ const xx=x+i*gap; d+=line(xx+j(1),y-h/2,xx+j(1.5),y+h/2,.5); }
+  if(n>=5) fifth=line(x-8,y+h/2-6,x+3*gap+8,y-h/2+6,.5);
+  return P(d+fifth,color,w);
+}
+const tallyW = n => (Math.min(n,4)-1)*12;
+
+/* ---------- doodles (all drawn with the same marker) ---------- */
+const DOODLE = {
+  'us-airlines'(c){ seed('plane'); return P(ell(52,42,38,8,{over:.15})+line(18,40,10,20)+line(10,20,20,22)+line(20,22,30,36)+poly([[46,44],[34,66],[44,66],[62,44]])+line(70,38,74,38,.3)+line(62,38,66,38,.3)+line(54,38,58,38,.3),c,3)+P(line(4,74,30,70,.5)+line(70,72,96,66,.5),C.pencil,2.2); },
+  'coffee-shops'(c){ seed('cup'); return P(line(28,32,32,68)+line(32,68,64,68)+line(64,68,68,32)+ell(48,32,20,5,{over:.2})+smooth([[67,40],[80,40],[80,56],[64,58]],false)+line(18,73,78,73),c,3)+P(smooth([[40,24],[36,18],[42,12],[38,4]])+smooth([[52,24],[48,18],[54,12],[50,4]]),C.pencil,2.4); },
+  'video-streaming'(c){ seed('tv'); return P(rect(12,10,76,48)+poly([[42,24],[42,46],[61,35]],true)+line(50,58,50,68)+line(34,70,66,70),c,3); },
+  'soft-drinks'(c){ seed('can'); return P(line(34,16,34,68)+line(64,16,64,68)+ell(49,16,15,4,{over:.2})+smooth([[34,68],[42,73],[56,73],[64,68]])+wave(34,64,42,3,7.5)+line(46,10,53,10,.3),c,3)+P(ell(76,34,3,3)+ell(82,20,4,4)+ell(74,8,2.5,2.5),C.pencil,2.4); },
+  'whitewater-rafting'(c){ seed('raft'); return P(ell(48,50,32,9,{over:.2})+ell(48,49,22,4.5,{over:.1})+line(70,14,40,64)+ell(39,66,4,7,{over:.1}),c,3)+P(wave(6,94,64,3,11)+wave(14,86,72,2.5,12),C.pencil,2.4); },
+};
+function doodle(id,color=C.ink,cls='dood'){ return `<svg class="${cls}" viewBox="0 0 100 80" aria-hidden="true" focusable="false"><g class="wob">${DOODLE[id](color)}</g></svg>`; }
+
+const TOOLS = [
+  ['SWOT', c=>P(rect(20,10,80,70,.8)+line(60,8,60,82,.6)+line(18,45,102,45,.6),c,2.6,'stroke-dasharray="7 5"')+['S','W','O','T'].map((l,i)=>`<text x="${i%2?80:40}" y="${i<2?36:72}" font-size="20" text-anchor="middle" style="fill:var(--pencil)">${l}</text>`).join('')],
+  ['STP', c=>P(ell(56,47,32,32)+ell(56,47,19,19)+ell(56,47,6,6),c,2.6,'stroke-dasharray="7 5"')+P(line(106,8,62,42,.5)+arrowHead(106,8,62,42,12),c,2.6)],
+  ['Personas', c=>P(ell(60,30,13,15)+smooth([[32,84],[38,60],[60,52],[82,60],[88,84]]),c,2.6,'stroke-dasharray="7 5"')],
+  ['4Ps', c=>P(rect(22,10,34,32,.6)+rect(64,10,34,32,.6)+rect(22,50,34,32,.6)+rect(64,50,34,32,.6),c,2.4,'stroke-dasharray="6 5"')+[[39,33],[81,33],[39,73],[81,73]].map(([x,y])=>`<text x="${x}" y="${y}" font-size="19" text-anchor="middle" style="fill:var(--pencil)">P</text>`).join('')],
+  ['Value prop', c=>P(ell(36,46,24,24)+rect(66,24,44,44,.7),c,2.6,'stroke-dasharray="7 5"')+P(line(58,40,70,40,.3)+line(58,52,70,52,.3),c,2.4)],
+  ['Journey map', c=>{const p=[[10,64],[32,30],[58,58],[82,26],[110,46]];return P(smooth(p),c,2.6,'stroke-dasharray="7 5"')+P(p.map(([x,y])=>ell(x,y,3.5,3.5,{n:8})).join(''),c,3.2);}],
+  ['Perceptual map', c=>P(line(60,6,60,84,.5)+line(12,45,108,45,.5),c,2.4,'stroke-dasharray="7 5"')+P([[34,24],[42,30],[84,62],[92,22],[30,66]].map(([x,y])=>ell(x,y,3,3,{n:8})).join(''),c,3.4)],
+  ['PESTEL', c=>`<text x="60" y="54" font-size="22" text-anchor="middle" letter-spacing="2" style="fill:var(--pencil)">PESTEL</text>`+P(line(14,64,106,64,.5),c,2.4,'stroke-dasharray="7 5"')+P(ell(60,46,52,20,{over:.4}),c,2.2,'stroke-dasharray="7 5"')],
+  ['Break-even', c=>P(line(14,8,14,82,.4)+line(14,82,110,82,.4),c,2.4,'stroke-dasharray="7 5"')+P(line(16,80,106,16,.5)+line(16,50,106,36,.5),c,2.6)+P(ell(68,42,5,5,{n:8}),c,3)],
+  ['Lifetime value', c=>P(poly([[14,80],[14,66],[34,66],[34,52],[54,52],[54,38],[74,38],[74,24],[94,24]]),c,2.6,'stroke-dasharray="7 5"')+P(line(84,40,108,10,.4)+arrowHead(84,40,108,10,11),c,2.6)],
+];
+
+/* ---------- state ---------- */
+const state = { ind: 'us-airlines', force: 'rivalry', edits: {}, showAll: false, showWhy: false };
+function assess(indId, fid){
+  const base = DATA.industries.find(i=>i.id===indId).a[fid];
+  const e = (state.edits[indId] ||= {});
+  return (e[fid] ||= { r: base.r, d: [...base.d], why: base.why });
+}
+const ind = () => DATA.industries.find(i=>i.id===state.ind);
+const level = r => r>=4 ? C.red : r<=2 ? C.pencil : C.ink;
+const word = r => ['','very weak','weak','moderate','strong','very strong'][r];
+
+/* ---------- the Porter sketch ---------- */
+const POS = { newEntrants:[500,82,390,130], substitutes:[500,678,370,130], supplierPower:[140,380,260,184], buyerPower:[860,380,260,184], rivalry:[500,380] };
+function diagram(indId, {interactive=true, selected=null, cls='diagram'}={}){
+  const R = 104;
+  const reach = R + assess(indId,'rivalry').r*7 + 12;
+  let g = '';
+  // arrows first, under everything
+  for (const fid of ['newEntrants','supplierPower','buyerPower','substitutes']){
+    const r = assess(indId,fid).r, [x,y,w,h] = POS[fid];
+    let x1,y1,x2,y2;
+    if (fid==='newEntrants'){ x1=500;y1=y+h/2+10;x2=500;y2=380-reach; }
+    if (fid==='substitutes'){ x1=500;y1=y-h/2-10;x2=500;y2=380+reach; }
+    if (fid==='supplierPower'){ x1=x+w/2+10;y1=380;x2=500-reach;y2=380; }
+    if (fid==='buyerPower'){ x1=x-w/2-10;y1=380;x2=500+reach;y2=380; }
+    seed(indId+fid+'arrow'+r);
+    const sw = 2 + r*1.9, col = level(r);
+    let d = line(x1,y1,x2,y2,.6) + arrowHead(x1,y1,x2,y2,14+r*3.2);
+    if (r>=4) d += line(x1+j(4),y1+j(4),x2+j(3),y2+j(3),.6);
+    if (r>=5) d += line(x1+j(6),y1+j(6),x2+j(4),y2+j(4),.6);
+    g += `<g class="wob">${P(d,col,sw)}</g>`;
+  }
+  // outer forces
+  for (const fid of ['newEntrants','supplierPower','buyerPower','substitutes']){
+    const a = assess(indId,fid), [x,y,w,h] = POS[fid], lines = SHORT[fid];
+    seed(indId+fid+'box');
+    const col = level(a.r);
+    const ty0 = y - (lines.length-1)*24 - 14;
+    let inner = `<g class="wob">${P(rect(x-w/2,y-h/2,w,h,.9),C.ink,2.6)}</g>`;
+    inner += lines.map((l,i)=>`<text class="lab" x="${x}" y="${ty0+i*48}" font-size="46" text-anchor="middle">${l}</text>`).join('');
+    inner += `<g class="wob">${tally(x-tallyW(a.r)/2-14, ty0+(lines.length-1)*48+46, a.r,{color:col,w:2.4+a.r*.5})}</g>`;
+    inner += `<text x="${x+tallyW(a.r)/2+26}" y="${ty0+(lines.length-1)*48+60}" font-size="38" style="fill:${col}">${a.r}</text>`;
+    if (selected===fid){ seed('sel'+fid+a.r); inner += P(ell(x,y,w/2+26,h/2+22,{over:.45,wob:.03}),C.blue,4.5,'pathLength="1" class="mk loop"'); }
+    inner += `<rect class="fr" x="${x-w/2-14}" y="${y-h/2-14}" width="${w+28}" height="${h+28}" fill="none" stroke="var(--blue)" stroke-width="3" stroke-dasharray="10 8"/>`;
+    inner += `<rect x="${x-w/2-10}" y="${y-h/2-10}" width="${w+20}" height="${h+20}" fill="transparent"/>`;
+    g += interactive ? `<g class="force" data-f="${fid}" role="button" tabindex="0" aria-pressed="${selected===fid}" aria-label="${DATA.forces[fid].name}: ${a.r} of 5, ${word(a.r)}">${inner}</g>` : `<g>${inner}</g>`;
+  }
+  // rivalry at the centre: one loop of marker per point of rating
+  {
+    const a = assess(indId,'rivalry'), col = level(a.r);
+    seed(indId+'riv');
+    let rings = '';
+    for (let i=0;i<a.r;i++) rings += ell(500,380,R-6+i*7,R-14+i*7,{over:.5+rnd()*.4,wob:.035});
+    let inner = `<g class="wob">${P(rings,col,2.2+a.r*.35)}</g>`;
+    // clash marks: little sparks between rivals
+    seed(indId+'spark');
+    let sparks = '';
+    for (let i=0;i<Math.max(0,a.r-1);i++){ const an=-Math.PI/2+(i-(a.r-2)/2)*.42, r1=R*.5, r2=R*.68; sparks += line(500+Math.cos(an)*r1, 352+Math.sin(an)*r1*.6-6, 500+Math.cos(an)*r2, 352+Math.sin(an)*r2*.6-6,.3); }
+    inner += `<g class="wob">${P(sparks,col,3)}</g>`;
+    inner += `<text class="lab" x="500" y="388" font-size="52" text-anchor="middle">Rivalry</text>`;
+    inner += `<g class="wob">${tally(500-tallyW(a.r)/2-14,436,a.r,{color:col,w:2.4+a.r*.5,h:30})}</g>`;
+    inner += `<text x="${500+tallyW(a.r)/2+24}" y="450" font-size="38" style="fill:${col}">${a.r}</text>`;
+    if (selected==='rivalry'){ seed('selr'+a.r); inner += P(ell(500,380,R+a.r*7+24,R+a.r*7+12,{over:.5,wob:.025}),C.blue,4.5,'pathLength="1" class="mk loop"'); }
+    inner += `<rect class="fr" x="${500-R-30}" y="${380-R-30}" width="${2*R+60}" height="${2*R+60}" fill="none" stroke="var(--blue)" stroke-width="3" stroke-dasharray="10 8"/>`;
+    inner += `<circle cx="500" cy="380" r="${R+20}" fill="transparent"/>`;
+    g += interactive ? `<g class="force" data-f="rivalry" role="button" tabindex="0" aria-pressed="${selected==='rivalry'}" aria-label="${DATA.forces.rivalry.name}: ${a.r} of 5, ${word(a.r)}">${inner}</g>` : `<g>${inner}</g>`;
+  }
+  const label = `Five forces sketch for ${ind().name}`;
+  return `<svg class="${cls}" viewBox="-10 0 1020 752" role="${interactive?'group':'img'}" aria-label="${label}">${g}</svg>`;
+}
+
+/* ---------- views ---------- */
+function underline(color=C.ink,w=3.2,key='u'){ seed(key); return `<svg viewBox="0 0 100 14" preserveAspectRatio="none" aria-hidden="true"><path class="mk" d="${line(2,8,98,6,.4)}" stroke="${color}" stroke-width="${w}" vector-effect="non-scaling-stroke"/></svg>`; }
+function bar(left, right){ return `<header class="bar">${left}${right}</header>`; }
+
+function viewHome(){
+  seed('ar');
+  const arrow = `<svg viewBox="0 0 70 28" aria-hidden="true"><path class="mk" d="${line(4,15,62,13,.4)+arrowHead(4,15,62,13,14)}" stroke="var(--blue)" stroke-width="3.4"/></svg>`;
+  const shelf = TOOLS.map(([name,draw])=>{ seed('tool'+name); return `<li><a href="${REPO}/blob/main/src/tools/wanted.ts" target="_blank" rel="noopener"><svg viewBox="0 0 120 90" aria-hidden="true"><g class="wob">${draw(C.pencil)}</g></svg><span>${name}</span></a></li>`; }).join('');
+  seed('ledge');
+  return `<div class="view">
+    ${bar(`<a class="mark" href="#">Agentic Marketing Toolkit</a>`, `<a class="nav" href="${REPO}" target="_blank" rel="noopener">GitHub${underline(C.ink,3,'gh')}</a>`)}
+    <a class="feature" href="#board" aria-label="Open Five Forces Explorer">
+      ${diagram('us-airlines',{interactive:false,cls:'sketch'})}
+      <div class="text">
+        <h1>Five Forces</h1>
+        <p>Porter’s map of the pressure on an industry’s profits.</p>
+        <span class="open">Open the board ${arrow}</span>
+      </div>
+    </a>
+    <section class="shelf" aria-labelledby="next">
+      <div class="shelf-head"><h2 id="next">Next up</h2><span class="hint">Pick one and <a href="${REPO}/blob/main/docs/students/build-a-tool.md" target="_blank" rel="noopener">build it with your agent</a></span></div>
+      <ul class="tray">${shelf}</ul>
+      <svg class="ledge" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true"><path class="mk" d="${line(0,8,1000,10,.3)}" stroke="var(--ink)" stroke-width="3" vector-effect="non-scaling-stroke"/><path class="mk" d="${line(6,15,994,16,.3)}" stroke="var(--pencil)" stroke-width="1.6" vector-effect="non-scaling-stroke"/></svg>
+    </section>
+  </div>`;
+}
+
+function viewBoard(){
+  const i = ind(), fid = state.force, F = DATA.forces[fid], a = assess(i.id, fid);
+  const picks = DATA.industries.map(x=>{
+    const on = x.id===state.ind; seed('pick'+x.id);
+    const ring = on ? `<svg class="ring" viewBox="0 0 140 110" preserveAspectRatio="none" aria-hidden="true"><path class="mk loop" pathLength="1" d="${ell(70,55,66,52,{over:.4,wob:.03})}" stroke="var(--blue)" stroke-width="3.4" vector-effect="non-scaling-stroke"/></svg>` : '';
+    return `<button class="ind" role="radio" aria-checked="${on}" data-ind="${x.id}" title="${x.name}">${doodle(x.id, on?C.ink:C.pencil)}<span>${IND_LABEL[x.id]}</span>${ring}</button>`;
+  }).join('');
+  const rate = [1,2,3,4,5].map(n=>{
+    seed('rate'+n); const on = n===a.r;
+    const t = `<svg class="t" viewBox="0 0 60 40" aria-hidden="true">${tally(30-tallyW(n)/2,20,n,{h:28,color:on?level(n):C.pencil,w:on?3.6:2.4})}</svg>`;
+    const ring = on ? `<svg class="ring" viewBox="0 0 70 84" preserveAspectRatio="none" aria-hidden="true"><path class="mk loop" pathLength="1" d="${ell(35,44,31,38,{over:.4,wob:.04})}" stroke="var(--blue)" stroke-width="3.4"/></svg>` : '';
+    return `<button role="radio" aria-checked="${on}" tabindex="${on?0:-1}" data-r="${n}" aria-label="${n}, ${word(n)}">${t}<b>${n}</b>${ring}</button>`;
+  }).join('');
+  const all = F.drivers, shown = state.showAll ? all : all.filter(([id])=>a.d.includes(id));
+  const drivers = shown.map(([id,label])=>{
+    const on = a.d.includes(id); seed('chk'+id);
+    const box = P(rect(3,3,22,22,.4),C.ink,2.2) + (on ? P(smooth([[5,14],[11,22],[27,-2]]),C.green,3.6) : '');
+    return `<li><label><input type="checkbox" id="d-${id}" data-d="${id}" ${on?'checked':''}><svg viewBox="0 0 28 28" aria-hidden="true">${box}</svg><span class="${on?'':'off'}">${label}</span></label></li>`;
+  }).join('');
+  const more = all.length - a.d.length;
+  return `<div class="view">
+    ${bar(`<a class="nav" href="#">← Toolkit${underline(C.ink,3,'bk')}</a>`, `<a class="nav" href="#summary" style="color:var(--blue)">Summary →${underline(C.blue,3,'sm')}</a>`)}
+    <div class="head"><h1 class="title">Five Forces${underline(C.red,4,'t1')}</h1>
+    <div class="picker" role="radiogroup" aria-label="Industry">${picks}</div></div>
+    <div class="work">
+      <div>
+        ${diagram(i.id,{selected:fid})}
+        <div class="legend" aria-hidden="false"><svg viewBox="0 0 120 26" aria-hidden="true">${(seed('lg'),P(line(6,13,46,13,.3)+arrowHead(6,13,46,13,10),C.pencil,2.5)+P(line(64,13,112,13,.3)+line(64,15,112,12,.3)+arrowHead(64,13,112,13,16),C.red,6))}</svg>thicker, red = more pressure</div>
+      </div>
+      <section class="notes" aria-live="polite" aria-labelledby="fname">
+        <h2 id="fname">${ONE[fid]}</h2>
+        <p class="q">${F.q}</p>
+        <div class="rate" role="radiogroup" aria-label="Rating for ${ONE[fid]}">${rate}</div>
+        <div class="ends" aria-hidden="true"><span>weak</span><span>strong</span></div>
+        <ul class="drivers">${drivers}</ul>
+        <div class="links">
+          <button id="more" aria-expanded="${state.showAll}">${state.showAll ? 'fewer drivers' : `+ ${more} more drivers`}</button>
+          <button id="why" aria-expanded="${state.showWhy}">why a ${a.r}?</button>
+        </div>
+        ${state.showWhy ? `<p class="why">${a.why}</p>` : ''}
+      </section>
+    </div>
+  </div>`;
+}
+
+function markdown(){
+  const i = ind();
+  let md = `# Five Forces: ${i.name}\n\n_Illustrative teaching example._\n\n| Force | Rating (1–5) | Drivers |\n|---|---|---|\n`;
+  for (const fid of ORDER){ const a=assess(i.id,fid); const labels=DATA.forces[fid].drivers.filter(([id])=>a.d.includes(id)).map(([,l])=>l).join(', '); md += `| ${DATA.forces[fid].name} | ${a.r} | ${labels} |\n`; }
+  return md;
+}
+
+function viewSummary(){
+  const i = ind();
+  const rows = ORDER.map(fid=>({fid, a:assess(i.id,fid)})).sort((x,y)=>y.a.r-x.a.r);
+  const top = rows[0].a.r;
+  const list = rows.map(({fid,a},k)=>{
+    seed('bar'+i.id+fid+a.r);
+    const w = a.r*20, col = level(a.r);
+    let hatch=''; for(let x=4;x<w-10;x+=7) hatch += line(x, 40, x+10, 6, .25);
+    const bar = `<svg class="bar" viewBox="0 0 100 46" preserveAspectRatio="none" aria-hidden="true"><g class="wob">${P(rect(0,4,w,38,.5),col,2.8,'vector-effect="non-scaling-stroke"')}${P(hatch,col,2,'vector-effect="non-scaling-stroke"')}</g><path class="mk" d="${line(0,46,100,46,.1)}" stroke="var(--pencil)" stroke-width="1" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/></svg>`;
+    seed('top'+fid);
+    const circ = a.r===top ? `<svg viewBox="0 0 200 66" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-14px;top:0;width:214px;height:66px;overflow:visible;pointer-events:none"><path class="mk" d="${ell(100,33,98,30,{over:.4,wob:.03})}" stroke="var(--red)" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>` : '';
+    return `<li>${circ}<span class="nm">${ONE[fid]}${k===0?` <span style="font-weight:400;font-size:.72em;color:var(--red)">strongest</span>`:''}</span>${bar}<span class="n" style="color:${col}" aria-label="${a.r} of 5">${a.r}</span></li>`;
+  }).join('');
+  seed('btn');
+  return `<div class="view">
+    ${bar(`<a class="nav" href="#board">← Board${underline(C.ink,3,'bb')}</a>`, `<a class="nav" href="#">Toolkit${underline(C.ink,3,'tk')}</a>`)}
+    <div class="sum">
+      <div>
+        <div class="sum-id">${doodle(i.id,C.ink,'big')}<div><h1>${i.name}</h1><p class="ill">illustrative example</p></div></div>
+        ${diagram(i.id,{interactive:false,cls:'mini'})}
+      </div>
+      <div>
+        <ol class="rank" aria-label="Forces from strongest to weakest">${list}</ol>
+        <div class="export">
+          <button class="btn" id="copy"><svg viewBox="0 0 200 56" preserveAspectRatio="none" aria-hidden="true"><path class="mk" d="${rect(3,4,194,48,.5)}" stroke="var(--ink)" stroke-width="3" vector-effect="non-scaling-stroke"/></svg>Copy as Markdown</button>
+          <span class="status" id="status" role="status"></span>
+        </div>
+        <textarea class="mdout" id="mdout" aria-label="Markdown export" hidden readonly></textarea>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- wiring ---------- */
+const app = document.getElementById('app');
+function route(){ return location.hash.replace('#','') || 'home'; }
+function render(focusSel){
+  const r = route();
+  app.innerHTML = r==='board' ? viewBoard() : r==='summary' ? viewSummary() : viewHome();
+  document.title = 'Five Forces Whiteboard';
+  if (focusSel){ const el = app.querySelector(focusSel); if (el) el.focus(); }
+}
+function pickForce(fid){ state.force=fid; state.showAll=false; state.showWhy=false; render(`.force[data-f="${fid}"]`); }
+app.addEventListener('click', e=>{
+  const fo = e.target.closest('.force'); if (fo){ pickForce(fo.dataset.f); return; }
+  const ib = e.target.closest('.ind'); if (ib){ state.ind=ib.dataset.ind; state.showWhy=false; render(`.ind[data-ind="${ib.dataset.ind}"]`); return; }
+  const rb = e.target.closest('.rate button'); if (rb){ assess(state.ind,state.force).r=+rb.dataset.r; render(`.rate button[data-r="${rb.dataset.r}"]`); return; }
+  if (e.target.closest('#more')){ state.showAll=!state.showAll; render('#more'); return; }
+  if (e.target.closest('#why')){ state.showWhy=!state.showWhy; render('#why'); return; }
+  if (e.target.closest('#copy')){
+    const md = markdown(), st = document.getElementById('status');
+    navigator.clipboard?.writeText(md).then(()=>{ st.textContent='Copied'; }).catch(()=>{ const t=document.getElementById('mdout'); t.hidden=false; t.value=md; t.select(); st.textContent='Select and copy'; });
+    if (!navigator.clipboard){ const t=document.getElementById('mdout'); t.hidden=false; t.value=md; t.select(); }
+  }
+});
+app.addEventListener('change', e=>{
+  const id = e.target.dataset?.d; if (!id) return;
+  const a = assess(state.ind,state.force);
+  a.d = e.target.checked ? [...new Set([...a.d,id])] : a.d.filter(x=>x!==id);
+  render(`#d-${id}`);
+});
+app.addEventListener('keydown', e=>{
+  const fo = e.target.closest?.('.force');
+  if (fo && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); pickForce(fo.dataset.f); return; }
+  const grp = e.target.closest?.('[role="radiogroup"]');
+  if (grp && ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){
+    e.preventDefault(); const items=[...grp.querySelectorAll('[role="radio"]')]; let k=items.indexOf(e.target.closest('[role="radio"]'));
+    k = (k + (e.key==='ArrowLeft'||e.key==='ArrowUp' ? -1 : 1) + items.length) % items.length; items[k].click();
+  }
+});
+window.addEventListener('hashchange', ()=>{ render(); window.scrollTo(0,0); });
+
+/* faint ghosting of old marker, the way a used whiteboard looks */
+(function(){ seed('ghost'); let d=''; for(let k=0;k<5;k++){ const x=rnd()*1000,y=rnd()*700; d+=ell(x,y,60+rnd()*120,30+rnd()*60,{over:.6,wob:.08}); d+=line(x-80,y+40+rnd()*40,x+120,y+20,.8);} document.getElementById('ghost').innerHTML=`<path class="mk" d="${d}" stroke="var(--ghost)" stroke-width="14"/>`; })();
+render();
+</script>
+
+</body>
+</html>
