@@ -59,14 +59,14 @@ npm run dev
 ```
 
 Give the student the URL Vite prints and suggest opening Five Forces Explorer
-(`#/five-forces`). If the tool can't show a preview, that's fine: `npm run
-check` still verifies the work.
+(`#/five-forces`). If the tool can't show a preview, that's fine:
+`npm run check` still verifies the work.
 
 ## 5. Pick an issue
 
 1. List open work: `gh issue list --repo chickensintrees/agentic-marketing-toolkit --search "no:assignee"`.
 2. Offer **three** options that suit the student's interests and comfort, from those issues and `docs/students/first-issues.md`. Give each a one-line "what you'd build" and its difficulty.
-3. Before the student commits to one, check it isn't taken: `gh issue view <N> --repo chickensintrees/agentic-marketing-toolkit --comments` (an assignee or a recent "I'm on it" comment) and `gh pr list --repo chickensintrees/agentic-marketing-toolkit --search "<keywords>"`.
+3. Before the student picks one, check it isn't taken: `gh issue view <N> --repo chickensintrees/agentic-marketing-toolkit --comments` (an assignee or a recent "I'm on it" comment) and `gh pr list --repo chickensintrees/agentic-marketing-toolkit --search "<keywords>"`.
 
 ## 6. Claim it (ASK FIRST)
 
@@ -77,7 +77,7 @@ gh issue comment <N> --repo chickensintrees/agentic-marketing-toolkit \
   --body "I'd like to work on this. Plan: <one line>. I'll open a PR from my fork."
 ```
 
-If the item from `first-issues.md` has no GitHub issue yet, ask first, then open
+If the item from `docs/students/first-issues.md` has no GitHub issue yet, ask first, then open
 it with its title and body (`gh issue create --repo chickensintrees/agentic-marketing-toolkit --title "..." --body-file <file outside the repo>`). Bill adds labels and can assign it.
 
 ## 7. Plan, then branch
