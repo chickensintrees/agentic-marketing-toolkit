@@ -81,7 +81,7 @@ this repository, the useful work is the product, and the human decides.
 | Part | What it does | Where |
 |---|---|---|
 | **Rules** | How every agent behaves: the 12 rules, project rules, the onboarding protocol, hard limits | [`AGENTS.md`](AGENTS.md); [`CLAUDE.md`](CLAUDE.md) imports it for Claude Code; [`replit.md`](replit.md) points Replit to it |
-| **Specs** | The single source of truth. Changes flow through a spec before code | [`SPEC.md`](SPEC.md) (suite), [`src/tools/five-forces/SPEC.md`](src/tools/five-forces/SPEC.md) (tool), [`docs/specs/`](docs/specs/README.md) (proposals and templates) |
+| **Specs** | The source of truth: Bill's intent first, then the specs. Changes flow through a spec before code | [`INTENT.md`](INTENT.md) (Bill's intent; only Bill changes it), [`SPEC.md`](SPEC.md) (suite), [`src/tools/five-forces/SPEC.md`](src/tools/five-forces/SPEC.md) (tool), [`docs/specs/`](docs/specs/README.md) (proposals and templates) |
 | **Skills** | Repeatable procedures an agent loads: connect to GitHub, start a contribution, add an industry, add a tool, propose a feature, open a PR, respond to review | [`.agents/skills/`](.agents/skills/) and identical copies in [`.claude/skills/`](.claude/skills/) |
 | **Tools** | What the agent can reach. Above all, GitHub, through a browser sign-in | [`docs/students/connect-github.md`](docs/students/connect-github.md) |
 | **Checks** | Safeguards that run whether or not the agent remembers the rules | `npm run check`; [`src/tools/registry.test.ts`](src/tools/registry.test.ts); [`src/tools/five-forces/data/industries.test.ts`](src/tools/five-forces/data/industries.test.ts); [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |

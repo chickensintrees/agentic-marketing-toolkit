@@ -105,7 +105,7 @@ also unlocks the CLI and IDE extension):
 
 1. Fork on github.com first: https://github.com/chickensintrees/agentic-marketing-toolkit/fork
 2. In ChatGPT, choose **Work in > Cloud**, then create and publish an environment. Select **your fork**, and **Connect GitHub** if prompted.
-3. Start the task with the starter prompt. When it's done, choose to open a pull request.
+3. Start the task with the starter prompt. When your change is ready, choose to open a pull request.
 4. If the PR opens on your fork, open it on the class repo [in the browser](#if-the-pull-request-lands-on-your-fork).
 
 ## Claude Code

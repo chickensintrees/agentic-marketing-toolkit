@@ -9,6 +9,7 @@ GitHub pull requests. Tool #1 is **Five Forces Explorer**. Most contributors are
 Contributors and their agents never share a chat. They share this repository,
 so it carries everything they need to agree on. This file is the map:
 
+- `INTENT.md` records Bill Moore's intent for the product and the lecture. Precedence: `INTENT.md` > the `SPEC.md` files > docs and code. Agents propose changes to intent; only Bill changes it.
 - `SPEC.md` is the suite's **source of truth**: shell, routing, tool contract, registry, quality gates.
 - `src/tools/<tool-id>/SPEC.md` is each tool's own source of truth.
 - `CONTRIBUTING.md`, `docs/students/` (start here, connect GitHub, first issues, build a tool), `docs/workflows/` and `docs/specs/` hold the details.
@@ -33,6 +34,7 @@ CI runs the same command on every push and pull request.
 ## Project map
 
 ```text
+INTENT.md                  Bill's intent; outranks the specs
 SPEC.md                    suite spec (read first)
 AGENTS.md                  this file; CLAUDE.md and replit.md point here
 src/
@@ -119,12 +121,13 @@ you already have; don't assume (skill `connect-github`):
 3. **Your tool's own connection** (Codex Cloud, Claude Code on the web, Replit). It reaches only repos where the student connected or installed it, so work in their fork.
 4. **None of these:** guide the browser sign-in. The student runs `gh auth login --web --git-protocol https` **in their own terminal**, answers **Y** to "Authenticate Git with your GitHub credentials?", and types the one-time code at https://github.com/login/device after checking that the page names "GitHub CLI". Human steps: `docs/students/connect-github.md`.
 
-**Never** ask for a password or token in chat, never suggest pasting one, and
-never run `gh auth token` or `gh auth status --show-token`. Fallbacks: Lovable,
-or no install at all, uses the GitHub web editor (`CONTRIBUTING.md`). If a PR
-lands on the fork, or your tool can't target the class repo, the student opens
-it on github.com with "compare across forks". In Claude Code cloud sessions,
-`gh pr` and `gh issue` fail; use the built-in GitHub tools or `gh api`.
+**Never** ask for a password or token in chat, never suggest pasting or
+creating one (use the browser sign-in), and never run `gh auth token` or
+`gh auth status --show-token`. Fallbacks: Lovable, or no install at all, uses
+the GitHub web editor (`CONTRIBUTING.md`). If a PR lands on the fork, or your
+tool can't target the class repo, the student opens it on github.com with
+"compare across forks". In Claude Code cloud sessions, `gh pr` and `gh issue`
+fail; use the built-in GitHub tools or `gh api`.
 
 ## Student onboarding protocol
 
@@ -133,12 +136,13 @@ class repo is `chickensintrees/agentic-marketing-toolkit` (base `main`).
 Students can't push there, so they work in **their own fork**. **ASK FIRST**
 marks a public action: say exactly what you will do, then wait for an explicit
 OK. Skills: `start-contribution`, then `add-industry`, `add-tool` or
-`propose-feature`, then `verify-and-open-pr` and `respond-to-review`.
+`propose-feature`, then `verify-and-open-pr` and `respond-to-review`. The
+starter prompt asks only for steps 1–4; the rest is here so you can continue.
 
-1. **Orient.** Read this file, `README.md`, `docs/students/START-HERE.md` and the relevant spec. Explain the project in three sentences. Say which tool you are and whether you can run commands.
-2. **Check, then connect.** Run `git --version`, `node --version` (22.12+), `gh --version`, `gh auth status`; report the results. Connect to GitHub (above).
-3. **Fork. ASK FIRST.** `gh repo fork chickensintrees/agentic-marketing-toolkit --clone` makes `origin` the fork and `upstream` the class repo. Or MCP `fork_repository`, or the browser: https://github.com/chickensintrees/agentic-marketing-toolkit/fork
-4. **Run it.** `npm install`, then `npm run dev`. Give the student the URL.
+1. **Orient.** Read this file, `README.md`, `docs/students/START-HERE.md` and the relevant spec (on github.com if you aren't in a clone yet). Explain the project and how contributing works in three sentences. Say which tool you are and whether you can run commands; if you can't, use the web editor path in `CONTRIBUTING.md`.
+2. **Check, then connect.** Run `git --version`, `node --version` (22.12+), `gh --version`, `gh auth status`, `git remote -v`; report the results, and help install anything missing (ask before each install). Connect to GitHub (above) and confirm the account with the student. No account yet? They sign up free at https://github.com/signup.
+3. **Fork. ASK FIRST.** `gh repo fork chickensintrees/agentic-marketing-toolkit --clone` makes `origin` the fork and `upstream` the class repo. Or MCP `fork_repository`, or the browser: https://github.com/chickensintrees/agentic-marketing-toolkit/fork. Already in the student's fork (cloud tools, Replit)? Skip this. Show the fork's URL.
+4. **Run it.** `npm install`, then `npm run dev`. Give the student the URL. Setup is done: say what is set up, then ask whether to pick a first issue now.
 5. **Pick an issue.** Offer three options from `docs/students/first-issues.md` and the open issues. Check that nobody has claimed it: an assignee, a recent "I'm on it" comment, or an open PR.
 6. **Claim it. ASK FIRST.** Comment on the issue with who is working on it and a one-line plan. If the issue doesn't exist yet, open it from the first-issues text (ASK FIRST).
 7. **Plan.** Write a 3–6 line plan, with the spec change first if behavior changes. Wait for the OK.
