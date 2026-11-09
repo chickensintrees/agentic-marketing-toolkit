@@ -505,4 +505,9 @@ input[type='checkbox'] {
   a {
     color: inherit;
   }
+
+  :focus,
+  :focus-visible {
+    outline: none !important;
+  }
 }
