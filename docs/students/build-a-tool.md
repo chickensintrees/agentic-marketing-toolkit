@@ -11,8 +11,8 @@ has a skill for this, `add-tool`. Ask it to "use the add-tool skill".
 
 ## 1. Pick a tool, or propose your own
 
-**From the wanted list.** These appear on the app's Home page under "Help build
-the next tool" and are listed in `src/tools/wanted.ts`:
+**From the wanted list.** These appear on the app's Home page under "Plates in
+preparation" and are listed in `src/tools/wanted.ts`:
 
 | Tool | Folder name (`<tool-id>`) |
 |---|---|

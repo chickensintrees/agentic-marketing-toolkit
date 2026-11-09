@@ -23,7 +23,7 @@ it **should** do after a change.
 
 ## How a proposal moves
 
-1. **Draft.** Copy `TEMPLATE.md`, use a kebab-case name (`radar-svg-download.md`), and fill in every section. Your agent's skill for this is `propose-feature`.
+1. **Draft.** Copy `TEMPLATE.md`, use a kebab-case name (`plate-svg-download.md`), and fill in every section. Your agent's skill for this is `propose-feature`.
 2. **Discuss.** Open a pull request with just the proposal (title "Proposal: <idea>"), or link it from an issue. Bill and classmates comment.
 3. **Agree.** Revise until it's approved. Set **Status** to `Accepted`.
 4. **Build.** In the implementation PR, edit the relevant `SPEC.md` (including its changelog) and the code together, so they never drift apart.

@@ -45,7 +45,7 @@ src/
   tools/
     types.ts               ToolDefinition, ToolProps, WantedTool (SPEC §3.2)
     index.ts               TOOLS: the registry, in Home order
-    wanted.ts              WANTED_TOOLS: "Help build the next tool"
+    wanted.ts              WANTED_TOOLS: Home's "Plates in preparation"
     registry.test.ts       registry integrity, the safety net for new tools
     five-forces/           tool #1
       SPEC.md              the tool's spec

@@ -23,14 +23,14 @@ Three to six lines:
 Goal: add a craft beer preset to Five Forces Explorer (issue #12).
 Spec: none needed (Five Forces SPEC §3.3 covers presets).
 Files: new src/tools/five-forces/data/industries/craft-beer.ts; one line in data/industries/index.ts.
-You'll see: "Craft beer" in the Analyze industry list and in Summary's Compare list.
+You'll see: "Craft beer" in the Plate's row of industry emblems and in Summary's "Compare with" list.
 Check: npm run check (data-integrity tests), then load it in npm run dev.
 Your call: the scope and the five ratings. I'll draft, you decide.
 ```
 
 ## Signs the plan is too big
 
-- More than one purpose ("add the preset and also restyle the cards").
+- More than one purpose ("add the preset and also restyle the emblems").
 - It touches another tool's folder, or `src/shared/` alongside a tool change.
 - It needs a new dependency.
 

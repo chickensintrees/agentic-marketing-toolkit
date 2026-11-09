@@ -40,7 +40,7 @@ See docs/specs/README.md for how a proposal moves from Draft to Implemented.
 ## Spec changes
 
 <List each section that changes, and how. Example:
-- `src/tools/five-forces/SPEC.md` §2.4: add "Download chart (.svg)" to Export.
+- `src/tools/five-forces/SPEC.md` §2.4: add "Download plate (.svg)" to Export.
 - `src/tools/five-forces/SPEC.md` §6: changelog line.>
 
 ## Acceptance criteria

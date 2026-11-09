@@ -48,13 +48,17 @@ else in that file; other students are adding lines to it too.
 ```bash
 npm run test -- src/tools/five-forces/data   # data-integrity tests: ids, drivers, counts
 npm run check                                # the full gate
-npm run dev                                  # open #/five-forces/analyze, load the preset, then view Summary
+npm run dev                                  # open #/five-forces, pick the new emblem, then open Summary
 ```
+
+The new industry's emblem is second to last in the row, just before Custom
+industry. Until someone draws an emblem for it, it uses the Custom industry
+emblem (a frame with a pencil); hover over it or focus it to see its name.
 
 If a data-integrity test fails, its message names the preset and the field.
 Fix the data; never edit the test to make it pass.
 
 ## 6. Finish
 
-Use `verify-and-open-pr`. Add a screenshot of the Summary radar chart for the
-new industry to the PR.
+Use `verify-and-open-pr`. Add two screenshots of the new industry to the PR:
+the Plate and the Summary.

@@ -29,7 +29,7 @@ spec and the code then change **in the same pull request**.
 
 ## 4. Write the proposal
 
-1. Copy `docs/specs/TEMPLATE.md` to `docs/specs/<short-name>.md` (kebab-case, for example `radar-svg-download.md`).
+1. Copy `docs/specs/TEMPLATE.md` to `docs/specs/<short-name>.md` (kebab-case, for example `plate-svg-download.md`).
 2. Fill in every section; keep it to about a page.
 3. Write acceptance criteria that can be checked with yes or no.
 4. List exactly which spec sections change, and how.

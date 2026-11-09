@@ -15,8 +15,9 @@ straight into a GitHub issue.
 *Intermediate* = a spec change plus code. *Project* = a new tool, built over two
 pull requests.
 
-No install? For the Summary screenshot, enter the same five ratings as a
-Custom industry on the live site's Analyze view, then screenshot its Summary.
+No install? For the screenshots, choose the **Custom industry** emblem on the
+live site's Plate, enter the same name, scope and five ratings, then
+screenshot the Plate and the Summary.
 
 ## Industry presets for Five Forces Explorer
 
@@ -42,7 +43,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ### 2. Add industry preset: Ride-hailing
@@ -62,7 +63,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ### 3. Add industry preset: Fast fashion
@@ -82,7 +83,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ### 4. Add industry preset: College textbooks
@@ -102,7 +103,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ### 5. Add industry preset: Craft beer
@@ -122,7 +123,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ### 6. Add industry preset: Smartphones
@@ -142,7 +143,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ### 7. Add industry preset: Beauty and cosmetics
@@ -162,7 +163,7 @@ Acceptance criteria
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
 - [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
-- [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
+- [ ] `npm run check` passes; the PR includes screenshots of the new preset on the Plate and in the Summary
 ```
 
 ## New tools for the suite
@@ -301,7 +302,7 @@ Build the Perceptual Map: plot brands on two attributes customers care about to 
 
 Tool id and folder: `perceptual-map` (`src/tools/perceptual-map/`).
 
-Ideas to consider in the spec: choosing the two axes; placing brands with keyboard-accessible controls; a hand-written SVG chart (no chart library) with a data-table equivalent, like Five Forces Explorer's radar chart.
+Ideas to consider in the spec: choosing the two axes; placing brands with keyboard-accessible controls; a hand-written SVG chart (no chart library) with a data-table equivalent, like Five Forces Explorer's plate and its schedule of forces.
 
 Acceptance criteria
 - [ ] PR 1 (spec): `src/tools/perceptual-map/SPEC.md` from `docs/specs/TOOL-TEMPLATE.md`, every section filled in, framework sources named, approved in review
@@ -369,20 +370,20 @@ Acceptance criteria
 
 ## Improve Five Forces Explorer
 
-### 18. Five Forces: download the radar chart as an SVG image
+### 18. Five Forces: download the plate as an SVG image
 
 - **Labels:** `enhancement`, `five-forces`, `spec`
 - **Difficulty:** Intermediate
 
 ```markdown
-Students want to put their radar chart into slides. Add a "Download chart (.svg)" action to the Summary view's export section.
+Students want to put their Five Forces plate into slides. Add a "Download plate (.svg)" action to the Summary view's export section.
 
-This changes behavior, so the spec comes first: propose it with `docs/specs/TEMPLATE.md`, then update `src/tools/five-forces/SPEC.md` §2.4 and its changelog in the same PR as the code. The chart is already hand-written SVG, so no chart library is needed.
+This changes behavior, so the spec comes first: propose it with `docs/specs/TEMPLATE.md`, then update `src/tools/five-forces/SPEC.md` §2.4 and its changelog in the same PR as the code. The plate is already drawn as SVG from the ratings, so no chart library is needed.
 
 Acceptance criteria
 - [ ] Proposal in `docs/specs/` and the tool spec updated (§2.4, changelog)
-- [ ] Summary has a labeled "Download chart (.svg)" button next to the existing export buttons
-- [ ] The downloaded file opens in a browser and shows the chart, including the comparison series when one is selected, with a title naming the industry
+- [ ] Summary has a labeled "Download plate (.svg)" button next to the existing export buttons
+- [ ] The downloaded file opens in a browser and shows the plate as the Summary draws it, with a title naming the industry
 - [ ] The SVG is produced by a pure function in `lib/` with unit tests
 - [ ] Keyboard operable, with a visible success or failure status message like "Copy as Markdown" has
 - [ ] `npm run check` passes; screenshot in the PR
@@ -396,7 +397,7 @@ Acceptance criteria
 ```markdown
 Check that Five Forces Explorer works for people who use a keyboard or a screen reader (suite SPEC §2.4). No coding needed for the review itself.
 
-How: use only the keyboard (Tab, Shift+Tab, Enter, Space, arrow keys) to go through Learn, Analyze and Summary. Then try a built-in screen reader (VoiceOver on a Mac, Narrator on Windows).
+How: use only the keyboard (Tab, Shift+Tab, Enter, Space, arrow keys) to go through the Plate (choose an industry, select each force, rate it, tick its drivers, open the on-demand sections) and the Summary (Compare with, the export buttons). Then try a built-in screen reader (VoiceOver on a Mac, Narrator on Windows).
 
 Acceptance criteria
 - [ ] A comment on this issue listing each problem found: which view, what you did, what happened, what you expected
