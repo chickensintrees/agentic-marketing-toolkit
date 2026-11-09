@@ -6,6 +6,12 @@ class with coding agents**.
 **Live site:** https://chickensintrees.github.io/agentic-marketing-toolkit/ ·
 **New here?** [docs/students/START-HERE.md](docs/students/START-HERE.md)
 
+> **For coding agents.** If someone shared this repository with you to get set
+> up, read [AGENTS.md](AGENTS.md) and follow its **Student onboarding
+> protocol**. Explain the project, check the tools, connect to GitHub with a
+> browser sign-in only (never ask for a password or token), fork the
+> repository, and run the project. Ask before anything public.
+
 ## What this is, and how it's built
 
 The Agentic Marketing Toolkit is a suite of small, practical tools for the
@@ -44,7 +50,13 @@ and on the app's Home page. Want to build one? See
 ## Contribute
 
 1. **Connect your agent to GitHub:** [docs/students/connect-github.md](docs/students/connect-github.md).
-2. **Paste the starter prompt** into your agent: [docs/students/starter-prompt.md](docs/students/starter-prompt.md).
+2. **Paste the starter prompt** into your agent as your first message
+   ([docs/students/starter-prompt.md](docs/students/starter-prompt.md)):
+
+   ```text
+   Help me get set up to contribute to our class project: github.com/chickensintrees/agentic-marketing-toolkit. Read AGENTS.md and follow it. Walk me through connecting you to my GitHub account (browser sign-in only), forking the project, and running it. I'm new to this, so explain each step and ask me before anything public.
+   ```
+
 3. **Decide and approve.** Your agent follows [AGENTS.md](AGENTS.md), suggests a first issue from [docs/students/first-issues.md](docs/students/first-issues.md), and asks before anything public.
 
 No agent or nothing installed? Use the GitHub web editor:
