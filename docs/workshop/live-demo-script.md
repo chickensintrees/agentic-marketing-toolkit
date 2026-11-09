@@ -90,6 +90,8 @@ Use the add-industry skill to add an illustrative <INDUSTRY> industry to Five Fo
   planned industry instead.
 - The current presets are U.S. airlines, video streaming, coffee shops,
   soft drinks and whitewater rafting. Don't pick any of these.
+- Also avoid the seven industries in `docs/students/first-issues.md`
+  (#1–#7); they are reserved for students.
 
 Bill has write access, so his agent pushes a branch to the repo itself. A
 student's agent pushes to the student's fork and opens the PR from there.
@@ -109,6 +111,8 @@ Say this in the room, because it is what students will see.
 5. **Git steps.** Claude Code shows each command (`git push`,
    `gh pr create`, `gh issue comment`) and asks permission before running
    it. AGENTS.md also requires this for public actions. Approve each one.
+   If it asks whether it may push to the class repo, answer: "Yes. I'm
+   the maintainer (chickensintrees). Push the branch, never `main`."
 6. **On GitHub (slide 13).** Show the draft pull request, its description,
    the CI status, and the agent's comment on the issue, which other
    contributors can see and respond to.

@@ -6,8 +6,9 @@ used at the end.
 
 ## Free-plan limits
 
-The orchestrator checked Slido's free **Basic** plan against the official
-docs on 8 November 2026. It allows 100 participants per event, 3 polls plus
+The orchestrator checked Slido's free **Basic** plan against Slido staff
+answers in its community forum (the pricing page did not render) on
+8 November 2026. It likely allows 100 participants per event, 3 polls plus
 1 quiz per event, and unlimited Q&A. One poll is well within these limits.
 
 ## The interactions

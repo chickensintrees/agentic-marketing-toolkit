@@ -118,7 +118,7 @@ you already have; don't assume (skill `connect-github`):
 
 1. **GitHub CLI.** Run `gh auth status`. Logged in to github.com? Use `gh` and `git`. If `git push` asks for a password, run `gh auth setup-git`.
 2. **GitHub MCP tools** (names like `get_me`, `fork_repository`, `create_pull_request`). Call `get_me` to confirm whose account it is, then use them.
-3. **Your tool's own connection** (Codex Cloud, Claude Code on the web, Replit). It reaches only repos where the student connected or installed it, so work in their fork.
+3. **Your tool's own connection** (Codex Cloud, Claude Code on the web, Replit). It reaches only repos where the student connected or installed it, so work in their fork; the student claims the issue and opens the PR on github.com.
 4. **None of these:** guide the browser sign-in. The student runs `gh auth login --web --git-protocol https` **in their own terminal**, answers **Y** to "Authenticate Git with your GitHub credentials?", and types the one-time code at https://github.com/login/device after checking that the page names "GitHub CLI". Human steps: `docs/students/connect-github.md`.
 
 **Never** ask for a password or token in chat, never suggest pasting or

@@ -18,7 +18,9 @@ Tool #1 is Five Forces Explorer.
 ## Contribute with your coding agent
 
 You need a free GitHub account and a coding agent: Claude Code, Codex,
-Cursor, Replit or Lovable. Paste this prompt:
+Cursor, Replit or Lovable. Paste this prompt into Claude Code, Codex, Cursor
+or Replit. With Lovable, or no agent, skip it and use the web editor path
+below.
 
 ```
 Help me get set up to contribute to our class project: github.com/chickensintrees/agentic-marketing-toolkit. Read AGENTS.md and follow it. Walk me through connecting you to my GitHub account (browser sign-in only), forking the project, and running it. I'm new to this, so explain each step and ask me before anything public.
@@ -34,11 +36,11 @@ higher), Codex (including the free desktop app), Cursor, and Replit's Shell.
 Your agent can run these steps for you. You just approve, and sign in
 through your browser.
 
-1. **Install Git and the GitHub CLI.** Mac: `xcode-select --install`, then
+1. **Install Git, the GitHub CLI and Node.js.** Mac: `xcode-select --install`, then
    `brew install gh` (needs Homebrew, from brew.sh). Windows:
    `winget install --id Git.Git -e --source winget`
    and `winget install --id GitHub.cli --source winget`, then open a *new*
-   terminal window.
+   terminal window. Node.js 22.12 or newer (the LTS version): nodejs.org.
 2. **Sign in:** `gh auth login --web --git-protocol https`. Answer **Y** to
    "Authenticate Git", copy the one-time code, and approve "GitHub CLI" at
    github.com/login/device.
@@ -52,15 +54,21 @@ Applications.
   sign in with GitHub and install the Claude GitHub App on your fork only.
   If it can't open the PR, open it yourself from github.com ("compare
   across forks").
+- **Replit:** fork on github.com first, connect GitHub at replit.com/repos,
+  then import your fork.
 - **Lovable:** it can't attach to an existing repo. Use the web editor path
   below.
 
 ## No paid plan? Use the web editor
 
-On the project's GitHub page, open the file you want to change and click the
-pencil (edit) icon. GitHub forks the project for you, and when you save it
-offers to open a pull request. This is a perfectly good way to add one
-industry.
+For a one-file change such as a docs fix, open the file on the project's
+GitHub page and click the pencil (edit) icon. GitHub forks the project for
+you, and when you save it offers to open a pull request.
+
+Adding an industry takes two files: follow "Add an industry preset (two
+files)" in the project's CONTRIBUTING.md (fork, create `<id>.ts`, add one
+line to `index.ts` on the same branch, then open the pull request with
+"compare across forks").
 
 ## What you approve yourself
 

@@ -44,12 +44,14 @@ git commit -m "Add craft beer industry preset (closes #12)"
 ## 4. Push to the fork (ASK FIRST)
 
 ```bash
-git remote -v                     # origin must be the student's fork
+git remote -v                     # origin should be the student's fork
 git push -u origin <branch>
 ```
 
-If `origin` points at `chickensintrees`, stop: the push will be refused, and
-pushing there is a hard limit. Fix the remotes first (see `start-contribution`).
+If `origin` points at `chickensintrees` and the signed-in account
+(`gh api user --jq .login`) is not `chickensintrees`, stop: the push will be
+refused. Fix the remotes first (see `start-contribution`). The maintainer
+(`chickensintrees`) may push a branch other than `main` to the class repo.
 
 ## 5. Open the pull request (ASK FIRST)
 

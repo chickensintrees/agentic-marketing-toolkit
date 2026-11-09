@@ -25,7 +25,7 @@ New to the vocabulary? Read [GitHub basics](../github-basics.md) first (five min
    | **Cursor** | The Free plan includes Agent with limited usage. The student discount is closed to new sign-ups, but master's students can request credits through the form on Cursor's student-discount help page. |
    | **Replit** | The free Starter plan has limited Agent use. Replit's GitHub workflow is early access and may not be available on every account. |
    | **Lovable** | The Free plan has 30 build credits a month; students get 50% off Pro for 12 months. Lovable can't connect to this project's repository, so use the no-install path below. |
-   | **No agent** | GitHub's web editor is free and needs no install. Good for adding one file. |
+   | **No agent** | GitHub's web editor is free and needs no install. Good for a docs fix or an industry preset (two files). |
 
 3. **For tools that run on your computer** (Codex desktop app, Claude Code, Cursor): Git, the GitHub CLI (`gh`) and Node.js 22.12 or newer. Your agent can help install them; read and approve each command.
 
@@ -68,6 +68,7 @@ change as a pull request.
 1. Install Git and `gh`, and sign in (Step 1).
 2. Open the ChatGPT desktop app, choose **Codex**, start a new chat, and open or create a folder for the class, for example `Documents/mba-class`.
 3. Paste the starter prompt. Codex keeps the network off by default, so it asks before commands like `gh repo fork`, `npm install`, `git push` and `gh pr create`. Read each one and approve it.
+4. After it forks and clones, start a new Codex chat in the new `agentic-marketing-toolkit` folder, so Codex loads the project's AGENTS.md and skills, and tell the agent: "Continue the onboarding in AGENTS.md from step 4."
 
 On Plus or higher you can also use Codex Cloud: fork on github.com first, then
 connect GitHub in a cloud environment and choose **your fork**.
@@ -83,7 +84,7 @@ connect GitHub in a cloud environment and choose **your fork**.
 1. Open Cursor, choose **File > Open Folder** and pick an empty folder, then **Terminal > New Terminal**.
 2. Sign in to `gh` in that terminal (Step 1).
 3. Optional: to be asked before every command, go to **Settings > Agents > Approvals & Execution** and choose **Allowlist**.
-4. Paste the starter prompt into the Agent chat. After it forks and clones, use **File > Open Folder** to open the new `agentic-marketing-toolkit` folder.
+4. Paste the starter prompt into the Agent chat. After it forks and clones, use **File > Open Folder** to open the new `agentic-marketing-toolkit` folder. This starts a new chat, so tell the agent: "Continue the onboarding in AGENTS.md from step 4."
 
 [Details](connect-github.md#cursor).
 
@@ -139,6 +140,7 @@ Your agent should stop and ask before anything public. Read the command, then ap
 | The PR opened on your fork, not the class repo | Go to https://github.com/chickensintrees/agentic-marketing-toolkit/compare, click **compare across forks**, and choose your fork and branch. |
 | Codex or Cursor asks to allow network access | Expected for `gh`, `git push` and `npm install`. Read the command, then approve. |
 | `gh pr create` fails in Claude Code on the web | Expected there. Let Claude use its built-in GitHub tools, or open the PR on github.com. |
+| Claude on the web gets 403 on the class repo | Expected: a cloud session reaches only your fork. Claim your issue, and open and watch the PR, on github.com yourself. |
 | Someone already claimed your issue | Pick another, or comment to offer help. |
 | "This branch has conflicts" on your PR | Ask your agent to merge `main` into your branch (skill `respond-to-review`). |
 

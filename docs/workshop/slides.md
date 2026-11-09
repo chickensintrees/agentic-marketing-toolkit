@@ -75,9 +75,6 @@ Footer: From Old French *harneis*, "equipment"
 > term for building that structure. For an example source, see Anthropic
 > Engineering, "Effective harnesses for long-running agents" (Justin Young,
 > 26 November 2025).
->
-> *(The deck's notes for this slide still list four components. The
-> orchestrator has been asked to add "tools".)*
 
 ## 4. Components of a harness (0:08)
 
@@ -299,11 +296,9 @@ slido.com · #[SLIDO CODE] · [QR: Slido]
 
 With a free GitHub account, paste this into a coding agent:
 
-> Help me get set up to contribute to our class project:
-> github.com/chickensintrees/agentic-marketing-toolkit. Read AGENTS.md and
-> follow it. Walk me through connecting you to my GitHub account (browser
-> sign-in only), forking the project, and running it. I'm new to this, so
-> explain each step and ask me before anything public.
+```text
+Help me get set up to contribute to our class project: github.com/chickensintrees/agentic-marketing-toolkit. Read AGENTS.md and follow it. Walk me through connecting you to my GitHub account (browser sign-in only), forking the project, and running it. I'm new to this, so explain each step and ask me before anything public.
+```
 
 Participation is voluntary unless assigned by your instructor.
 

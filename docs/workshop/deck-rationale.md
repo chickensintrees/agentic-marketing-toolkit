@@ -65,7 +65,7 @@ Commentary goes in the speaker notes, which stay plain and factual.
 
 | | |
 |---|---|
-| **Know** | How a harness (spec, AGENTS.md, skills, checks) keeps agents building what you want. How people and agents collaborate in one GitHub repo. That connecting your agent to GitHub lets it do the git while you approve. |
+| **Know** | How a harness (spec, rules, skills, tools, checks) keeps agents building what you want. How people and agents collaborate in one GitHub repo. That connecting your agent to GitHub lets it do the git while you approve. |
 | **Be able to do** | Paste the starter prompt into a coding agent, connect it to GitHub with a browser sign-in, and open a pull request against the Agentic Marketing Toolkit. With no paid tool, make a one-file change in GitHub's web editor instead. |
 
 ## The arc (60 minutes, 18 slides)

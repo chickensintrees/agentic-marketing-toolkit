@@ -1,8 +1,9 @@
 # Specs and proposals
 
-In this project, **the spec is the single source of truth**. Changes flow
-through a spec before they flow into code, and when spec and code disagree,
-the spec wins.
+In this project, **the spec is the source of truth**, after
+[INTENT.md](../../INTENT.md) (Bill's intent, which only Bill changes). Changes
+flow through a spec before they flow into code, and when spec and code
+disagree, the spec wins.
 
 ## Where specs live
 

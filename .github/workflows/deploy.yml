@@ -34,8 +34,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
+      # The full gate, not just the build: a main that fails lint or tests
+      # does not deploy. `npm run check` ends with `npm run build` (./dist).
+      - name: Lint, typecheck, test and build
+        run: npm run check
 
       - name: Set up Pages
         uses: actions/configure-pages@v6

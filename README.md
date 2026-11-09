@@ -95,6 +95,7 @@ also has a guide to harness engineering.
 ## Project structure
 
 ```text
+INTENT.md                  Bill's intent; outranks the specs
 SPEC.md                    suite spec: shell, routing, tool contract, quality gates
 AGENTS.md                  the agent playbook (CLAUDE.md and replit.md point here)
 src/

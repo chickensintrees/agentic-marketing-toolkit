@@ -18,7 +18,8 @@ In order. Items marked **decide** need your call.
 
 ## 2. Ship the toolkit
 
-- [ ] Merge to `main` and enable GitHub Pages. Open
+- [ ] Mark PR #2 ready for review and merge it to `main` (until then `main`
+      has no AGENTS.md, skills or docs), and enable GitHub Pages. Open
       https://chickensintrees.github.io/agentic-marketing-toolkit/ and
       `#/five-forces` on a laptop and a phone. Check Learn, Analyze
       (whitewater rafting), and Summary (radar chart, Compare).
@@ -27,6 +28,11 @@ In order. Items marked **decide** need your call.
       setup steps the starter prompt relies on), and
       `docs/students/first-issues.md`. If a name differs, fix slide 11,
       `live-demo-script.md` and the handout.
+- [ ] Create the labels (`docs/maintainers.md` §2). `accessibility` already
+      exists; the commands there use `--force`, so they still run.
+- [ ] Seed the twenty first issues (`docs/maintainers.md` §5).
+- [ ] Create the issue "Add an industry chosen by the class", unless the
+      orchestrator already has, and note its number.
 
 ## 3. Connect and rehearse
 

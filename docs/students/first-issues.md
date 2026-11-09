@@ -15,6 +15,9 @@ straight into a GitHub issue.
 *Intermediate* = a spec change plus code. *Project* = a new tool, built over two
 pull requests.
 
+No install? For the Summary screenshot, enter the same five ratings as a
+Custom industry on the live site's Analyze view, then screenshot its Summary.
+
 ## Industry presets for Five Forces Explorer
 
 Each preset is one new file in `src/tools/five-forces/data/industries/` plus one
@@ -37,7 +40,7 @@ Things to think about: who holds power, the brands or the retailers that stock t
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/athletic-footwear.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```
@@ -57,7 +60,7 @@ Things to think about: are drivers suppliers here, and how easily can they switc
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/ride-hailing.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```
@@ -77,7 +80,7 @@ Things to think about: how hard is it to start selling clothes online? How much 
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/fast-fashion.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```
@@ -97,7 +100,7 @@ Things to think about: who is the buyer, the student who pays or the instructor 
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/college-textbooks.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```
@@ -117,7 +120,7 @@ Things to think about: how much power do distributors and retailers have? How cr
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/craft-beer.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```
@@ -137,7 +140,7 @@ Things to think about: what do switching costs look like for someone moving thei
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/smartphones.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```
@@ -157,7 +160,7 @@ Things to think about: how much has selling online changed the threat of new ent
 Acceptance criteria
 - [ ] New file `src/tools/five-forces/data/industries/beauty-cosmetics.ts`, default-exporting a preset whose `id` equals the file name
 - [ ] Registered at the end of `INDUSTRY_PRESETS` in `data/industries/index.ts`
-- [ ] All five forces: a rating 1–5, 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
+- [ ] All five forces: a rating 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy), 2–4 valid driver ids from `data/forces.ts`, a 2–4 sentence rationale, `evidence: 'illustrative'`, empty source
 - [ ] Cautious, general language: no statistics, market shares or claims about named companies
 - [ ] `npm run check` passes; the PR includes a screenshot of the Summary radar chart
 ```

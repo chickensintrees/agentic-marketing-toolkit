@@ -29,15 +29,17 @@ GitHub creates `bug`, `documentation`, `enhancement`, `good first issue`,
 
 ```bash
 R=chickensintrees/agentic-marketing-toolkit
-gh label create new-industry  --repo $R --color 0E8A16 --description "A new Five Forces industry preset"
-gh label create new-tool      --repo $R --color 1D76DB --description "A new tool for the suite"
-gh label create five-forces   --repo $R --color 5319E7 --description "Five Forces Explorer"
-gh label create spec          --repo $R --color FBCA04 --description "Needs or is a spec change or proposal"
-gh label create accessibility --repo $R --color B60205 --description "Keyboard, screen reader, contrast"
-gh label create needs-triage  --repo $R --color D4C5F9 --description "Not yet reviewed by a maintainer"
+gh label create new-industry  --force --repo $R --color 0E8A16 --description "A new Five Forces industry preset"
+gh label create new-tool      --force --repo $R --color 1D76DB --description "A new tool for the suite"
+gh label create five-forces   --force --repo $R --color 5319E7 --description "Five Forces Explorer"
+gh label create spec          --force --repo $R --color FBCA04 --description "Needs or is a spec change or proposal"
+gh label create accessibility --force --repo $R --color B60205 --description "Keyboard, screen reader, contrast"
+gh label create needs-triage  --force --repo $R --color D4C5F9 --description "Not yet reviewed by a maintainer"
 ```
 
 Issue forms only apply labels that already exist, so create these first.
+`--force` updates a label that already exists (this repository already has
+`accessibility`), so the block is safe to run again.
 
 ### 3. Fork pull request approval
 

@@ -100,12 +100,13 @@ also unlocks the CLI and IDE extension):
 3. Paste the [starter prompt](starter-prompt.md).
 4. Codex keeps the network off by default, so it asks before commands like `gh repo fork`, `npm install`, `git push` and `gh pr create`. Read each one and approve it with the narrowest option offered.
 5. If a `gh` command fails only inside Codex's sandbox, approve running it with network access when Codex offers.
+6. After it forks and clones, start a new Codex chat in the new `agentic-marketing-toolkit` folder, so Codex loads the project's AGENTS.md and skills, and tell the agent: "Continue the onboarding in AGENTS.md from step 4."
 
 **Codex Cloud** (Plus or higher):
 
 1. Fork on github.com first: https://github.com/chickensintrees/agentic-marketing-toolkit/fork
 2. In ChatGPT, choose **Work in > Cloud**, then create and publish an environment. Select **your fork**, and **Connect GitHub** if prompted.
-3. Start the task with the starter prompt. When your change is ready, choose to open a pull request.
+3. Start the task with the starter prompt. When your change is ready, choose to open a pull request. From a cloud session your agent can reach only your fork. Pick and claim your issue on github.com yourself (comment "I'd like to work on this"), and open and watch the pull request there.
 4. If the PR opens on your fork, open it on the class repo [in the browser](#if-the-pull-request-lands-on-your-fork).
 
 ## Claude Code
@@ -125,7 +126,7 @@ Claude Code needs a paid Claude plan (Pro or higher).
 2. Open https://claude.ai/code and click **Sign in with GitHub**.
 3. Install the Claude GitHub App for your account at https://github.com/apps/claude/installations/new, choose **Only select repositories**, and pick your fork.
 4. Select your fork, paste the starter prompt, and review the changes Claude makes.
-5. If **Create PR** opens the pull request on your fork, open it on the class repo [in the browser](#if-the-pull-request-lands-on-your-fork). In cloud sessions, Claude can't use `gh pr` or `gh issue` (GitHub's GraphQL API is blocked there), so it uses its built-in GitHub tools instead.
+5. If **Create PR** opens the pull request on your fork, open it on the class repo [in the browser](#if-the-pull-request-lands-on-your-fork). In cloud sessions, Claude can't use `gh pr` or `gh issue` (GitHub's GraphQL API is blocked there), so it uses its built-in GitHub tools instead. From a cloud session your agent can reach only your fork. Pick and claim your issue on github.com yourself (comment "I'd like to work on this"), and open and watch the pull request there.
 
 ## Cursor
 
@@ -135,7 +136,7 @@ The Free plan includes Agent with limited usage.
 2. In Cursor: **File > Open Folder** (an empty folder), then **Terminal > New Terminal**, and sign in there (above).
 3. Optional but recommended: to be asked before every command, open **Settings > Agents > Approvals & Execution** and choose **Allowlist**, with nothing on the list. The default mode can approve some commands without asking you.
 4. Paste the [starter prompt](starter-prompt.md) into the Agent chat.
-5. After the agent forks and clones, use **File > Open Folder** to open the new `agentic-marketing-toolkit` folder.
+5. After the agent forks and clones, use **File > Open Folder** to open the new `agentic-marketing-toolkit` folder. This starts a new chat, so tell the agent: "Continue the onboarding in AGENTS.md from step 4."
 
 You don't need the Cursor GitHub app (it's for Cursor's Cloud Agents) or an MCP
 server.

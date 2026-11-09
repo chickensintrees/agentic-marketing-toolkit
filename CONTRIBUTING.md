@@ -54,7 +54,7 @@ your change even though you can't run the tests yourself.
 
 1. **Fork:** open https://github.com/chickensintrees/agentic-marketing-toolkit/fork and click **Create fork**.
 2. **Create the preset file:** in your fork, go to `src/tools/five-forces/data/industries/` and choose **Add file > Create new file**. Name it `<id>.ts`, for example `craft-beer.ts` (lowercase, hyphens).
-3. **Fill it in:** copy everything from `coffee-shops.ts` in the same folder as a starting point, then change the `id` (it must equal the file name), the profile, and all five assessments. Use only driver ids listed for that force in `src/tools/five-forces/data/forces.ts`. Any AI chat, Lovable included, can help draft it if you paste in `coffee-shops.ts` and the driver ids. You decide the scope and the ratings.
+3. **Fill it in:** copy everything from `coffee-shops.ts` in the same folder as a starting point, then change the `id` (it must equal the file name), the profile, and all five assessments. Each rating is 1–5, where higher means more pressure on profitability (a high threat of new entrants means entry is easy). Use only driver ids listed for that force in `src/tools/five-forces/data/forces.ts`. Any AI chat, Lovable included, can help draft it if you paste in `coffee-shops.ts` and the driver ids. You decide the scope and the ratings.
 4. **Commit to a new branch:** click **Commit changes…**, choose **Create a new branch for this commit**, name it `add-<id>`, and confirm. If GitHub then offers a pull request form, you can leave it for step 6.
 5. **Register it:** switch to your `add-<id>` branch (the branch menu above the file list), open `src/tools/five-forces/data/industries/index.ts`, and click the pencil. Add an import line with the others, such as `import craftBeer from './craft-beer'`, and add `craftBeer,` at the end of the `INDUSTRY_PRESETS` list. Commit directly to the `add-<id>` branch.
 6. **Open the pull request:** go to https://github.com/chickensintrees/agentic-marketing-toolkit/compare, click **compare across forks**, and choose your fork and the `add-<id>` branch as the head. Fill in the description, include `Closes #<issue>`, and click **Create pull request**.
@@ -62,7 +62,8 @@ your change even though you can't run the tests yourself.
 
 ## Spec first
 
-The specs are the source of truth: [SPEC.md](SPEC.md) for the suite, and
+The specs are the source of truth (after [INTENT.md](INTENT.md), Bill's intent,
+which only Bill changes): [SPEC.md](SPEC.md) for the suite, and
 `src/tools/<tool-id>/SPEC.md` for each tool. If your change alters how the app
 behaves, the spec changes first, in the same pull request as the code. A
 **spec-only pull request** (a proposal in `docs/specs/`, or a new tool's
