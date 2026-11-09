@@ -55,16 +55,20 @@ export function FiveForcesTool({ subpath, navigate }: ToolProps) {
   const panel: Panel = profileOpen ? { kind: 'profile' } : stepToPanel(state.step)
   const panelKey = panel.kind === 'force' ? panel.forceId : panel.kind
 
-  // Moving between views or panels moves focus to the new heading. Not on
-  // first render: the shell handles focus when a tool opens.
+  // Moving between views moves focus to the h1 (and so to the top of the
+  // view); opening a panel moves it to the panel's heading. Not on first
+  // render: the shell handles focus when a tool opens.
   const isFirst = useRef(true)
+  const lastView = useRef(view)
   useEffect(() => {
+    const viewChanged = lastView.current !== view
+    lastView.current = view
     if (isFirst.current) {
       isFirst.current = false
       return
     }
     const target =
-      view === 'summary'
+      viewChanged || view === 'summary'
         ? document.getElementById('view-heading')
         : document.querySelector<HTMLElement>('.plate-panel h2')
     target?.focus()
@@ -86,7 +90,11 @@ export function FiveForcesTool({ subpath, navigate }: ToolProps) {
     setProfileOpen(preset === undefined)
   }
   const selectIndustry = (presetId: string | null) => {
-    if (presetId === analysis.presetId) return
+    if (presetId === analysis.presetId) {
+      // Choosing Custom again still opens its profile, so the edit emblem always responds.
+      if (presetId === null) openPanel({ kind: 'profile' })
+      return
+    }
     if (hasUserInput(analysis)) {
       const name = findPreset(presetId)?.profile.name ?? 'a custom industry'
       setPending({ kind: 'switch', presetId, name })

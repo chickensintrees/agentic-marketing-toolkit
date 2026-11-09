@@ -73,3 +73,30 @@
     --color-error: #f0a08a;
   }
 }
+
+/* Print on white paper in ink, whatever the screen theme. */
+@media print {
+  :root {
+    --color-bg: #fff;
+    --color-surface: #fff;
+    --color-surface-2: #eee;
+    --color-text: #000;
+    --color-text-muted: #3d3832;
+    --color-border: #7a7163;
+    --color-ink: #000;
+    --color-accent: #8f2a1c;
+    --color-accent-strong: #741f13;
+    --color-on-accent: #fff;
+    --color-focus: #8f2a1c;
+    --color-success: #2f5a2a;
+    --color-warning: #6e4a06;
+    --color-error: #8f2a1c;
+  }
+}
+
+/* Wide projector screens: a wider page so the plate can grow. */
+@media screen and (min-width: 1800px) {
+  :root {
+    --max-width: 86rem;
+  }
+}

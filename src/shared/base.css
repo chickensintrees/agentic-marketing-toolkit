@@ -245,9 +245,17 @@ select {
   padding-right: var(--space-5);
 }
 
+/* The browser's grey placeholder falls below 4.5:1 on these papers. */
+::placeholder {
+  color: var(--color-text-muted);
+  font-style: italic;
+  opacity: 1;
+}
+
 /* Disclosure: an italic toggle with a drawn triangle. */
 .disclosure-heading {
   font-size: inherit;
+  line-height: inherit;
 }
 
 .disclosure-toggle {
@@ -321,6 +329,7 @@ select {
 
 /* Tables: rules top and bottom, hairlines between rows. */
 .table-wrap {
+  position: relative; /* keeps visually hidden cells inside the scroller */
   overflow-x: auto;
 }
 

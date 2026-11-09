@@ -4,7 +4,7 @@ import { FACTORS_NOT_FORCES, SOURCES } from '../data/forces'
 /** On-demand notes under the plate: purpose, factors not forces, sources (SPEC §2.2). */
 export function AboutFramework() {
   return (
-    <Disclosure className="about-framework" summary="About the framework">
+    <Disclosure className="about-framework" summary="About the framework" headingLevel={2}>
       <div className="about-body">
         <p>
           Industry structure shapes how profitable an industry is on average, and so what strategy can

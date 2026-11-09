@@ -145,20 +145,25 @@ export function SummaryView({ analysis, narrow, onGoToPlate }: SummaryViewProps)
           </div>
           {comparison ? (
             <p className="legend">
-              <svg viewBox="0 0 30 8" aria-hidden="true" focusable="false">
-                <line x1="0" y1="4" x2="30" y2="4" className="bar-yours" strokeWidth={3} />
-              </svg>
-              <span>{title}</span>
-              <svg viewBox="0 0 30 8" aria-hidden="true" focusable="false">
-                <line x1="0" y1="4" x2="30" y2="4" className="bar-compare" strokeWidth={2} />
-              </svg>
-              <span>{comparison.profile.name} (illustrative, dashed)</span>
+              <span className="legend-item">
+                <svg viewBox="0 0 30 8" aria-hidden="true" focusable="false">
+                  <line x1="0" y1="4" x2="30" y2="4" className="bar-yours" strokeWidth={3} />
+                </svg>
+                <span>{title}</span>
+              </span>
+              <span className="legend-item">
+                <svg viewBox="0 0 30 8" aria-hidden="true" focusable="false">
+                  <line x1="0" y1="4" x2="30" y2="4" className="bar-compare" strokeWidth={2} />
+                </svg>
+                <span>{comparison.profile.name} (illustrative, dashed)</span>
+              </span>
             </p>
           ) : null}
 
-          <div className="table-wrap">
+          {/* On the narrowest phones the table scrolls sideways, so its wrapper takes keyboard focus. */}
+          <div className="table-wrap" role="region" aria-labelledby={`${id}-schedule`} tabIndex={0}>
             <table className="data-table schedule">
-              <caption>
+              <caption id={`${id}-schedule`}>
                 <span className="sc">Table 1.</span> Schedule of forces
               </caption>
               <thead>
@@ -215,7 +220,7 @@ export function SummaryView({ analysis, narrow, onGoToPlate }: SummaryViewProps)
 
           <ExportPanel analysis={analysis} />
 
-          <Disclosure className="notes-disclosure no-print" summary="Notes by force">
+          <Disclosure className="notes-disclosure no-print" summary="Notes by force" headingLevel={3}>
             {notes}
           </Disclosure>
         </div>

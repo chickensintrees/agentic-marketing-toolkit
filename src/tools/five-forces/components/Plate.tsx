@@ -244,7 +244,8 @@ export function Plate({ analysis, selected = null, onSelect, narrow = false, lab
         <rect x={box.x - cartW / 2} y={box.y - cartH / 2} width={cartW} height={cartH} fill={CARTOUCHE} stroke={INK} strokeWidth={0.6} />
         {lines.map((line, i) => (
           <text key={line} className="plate-label" x={box.x} y={firstY + i * 20} textAnchor="middle" fontSize={19}>
-            {line}
+            {/* The trailing space keeps a two-line name one phrase ("Supplier power") for assistive tech; it is not drawn. */}
+            {i < lines.length - 1 ? `${line} ` : line}
           </text>
         ))}
         <Pips cx={box.x} y={narrow ? box.y + (two ? 18 : 8) : box.y + 7} rating={r} accent={on} step={narrow ? 14 : 15} />

@@ -177,7 +177,7 @@ export function ForcePanel({ analysis, force, onChange }: ForcePanelProps) {
         </div>
       </Disclosure>
 
-      <Disclosure className="panel-more" summary="About this force">
+      <Disclosure className="panel-more" summary="About this force" headingLevel={3}>
         <ForceDetail force={force} headingLevel={4} />
       </Disclosure>
     </section>

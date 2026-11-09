@@ -271,4 +271,44 @@ describe('Five Forces Explorer', () => {
     expect(screen.getByRole('heading', { name: 'Factors, not forces' })).toBeVisible()
     expect(screen.getByText(/How competitive forces shape strategy/)).toBeVisible()
   })
+
+  it('keeps keyboard focus in place: confirmations return it, views move it to the h1', async () => {
+    const user = userEvent.setup()
+    render(<Harness />)
+    await loadAirlines(user)
+    await user.click(force('Buyer power'))
+    await user.click(screen.getByRole('radio', { name: '2 Low' }))
+
+    // Keep editing and Replace both hand focus back to the emblem that asked.
+    await user.click(industry('Coffee shops'))
+    expect(screen.getByRole('button', { name: 'Keep editing' })).toHaveFocus()
+    await user.click(screen.getByRole('button', { name: 'Keep editing' }))
+    expect(industry('Coffee shops')).toHaveFocus()
+    await user.click(industry('Coffee shops'))
+    await user.click(screen.getByRole('button', { name: 'Replace' }))
+    expect(industry('Coffee shops')).toHaveFocus()
+
+    // Changing view focuses the h1, never a heading further down the page.
+    await user.click(viewLink('Summary'))
+    expect(screen.getByRole('heading', { level: 1 })).toHaveFocus()
+    await user.click(viewLink('Plate'))
+    expect(screen.getByRole('heading', { level: 1 })).toHaveFocus()
+  })
+
+  it('the edit emblem opens the profile even when Custom is already chosen', async () => {
+    const user = userEvent.setup()
+    render(<Harness />)
+    expect(industry('Custom industry')).toHaveAttribute('aria-pressed', 'true')
+    await user.click(industry('Custom industry'))
+    expect(screen.getByRole('heading', { level: 2, name: 'Industry profile' })).toHaveFocus()
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
+  })
+
+  it('on-demand sections sit in the heading outline without skipping levels', async () => {
+    const user = userEvent.setup()
+    render(<Harness />)
+    await user.click(force('Buyer power'))
+    expect(screen.getByRole('heading', { level: 2, name: 'About the framework' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 3, name: 'About this force' })).toBeInTheDocument()
+  })
 })

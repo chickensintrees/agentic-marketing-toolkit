@@ -551,6 +551,13 @@
   height: 0.5rem;
 }
 
+/* Each sample stays beside its label when the legend wraps. */
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .schedule tbody th {
   white-space: nowrap;
   font-family: var(--font-display);
@@ -577,6 +584,7 @@
 .weight-bars {
   display: block;
   width: 100%;
+  min-width: 3.5rem;
   max-width: 9rem;
   height: auto;
 }
@@ -715,6 +723,38 @@
     height: 3.1rem;
     padding: 0.3rem 0.15rem;
   }
+
+  /* A tighter schedule, so the comparison fits on most phones. */
+  .schedule th,
+  .schedule td {
+    padding-inline: var(--space-1);
+  }
+
+  .schedule tbody th {
+    white-space: normal;
+    font-size: var(--text-lg);
+  }
+
+  .schedule .num {
+    font-size: var(--text-lg);
+  }
+
+  .schedule thead th,
+  .schedule thead .num {
+    font-size: var(--text-sm);
+    letter-spacing: 0.03em;
+  }
+
+  .schedule .bars {
+    width: 3.5rem;
+  }
+}
+
+@media screen and (min-width: 1800px) {
+  /* Projector screens: the plate grows into the wider page. */
+  .plate {
+    max-width: 58rem;
+  }
 }
 
 @media print {
@@ -732,5 +772,36 @@
 
   .plate-head {
     border-color: #000;
+  }
+
+  /* Paper cannot scroll: the whole schedule must fit its column. */
+  .table-wrap {
+    overflow: visible;
+  }
+
+  .schedule th,
+  .schedule td {
+    padding-inline: 3pt;
+  }
+
+  .schedule tbody th,
+  .schedule .num {
+    white-space: normal;
+    font-size: 12pt;
+  }
+
+  .schedule thead th,
+  .schedule thead .num {
+    font-size: 8pt;
+    letter-spacing: 0.05em;
+  }
+
+  .schedule .bars {
+    width: 0.8in;
+  }
+
+  .print-only h3 {
+    font-size: 14pt;
+    margin-bottom: 6pt;
   }
 }
