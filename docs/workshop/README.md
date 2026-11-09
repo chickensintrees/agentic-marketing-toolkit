@@ -15,3 +15,4 @@ artifact, 19 slides. It is private until shared from its Share menu.)
 | [audience-participation.md](audience-participation.md) | Slido polls and Q&A: exact wording, timing, limits, fallback. |
 | [student-handout.md](student-handout.md) | One printable page: links, the starter prompt, the web-editor path, approvals, help. |
 | [tonight-checklist.md](tonight-checklist.md) | Bill's prep steps, in order, including every placeholder to fill. |
+| [proposed-additions.md](proposed-additions.md) | Drafts (not published) for INTENT.md §7 items awaiting Bill's decision. |
