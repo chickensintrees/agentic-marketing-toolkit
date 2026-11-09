@@ -1,203 +1,182 @@
 import { useId, useState } from 'react'
-import { Button } from '../../../shared/components/Button'
-import { Card } from '../../../shared/components/Card'
-import { FORCES, SHORT_NAMES, getForce } from '../data/forces'
+import { Disclosure } from '../../../shared/components/Disclosure'
+import { FORCES, SHORT_NAMES } from '../data/forces'
 import { INDUSTRY_PRESETS } from '../data/industries'
 import {
   NOT_RATED_LABEL,
-  RATING_LABELS,
   driverLabels,
   evidenceLabel,
   evidenceSummary,
   evidenceSummaryParts,
   findPreset,
+  forceNames,
   overallStructure,
   ratedCount,
   ratingLabel,
   strongestForces,
 } from '../lib/analysis'
 import { industryTitle } from '../lib/markdown'
-import { chartDescription, comparisonRows, formatDifference, ratingsInOrder } from '../lib/summary'
-import type { Analysis, ForceAssessment, Rating } from '../types'
+import { arrowWeight, plateLabel } from '../lib/plate'
+import { comparisonRows, formatDifference } from '../lib/summary'
+import type { Analysis, Rating } from '../types'
 import { ExportPanel } from './ExportPanel'
-import { RadarChart } from './RadarChart'
-import { RatingPips } from './RatingPips'
+import { Plate } from './Plate'
 
-const SUMMARY_DISCLAIMER =
-  'Example ratings are illustrative teaching material, not verified market research.'
-
+const SUMMARY_DISCLAIMER = 'Example ratings are illustrative teaching material, not verified market research.'
 const NONE = ''
 
 interface SummaryViewProps {
   analysis: Analysis
-  onGoToAnalyze: () => void
+  narrow: boolean
+  onGoToPlate: () => void
 }
 
-/** The Summary view: chart, comparison, strongest forces, recap, implications, export. */
-export function SummaryView({ analysis, onGoToAnalyze }: SummaryViewProps) {
-  const rated = ratedCount(analysis)
-
+/** Two drawn bars: yours solid, the comparison dashed. Same scale as the plate. */
+function WeightBars({ rating, comparison }: { rating: Rating | null; comparison: Rating | null | undefined }) {
+  const compare = comparison !== undefined
   return (
-    <section className="view summary-view" aria-labelledby="view-heading">
-      <div className="view-header">
-        <div>
-          <h2 id="view-heading" tabIndex={-1}>
-            Summary
-          </h2>
-          <p className="view-subtitle">
-            Your analysis at a glance, ready to discuss, export, or print.
-          </p>
-        </div>
-      </div>
-
-      {rated === 0 ? (
-        <Card className="empty-state">
-          <h3>Nothing to summarize yet</h3>
-          <p>
-            Rate at least one force in Analyze and your chart, strongest forces, and recap
-            will appear here.
-          </p>
-          <Button variant="primary" onClick={onGoToAnalyze}>
-            Go to Analyze<span aria-hidden="true"> →</span>
-          </Button>
-        </Card>
-      ) : (
-        <SummaryContent analysis={analysis} rated={rated} />
-      )}
-
-      <p className="disclaimer">
-        <span aria-hidden="true">ⓘ </span>
-        {SUMMARY_DISCLAIMER}
-      </p>
-    </section>
+    <svg className="weight-bars" viewBox={`0 0 124 ${compare ? 26 : 16}`} aria-hidden="true" focusable="false">
+      <line x1="0" y1="8" x2="120" y2="8" className="bar-guide" />
+      {rating !== null ? <line x1="0" y1="8" x2={24 * rating} y2="8" className="bar-yours" strokeWidth={arrowWeight(rating)} /> : null}
+      {compare ? (
+        <>
+          <line x1="0" y1="20" x2="120" y2="20" className="bar-guide" />
+          {comparison !== null ? (
+            <line x1="0" y1="20" x2={24 * comparison} y2="20" className="bar-compare" strokeWidth={Math.max(1.4, arrowWeight(comparison) * 0.6)} />
+          ) : null}
+        </>
+      ) : null}
+    </svg>
   )
 }
 
-function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number }) {
+/** The Summary (SPEC §2.4): the plate, the schedule of forces, comparison, notes, export. */
+export function SummaryView({ analysis, narrow, onGoToPlate }: SummaryViewProps) {
   const id = useId()
   const [compareId, setCompareId] = useState(NONE)
-  const comparison = findPreset(compareId || null) ?? null
+  const comparison = findPreset(compareId === NONE ? null : compareId) ?? null
+  const rated = ratedCount(analysis)
   const title = industryTitle(analysis)
-  const evidence = evidenceSummaryParts(evidenceSummary(analysis))
+
+  if (rated === 0) {
+    return (
+      <section className="summary-view" aria-labelledby={`${id}-summary`}>
+        <h2 id={`${id}-summary`} className="visually-hidden">
+          Summary
+        </h2>
+        <div className="empty-state">
+          <p className="empty-line">Nothing is rated yet.</p>
+          <button type="button" className="button button-primary" onClick={onGoToPlate}>
+            Rate a force on the plate
+          </button>
+        </div>
+        <p className="disclaimer">{SUMMARY_DISCLAIMER}</p>
+      </section>
+    )
+  }
+
+  const rows = comparisonRows(analysis, comparison)
   const strongest = strongestForces(analysis)
   const structure = overallStructure(analysis)
-  const rows = comparisonRows(analysis, comparison)
-  const total = FORCES.length
-  const unrated = FORCES.filter((f) => analysis.assessments[f.id].rating === null)
+  const evidence = evidenceSummaryParts(evidenceSummary(analysis))
+
+  const notes = (
+    <div className="notes-body">
+      {FORCES.map((force) => {
+        const a = analysis.assessments[force.id]
+        const drivers = driverLabels(force.id, a.driverIds)
+        return (
+          <section key={force.id} className="note" aria-label={force.name}>
+            <h4>
+              {force.name} <span className="note-rating">{ratingLabel(a.rating)}</span>
+            </h4>
+            <p>
+              <span className="sc">Drivers</span> {drivers.length ? drivers.join(', ') : 'None selected'}
+            </p>
+            <p>
+              <span className="sc">Rationale</span> {a.rationale || '—'}
+            </p>
+            <p>
+              <span className="sc">Evidence</span> {evidenceLabel(a)}
+              {a.evidence === 'sourced' && a.source ? ` — Source: ${a.source}` : ''}
+            </p>
+          </section>
+        )
+      })}
+      <section className="note" aria-label="Implications">
+        <h4>Implications</h4>
+        <p>
+          <span className="sc">Which forces matter most</span> {analysis.implications.keyForces || '—'}
+        </p>
+        <p>
+          <span className="sc">How a company could respond</span> {analysis.implications.response || '—'}
+        </p>
+      </section>
+    </div>
+  )
 
   return (
-    <>
-      <Card as="section" className="summary-header" aria-labelledby={`${id}-industry`}>
-        <p className="eyebrow">Industry</p>
-        <h3 id={`${id}-industry`} className="summary-title">
-          {title}
-        </h3>
-        {analysis.profile.scope.trim() ? (
-          <p className="summary-scope">
-            <strong>Scope:</strong> {analysis.profile.scope}
-          </p>
-        ) : null}
-        {analysis.profile.description.trim() ? (
-          <p className="summary-description">{analysis.profile.description}</p>
-        ) : null}
-        <p className="evidence-badges">
-          <span className="visually-hidden">Evidence: </span>
-          {evidence.map((part) => (
-            <span key={part} className="badge">
-              {part}
-            </span>
-          ))}
-        </p>
-      </Card>
-
+    <section className="summary-view" aria-labelledby={`${id}-summary`}>
+      <h2 id={`${id}-summary`} className="visually-hidden">
+        Summary
+      </h2>
       <div className="summary-grid">
-        <Card as="section" className="chart-card" aria-labelledby={`${id}-chart`}>
-          <div className="chart-card-header">
-            <h3 id={`${id}-chart`}>Force ratings</h3>
-            <div className="field compare-field no-print">
-              <label htmlFor={`${id}-compare`}>Compare with</label>
-              <select
-                id={`${id}-compare`}
-                value={compareId}
-                onChange={(e) => setCompareId(e.target.value)}
-              >
-                <option value={NONE}>None</option>
-                {INDUSTRY_PRESETS.map((preset) => (
-                  <option key={preset.id} value={preset.id}>
-                    {preset.profile.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+        <figure className="summary-figure">
+          <Plate analysis={analysis} narrow={narrow} label={plateLabel(title, analysis)} />
+          <figcaption>
+            {analysis.profile.scope ? <span className="summary-scope">{analysis.profile.scope}. </span> : null}
+            <span className="summary-evidence">{evidence.join(' · ')}</span>
+          </figcaption>
+        </figure>
+
+        <div className="summary-side">
+          <div className="compare-row no-print">
+            <label htmlFor={`${id}-compare`} className="sc">
+              Compare with
+            </label>
+            <select id={`${id}-compare`} value={compareId} onChange={(e) => setCompareId(e.target.value)}>
+              <option value={NONE}>None</option>
+              {INDUSTRY_PRESETS.map((preset) => (
+                <option key={preset.id} value={preset.id}>
+                  {preset.profile.name}
+                </option>
+              ))}
+            </select>
           </div>
-
-          <RadarChart
-            labels={FORCES.map((f) => SHORT_NAMES[f.id])}
-            primary={{ label: title, values: ratingsInOrder(analysis.assessments) }}
-            comparison={
-              comparison
-                ? {
-                    label: comparison.profile.name,
-                    values: ratingsInOrder(comparison.assessments),
-                  }
-                : undefined
-            }
-            ariaLabel={chartDescription(title, analysis, comparison)}
-          />
-
           {comparison ? (
-            <ul className="chart-legend" aria-label="Chart legend">
-              <li>
-                <svg className="legend-swatch" viewBox="0 0 36 12" aria-hidden="true">
-                  <line className="legend-line legend-line-primary" x1="2" y1="6" x2="34" y2="6" />
-                  <circle className="legend-marker-primary" cx="18" cy="6" r="4" />
-                </svg>
-                <span>
-                  {title} <span className="muted">(your analysis, solid line)</span>
-                </span>
-              </li>
-              <li>
-                <svg className="legend-swatch" viewBox="0 0 36 12" aria-hidden="true">
-                  <line
-                    className="legend-line legend-line-comparison"
-                    x1="2"
-                    y1="6"
-                    x2="34"
-                    y2="6"
-                  />
-                  <rect className="legend-marker-comparison" x="14" y="2" width="8" height="8" />
-                </svg>
-                <span>
-                  {comparison.profile.name}{' '}
-                  <span className="muted">(illustrative example, dashed line)</span>
-                </span>
-              </li>
-            </ul>
-          ) : null}
-
-          {unrated.length > 0 ? (
-            <p className="unrated-note">
-              <strong>Not rated yet</strong> (plotted at 0):{' '}
-              {unrated.map((f) => f.name).join(', ')}.
+            <p className="legend">
+              <svg viewBox="0 0 30 8" aria-hidden="true" focusable="false">
+                <line x1="0" y1="4" x2="30" y2="4" className="bar-yours" strokeWidth={3} />
+              </svg>
+              <span>{title}</span>
+              <svg viewBox="0 0 30 8" aria-hidden="true" focusable="false">
+                <line x1="0" y1="4" x2="30" y2="4" className="bar-compare" strokeWidth={2} />
+              </svg>
+              <span>{comparison.profile.name} (illustrative, dashed)</span>
             </p>
           ) : null}
 
-          {/* Scrolls sideways inside the card on very narrow phones; focusable so
-              keyboard users can scroll it too. */}
-          <div className="table-wrap" role="region" aria-labelledby={`${id}-caption`} tabIndex={0}>
-            <table className="data-table ratings-table">
-              <caption id={`${id}-caption`}>
-                Ratings from 1 (very low) to 5 (very high pressure on profitability)
+          <div className="table-wrap">
+            <table className="data-table schedule">
+              <caption>
+                <span className="sc">Table 1.</span> Schedule of forces
               </caption>
               <thead>
                 <tr>
                   <th scope="col">Force</th>
-                  <th scope="col">Your rating</th>
+                  <th scope="col">
+                    <span className="visually-hidden">Drawn weight</span>
+                  </th>
+                  <th scope="col" className="num">
+                    Rating
+                  </th>
                   {comparison ? (
                     <>
-                      <th scope="col">{comparison.profile.name}</th>
-                      <th scope="col" className="nowrap" aria-label="Difference" title="Difference">
-                        Diff.
+                      <th scope="col" className="num">
+                        Compare<span className="visually-hidden">: {comparison.profile.name}</span>
+                      </th>
+                      <th scope="col" className="num">
+                        Difference
                       </th>
                     </>
                   ) : null}
@@ -206,12 +185,15 @@ function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number
               <tbody>
                 {rows.map((row) => (
                   <tr key={row.forceId}>
-                    <th scope="row">{row.name}</th>
-                    <RatingCell rating={row.rating} />
+                    <th scope="row">{SHORT_NAMES[row.forceId]}</th>
+                    <td className="bars">
+                      <WeightBars rating={row.rating} comparison={comparison ? row.comparison : undefined} />
+                    </td>
+                    <td className="num">{row.rating === null ? NOT_RATED_LABEL : row.rating}</td>
                     {comparison ? (
                       <>
-                        <RatingCell rating={row.comparison} />
-                        <td className="table-number">{formatDifference(row.difference)}</td>
+                        <td className="num">{row.comparison ?? NOT_RATED_LABEL}</td>
+                        <td className="num">{formatDifference(row.difference)}</td>
                       </>
                     ) : null}
                   </tr>
@@ -219,154 +201,31 @@ function SummaryContent({ analysis, rated }: { analysis: Analysis; rated: number
               </tbody>
             </table>
           </div>
-        </Card>
 
-        <div className="highlights">
-          <Card as="section" className="highlight" aria-labelledby={`${id}-strongest`}>
-            <h3 id={`${id}-strongest`}>
-              Strongest {strongest.length === 1 ? 'force' : 'forces'}
-            </h3>
-            <ul className="strongest-list">
-              {strongest.map((forceId) => (
-                <li key={forceId}>
-                  <span className="strongest-name">{getForce(forceId).name}</span>
-                  <span className="strongest-rating">
-                    {ratingLabel(analysis.assessments[forceId].rating)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <p className="muted">
-              The strongest force or forces usually shape an industry’s profitability most,
-              so they are where strategy starts.
+          <p className="verdict">
+            <span className="sc">Strongest</span> <span className="verdict-value">{forceNames(strongest).join(' and ')}</span>
+          </p>
+          {structure ? (
+            <p className="verdict">
+              <span className="sc">Overall (indicative)</span> <span className="verdict-value">{structure.label}</span>
+              <span className="verdict-mean">Mean rating {structure.mean.toFixed(1)} of 5</span>
+              <span className="verdict-caveat"> Averages hide what matters: the strongest forces usually shape profit most.</span>
             </p>
-          </Card>
+          ) : null}
 
-          <Card as="section" className="highlight" aria-labelledby={`${id}-structure`}>
-            <h3 id={`${id}-structure`}>Overall structure (indicative)</h3>
-            {structure ? (
-              <>
-                <p className="structure-label">{structure.label}</p>
-                <p className="structure-mean">
-                  Mean rating {structure.mean.toFixed(1)} of 5
-                </p>
-              </>
-            ) : (
-              <p className="structure-pending">
-                Rate all five forces to see an indicative label ({rated} of {total} rated).
-              </p>
-            )}
-            <p className="muted">
-              Averages hide what matters: one very strong force can hold down profits even
-              when the others are weak, so read this alongside the strongest forces.
-            </p>
-          </Card>
+          <ExportPanel analysis={analysis} />
+
+          <Disclosure className="notes-disclosure no-print" summary="Notes by force">
+            {notes}
+          </Disclosure>
         </div>
       </div>
 
-      <section className="recap" aria-labelledby={`${id}-recap`}>
-        <h3 id={`${id}-recap`}>Force by force</h3>
-        <div className="recap-grid">
-          {FORCES.map((force) => (
-            <RecapItem
-              key={force.id}
-              name={force.name}
-              drivers={driverLabels(force.id, analysis.assessments[force.id].driverIds)}
-              assessment={analysis.assessments[force.id]}
-            />
-          ))}
-        </div>
-      </section>
-
-      <Card as="section" className="implications-recap" aria-labelledby={`${id}-implications`}>
-        <h3 id={`${id}-implications`}>Implications</h3>
-        <dl className="field-list">
-          <div>
-            <dt>Which forces matter most</dt>
-            <dd className="prose">{analysis.implications.keyForces.trim() || '—'}</dd>
-          </div>
-          <div>
-            <dt>How a company could respond</dt>
-            <dd className="prose">{analysis.implications.response.trim() || '—'}</dd>
-          </div>
-        </dl>
-      </Card>
-
-      <ExportPanel analysis={analysis} />
-    </>
-  )
-}
-
-/** A table cell with the number first and its word on a smaller line below. */
-function RatingCell({ rating }: { rating: Rating | null }) {
-  if (rating === null) {
-    return (
-      <td>
-        <span className="table-word">{NOT_RATED_LABEL}</span>
-      </td>
-    )
-  }
-  return (
-    <td>
-      <span className="table-number">{rating}</span>{' '}
-      <span className="table-word">{RATING_LABELS[rating]}</span>
-    </td>
-  )
-}
-
-interface RecapItemProps {
-  name: string
-  drivers: string[]
-  assessment: ForceAssessment
-}
-
-function RecapItem({ name, drivers, assessment }: RecapItemProps) {
-  const source = assessment.evidence === 'sourced' ? assessment.source.trim() : ''
-  return (
-    <Card as="article" className="recap-item">
-      <h4>{name}</h4>
-      <p className="recap-rating">
-        <RatingPips rating={assessment.rating} />
-        <span>{ratingLabel(assessment.rating)}</span>
-      </p>
-      <dl className="field-list">
-        <div>
-          <dt>Drivers present</dt>
-          <dd>
-            {drivers.length > 0 ? (
-              <ul className="compact-list">
-                {drivers.map((label) => (
-                  <li key={label}>{label}</li>
-                ))}
-              </ul>
-            ) : (
-              'None selected'
-            )}
-          </dd>
-        </div>
-        <div>
-          <dt>Rationale</dt>
-          <dd className="prose">{assessment.rationale.trim() || '—'}</dd>
-        </div>
-        <div>
-          <dt>Evidence</dt>
-          <dd>
-            {assessment.rating === null ? '—' : evidenceLabel(assessment)}
-            {assessment.rating !== null && source ? (
-              <>
-                {' — Source: '}
-                {/^https?:\/\//i.test(source) ? (
-                  <a href={source} target="_blank" rel="noreferrer">
-                    {source}
-                  </a>
-                ) : (
-                  source
-                )}
-              </>
-            ) : null}
-          </dd>
-        </div>
-      </dl>
-    </Card>
+      <div className="print-only">
+        <h3>Notes by force</h3>
+        {notes}
+      </div>
+      <p className="disclaimer">{SUMMARY_DISCLAIMER}</p>
+    </section>
   )
 }

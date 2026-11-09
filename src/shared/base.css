@@ -1,6 +1,7 @@
 /*
- * Base styles and shared UI patterns for every tool. Uses only the tokens
- * in tokens.css. See SPEC.md §2.4 and §3.4.
+ * Base styles and shared UI classes. See SPEC.md §2.4 and §3.4.
+ * Print conventions do the structuring: hairline rules, small caps, figure
+ * numbers. No shadows, rounded cards, gradients or pills.
  */
 
 *,
@@ -16,19 +17,13 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  line-height: 1.6;
-  color: var(--color-text);
   background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  font-variant-numeric: oldstyle-nums;
   -webkit-font-smoothing: antialiased;
-  overflow-wrap: break-word;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 h1,
@@ -37,65 +32,33 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0 0 var(--space-3);
-  line-height: 1.25;
-  font-weight: 700;
-  color: var(--color-text);
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0;
   text-wrap: balance;
-}
-
-h1 {
-  font-size: var(--text-3xl);
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-size: var(--text-2xl);
-  letter-spacing: -0.01em;
-}
-
-h3 {
-  font-size: var(--text-xl);
-}
-
-h4 {
-  font-size: var(--text-lg);
-}
-
-h5,
-h6 {
-  font-size: var(--text-base);
 }
 
 p,
 ul,
 ol,
 dl {
-  margin: 0 0 var(--space-4);
-}
-
-:where(p, ul, ol, dl):last-child {
-  margin-bottom: 0;
-}
-
-ul,
-ol {
-  padding-left: 1.25rem;
-}
-
-li + li {
-  margin-top: var(--space-1);
+  margin: 0;
 }
 
 a {
-  color: var(--color-accent);
+  color: inherit;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
 
 a:hover {
-  color: var(--color-accent-hover);
   text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 cite {
@@ -103,18 +66,22 @@ cite {
 }
 
 strong {
-  font-weight: 700;
+  font-weight: 600;
 }
 
-:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
-  border-radius: 2px;
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
 }
 
-/* Headings that receive focus programmatically don't need a visible ring. */
-[tabindex='-1']:focus:not(:focus-visible) {
-  outline: none;
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
 .visually-hidden {
@@ -129,29 +96,21 @@ strong {
   border: 0;
 }
 
-.container {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-@media (min-width: 40rem) {
-  :root {
-    --gutter: 1.5rem;
-  }
-}
-
-.muted {
-  color: var(--color-text-muted);
+/* Small caps label: the printer's way to mark a category. */
+.sc,
+.eyebrow {
+  font-family: var(--font-display);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  font-weight: 500;
 }
 
 .eyebrow {
-  margin: 0 0 var(--space-2);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+.muted {
   color: var(--color-text-muted);
 }
 
@@ -159,176 +118,177 @@ strong {
   font-size: var(--text-lg);
 }
 
-/* ---------------------------------------------------------------- Buttons */
-
+/* Buttons: set type in a ruled box. */
 .button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  min-height: 44px;
-  padding: 0.55rem 1.1rem;
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  font: inherit;
-  font-weight: 650;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
   line-height: 1.2;
-  text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition:
-    background-color 120ms ease,
-    border-color 120ms ease,
-    color 120ms ease;
 }
 
 .button:hover {
-  text-decoration: none;
+  background: var(--color-ink);
+  color: var(--color-bg);
 }
 
 .button-primary {
-  background: var(--color-accent);
-  color: var(--color-on-accent);
+  border-width: 1.5px;
+  box-shadow: inset 0 0 0 2px var(--color-bg), inset 0 0 0 2.5px var(--color-ink);
 }
 
 .button-primary:hover {
-  background: var(--color-accent-hover);
-  color: var(--color-on-accent);
-}
-
-.button-secondary {
-  background: var(--color-surface);
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-
-.button-secondary:hover {
-  background: var(--color-accent-soft);
-  color: var(--color-accent-hover);
+  box-shadow: none;
 }
 
 .button-quiet {
-  background: transparent;
-  border-color: var(--color-border-strong);
-  color: var(--color-text);
+  border-color: transparent;
+  padding-inline: var(--space-1);
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 }
 
 .button-quiet:hover {
-  background: var(--color-surface-muted);
+  background: transparent;
+  color: var(--color-text);
+  text-decoration-thickness: 2px;
 }
 
 .button-row {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  margin-bottom: var(--space-4);
 }
 
-/* ------------------------------------------------------------------ Cards */
-
+/* A framed surface, drawn as a hairline double rule. */
 .card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: var(--space-5) var(--space-4);
+  border: 1px solid var(--color-ink);
+  outline: var(--hairline) solid var(--color-ink);
+  outline-offset: -5px;
+  padding: var(--space-5);
+  background: transparent;
 }
 
-@media (min-width: 40rem) {
-  .card {
-    padding: var(--space-5);
-  }
+.callout {
+  border-left: 1px solid var(--color-ink);
+  padding-left: var(--space-4);
 }
 
-/* ------------------------------------------------------------------ Forms */
-
+/* Form fields */
 .field {
-  margin-bottom: var(--space-5);
-}
-
-.field > label,
-.field > legend,
-fieldset.field > legend {
-  display: block;
-  margin-bottom: var(--space-1);
-  font-weight: 700;
-}
-
-.hint {
-  margin: 0 0 var(--space-2);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-}
-
-.hint-warning {
-  margin: var(--space-2) 0 0;
-  color: var(--color-warning);
-  font-weight: 600;
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  min-width: 0;
 }
 
 fieldset {
-  min-width: 0;
-  margin: 0 0 var(--space-5);
-  padding: 0;
   border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
 
-legend {
+legend,
+.field > label {
+  font-family: var(--font-display);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  font-weight: 500;
+  font-size: var(--text-lg);
   padding: 0;
+}
+
+.hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+.hint-warning {
+  color: var(--color-warning);
+  font-style: normal;
 }
 
 input[type='text'],
-input[type='url'],
-input[type='search'],
 select,
 textarea {
-  display: block;
   width: 100%;
-  min-height: 44px;
-  padding: 0.55rem 0.75rem;
-  font: inherit;
-  color: var(--color-text);
+  min-width: 0;
+  padding: var(--space-2) var(--space-1);
+  border: 0;
+  border-bottom: 1px solid var(--color-ink);
+  border-radius: 0;
   background: var(--color-surface);
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-sm);
+  color: var(--color-text);
 }
 
 textarea {
+  border: var(--hairline) solid var(--color-ink);
+  padding: var(--space-2);
   resize: vertical;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 select {
+  padding-right: var(--space-5);
+}
+
+/* Disclosure: an italic toggle with a drawn triangle. */
+.disclosure-heading {
+  font-size: inherit;
+}
+
+.disclosure-toggle {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+  border: 0;
+  background: none;
   cursor: pointer;
-}
-
-input[type='radio'],
-input[type='checkbox'] {
-  width: 1.15rem;
-  height: 1.15rem;
-  margin: 0;
-  flex: none;
-  accent-color: var(--color-accent);
-  cursor: pointer;
-}
-
-/* --------------------------------------------------------------- Callouts */
-
-.callout {
-  margin: 0 0 var(--space-5);
-  padding: var(--space-4);
-  background: var(--color-surface-muted);
-  border-left: 4px solid var(--color-accent);
-  border-radius: var(--radius-sm);
-}
-
-.callout > :is(h2, h3, h4, h5) {
+  font-family: var(--font-display);
+  font-style: italic;
   font-size: var(--text-lg);
-  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
+  text-align: left;
 }
 
-/* ------------------------------------------------- Status messages (live) */
+.disclosure-toggle:hover {
+  color: var(--color-text);
+}
 
+.disclosure-chevron {
+  order: -1;
+  width: 0;
+  height: 0;
+  border-left: 0.4em solid currentColor;
+  border-top: 0.28em solid transparent;
+  border-bottom: 0.28em solid transparent;
+  transition: transform 0.15s ease;
+}
+
+.is-open > .disclosure-toggle .disclosure-chevron,
+.is-open > .disclosure-heading .disclosure-chevron {
+  transform: rotate(90deg);
+}
+
+.disclosure-panel {
+  padding-top: var(--space-3);
+}
+
+/* Live status messages: a mark plus words, never color alone. */
 .status-region:empty {
   display: none;
 }
@@ -336,157 +296,81 @@ input[type='checkbox'] {
 .notice {
   display: flex;
   gap: var(--space-2);
-  align-items: flex-start;
-  margin: 0 0 var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
-  border-left: 4px solid currentColor;
-  font-size: var(--text-sm);
-}
-
-.notice > span:last-child {
-  color: var(--color-text);
-}
-
-.notice-icon {
-  font-weight: 700;
-  line-height: 1.6;
-}
-
-.notice-info {
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-lg);
+  margin-top: var(--space-2);
 }
 
 .notice-success {
-  background: var(--color-success-soft);
   color: var(--color-success);
 }
 
 .notice-warning {
-  background: var(--color-warning-soft);
   color: var(--color-warning);
 }
 
 .notice-error {
-  background: var(--color-error-soft);
   color: var(--color-error);
 }
 
-/* ------------------------------------------------------------- Disclosure */
-
-.disclosure-heading {
-  margin: 0;
-  font-size: inherit;
-  text-wrap: wrap;
+.notice-icon {
+  font-style: normal;
 }
 
-.disclosure-toggle {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  min-height: 44px;
-  padding: var(--space-3) var(--space-4);
-  font: inherit;
-  text-align: left;
-  color: var(--color-text);
-  background: transparent;
-  border: 0;
-  border-radius: inherit;
-  cursor: pointer;
-}
-
-.disclosure-toggle:hover .disclosure-summary {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
-}
-
-.disclosure-chevron {
-  flex: none;
-  width: 0.65rem;
-  height: 0.65rem;
-  margin-right: 0.2rem;
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: translateY(-25%) rotate(45deg);
-  transition: transform 150ms ease;
-}
-
-.disclosure.is-open > .disclosure-toggle .disclosure-chevron,
-.disclosure.is-open > .disclosure-heading .disclosure-chevron {
-  transform: translateY(25%) rotate(225deg);
-}
-
-.disclosure-panel {
-  padding: 0 var(--space-4) var(--space-4);
-}
-
-/* ------------------------------------------------------------------ Badge */
-
-.badge {
-  display: inline-block;
-  padding: 0.1rem 0.65rem;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  line-height: 1.6;
-  color: var(--color-text);
-  background: var(--color-surface-muted);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-}
-
-/* ----------------------------------------------------------------- Tables */
-
+/* Tables: rules top and bottom, hairlines between rows. */
 .table-wrap {
-  max-width: 100%;
   overflow-x: auto;
 }
 
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--text-sm);
+  border-top: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .data-table caption {
-  margin-bottom: var(--space-2);
   text-align: left;
-  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  padding-bottom: var(--space-2);
 }
 
 .data-table th,
 .data-table td {
-  padding: var(--space-2) var(--space-3);
   text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-2);
+  border-top: var(--hairline) solid var(--color-border);
+  vertical-align: middle;
 }
 
 .data-table thead th {
-  font-weight: 700;
-  border-bottom: 2px solid var(--color-border-strong);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.09em;
+  color: var(--color-text-muted);
+  border-top: 0;
 }
 
-.data-table tbody th {
-  font-weight: 600;
+.badge {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--color-text-muted);
 }
-
-/* --------------------------------------------------------- Reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
+    transition: none !important;
+    animation: none !important;
     scroll-behavior: auto !important;
   }
 }
-
-/* ------------------------------------------------------------------ Print */
 
 @media print {
   .no-print {
@@ -495,11 +379,8 @@ input[type='checkbox'] {
 
   body {
     font-size: 11pt;
-  }
-
-  .card {
-    box-shadow: none;
-    break-inside: avoid;
+    background: #fff;
+    color: #000;
   }
 
   a {
