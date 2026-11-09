@@ -226,7 +226,7 @@ const TOOLS = [
   ['Journey map', c=>{const p=[[10,64],[32,30],[58,58],[82,26],[110,46]];return P(smooth(p),c,2.6,'stroke-dasharray="7 5"')+P(p.map(([x,y])=>ell(x,y,3.5,3.5,{n:8})).join(''),c,3.2);}],
   ['Perceptual map', c=>P(line(60,6,60,84,.5)+line(12,45,108,45,.5),c,2.4,'stroke-dasharray="7 5"')+P([[34,24],[42,30],[84,62],[92,22],[30,66]].map(([x,y])=>ell(x,y,3,3,{n:8})).join(''),c,3.4)],
   ['PESTEL', c=>`<text x="60" y="54" font-size="22" text-anchor="middle" letter-spacing="2" style="fill:var(--pencil)">PESTEL</text>`+P(line(14,64,106,64,.5),c,2.4,'stroke-dasharray="7 5"')+P(ell(60,46,52,20,{over:.4}),c,2.2,'stroke-dasharray="7 5"')],
-  ['Break-even', c=>P(line(14,8,14,82,.4)+line(14,82,110,82,.4),c,2.4,'stroke-dasharray="7 5"')+P(line(16,80,106,16,.5)+line(16,50,106,36,.5),c,2.6)+P(ell(68,42,5,5,{n:8}),C.red,3)],
+  ['Break-even', c=>P(line(14,8,14,82,.4)+line(14,82,110,82,.4),c,2.4,'stroke-dasharray="7 5"')+P(line(16,80,106,16,.5)+line(16,50,106,36,.5),c,2.6)+P(ell(68,42,5,5,{n:8}),c,3)],
   ['Lifetime value', c=>P(poly([[14,80],[14,66],[34,66],[34,52],[54,52],[54,38],[74,38],[74,24],[94,24]]),c,2.6,'stroke-dasharray="7 5"')+P(line(84,40,108,10,.4)+arrowHead(84,40,108,10,11),c,2.6)],
 ];
 
@@ -355,7 +355,7 @@ function viewBoard(){
     <div class="work">
       <div>
         ${diagram(i.id,{selected:fid})}
-        <div class="legend" aria-hidden="false"><svg viewBox="0 0 120 26" aria-hidden="true">${(seed('lg'),P(line(6,13,46,13,.3)+arrowHead(6,13,46,13,10),C.pencil,2.5)+P(line(64,13,112,13,.3)+line(64,15,112,12,.3)+arrowHead(64,13,112,13,16),C.red,6))}</svg>thicker = more pressure</div>
+        <div class="legend" aria-hidden="false"><svg viewBox="0 0 120 26" aria-hidden="true">${(seed('lg'),P(line(6,13,46,13,.3)+arrowHead(6,13,46,13,10),C.pencil,2.5)+P(line(64,13,112,13,.3)+line(64,15,112,12,.3)+arrowHead(64,13,112,13,16),C.red,6))}</svg>thicker, red = more pressure</div>
       </div>
       <section class="notes" aria-live="polite" aria-labelledby="fname">
         <h2 id="fname">${ONE[fid]}</h2>
