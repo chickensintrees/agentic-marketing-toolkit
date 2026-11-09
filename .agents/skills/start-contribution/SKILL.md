@@ -77,7 +77,7 @@ gh issue comment <N> --repo chickensintrees/agentic-marketing-toolkit \
   --body "I'd like to work on this. Plan: <one line>. I'll open a PR from my fork."
 ```
 
-If the item from `first-issues.md` has no GitHub issue yet, ask first, then open
+If the item from `docs/students/first-issues.md` has no GitHub issue yet, ask first, then open
 it with its title and body (`gh issue create --repo chickensintrees/agentic-marketing-toolkit --title "..." --body-file <file outside the repo>`). Bill adds labels and can assign it.
 
 ## 7. Plan, then branch
