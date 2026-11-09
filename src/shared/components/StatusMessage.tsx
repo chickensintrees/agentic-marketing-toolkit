@@ -3,10 +3,10 @@ import type { ReactNode } from 'react'
 export type StatusTone = 'info' | 'success' | 'warning' | 'error'
 
 const ICONS: Record<StatusTone, string> = {
-  info: 'ⓘ',
+  info: '→',
   success: '✓',
-  warning: '⚠',
-  error: '⚠',
+  warning: '!',
+  error: '!',
 }
 
 interface StatusMessageProps {

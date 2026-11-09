@@ -1,25 +1,27 @@
 /*
  * Design tokens for the whole toolkit. See SPEC.md §2.4.
  *
- * Tools use these custom properties instead of their own colors, so every
- * tool gets light and dark themes and the same calm, high-contrast look.
- * One accent color (blue). Text colors meet WCAG AA (4.5:1) on both
- * --color-bg and --color-surface in both themes.
+ * Monochrome: near-black ink on off-white paper, inverted in dark mode.
+ * A grotesk display face (Archivo, set wide) and a monospace face (IBM Plex
+ * Mono) for labels, data and controls. One functional accent, used only to
+ * mark something the user changed, always next to a word. Text colors meet
+ * WCAG AA (4.5:1) on --color-bg in both themes.
  */
 
 :root {
   color-scheme: light dark;
 
-  --font-sans:
-    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --font-sans: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
+  --text-xs: 0.8125rem;
   --text-sm: 0.9375rem;
   --text-base: 1.0625rem;
-  --text-lg: 1.1875rem;
-  --text-xl: 1.375rem;
-  --text-2xl: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
-  --text-3xl: clamp(2rem, 1.6rem + 1.8vw, 2.875rem);
+  --text-lg: 1.25rem;
+  --text-xl: 1.625rem;
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  --text-3xl: clamp(2.5rem, 1.8rem + 2.8vw, 3.5rem);
+  --text-display: clamp(4rem, 1.5rem + 9vw, 10.5rem);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -28,73 +30,55 @@
   --space-5: 1.5rem;
   --space-6: 2rem;
   --space-7: 3rem;
+  --space-8: 4.5rem;
 
-  --radius-sm: 6px;
-  --radius: 10px;
-  --radius-pill: 999px;
-  --container: 72rem;
+  --container: 84rem;
   --gutter: 1rem;
+  --rule: 1px;
 
   /* Light theme */
-  --color-bg: #f5f6f8;
-  --color-surface: #ffffff;
-  --color-surface-muted: #eef1f5;
-  --color-border: #d4d9e0;
-  --color-border-strong: #747d8c;
-  --color-text: #151920;
-  --color-text-muted: #485261;
-  --color-accent: #1d4ed8;
-  --color-accent-hover: #1e3fa8;
-  --color-accent-soft: #e6edfc;
-  --color-on-accent: #ffffff;
-  --color-focus: #1d4ed8;
-  --color-success: #166534;
-  --color-success-soft: #e7f4eb;
-  --color-warning: #8a3d0b;
-  --color-warning-soft: #fcf1e3;
-  --color-error: #b42318;
-  --color-error-soft: #fdeceb;
-  --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 1px 3px rgb(16 24 40 / 6%);
+  --color-bg: #f6f6f4;
+  --color-surface: #f6f6f4;
+  --color-surface-muted: #e9e9e5;
+  --color-border: #d4d4cf;
+  --color-border-strong: #111111;
+  --color-ring: #a9a9a2;
+  --color-text: #111111;
+  --color-text-muted: #5a5a57;
+  --color-accent: #a8460f;
+  --color-on-ink: #f6f6f4;
+  --color-focus: #111111;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #0d1117;
-    --color-surface: #161b22;
-    --color-surface-muted: #1e252f;
-    --color-border: #2f3946;
-    --color-border-strong: #7d8899;
-    --color-text: #e8ecf1;
-    --color-text-muted: #aab4c1;
-    --color-accent: #7fa8ff;
-    --color-accent-hover: #a6c3ff;
-    --color-accent-soft: #1a2944;
-    --color-on-accent: #0b1220;
-    --color-focus: #9dbcff;
-    --color-success: #74d69a;
-    --color-success-soft: #12291b;
-    --color-warning: #f2b766;
-    --color-warning-soft: #2e2211;
-    --color-error: #ff9187;
-    --color-error-soft: #341816;
-    --shadow: none;
+    --color-bg: #0e0e0d;
+    --color-surface: #0e0e0d;
+    --color-surface-muted: #1d1d1b;
+    --color-border: #2f2f2c;
+    --color-border-strong: #f2f2ee;
+    --color-ring: #4a4a46;
+    --color-text: #f2f2ee;
+    --color-text-muted: #a8a8a2;
+    --color-accent: #f0a46b;
+    --color-on-ink: #0e0e0d;
+    --color-focus: #f2f2ee;
   }
 }
 
-/* Printing always uses the light palette with plain white paper. */
+/* Printing always uses the light palette on plain white paper. */
 @media print {
   :root {
     color-scheme: light;
     --color-bg: #ffffff;
     --color-surface: #ffffff;
-    --color-surface-muted: #f3f4f6;
-    --color-border: #9aa1ab;
-    --color-border-strong: #5b6370;
+    --color-surface-muted: #eeeeee;
+    --color-border: #999999;
+    --color-border-strong: #000000;
+    --color-ring: #999999;
     --color-text: #000000;
-    --color-text-muted: #333a44;
-    --color-accent: #1d4ed8;
-    --color-accent-soft: #e6edfc;
-    --color-on-accent: #ffffff;
-    --shadow: none;
+    --color-text-muted: #333333;
+    --color-accent: #8a3a0c;
+    --color-on-ink: #ffffff;
   }
 }
