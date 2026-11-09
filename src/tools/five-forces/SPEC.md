@@ -221,7 +221,7 @@ export interface ForceDefinition {
   name: string        // "Threat of new entrants"
   question: string    // "How easy is it for new competitors to enter?"
   summary: string
-  drivers: Driver[]   // 4–8 drivers
+  drivers: Driver[]   // 4–9 drivers
   highWhen: string[]
   lowWhen: string[]
   example: string
@@ -262,11 +262,12 @@ Exports `FORCES: ForceDefinition[]` in the standard order above. Content must
 be faithful to Porter (1979, 2008). Driver lists follow Porter's 2008 article,
 for example:
 
-- **New entrants** (barriers to entry): supply-side economies of scale,
-  demand-side benefits of scale (network effects), customer switching costs,
-  capital requirements, incumbency advantages independent of size, unequal
-  access to distribution channels, restrictive government policy, expected
-  retaliation from incumbents.
+- **New entrants** (seven barriers to entry, plus expected retaliation):
+  supply-side economies of scale, demand-side benefits of scale (network
+  effects), customer switching costs, capital requirements, incumbency
+  advantages independent of size, unequal access to distribution channels,
+  restrictive government policy; and, as a separate consideration, how
+  incumbents are expected to react to a newcomer (expected retaliation).
 - **Supplier power:** supplier concentration relative to the industry,
   industry is not an important customer to suppliers, switching costs for
   industry participants, differentiated supplier inputs, no substitutes for
@@ -275,7 +276,8 @@ for example:
   products, low buyer switching costs, credible threat of backward
   integration, plus price sensitivity (product is a large share of buyer
   costs, buyer earns low profits, product has little effect on the quality of
-  the buyer's own product).
+  the buyer's own product, product has little effect on the buyer's other
+  costs).
 - **Substitutes:** attractive price–performance trade-off of the substitute,
   low buyer cost of switching to the substitute.
 - **Rivalry:** numerous or equally balanced competitors, slow industry growth,
@@ -328,7 +330,7 @@ is imported from another tool.
 The suite quality gates apply (suite spec §6). This tool's tests must include:
 
 - **Data integrity** (`data/*.test.ts`): five forces in standard order;
-  unique ids; every force has 4–8 drivers, non-empty highWhen/lowWhen; every
+  unique ids; every force has 4–9 drivers, non-empty highWhen/lowWhen; every
   preset has all five assessments with a rating 1–5, 2–4 driver ids that exist
   on that force, a non-empty rationale, evidence `illustrative`; preset ids are
   unique kebab-case and match their file names; every preset file is
@@ -348,5 +350,8 @@ The suite quality gates apply (suite spec §6). This tool's tests must include:
 - **0.2.0** — Moved into the Agentic Marketing Toolkit as tool #1: routes under
   `#/five-forces/…`, shell provides header/footer, storage key namespaced,
   paths relative to the tool folder. Added Porter's fifth rivalry condition
-  (firms cannot read each other's signals).
+  (firms cannot read each other's signals) and buyer price sensitivity's
+  fourth condition (little effect on the buyer's other costs); drivers per
+  force are now 4–9; expected retaliation is described as a separate
+  consideration from the seven entry barriers.
 - **0.1.0** — Initial specification.
