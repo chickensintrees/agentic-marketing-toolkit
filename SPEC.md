@@ -67,15 +67,17 @@ to the new main heading. Each route sets `document.title` to
 
 ### 2.3 Home
 
-1. **Hero:** product name; one sentence on what it is; one sentence that it is
-   built by a class with coding agents, with a link to `CONTRIBUTING.md`.
-2. **Tools:** one card per registered tool, in registry order: name, the
-   framework it teaches (if any), its tagline, and an "Open" link to
-   `#/<tool-id>`.
-3. **"Help build the next tool":** the wanted-tools list (§3.3), each with
-   its name and a one-line pitch, and one link to
-   `docs/students/build-a-tool.md` on GitHub explaining how to propose and
-   build one.
+Home is a short contents page, visual first, with no marketing copy.
+
+1. **Title:** the product name as the `h1`.
+2. **Tools:** each registered tool as a "plate", in registry order: a drawn
+   thumbnail, its name, the framework it teaches (if any) and its tagline, and
+   an "Open" link to `#/<tool-id>`.
+3. **"Plates in preparation":** the wanted-tools list (§3.3) as a shelf of
+   drawn thumbnails with the tool's name. Each pitch is available on demand
+   (shown in one line on hover or focus, and as the link's accessible
+   description). Each item and one "How to propose and build a tool" link go
+   to `docs/students/build-a-tool.md` on GitHub.
 
 ### 2.4 Accessibility and design (applies to every tool)
 
@@ -89,7 +91,10 @@ to the new main heading. Each route sets `document.title` to
   properties on `:root` in `src/shared/`. Tools use these tokens rather than
   their own colors.
 - Calm, professional style that projects well in a lecture hall: generous type,
-  high contrast, one accent color.
+  high contrast, one accent color. The look is a printed plate: ink on paper,
+  serif type (EB Garamond for display, Source Serif 4 for text, from Google
+  Fonts with system serif fallbacks), hairline rules, drawings made in code.
+  No cards with shadows, gradients, pill badges or emoji.
 
 ## 3. The tool contract
 
@@ -217,6 +222,9 @@ Each tool's spec defines that tool's own required tests.
 
 ## 8. Changelog
 
+- **0.3.0** — Home becomes a visual contents page (§2.3): tools and wanted
+  tools as drawn plates, pitches on demand. The design language becomes ink
+  on paper with serif type (§2.4).
 - **0.2.0** — Suite. The project becomes the Agentic Marketing Toolkit; Five
   Forces Explorer becomes tool #1 under `src/tools/five-forces/` with its own
   spec; the tool contract, registry, wanted-tools list, and shell are added.
