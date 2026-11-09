@@ -1,8 +1,8 @@
 # Slides: source text and speaker notes
 
 Plain-text mirror of the deck at
-https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 52).
-The deck is the master. When it changes, update this file to match. 18
+https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 53).
+The deck is the master. When it changes, update this file to match. 19
 slides; timings match `run-of-show.md`.
 
 ## Names
@@ -112,7 +112,32 @@ Footer: Rules: github.com/chickensintrees/ai-coding-rules
 > contributors and their agents to work on one repository without one
 > reviewer reading every line.
 
-## 6. Connecting an agent to GitHub (0:14)
+## 6. GitHub basics (0:14)
+
+Part 2 · Collaboration on GitHub
+
+**GitHub basics**
+
+| Term | Meaning |
+|---|---|
+| Repository | A project and its full history |
+| Fork | Your own copy of someone else's repository, on GitHub |
+| Clone | A copy of a repository on your computer |
+| Branch | A separate line of work |
+| Commit | A saved snapshot of changes, with a message |
+| Push / pull | Send your commits to GitHub / bring others' commits down |
+| Pull request | A proposal to merge your changes into the project |
+| Review and merge | Discussion, then the change becomes part of the project |
+
+Footer: **Fork → clone → branch → commit → push → pull request → review → merge**
+
+> **Notes:** Vocabulary first, then the sequence along the bottom. Students
+> do not need write access to the class repository: they fork it, work on
+> a branch in their fork, and open a pull request back to the class
+> repository. Once a coding agent is connected to GitHub (next slide), the
+> agent performs these steps and the student approves each one.
+
+## 7. Connecting an agent to GitHub (0:17)
 
 Part 2 · Collaboration on GitHub
 
@@ -139,7 +164,7 @@ You approve each action. Never paste a password or token into a chat.
 > browser sign-in only, no tokens in chat, approve each public action,
 > revoke at github.com → Settings → Applications.
 
-## 7. Work at BCG (0:18)
+## 8. Work at BCG (0:20)
 
 **Work at BCG**
 
@@ -151,7 +176,7 @@ You approve each action. Never paste a password or token into a chat.
 > and WIRED/Condé Nast; first non-human Webby winner for Best Podcast
 > Cohost (2024). Then move to the Agentic Marketing Toolkit.
 
-## 8. The Agentic Marketing Toolkit (0:22)
+## 9. The Agentic Marketing Toolkit (0:24)
 
 **The Agentic Marketing Toolkit**
 
@@ -171,7 +196,7 @@ Each tool is a separate folder with its own SPEC.md.
 > harness to direct the agents and GitHub to coordinate the work, applies
 > to building products and businesses.
 
-## 9. Live site (0:25)
+## 10. Live site (0:27)
 
 [Screenshot: Five Forces Explorer Summary view, U.S. passenger airlines
 compared with subscription video streaming on the radar chart]
@@ -183,7 +208,7 @@ chickensintrees.github.io/agentic-marketing-toolkit
 > Summary (radar chart, then Compare with U.S. airlines). If the site won't
 > load, use this screenshot, or run the local build with `npm run preview`.
 
-## 10. How this was built (0:27)
+## 11. How this was built (0:29)
 
 **How this was built**
 
@@ -203,7 +228,7 @@ chickensintrees.github.io/agentic-marketing-toolkit
 > Point at the graph. One redirect story: I rejected the first deck and
 > title, and the agents changed course.
 
-## 11. Poll 2 (0:31)
+## 12. Poll 2 (0:32)
 
 Poll 2 · slido.com · #[SLIDO CODE]
 
@@ -215,7 +240,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 > option has a prepared fallback branch and pull request
 > (`live-demo-script.md`). If Slido is unavailable, use a show of hands.
 
-## 12. The prompt (0:32)
+## 13. The prompt (0:33)
 
 **The prompt**
 
@@ -230,7 +255,7 @@ A. Ski resorts · B. Craft breweries · C. Food trucks
 > appears, read it and approve it. Move to the next slide while the agent
 > works.
 
-## 13. Five Forces: the AI coding agent industry (0:34)
+## 14. Five Forces: the AI coding agent industry (0:35)
 
 Poll 3 · slido.com · #[SLIDO CODE]
 
@@ -250,7 +275,7 @@ Footer: Higher rating = more pressure on industry profitability
 > is not a source. Cover rivalry and buyer power by discussion if time
 > allows. Check the agent's progress periodically.
 
-## 14. From change to merge (0:41)
+## 15. From change to merge (0:42)
 
 **From change to merge**
 
@@ -268,7 +293,7 @@ issue comment]
 > stalled or failed, say so and open the prepared fallback pull request. A
 > failing check is the harness working as intended.
 
-## 15. How to contribute (0:45)
+## 16. How to contribute (0:46)
 
 **How to contribute**
 
@@ -289,7 +314,7 @@ unless assigned by your instructor.
 > available to help anyone who wants to contribute. Defer to the professor
 > on whether it is assigned.
 
-## 16. Tools and plans (0:47)
+## 17. Tools and plans (0:48)
 
 **Tools and plans**
 
@@ -313,7 +338,7 @@ Footer: Source: vendor documentation, 8 November 2026
 > open an industry file on GitHub, choose edit, and GitHub creates the fork
 > and the pull request.
 
-## 17. Summary (0:49)
+## 18. Summary (0:50)
 
 **Summary**
 
@@ -329,7 +354,7 @@ github.com/chickensintrees/agentic-marketing-toolkit
 > and I will continue to help through the repository's issues. Then open
 > questions.
 
-## 18. Questions (0:51)
+## 19. Questions (0:52)
 
 **Questions**
 

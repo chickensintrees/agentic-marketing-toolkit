@@ -68,16 +68,16 @@ Commentary goes in the speaker notes, which stay plain and factual.
 | **Know** | How a harness (spec, AGENTS.md, skills, checks) keeps agents building what you want. How people and agents collaborate in one GitHub repo. That connecting your agent to GitHub lets it do the git while you approve. |
 | **Be able to do** | Paste the starter prompt into a coding agent, connect it to GitHub with a browser sign-in, and open a pull request against the Agentic Marketing Toolkit. With no paid tool, make a one-file change in GitHub's web editor instead. |
 
-## The arc (60 minutes, 18 slides)
+## The arc (60 minutes, 19 slides)
 
 | Min | Slides | Content |
 |---|---|---|
 | 0–8 | 1–3 | Introduction: cover, about me, Poll 1 (word cloud). |
 | 8–14 | 4–5 | Part 1: what a harness does, and the components of a harness. |
-| 14–18 | 6 | Part 2: connecting an agent to GitHub. |
-| 18–45 | 7–14 | Examples: work at BCG; the Agentic Marketing Toolkit, the live site, how it was built; the live demonstration (Poll 2, the prompt, Poll 3 while the agent works, from change to merge). |
-| 45–49 | 15–16 | How to contribute; tools and plans. |
-| 49–60 | 17–18 | Summary, then questions. |
+| 14–20 | 6–7 | Part 2: GitHub basics, and connecting an agent to GitHub. |
+| 20–46 | 8–15 | Examples: work at BCG; the Agentic Marketing Toolkit, the live site, how it was built; the live demonstration (Poll 2, the prompt, Poll 3 while the agent works, from change to merge). |
+| 46–50 | 16–17 | How to contribute; tools and plans. |
+| 50–60 | 18–19 | Summary, then questions. |
 
 **Live-demo risk:** the GitHub sign-in is done in advance. Each poll option
 has a prepared fallback branch and PR. The Porter exercise fills the
