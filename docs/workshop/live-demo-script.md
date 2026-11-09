@@ -26,17 +26,32 @@ connection, not a sign-in over venue Wi-Fi.
 
 The demo agent is **Claude Code**.
 
-- **Primary route, the GitHub CLI:** install `gh`, run `gh auth login`, and
-  choose GitHub.com, HTTPS, and *Login with a web browser*. It shows a
-  one-time code. Enter it in the browser and approve. Check with
-  `gh auth status`. Claude Code then uses `git` and `gh` from its terminal
-  to push, open PRs and comment.
-- **Alternative route, GitHub's MCP server in Claude Code:**
-  [CLAUDE CODE MCP STEPS: from the orchestrator's research]. Use only one
-  route on stage, and rehearse with it.
-- Run `claude` in the repo folder and ask it: "Check whether you can reach
-  GitHub for this repo, without changing anything." Confirm it reports
-  your account.
+The route is the **GitHub CLI** (`gh`). It works in every tool that runs
+terminal commands, and the sign-in happens in the browser, so no token is
+ever pasted anywhere.
+
+1. Install Git and `gh`. On macOS: `xcode-select --install`, then
+   `brew install gh`. On Windows: `winget install --id Git.Git -e --source winget`
+   and `winget install --id GitHub.cli --source winget`, then open a **new
+   terminal window** (a new tab isn't enough).
+2. `gh auth login --web --git-protocol https`. Answer **Y** to
+   "Authenticate Git", copy the one-time code, and authorize "GitHub CLI"
+   at https://github.com/login/device.
+3. `gh auth setup-git`, then `gh auth status` to confirm.
+4. Run `claude` in the repo folder and ask: "Check whether you can reach
+   GitHub for this repo, without changing anything." Confirm it reports
+   your account.
+
+**Why not GitHub's MCP server?** In Claude Code it needs a personal access
+token, which is exactly what we tell students never to paste. `gh` with a
+browser sign-in is the safer path for them, so it's what we demo.
+
+After sign-in, Claude Code does the git with commands like
+`gh repo fork … --clone`, `git push`, `gh pr create`, `gh issue comment` and
+`gh pr checks --watch`. **Claude Code asks permission before each command
+that changes things**, so the push and the PR are approved one at a time,
+on screen.
+
 - Take a screenshot of the browser code-entry screen, for slide 8.
 - Never paste a token into a chat. The starter prompt and AGENTS.md both
   say so. Say it out loud in the room.
@@ -77,8 +92,10 @@ there. Say this in the room, because it's what they'll see.
 4. **`npm run check`:** show lint, types, tests and build passing. If a
    test fails, read it aloud: "the harness caught something." Let the agent
    fix it if there's time.
-5. **The git:** it asks before pushing and before opening the PR, because
-   AGENTS.md says to ask before anything public. Say "yes" out loud. "My
+5. **The git:** Claude Code shows each command (`git push`, `gh pr create`,
+   `gh issue comment`) and asks permission before running it. AGENTS.md
+   also says to ask before anything public. Approve each one, and say "yes"
+   out loud. "My
    agent does the git. I make the calls."
 6. **On GitHub:** the draft PR, its description, CI running or green, and
    the agent's comment on the issue: "That's agent comms. Anyone else on

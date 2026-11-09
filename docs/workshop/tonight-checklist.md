@@ -7,8 +7,8 @@ In order. Items marked **decide** need your call.
 - [x] Title: "How Products Get Built Now" (decided).
 - [ ] **decide** Poll 2 options: ski resorts, craft breweries, food trucks.
       Swap them now, before the fallback branches are built.
-- [x] Demo agent: Claude Code (decided). **decide** Its GitHub route:
-      `gh auth login` (recommended) or GitHub's MCP server.
+- [x] Demo agent: Claude Code, connected through the GitHub CLI with a
+      browser sign-in (decided).
 - [ ] **decide** Which GENE clip or screen to show on slide 4.
 - [ ] **decide** Ask the professor: is contributing assigned or voluntary?
 
@@ -47,8 +47,7 @@ In order. Items marked **decide** need your call.
       comment (use a fallback PR).
 - [ ] Slides 3, 9, 11, 16: the Slido code. Slide 3: the Slido QR.
       Slide 14: the repo QR.
-- [ ] Handout: `[PER-TOOL STEPS]` (from the orchestrator's research) and
-      the two QR codes.
+- [ ] Handout: the two QR codes.
 
 ## 5. Slido
 

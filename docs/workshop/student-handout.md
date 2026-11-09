@@ -33,10 +33,33 @@ I'm new to coding, so explain each step in plain language as we go.
 7. Run npm run check and show me the result, then commit, push to my fork, and open the pull request once I approve.
 ```
 
-**Connecting to GitHub:** [PER-TOOL STEPS]. Some tools can't fork for you:
-fork the project yourself on github.com (the **Fork** button), then point
-your tool at your fork. Lovable can't attach to an existing repo, so use the
-web editor path below.
+## Connect your agent to GitHub (one time)
+
+This works in any agent that runs terminal commands: Claude Code (Pro or
+higher), Codex (including the free desktop app), Cursor, and Replit's Shell.
+Your agent can run these steps for you. You just approve, and sign in
+through your browser.
+
+1. **Install Git and the GitHub CLI.** Mac: `xcode-select --install`, then
+   `brew install gh` (needs Homebrew, from brew.sh). Windows:
+   `winget install --id Git.Git -e --source winget`
+   and `winget install --id GitHub.cli --source winget`, then open a *new*
+   terminal window.
+2. **Sign in:** `gh auth login --web --git-protocol https`. Answer **Y** to
+   "Authenticate Git", copy the one-time code, and approve "GitHub CLI" at
+   github.com/login/device.
+3. **Finish:** `gh auth setup-git`, then `gh auth status` to check.
+
+After that, your agent does the git: fork, branch, commit, push, pull
+request, comments. You can revoke access anytime at github.com → Settings →
+Applications.
+
+- **Claude Code on the web (claude.ai/code):** fork on github.com first, then
+  sign in with GitHub and install the Claude GitHub App on your fork only.
+  If it can't open the PR, open it yourself from github.com ("compare
+  across forks").
+- **Lovable:** it can't attach to an existing repo. Use the web editor path
+  below.
 
 ## No paid plan? Use the web editor
 

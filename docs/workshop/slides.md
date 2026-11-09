@@ -20,7 +20,7 @@ If any of these change, search this folder for the old value and replace it
 everywhere (the deck, the handout, the scripts).
 
 Placeholders in brackets: `[SLIDO CODE]`, `[SCREENSHOT: …]`, `[QR: …]`,
-`[BUILD GRAPH]`, `#[ISSUE]`, `[PER-TOOL STEPS]`. Each one is listed in
+`[BUILD GRAPH]`, `#[ISSUE]`. Each one is listed in
 `tonight-checklist.md`.
 
 ---
@@ -174,16 +174,19 @@ One browser sign-in. Never paste a password or token into a chat.
 In Claude Code: `gh auth login` → browser → done
 
 > **Notes:** This is the most important slide of the talk. I'm demoing with
-> Claude Code. Once it's connected to GitHub, through a browser sign-in with
-> the GitHub CLI (`gh auth login`) or GitHub's MCP server, it can do every
-> git step for you. Other tools have their own GitHub connection, and
-> they're on slide 15 and the handout. It can also talk to other people and agents through
-> pull requests and comments. You stay the decision-maker. Switch to the
-> terminal and run `gh auth status` so they see "Logged in to github.com".
-> Say: "I did the sign-in last night. It took a minute, in a browser." The
-> per-tool steps for other agents are on the handout: [PER-TOOL STEPS].
-> Say it out loud:
-> "My agent does the git. I make the calls."
+> Claude Code. The connection is the GitHub CLI: `gh auth login`, a
+> one-time code, and you approve it in the browser. That works in any agent
+> that runs terminal commands: Claude Code, Codex, Cursor, Replit's Shell.
+> After that, the agent can do every git step for you (fork, branch,
+> commit, push, pull request) and talk to other people and agents through
+> PR and issue comments. You stay the decision-maker: Claude Code asks
+> permission before each command that changes something. Switch to the
+> terminal and run `gh auth status` so they see "Logged in to
+> github.com". Say: "I did the sign-in last night. It took a minute, in a
+> browser." The steps are on the handout. Safety: sign in only through the
+> browser, never paste a token into chat, approve each public action, and
+> revoke access anytime at github.com → Settings → Applications. Say it out
+> loud: "My agent does the git. I make the calls."
 
 ---
 
