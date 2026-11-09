@@ -67,15 +67,19 @@ to the new main heading. Each route sets `document.title` to
 
 ### 2.3 Home
 
-1. **Hero:** product name; one sentence on what it is; one sentence that it is
-   built by a class with coding agents, with a link to `CONTRIBUTING.md`.
-2. **Tools:** one card per registered tool, in registry order: name, the
-   framework it teaches (if any), its tagline, and an "Open" link to
-   `#/<tool-id>`.
-3. **"Help build the next tool":** the wanted-tools list (§3.3), each with
-   its name and a one-line pitch, and one link to
-   `docs/students/build-a-tool.md` on GitHub explaining how to propose and
-   build one.
+Home is a whiteboard, not a landing page: no hero, cards, eyebrows or
+marketing copy, and at most about 40 words by default.
+
+1. **Header line:** the product name as the page's `h1`, and one link to
+   `CONTRIBUTING.md`.
+2. **Tools:** each registered tool, in registry order, as a large sketch
+   that links to `#/<tool-id>` (accessible name "Open <tool name>"), with the
+   tool's name as an `h2`, the framework it teaches (if any), and its tagline.
+3. **"Next up":** the wanted-tools list (§3.3) as a shelf of small dashed
+   sketches, one per wanted tool, each a button showing its name. Pressing one
+   reveals its one-line pitch below the shelf. A wanted tool without a sketch
+   of its own gets a generic one, so adding a wanted tool needs no design
+   work. One link goes to `docs/students/build-a-tool.md` on GitHub.
 
 ### 2.4 Accessibility and design (applies to every tool)
 
@@ -90,6 +94,17 @@ to the new main heading. Each route sets `document.title` to
   their own colors.
 - Calm, professional style that projects well in a lecture hall: generous type,
   high contrast, one accent color.
+- **Visual language: a classroom whiteboard sketch.** Hand-drawn marker lines
+  come from the shared, seeded sketch helpers in `src/shared/sketch.ts`, so the
+  same drawing renders the same way every time. A handwriting face (Kalam) is
+  used for headings, labels and numerals, and a highly legible text face
+  (Atkinson Hyperlegible) for sentences and form controls. Both are
+  self-hosted from `src/shared/fonts/` (SIL Open Font License), so the app makes
+  no third-party requests. The light theme is a whiteboard and the dark theme
+  is a chalkboard. Colors: ink, a faded "pencil" gray for secondary text, one
+  accent (blue marker) for selection and links, and a red "pressure" marker
+  that only repeats what stroke weight already shows. No shadows, gradients,
+  pills or filled call-to-action buttons.
 
 ## 3. The tool contract
 
@@ -217,6 +232,10 @@ Each tool's spec defines that tool's own required tests.
 
 ## 8. Changelog
 
+- **0.3.0** — Whiteboard redesign. Home becomes a sketch of each tool plus a
+  "Next up" shelf of wanted tools with pitches on demand (§2.3). Adds the
+  whiteboard / chalkboard visual language, the shared sketch helpers and the
+  self-hosted fonts (§2.4).
 - **0.2.0** — Suite. The project becomes the Agentic Marketing Toolkit; Five
   Forces Explorer becomes tool #1 under `src/tools/five-forces/` with its own
   spec; the tool contract, registry, wanted-tools list, and shell are added.
