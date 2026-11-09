@@ -67,14 +67,18 @@ to the new main heading. Each route sets `document.title` to
 
 ### 2.3 Home
 
-1. **Hero:** product name; one sentence on what it is; one sentence that it is
-   built by a class with coding agents, with a link to `CONTRIBUTING.md`.
-2. **Tools:** one card per registered tool, in registry order: name, the
-   framework it teaches (if any), its tagline, and an "Open" link to
+Visual first and nearly wordless (about 40 words besides the shell):
+
+1. **Title:** the product name as the page's `h1`, and one link to
+   `CONTRIBUTING.md` ("Contribute").
+2. **Tools:** one entry per registered tool, in registry order, numbered
+   (01, 02, …): its name set large, the framework it teaches (if any), its
+   tagline in small type, a visual of the tool (for Five Forces, its diagram
+   cycling through the example industries), and an "Open" link to
    `#/<tool-id>`.
-3. **"Help build the next tool":** the wanted-tools list (§3.3), each with
-   its name and a one-line pitch, and one link to
-   `docs/students/build-a-tool.md` on GitHub explaining how to propose and
+3. **"Build next":** the wanted-tools list (§3.3) as a grid of geometric marks
+   with each tool's name; each name opens to show its one-line pitch. One link
+   to `docs/students/build-a-tool.md` on GitHub explains how to propose and
    build one.
 
 ### 2.4 Accessibility and design (applies to every tool)
@@ -89,7 +93,11 @@ to the new main heading. Each route sets `document.title` to
   properties on `:root` in `src/shared/`. Tools use these tokens rather than
   their own colors.
 - Calm, professional style that projects well in a lecture hall: generous type,
-  high contrast, one accent color.
+  high contrast, one accent color. The suite's look is monochrome: near-black
+  on off-white (inverted in dark mode), a grotesk display face with a
+  monospace face for labels and data, hairline rules on a strict grid, and no
+  cards, shadows, gradients or pill badges. The single accent marks only
+  something the user changed, always alongside a word.
 
 ## 3. The tool contract
 
@@ -216,6 +224,11 @@ Each tool's spec defines that tool's own required tests.
 - Node.js 22.12 or newer (required by Vite 8 and Vitest 5).
 
 ## 8. Changelog
+
+- **0.3.0** — Visual redesign (monochrome). Home becomes visual first: numbered
+  tool entries with a live visual and a "Build next" grid of marks; the design
+  tokens and base styles are rewritten (§2.4). Five Forces Explorer moves to a
+  single Canvas (its SPEC §2).
 
 - **0.2.0** — Suite. The project becomes the Agentic Marketing Toolkit; Five
   Forces Explorer becomes tool #1 under `src/tools/five-forces/` with its own

@@ -8,8 +8,7 @@
 > [AGENTS.md](../../../AGENTS.md) for the workflow.
 >
 > Tool id: `five-forces` · Folder: `src/tools/five-forces/` · Routes:
-> `#/five-forces/learn` (default), `#/five-forces/analyze`,
-> `#/five-forces/summary`.
+> `#/five-forces` (Canvas, default) and `#/five-forces/summary`.
 
 ## 1. What this is
 
@@ -40,78 +39,95 @@ teaching illustrations, not market research.
 ### 2.1 Layout and navigation
 
 - Rendered inside the suite shell (suite spec §2), which provides the header
-  and footer. The tool shows its `h1` ("Five Forces Explorer"), a one-line
-  purpose, and its own view navigation.
-- Views, in order: **Learn**, **Analyze**, **Summary**. Navigation is a set of
-  links/buttons with `aria-current="page"` (or an ARIA tabs pattern) that works
-  with keyboard alone, and calls `navigate('learn' | 'analyze' | 'summary')`.
-- The view comes from the `subpath` prop (suite spec §2.2): `''` or `learn` →
-  Learn, `analyze` → Analyze, `summary` → Summary; any other subpath → Learn.
-  A presenter can link straight to a view, e.g. `#/five-forces/summary`.
+  and footer. The tool shows its `h1` ("Five Forces Explorer") and its own
+  view navigation. It does not show a purpose paragraph: the diagram explains
+  the tool.
+- Two views: the **Canvas**, where the user picks an industry, reads its five
+  forces as one diagram and rates each force, and the **Summary**. Navigation
+  is a set of links with `aria-current="page"` that works with keyboard alone
+  and calls `navigate('' | 'summary')`.
+- The view comes from the `subpath` prop (suite spec §2.2): `summary` →
+  Summary; `''` and anything else → Canvas. The old subpaths `learn` and
+  `analyze` open the Canvas, so existing links keep working. A presenter can
+  link straight to a view, e.g. `#/five-forces/summary`.
+- **Word budget.** A default screen shows at most about 40 words besides the
+  shell. Explanations are on demand (disclosures), one or two lines each.
 - The Summary view carries the disclaimer: *"Example ratings are illustrative
   teaching material, not verified market research."*
 
-### 2.2 Learn view
+### 2.2 The force diagram
 
-1. **Framework overview.** What the framework is for (industry structure
-   shapes the average profitability of an industry and therefore strategy),
-   the five forces with rivalry at the center, and a short reminder that the
-   strongest force or forces matter most.
-2. **Five force cards.** One card per force showing its name and its core
-   question. Selecting a card reveals that force's full detail (expandable
-   card, disclosure, or detail panel — keyboard accessible either way).
-3. **Force detail** contains:
-   - a 1–2 sentence summary,
-   - the **drivers** that make the force stronger (from `data/forces.ts`),
-   - *The force is high when…* and *The force is low when…* bullet lists,
-   - one short illustrative example,
-   - one common misconception.
-4. **"Factors, not forces."** A callout explaining that industry growth rate,
-   technology and innovation, government policy, and complementary products
-   are *factors* that act through the five forces rather than forces
-   themselves.
-5. **Sources.** Porter, M. E. (1979), "How Competitive Forces Shape
-   Strategy," *Harvard Business Review*; Porter, M. E. (2008), "The Five
-   Competitive Forces That Shape Strategy," *Harvard Business Review* 86(1).
-6. A call to action that moves the user to Analyze.
+The diagram is the interface. It follows Porter's layout: **rivalry at the
+center**, new entrants above, suppliers to the left, buyers to the right,
+substitutes below.
 
-### 2.3 Analyze view (the guided exercise)
+- **Shapes.** Rivalry is a filled disc. The two bargaining powers (suppliers,
+  buyers) are squares. The two threats (new entrants, substitutes) are
+  triangles pointing inward.
+- **Encoding.** A force's rating sets three things together: its distance from
+  the center (stronger is closer, read against five dotted rings labelled 1–5),
+  its size, and the weight of the line joining it to the center. Rivalry's
+  rating sets the disc's size. Every shape also prints its rating, so nothing
+  depends on color. An unrated force is drawn as an outline on the outer ring
+  and prints "–".
+- The screen states that **a higher rating means more pressure on industry
+  profitability** (e.g. "Threat of new entrants: High" means entry is easy).
+- On the Canvas each force is a button (keyboard focusable, `aria-pressed`,
+  accessible name with the force's name and rating). Selecting it opens the
+  force panel (§2.3). The Summary's diagram is a single image (`role="img"`)
+  with a text description of every rating it shows.
+- Changes animate (shapes slide along their axis); `prefers-reduced-motion`
+  turns this off.
 
-A stepper with these steps. The user can move Back/Next and also jump to any
-step from a step list that shows completion state.
+### 2.3 Canvas view
 
-| Step | Content |
-|---|---|
-| 0. **Industry** | Choose a preset industry or "Custom industry". Edit the profile: **name**, **scope** (which product and which geography — e.g. "U.S. domestic passenger air travel"), and **description/notes**. Explain why defining scope matters (too broad or too narrow distorts the analysis). |
-| 1–5. **One step per force**, in this order: rivalry, threat of new entrants, supplier power, buyer power, threat of substitutes | See *Force step* below. |
-| 6. **Implications** | Two free-text prompts: (a) *Which force or forces matter most here, and why?* (b) *How could a company respond — position where the forces are weakest, reshape a force, or exploit a change?* Then a button to view the Summary. |
-
-**Force step** shows the force's question and a link/disclosure to its Learn
-detail, then:
-
-- **Rating** — a radio group (fieldset + legend) on a 1–5 scale of *force
-  intensity*: 1 Very low, 2 Low, 3 Moderate, 4 High, 5 Very high. For every
-  force, a **higher rating means more pressure on industry profitability**
-  (e.g. "Threat of new entrants: High" means entry is easy). This must be
-  stated on screen.
-- **Drivers present** — a checklist of that force's drivers; the user ticks
-  the ones that apply.
-- **Rationale** — a text area: "Explain your rating."
-- **Evidence** — a choice of:
-  - `illustrative` — shown only for values that came from a preset, labelled
-    *"Illustrative example (not verified)"*;
-  - `assumption` — *"My judgment / assumption"*;
-  - `sourced` — *"Supported by a source"*, which reveals a **source** text
-    field (citation or URL).
-- **Evidence rules:**
-  - Loading a preset sets every assessment's evidence to `illustrative`.
-  - When the user changes the rating, rationale, or drivers of an
-    `illustrative` assessment, its evidence becomes `assumption`
-    automatically, and the UI says so.
-  - `sourced` with an empty source shows an inline hint and is reported as
-    *"Assumption (source missing)"* in the summary and export.
-
-**Progress** — the view shows how many of the five forces are rated.
+1. **Industry strip.** One button per preset, in `INDUSTRY_PRESETS` order,
+   each with the industry's **mark** (a miniature of its own force diagram,
+   drawn from its preset ratings) and its name, plus **Custom industry**.
+   The current choice is marked with `aria-pressed` and by inversion, not
+   color.
+2. **Industry details** (disclosure): **name**, **scope** (which product and
+   which geography, e.g. "U.S. domestic passenger air travel"), and
+   **description/notes**, with one line on why scope matters (too broad or too
+   narrow distorts the analysis). The industry name and scope are shown above
+   the diagram.
+3. **Progress:** how many of the five forces are rated ("4 / 5 rated").
+4. **Force panel** for the selected force (rivalry when nothing has been
+   chosen):
+   - its name, its core question, and its rating as a large numeral with the
+     rating label;
+   - **Rating** — a radio group (fieldset + legend) on a 1–5 scale of *force
+     intensity*: 1 Very low, 2 Low, 3 Moderate, 4 High, 5 Very high;
+   - **Drivers present** — by default only the ticked drivers; "All *n*
+     drivers" shows the whole checklist from `data/forces.ts` so the user can
+     tick or untick them;
+   - **Reasoning and evidence** (disclosure) — **Rationale** ("Explain your
+     rating."), and **Evidence**:
+     - `illustrative` — shown only for values that came from a preset, labelled
+       *"Illustrative example (not verified)"*;
+     - `assumption` — *"My judgment / assumption"*;
+     - `sourced` — *"Supported by a source"*, which reveals a **source** text
+       field (citation or URL);
+   - **About this force** (disclosure) — its summary, *The force is high
+     when…* and *The force is low when…* lists, one illustrative example, and
+     one common misconception.
+5. **Evidence rules:**
+   - Loading a preset sets every assessment's evidence to `illustrative`.
+   - When the user changes the rating, rationale, or drivers of an
+     `illustrative` assessment, its evidence becomes `assumption`
+     automatically, and the UI says so.
+   - `sourced` with an empty source shows an inline hint and is reported as
+     *"Assumption (source missing)"* in the summary and export.
+6. **About the framework** (disclosure) — what the framework is for (industry
+   structure shapes the average profitability of an industry and therefore
+   strategy); that the strongest force or forces matter most; **"Factors, not
+   forces"**: industry growth rate, technology and innovation, government
+   policy, and complementary products act through the five forces rather than
+   being forces themselves; and the **sources**: Porter, M. E. (1979), "How
+   Competitive Forces Shape Strategy," *Harvard Business Review*; Porter, M.
+   E. (2008), "The Five Competitive Forces That Shape Strategy," *Harvard
+   Business Review* 86(1).
+7. **Start over** (with confirmation) and a link to the Summary.
 
 **Switching industry** when the current analysis has any user input
 (a rating, a rationale, a ticked driver, or implications text that differs
@@ -120,16 +136,15 @@ discarding it.
 
 ### 2.4 Summary view
 
-- **Industry header:** name, scope, and an evidence badge summary (e.g.
+- **Industry header:** name, scope, and an evidence summary (e.g.
   "3 illustrative · 1 assumption · 1 sourced").
-- **Radar chart** (pentagon, SVG, hand-written — no chart library) of the five
-  ratings on a 0–5 scale. Unrated forces plot at 0 and are listed as unrated.
-  The chart has `role="img"` and a descriptive `aria-label`, and a visible data
-  table carries the same numbers.
+- **Diagram** (§2.2) of the five ratings, as an image with a descriptive
+  `aria-label`, and a visible data table carrying the same numbers. Unrated
+  forces are listed as not rated.
 - **Comparison:** a "Compare with" select listing every preset (and "None").
-  When chosen, the chart overlays the preset as a second series that is
-  distinguishable without color (e.g. dashed outline), with a legend, and the
-  table adds the comparison column and the difference.
+  When chosen, the diagram overlays the preset's shapes as dashed outlines,
+  distinguishable without color, with a legend, and the table adds the
+  comparison column and the difference.
 - **Strongest force(s):** the force(s) with the highest rating (all ties).
   Hidden until at least one force is rated.
 - **Overall structure (indicative):** based on the mean rating of *rated*
@@ -137,13 +152,16 @@ discarding it.
   otherwise → "Challenging structure". Always shown with the caveat that
   averages hide what matters — the strongest force(s) usually shape
   profitability most. Hidden until all five forces are rated.
-- **Per-force recap:** rating label, ticked drivers, rationale, evidence label,
-  and source.
-- **Implications:** the two Implications answers.
+- **Implications:** two free-text prompts, edited here: (a) *Which force or
+  forces matter most here, and why?* (b) *How could a company respond —
+  position where the forces are weakest, reshape a force, or exploit a
+  change?*
+- **Per-force recap** (disclosure): rating label, ticked drivers, rationale,
+  evidence label, and source.
 - **Export:** "Copy as Markdown" (clipboard, with a visible success/failure
-  status message) and "Download .md". Also a print stylesheet that prints the
+  status message), "Download .md", and "Print". A print stylesheet prints the
   summary cleanly (no navigation chrome).
-- An empty state when nothing has been rated, pointing to Analyze.
+- An empty state when nothing has been rated, pointing to the Canvas.
 
 ### 2.5 Markdown export format
 
@@ -182,7 +200,8 @@ teaching examples, not verified market research._
 
 ### 2.6 Persistence
 
-- The current analysis and the current Analyze step are saved to
+- The current analysis and the selected force (stored as `step`: 1–5 for the
+  forces in standard order, 0 for none) are saved to
   `localStorage` under the key `agentic-marketing-toolkit:five-forces:v1` on every change.
 - Loading must tolerate missing, unavailable (throws), or corrupted storage
   and must validate the stored shape; anything invalid falls back to a fresh
@@ -192,7 +211,7 @@ teaching examples, not verified market research._
 ### 2.7 Accessibility and design
 
 Suite spec §2.4 applies in full. The tool uses the shared design tokens in
-`src/shared/`. The radar chart's comparison series must be distinguishable
+`src/shared/`. The Summary diagram's comparison series must be distinguishable
 without color (e.g. dashed outline) and has a data-table equivalent.
 
 ## 3. Data
@@ -340,12 +359,22 @@ The suite quality gates apply (suite spec §6). This tool's tests must include:
   structure thresholds (including boundaries 2.0 and 3.4), completion count,
   Markdown export (golden-style assertions on structure and labels), storage
   fallback on corrupt / missing / throwing storage.
-- **Components:** the main journey — load a preset, change a rating, see the
-  evidence switch to assumption, see it reflected in Summary; custom industry
-  flow; compare select overlays a second series; subpath navigation;
-  persistence across a remount.
+- **Components:** the main journey — load a preset, select a force on the
+  diagram, change its rating, see the evidence switch to assumption, see it
+  reflected in Summary; custom industry flow; compare select overlays a second
+  series; subpath navigation; persistence across a remount.
 
 ## 6. Changelog
+
+- **0.3.0** — Visual redesign. One Canvas replaces the Learn / Analyze stepper:
+  the force diagram (§2.2) is the interface, with rivalry at the center and the
+  outer forces' distance, size and line weight encoding their ratings. The
+  industry strip gives each preset a mark drawn from its own ratings. Learn
+  content moves into on-demand disclosures ("About this force", "About the
+  framework"); implications move to the Summary; the Summary's radar chart is
+  replaced by the same diagram with a dashed comparison overlay. Word budget of
+  about 40 words per default screen. The analysis model, evidence rules,
+  export format and storage are unchanged.
 
 - **0.2.0** — Moved into the Agentic Marketing Toolkit as tool #1: routes under
   `#/five-forces/…`, shell provides header/footer, storage key namespaced,
