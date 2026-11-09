@@ -1,42 +1,50 @@
 # Run of show
 
 60 minutes, 9 November 2026. Slide numbers match `slides.md` and the deck
-(17 slides). Part 1, harnesses: slides 6–7. Part 2, collaboration on GitHub: slides
-8–12. The toolkit (slide 13) is a worked example of both.
+(version 50, 17 slides).
 
-If you run long, cut the Porter discussion on slide 11 first, then shorten
-Q&A. Keep slide 8 and the summary.
+- **Introduction:** slides 1–3.
+- **Part 1, harnesses:** slides 4–5.
+- **Part 2, collaboration on GitHub, and how this project was built:**
+  slides 6–7.
+- **The Agentic Marketing Toolkit and the live demonstration:** slides
+  8–13.
+- **How to contribute:** slides 14–15.
+- **Summary and questions:** slides 16–17.
+
+If time runs short, shorten the Porter discussion on slide 12 first, then
+Q&A. Do not cut slide 6 or the summary.
 
 **Screens:** the deck, the live site in a browser tab, and a terminal with
 Claude Code already signed in to GitHub. The Slido presenter view goes in
 its own tab.
 
-| Time | Slide | What happens | If it goes wrong |
-|---|---|---|---|
-| 0:00 | 1 Cover | Thank the professor. State the two topics. | — |
-| 0:01 | 2 Live site | Browser, about 90 s: Five Forces Learn, Analyze (whitewater rafting), Summary (radar chart, Compare). | Site down: run the local build (`npm run preview`). If that fails too, skip. |
-| 0:03 | 3 Poll 1 | Word cloud: the digital tool they would have developers build. Read the most common answers. | Slido fails: take five ideas by show of hands and write them down for slide 13. |
-| 0:06 | 4 About me | billmoore.ai, GENE. | Site won't load: talk from the notes. |
-| 0:10 | 5 How this was built | Spec, split, coordinate, integrate. The build graph. | No graph: talk through the four lines. |
-| 0:14 | 6 What a harness does | Part 1. Etymology; horse, harness, cart. | — |
-| 0:17 | 7 Components of a harness | Spec, rules, skills, checks. | — |
-| 0:20 | 8 Connecting an agent to GitHub | Part 2. In the terminal, `gh auth status`. | Signed out: show the sign-in screenshot and use the fallback PR for the demo. |
-| 0:23 | 9 Poll 2 | Which industry to add. Announce the result. | Show of hands. Tie: Bill picks. |
-| 0:24 | 10 The prompt | Paste it into Claude Code, then read and approve the plan. **Agent running by 0:26.** | Agent won't start: open the fallback PR for the winner (`live-demo-script.md` §5). |
-| 0:26 | 11 Five Forces: the AI coding agent industry | Poll 3, a rating. Enter it as a custom industry, and take two or three views. Check the agent. | Agent still going at 0:33: discuss one more force, until 0:35. |
-| 0:33 | 12 From change to merge | `npm run check` passes. Then on GitHub: the draft PR, CI, and the agent's issue comment. | Stalled or red at 0:36: say so and open the fallback PR. |
-| 0:38 | 13 The Agentic Marketing Toolkit | Tool 1, proposed tools, the poll 1 answers. | — |
-| 0:45 | 14 How to contribute | Hand out the handout. Approvals, and voluntary unless assigned. | No handouts: leave the QR code up longer. |
-| 0:47 | 15 Tools and plans | Plans, and the web-editor path. | — |
-| 0:50 | 16 Questions | Slido Q&A, top-voted first, then hands. | Hands only. |
-| 0:56 | 17 Summary | Restate the two points. Thanks. | — |
-| 1:00 | — | End. | — |
+| Time | Min | Slide | What happens | If it goes wrong |
+|---|---|---|---|---|
+| 0:00 | 1 | 1 Cover | Thank the professor. State the two topics. | — |
+| 0:01 | 4 | 2 About me | billmoore.ai; background and GENE. | Site won't load: speak from the notes. |
+| 0:05 | 3 | 3 Poll 1 | Word cloud. Read the most common answers. | Slido fails: take five ideas by show of hands and note them for slide 8. |
+| 0:08 | 3 | 4 What a harness does | Etymology; horse, harness, cart. | — |
+| 0:11 | 3 | 5 Components of a harness | Spec, rules, skills, checks. | — |
+| 0:14 | 4 | 6 Connecting an agent to GitHub | In the terminal, run `gh auth status`. | Signed out: show the sign-in screenshot and plan to use the fallback PR. |
+| 0:18 | 4 | 7 How this was built | Spec, split, coordinate, integrate; the build graph. | No graph: talk through the four steps. |
+| 0:22 | 3 | 8 The Agentic Marketing Toolkit | Tool 1, proposed tools, the poll 1 answers. | — |
+| 0:25 | 2 | 9 Live site | Browser: Five Forces Learn, Analyze (whitewater rafting), Summary (radar chart, Compare). | Site down: run the local build (`npm run preview`), or skip. |
+| 0:27 | 1 | 10 Poll 2 | Which industry to add. Announce the result. | Show of hands. Tie: Bill chooses. |
+| 0:28 | 2 | 11 The prompt | Paste it into Claude Code, then read and approve the plan. **The agent should be running by 0:30.** | Agent won't start: open the fallback PR for the winning option (`live-demo-script.md` §5). |
+| 0:30 | 7 | 12 Five Forces: the AI coding agent industry | Poll 3, a rating. Enter it in a custom industry and take two or three views. Check the agent periodically. | Agent is slow: discuss rivalry and buyer power until 0:37. |
+| 0:37 | 4 | 13 From change to merge | `npm run check` passes. On GitHub, show the draft PR, the CI status and the agent's issue comment. | Stalled or failing at 0:40: say so and open the fallback PR. |
+| 0:41 | 3 | 14 How to contribute | Hand out the handout. Approvals; voluntary unless assigned. | No handouts: leave the QR code up longer. |
+| 0:44 | 2 | 15 Tools and plans | Plans, and the web-editor path. | — |
+| 0:46 | 2 | 16 Summary | Restate the two points. | — |
+| 0:48 | 12 | 17 Questions | Slido Q&A, top-voted first, then hands. Thank the professor and the class. | Hands only. |
+| 1:00 | — | — | End. | — |
 
 ## Hard stops
 
-- **0:26**: the agent is running, or switch to the fallback PR.
-- **0:36**: go back to the deck, whatever state the agent is in.
-- **0:56**: start the summary.
+- **0:30:** the agent is running, or switch to the fallback PR.
+- **0:40:** return to the deck, whatever state the agent is in.
+- **0:48:** the summary is done, and questions begin.
 
 ## After the session
 

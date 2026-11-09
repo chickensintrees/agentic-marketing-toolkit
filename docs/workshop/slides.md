@@ -1,7 +1,7 @@
 # Slides: source text and speaker notes
 
 Plain-text mirror of the deck at
-https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 49).
+https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (synced to version 50).
 The deck is the master. When it changes, update this file to match. 17
 slides; timings match `run-of-show.md`.
 
@@ -36,30 +36,7 @@ Bill Moore · West Virginia University · 9 November 2026
 > product, and students will see how to set up their own agent to do the
 > same.
 
-## 2. Live site (0:01)
-
-[LIVE SITE: chickensintrees.github.io/agentic-marketing-toolkit]
-
-> **Notes:** Switch to the browser, about 90 seconds. Five Forces: Learn
-> (open one force card), Analyze (load the whitewater rafting preset),
-> Summary (radar chart, then Compare with U.S. airlines). If the site won't
-> load: local build with `npm run preview`.
-
-## 3. Poll 1 (0:03)
-
-Poll 1
-
-**If you could hire a team of software developers to build you a digital
-tool (dashboard, website, app, experience, etc.), what would you have them
-build?**
-
-slido.com · #[SLIDO CODE] · [QR: Slido]
-
-> **Notes:** Word cloud, about 2 minutes. Read the most common answers
-> aloud; they return on the toolkit slide. The Slido Q&A tab stays open for
-> the hour. If Slido fails, take five ideas by show of hands.
-
-## 4. About me (0:06)
+## 2. About me (0:01)
 
 **About me**
 
@@ -73,27 +50,21 @@ billmoore.ai
 > podcast episodes with it; first non-human Webby winner for Best Podcast
 > Cohost (2024).
 
-## 5. How this was built (0:10)
+## 3. Poll 1 (0:05)
 
-**How this was built**
+Poll 1
 
-1. **Spec.** One shared source of truth.
-2. **Split.** Builder, research, review and fix agents.
-3. **Coordinate.** Agents message each other; a person redirects.
-4. **Integrate.** Pull requests into one repo; tests check every change.
+**If you could hire a team of software developers to build you a digital
+tool (dashboard, website, app, experience, etc.), what would you have them
+build?**
 
-[BUILD GRAPH: sessions, agents, messages, PRs, timings]
+slido.com · #[SLIDO CODE] · [QR: Slido]
 
-> **Notes:** An orchestrator agent took my planning notes, wrote SPEC.md
-> first, and split the work. A builder agent wrote the app. A research
-> agent checked current tool facts. Four reviewer agents each took one
-> lens: Porter accuracy, code against the spec, accessibility, and beginner
-> onboarding. Fixer agents addressed their findings, and a verifier checked
-> the fixes. Separate sessions handled other chunks, including this deck.
-> Point at the graph. One redirect story: I rejected the first deck and
-> title, and the agents changed course.
+> **Notes:** Word cloud, about 2 minutes. Read the most common answers
+> aloud; they return on the toolkit slide. The Slido Q&A tab stays open for
+> the hour. If Slido fails, take five ideas by show of hands.
 
-## 6. What a harness does (0:14)
+## 4. What a harness does (0:08)
 
 Part 1 · Harnesses
 
@@ -114,7 +85,7 @@ Footer: From Old French *harneis*, "equipment"
 > example: Anthropic Engineering, "Effective harnesses for long-running
 > agents" (Justin Young, 26 November 2025).
 
-## 7. Components of a harness (0:17)
+## 5. Components of a harness (0:11)
 
 Part 1 · Harnesses
 
@@ -138,7 +109,7 @@ Footer: Rules: github.com/chickensintrees/ai-coding-rules
 > contributors and their agents to work on one repository without one
 > reviewer reading every line.
 
-## 8. Connecting an agent to GitHub (0:20)
+## 6. Connecting an agent to GitHub (0:14)
 
 Part 2 · Collaboration on GitHub
 
@@ -165,72 +136,27 @@ You approve each action. Never paste a password or token into a chat.
 > browser sign-in only, no tokens in chat, approve each public action,
 > revoke at github.com → Settings → Applications.
 
-## 9. Poll 2 (0:23)
+## 7. How this was built (0:18)
 
-Poll 2 · slido.com · #[SLIDO CODE]
+**How this was built**
 
-**Which industry should we add to Five Forces?**
+1. **Spec.** One shared source of truth.
+2. **Split.** Builder, research, review and fix agents.
+3. **Coordinate.** Agents message each other; a person redirects.
+4. **Integrate.** Pull requests into one repo; tests check every change.
 
-A. Ski resorts · B. Craft breweries · C. Food trucks
+[BUILD GRAPH: sessions, agents, messages, PRs, timings]
 
-> **Notes:** Multiple choice, about 60 seconds. Announce the result. Each
-> option has a prepared fallback branch and pull request
-> (`live-demo-script.md`). If Slido is unavailable, use a show of hands.
+> **Notes:** An orchestrator agent took my planning notes, wrote SPEC.md
+> first, and split the work. A builder agent wrote the app. A research
+> agent checked current tool facts. Four reviewer agents each took one
+> lens: Porter accuracy, code against the spec, accessibility, and beginner
+> onboarding. Fixer agents addressed their findings, and a verifier checked
+> the fixes. Separate sessions handled other chunks, including this deck.
+> Point at the graph. One redirect story: I rejected the first deck and
+> title, and the agents changed course.
 
-## 10. The prompt (0:24)
-
-**The prompt**
-
-> Use the add-industry skill to add an illustrative **[WINNING INDUSTRY]**
-> industry to Five Forces. Follow AGENTS.md and show me your plan first.
-> Then run npm run check, push a branch, open a draft pull request for
-> issue **#[ISSUE]**, and comment on the issue with the link.
-
-> **Notes:** Read the prompt aloud. It contains no code and no git
-> commands; the harness and the GitHub connection supply the rest. Paste it
-> into Claude Code (exact text in `live-demo-script.md`). When the plan
-> appears, read it and approve it. Move to the next slide while the agent
-> works.
-
-## 11. Five Forces: the AI coding agent industry (0:26)
-
-Poll 3 · slido.com · #[SLIDO CODE]
-
-**Five Forces: the AI coding agent industry**
-
-Threat of new entrants. How easy is it for a new competitor to enter?
-1 Very low · 2 Low · 3 Moderate · 4 High · 5 Very high
-
-Footer: Higher rating = more pressure on industry profitability
-
-> **Notes:** Rating poll, 1 to 5. In the app: Analyze, then Custom
-> industry. Name: "AI coding agents". Scope: "AI coding assistants for
-> software teams and individuals, worldwide". Enter the most common rating
-> for threat of new entrants, tick the drivers students cite, and record a
-> one-line rationale. Ask two or three students to justify their ratings.
-> The evidence label reads "My judgment / assumption" because a class poll
-> is not a source. Cover rivalry and buyer power by discussion if time
-> allows. Check the agent's progress periodically.
-
-## 12. From change to merge (0:33)
-
-**From change to merge**
-
-Plan → Change → npm run check → Push → Pull request → Comment → Human
-review and merge
-
-[SCREENSHOT: the draft pull request with passing checks and the agent's
-issue comment]
-
-> **Notes:** In the terminal, `npm run check` passes: lint, types, tests,
-> build. On GitHub, show the pull request description the agent wrote, the
-> CI status, and its comment on the issue; this is how agents report to
-> other contributors. The plan was approved by a person, the checks
-> verified the work, and the merge remains a human decision. If the agent
-> stalled or failed, say so and open the prepared fallback pull request. A
-> failing check is the harness working as intended.
-
-## 13. The Agentic Marketing Toolkit (0:38)
+## 8. The Agentic Marketing Toolkit (0:22)
 
 **The Agentic Marketing Toolkit**
 
@@ -250,7 +176,81 @@ Each tool is a separate folder with its own SPEC.md.
 > harness to direct the agents and GitHub to coordinate the work, applies
 > to building products and businesses.
 
-## 14. How to contribute (0:45)
+## 9. Live site (0:25)
+
+[LIVE SITE: chickensintrees.github.io/agentic-marketing-toolkit]
+
+> **Notes:** Switch to the browser, about 90 seconds. Five Forces: Learn
+> (open one force card), Analyze (load the whitewater rafting preset),
+> Summary (radar chart, then Compare with U.S. airlines). If the site won't
+> load: local build with `npm run preview`.
+
+## 10. Poll 2 (0:27)
+
+Poll 2 · slido.com · #[SLIDO CODE]
+
+**Which industry should we add to Five Forces?**
+
+A. Ski resorts · B. Craft breweries · C. Food trucks
+
+> **Notes:** Multiple choice, about 60 seconds. Announce the result. Each
+> option has a prepared fallback branch and pull request
+> (`live-demo-script.md`). If Slido is unavailable, use a show of hands.
+
+## 11. The prompt (0:28)
+
+**The prompt**
+
+> Use the add-industry skill to add an illustrative **[WINNING INDUSTRY]**
+> industry to Five Forces. Follow AGENTS.md and show me your plan first.
+> Then run npm run check, push a branch, open a draft pull request for
+> issue **#[ISSUE]**, and comment on the issue with the link.
+
+> **Notes:** Read the prompt aloud. It contains no code and no git
+> commands; the harness and the GitHub connection supply the rest. Paste it
+> into Claude Code (exact text in `live-demo-script.md`). When the plan
+> appears, read it and approve it. Move to the next slide while the agent
+> works.
+
+## 12. Five Forces: the AI coding agent industry (0:30)
+
+Poll 3 · slido.com · #[SLIDO CODE]
+
+**Five Forces: the AI coding agent industry**
+
+Threat of new entrants. How easy is it for a new competitor to enter?
+1 Very low · 2 Low · 3 Moderate · 4 High · 5 Very high
+
+Footer: Higher rating = more pressure on industry profitability
+
+> **Notes:** Rating poll, 1 to 5. In the app: Analyze, then Custom
+> industry. Name: "AI coding agents". Scope: "AI coding assistants for
+> software teams and individuals, worldwide". Enter the most common rating
+> for threat of new entrants, tick the drivers students cite, and record a
+> one-line rationale. Ask two or three students to justify their ratings.
+> The evidence label reads "My judgment / assumption" because a class poll
+> is not a source. Cover rivalry and buyer power by discussion if time
+> allows. Check the agent's progress periodically.
+
+## 13. From change to merge (0:37)
+
+**From change to merge**
+
+Plan → Change → npm run check → Push → Pull request → Comment → Human
+review and merge
+
+[SCREENSHOT: the draft pull request with passing checks and the agent's
+issue comment]
+
+> **Notes:** In the terminal, `npm run check` passes: lint, types, tests,
+> build. On GitHub, show the pull request description the agent wrote, the
+> CI status, and its comment on the issue; this is how agents report to
+> other contributors. The plan was approved by a person, the checks
+> verified the work, and the merge remains a human decision. If the agent
+> stalled or failed, say so and open the prepared fallback pull request. A
+> failing check is the harness working as intended.
+
+## 14. How to contribute (0:41)
 
 **How to contribute**
 
@@ -271,7 +271,7 @@ unless assigned by your instructor.
 > available to help anyone who wants to contribute. Defer to the professor
 > on whether it is assigned.
 
-## 15. Tools and plans (0:47)
+## 15. Tools and plans (0:44)
 
 **Tools and plans**
 
@@ -295,18 +295,7 @@ Footer: Source: vendor documentation, 8 November 2026
 > open an industry file on GitHub, choose edit, and GitHub creates the fork
 > and the pull request.
 
-## 16. Questions (0:50)
-
-**Questions**
-
-slido.com · #[SLIDO CODE]
-
-> **Notes:** Take the top-voted Slido questions first, then hands. Likely
-> topics: effects on marketing jobs; which tool to start with (any on the
-> handout; the starter prompt works in each); code quality (the checks, and
-> the code is open source); cost. Leave four minutes for the summary.
-
-## 17. Summary (0:56)
+## 16. Summary (0:46)
 
 **Summary**
 
@@ -319,5 +308,17 @@ github.com/chickensintrees/agentic-marketing-toolkit
 
 > **Notes:** Restate the two points. Five Forces Explorer is the first tool
 > in the toolkit; anyone in the class can propose or build the next one,
-> and I will continue to help through the repository's issues. Thank the
-> professor and the class.
+> and I will continue to help through the repository's issues. Then open
+> questions.
+
+## 17. Questions (0:48)
+
+**Questions**
+
+slido.com · #[SLIDO CODE]
+
+> **Notes:** Take the top-voted Slido questions first, then hands. Likely
+> topics: effects on marketing jobs; which tool to start with (any on the
+> handout; the starter prompt works in each); code quality (the checks, and
+> the code is open source); cost. End on time; thank the professor and the
+> class.

@@ -1,6 +1,6 @@
 # Live demo script
 
-Slides 8–12. An agent connected to GitHub carries out the git steps, and a
+Slides 6 and 10–13. An agent connected to GitHub carries out the git steps, and a
 person approves each public action. The class votes on one of three
 industries. Bill's agent adds it to Five Forces inside the harness, runs the
 checks, pushes a branch, opens a draft pull request against a class issue,
@@ -17,7 +17,7 @@ because the Five Forces spec says "at least" five presets.
 > each tool in `src/tools/<id>/`. Before rehearsal, confirm on merged
 > `main`: the `add-industry` skill name, where Five Forces industry files
 > live, that `npm run check` runs lint, typecheck, tests and build, and the
-> live URL `#/five-forces`. Update this script and slide 10 if any differ.
+> live URL `#/five-forces`. Update this script and slide 11 if any differ.
 
 ## 1. Connect the agent to GitHub (tonight, not live)
 
@@ -52,20 +52,20 @@ After sign-in, Claude Code does the git with commands like
 that changes things**, so the push and the PR are approved one at a time,
 on screen.
 
-- Take a screenshot of the browser code-entry screen, for slide 8.
+- Take a screenshot of the browser code-entry screen, for slide 6.
 - Never paste a token into a chat. The starter prompt and AGENTS.md both
   say so. Say it out loud in the room.
 
 ## 2. Prepare the class issue (tonight)
 
 The orchestrator is creating the issue **"Add an industry chosen by the
-class"** and will send its number. That number replaces `#[ISSUE]` on slide 10 and in the
+class"** and will send its number. That number replaces `#[ISSUE]` on slide 11 and in the
 prompt below. The agent's PR links to it, and the agent comments on it.
 
 ## 3. The prompt
 
 Replace `<INDUSTRY>` with the poll winner and `<N>` with the issue number.
-It matches slide 10.
+It matches slide 11.
 
 ```text
 Use the add-industry skill to add an illustrative <INDUSTRY> industry to Five Forces. Follow AGENTS.md and show me your plan first. Then run npm run check, push a branch, open a draft pull request for issue #<N>, and comment on the issue with the link.
@@ -87,7 +87,7 @@ there. Say this in the room, because it's what they'll see.
    Point this out.
 2. **Plan shown.** Read it aloud. It should name one new industry file and
    its registration. Approve it.
-3. **Agent working.** Go to slide 11 (Porter). Check progress every few
+3. **Agent working.** Go to slide 12 (Porter). Check progress every few
    minutes.
 4. **`npm run check`.** Show lint, types, tests and build passing. If a
    test fails, read the failure aloud and let the agent fix it if time
@@ -127,9 +127,9 @@ winner, and close the rest.
 | Problem | Do this |
 |---|---|
 | Agent says it can't reach GitHub | Run `gh auth status`. If you're signed out and it takes more than 60 s to fix, use the fallback PR. |
-| Agent is slow | That's what slide 11 is for. Hard stop at 0:36. |
+| Agent is slow | That's what slide 12 is for. Hard stop at 0:40. |
 | Agent pushes or opens the PR without asking | Stop it, and say that's exactly what AGENTS.md forbids. That's a teaching moment, not a disaster: it's a draft on a branch. |
 | Agent touches files outside its plan | Say "no" and point it back to the plan. That's the human in control. |
 | `npm run check` fails and can't be fixed in time | The red check is the harness working. Open the fallback PR. |
 | GitHub down or slow | Show `git log -1` and the passing check locally, and skip the PR. |
-| Wi-Fi gone | Phone hotspot. If that fails too, use the screenshots on slides 8 and 12. |
+| Wi-Fi gone | Phone hotspot. If that fails too, use the screenshots on slides 6 and 13. |

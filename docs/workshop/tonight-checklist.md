@@ -23,16 +23,16 @@ In order. Items marked **decide** need your call.
 - [ ] On `main`, confirm these exist: the `add-industry` skill,
       `npm run check`, the "question" issue template,
       `docs/students/START-HERE.md`, `docs/students/first-issues.md`.
-      If a name differs, fix slide 10, `live-demo-script.md` and the
+      If a name differs, fix slide 11, `live-demo-script.md` and the
       handout.
 
 ## 3. Connect and rehearse
 
 - [ ] Connect the demo agent to GitHub with a browser sign-in
       (`live-demo-script.md` §1). Take a screenshot of the code-entry
-      screen for slide 8.
+      screen for slide 6.
 - [ ] The orchestrator creates the class issue "Add an industry chosen by
-      the class" and sends its number. Put it on slide 10 (`#[ISSUE]`) and
+      the class" and sends its number. Put it on slide 11 (`#[ISSUE]`) and
       in the prompt.
 - [ ] Run the live prompt end to end once, then time it. If it takes much
       more than 10 minutes, plan to show the fallback PR as the main path.
@@ -40,13 +40,13 @@ In order. Items marked **decide** need your call.
 
 ## 4. Fill the deck placeholders
 
-- [ ] Slide 4: check that billmoore.ai loads on the venue network.
-- [ ] Slide 5: the build graph (the orchestrator is sending it).
-- [ ] Slide 8: GitHub sign-in screenshot.
-- [ ] Slide 10: `#[ISSUE]`.
-- [ ] Slide 12: screenshot of a draft PR with green checks and the agent's
+- [ ] Slide 2: check that billmoore.ai loads on the venue network.
+- [ ] Slide 7: the build graph (the orchestrator is sending it).
+- [ ] Slide 6: GitHub sign-in screenshot.
+- [ ] Slide 11: `#[ISSUE]`.
+- [ ] Slide 13: screenshot of a draft PR with green checks and the agent's
       comment (use a fallback PR).
-- [ ] Slides 3, 9, 11, 16: the Slido code. Slide 3: the Slido QR.
+- [ ] Slides 3, 10, 12, 17: the Slido code. Slide 3: the Slido QR.
       Slide 14: the repo QR.
 - [ ] Handout: the two QR codes.
 
@@ -67,4 +67,4 @@ In order. Items marked **decide** need your call.
 - [ ] Tabs open: deck, live toolkit, repo PRs, the class issue, Slido
       presenter.
 - [ ] Terminal at 20 pt or larger.
-- [ ] Hard stops: 0:26, 0:36, 0:57.
+- [ ] Hard stops: 0:30, 0:40, 0:48.

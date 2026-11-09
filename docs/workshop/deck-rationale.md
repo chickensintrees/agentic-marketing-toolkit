@@ -72,12 +72,12 @@ Commentary goes in the speaker notes, which stay plain and factual.
 
 | Min | Slides | Content |
 |---|---|---|
-| 0–6 | 1–3 | Cover with the two ideas. The live site. Poll 1 (word cloud). |
-| 6–14 | 4–5 | About me. How this was built: spec, split, coordinate, integrate, with the build graph. |
-| 14–20 | 6–7 | Part 1: what a harness does, and the components of a harness. |
-| 20–38 | 8–12 | Part 2: connecting an agent to GitHub. Poll 2 (industry). The prompt and the live Claude Code change. Poll 3 (Porter rating) while it works. From plan to merge. |
-| 38–50 | 13–15 | The toolkit as the worked example. Contribute. What you'll need. |
-| 50–60 | 16–17 | Q&A, then the summary. |
+| 0–8 | 1–3 | Introduction: cover, about me, Poll 1 (word cloud). |
+| 8–14 | 4–5 | Part 1: what a harness does, and the components of a harness. |
+| 14–22 | 6–7 | Part 2: connecting an agent to GitHub, and how this project was built. |
+| 22–41 | 8–13 | The Agentic Marketing Toolkit and the live demonstration: live site, Poll 2 (industry), the prompt, Poll 3 (Porter rating) while the agent works, from change to merge. |
+| 41–46 | 14–15 | How to contribute; tools and plans. |
+| 46–60 | 16–17 | Summary, then questions. |
 
 **Live-demo risk:** the GitHub sign-in is done in advance. Each poll option
 has a prepared fallback branch and PR. The Porter exercise fills the
