@@ -18,7 +18,7 @@ the deck directly.
 
 The two topics:
 
-1. **Harnesses.** A spec, rules, skills and checks direct AI agents so
+1. **Harnesses.** A spec, rules, skills, tools and checks direct AI agents so
    they build the tools we want.
 2. **Collaboration on GitHub.** People and their agents work on one
    repository through branches, pull requests and comments. Once an agent
@@ -68,20 +68,24 @@ Commentary goes in the speaker notes, which stay plain and factual.
 | **Know** | How a harness (spec, AGENTS.md, skills, checks) keeps agents building what you want. How people and agents collaborate in one GitHub repo. That connecting your agent to GitHub lets it do the git while you approve. |
 | **Be able to do** | Paste the starter prompt into a coding agent, connect it to GitHub with a browser sign-in, and open a pull request against the Agentic Marketing Toolkit. With no paid tool, make a one-file change in GitHub's web editor instead. |
 
-## The arc (60 minutes, 19 slides)
+## The arc (60 minutes, 18 slides)
 
 | Min | Slides | Content |
 |---|---|---|
-| 0–8 | 1–3 | Introduction: cover, about me, Poll 1 (word cloud). |
-| 8–14 | 4–5 | Part 1: what a harness does, and the components of a harness. |
-| 14–20 | 6–7 | Part 2: GitHub basics, and connecting an agent to GitHub. |
-| 20–46 | 8–15 | Examples: work at BCG; the Agentic Marketing Toolkit, the live site, how it was built; the live demonstration (Poll 2, the prompt, Poll 3 while the agent works, from change to merge). |
-| 46–50 | 16–17 | How to contribute; tools and plans. |
-| 50–60 | 18–19 | Summary, then questions. |
+| 0–5 | 1–2 | Introduction: cover, about me. |
+| 5–11 | 3–4 | Part 1: what a harness does; the five components (spec, rules, skills, tools, checks). |
+| 11–22 | 5–7 | Part 2: GitHub basics, how a contribution moves, connecting an agent to GitHub. |
+| 22–41 | 8–13 | Examples: work at BCG; the toolkit and the live site; the live demonstration (the prompt, how this was built while the agent works, from change to merge). |
+| 41–48 | 14–16 | The poll (one word cloud), how to contribute, tools and plans. |
+| 48–60 | 17–18 | Summary, then questions (Slido Q&A). |
 
-**Live-demo risk:** the GitHub sign-in is done in advance. Each poll option
-has a prepared fallback branch and PR. The Porter exercise fills the
-agent's wait. Hard stops are in `run-of-show.md`.
+**Live-demo risk:** the GitHub sign-in is done in advance. The industry is
+Bill's choice (or one suggestion from the room), and a fallback branch and PR
+is prepared for Bill's planned industry. The "How this was built" slide fills
+the agent's working time. The hard stops are in `run-of-show.md`.
+
+**Audience participation (Bill's decision):** one Slido poll, asked after
+everything has been explained, plus Slido Q&A at the end.
 
 ## Left out
 
