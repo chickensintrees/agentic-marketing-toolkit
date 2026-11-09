@@ -1,7 +1,6 @@
 # How products get built
 
-*Harnesses steer the agents. GitHub is where we build together: tools,
-products, even businesses.*
+*Harnesses for AI agents, and collaboration on GitHub*
 
 **Bill Moore · Guest lecture · West Virginia University · 9 November 2026**
 
@@ -73,7 +72,7 @@ industry.
 
 ## What you approve yourself
 
-Your agent does the git. **You** make the calls:
+Your agent carries out the git steps. **You** approve:
 
 - Signing in to GitHub (in your browser, never a token pasted into chat).
 - Making your fork.
@@ -93,7 +92,3 @@ basic.
 
 **No. Contributing is voluntary unless your instructor assigns it.** Bill
 will help anyone who wants to try, now and as the toolkit grows.
-
----
-
-*My agent does the git. I make the calls.*

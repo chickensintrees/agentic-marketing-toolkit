@@ -14,22 +14,23 @@ the deck directly.
 
 **Title:** How products get built
 
-**Subtitle:** Harnesses steer the agents. GitHub is where we build together:
-tools, products, even businesses.
+**Subtitle:** Harnesses for AI agents, and collaboration on GitHub
 
-The two ideas:
+The two topics:
 
-1. **Harnesses steer the agents.** Specs, rules, skills and checks are how
-   we control agents so they build the tools we want.
-2. **GitHub is where we build together.** People and their agents
-   collaborate on one repo through branches, pull requests and comments.
-   The key is connecting your agent to GitHub, because then the agent does
-   the git.
+1. **Harnesses.** A spec, rules, skills and checks direct AI agents so
+   they build the tools we want.
+2. **Collaboration on GitHub.** People and their agents work on one
+   repository through branches, pull requests and comments. Once an agent
+   is connected to GitHub, it carries out the git steps and a person
+   approves each public action.
 
-The Agentic Marketing Toolkit is the worked example of both ideas. The same
-pattern builds products and businesses.
+The Agentic Marketing Toolkit is a worked example of both. The same pattern
+applies to building products and businesses.
 
-**Line to repeat:** "My agent does the git. I make the calls."
+**On-screen register:** plain academic wording, no slogans or taglines
+(Bill: "We are making a slide deck to be presented in a university").
+The close is a two-point summary.
 
 ## Bill's brief, condensed
 
@@ -73,10 +74,10 @@ Commentary goes in the speaker notes, which stay plain and factual.
 |---|---|---|
 | 0–6 | 1–3 | Cover with the two ideas. The live site. Poll 1 (word cloud). |
 | 6–14 | 4–5 | About me. How this was built: spec, split, coordinate, integrate, with the build graph. |
-| 14–20 | 6–7 | Idea 1: the harness (etymology), and the harness in this repo. |
-| 20–38 | 8–12 | Idea 2: connect your agent to GitHub. Poll 2 (industry). The prompt and the live Claude Code change. Poll 3 (Porter rating) while it works. From plan to merge. |
+| 14–20 | 6–7 | Part 1: what a harness does, and the components of a harness. |
+| 20–38 | 8–12 | Part 2: connecting an agent to GitHub. Poll 2 (industry). The prompt and the live Claude Code change. Poll 3 (Porter rating) while it works. From plan to merge. |
 | 38–50 | 13–15 | The toolkit as the worked example. Contribute. What you'll need. |
-| 50–60 | 16–17 | Q&A, then the close. |
+| 50–60 | 16–17 | Q&A, then the summary. |
 
 **Live-demo risk:** the GitHub sign-in is done in advance. Each poll option
 has a prepared fallback branch and PR. The Porter exercise fills the

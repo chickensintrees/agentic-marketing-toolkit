@@ -1,7 +1,7 @@
 # Workshop materials
 
-Guest lecture, *How products get built* (harnesses steer the agents;
-GitHub is where we build together), by Bill Moore. WVU marketing class, 9 November 2026, 60 minutes.
+Guest lecture, *How products get built: harnesses for AI agents, and
+collaboration on GitHub*, by Bill Moore. WVU marketing class, 9 November 2026, 60 minutes.
 
 **Deck:** https://claude.ai/artifact/EusQFn1k3P9eZWQpXCXqpZ (a Claude Slides
 artifact, 17 slides. It is private until shared from its Share menu.)

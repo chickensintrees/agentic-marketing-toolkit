@@ -7,7 +7,7 @@ In order. Items marked **decide** need your call.
 - [x] Title: "How products get built" (Bill's own cover wording).
 - [x] Poll 1 wording (slide 3): "If you could hire a team of software
       developers to build you a digital tool (dashboard, website, app,
-      experience, etc.), what would you build?" Enter it in Slido.
+      experience, etc.), what would you have them build?" Enter it in Slido.
 - [ ] **decide** Poll 2 options: ski resorts, craft breweries, food trucks.
       Swap them now, before the fallback branches are built.
 - [x] Demo agent: Claude Code, connected through the GitHub CLI with a

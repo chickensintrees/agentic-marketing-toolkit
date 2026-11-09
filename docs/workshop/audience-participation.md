@@ -16,8 +16,8 @@ guests could exceed 100, use a second event or the fallbacks below.
 | # | When | Slide | Type | Exact question | Options | How the result feeds the talk |
 |---|---|---|---|---|---|---|
 | Q&A | All hour | 3 (announce), 16 (use) | Q&A with upvotes | — | — | Slide 16 starts with the top-voted questions. |
-| 1 | 0:03 | 3 | Word cloud, up to 3 entries per person | **If you could hire a team of software developers to build you a digital tool (dashboard, website, app, experience, etc.), what would you build?** | Open text | Read the top answers now. On slide 13 they become candidate tools #2–#n for the Agentic Marketing Toolkit. After class, turn the top ones into issues. |
-| 2 | 0:23 | 9 | Multiple choice, single answer | **Which industry should Five Forces add, right now?** | A. Ski resorts · B. Craft breweries · C. Food trucks | The winner goes into the agent prompt on slide 10. Each option has a fallback branch. |
+| 1 | 0:03 | 3 | Word cloud, up to 3 entries per person | **If you could hire a team of software developers to build you a digital tool (dashboard, website, app, experience, etc.), what would you have them build?** | Open text | Read the top answers now. On slide 13 they become candidate tools #2–#n for the Agentic Marketing Toolkit. After class, turn the top ones into issues. |
+| 2 | 0:23 | 9 | Multiple choice, single answer | **Which industry should we add to Five Forces?** | A. Ski resorts · B. Craft breweries · C. Food trucks | The winner goes into the agent prompt on slide 10. Each option has a fallback branch. |
 | 3 | 0:26 | 11 | Rating 1–5 | **AI coding agents: how high is the threat of new entrants? (1 = very low, 5 = very high)** | 1 Very low · 2 Low · 3 Moderate · 4 High · 5 Very high | The most common answer goes into Five Forces as the rating for a custom industry, "AI coding agents". Ask people at the extremes to defend it. The app labels it "My judgment / assumption". |
 
 Set up all three tonight, in order and inactive, and activate each one from

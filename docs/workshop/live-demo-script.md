@@ -1,10 +1,10 @@
 # Live demo script
 
-The center of the talk (slides 8–12): **an agent connected to GitHub does
-the git while a human makes the calls.** The class votes on one of three
+Slides 8–12. An agent connected to GitHub carries out the git steps, and a
+person approves each public action. The class votes on one of three
 industries. Bill's agent adds it to Five Forces inside the harness, runs the
 checks, pushes a branch, opens a draft pull request against a class issue,
-and comments on that issue. That last step is the "agent comms".
+and comments on that issue.
 
 **Why an industry:** it is the contribution the harness is built for. The
 `add-industry` skill describes the steps, and the data-integrity tests
@@ -81,30 +81,28 @@ Bill has write access, so his agent pushes a branch to the repo itself. A
 student's agent pushes to the student's fork instead and opens the PR from
 there. Say this in the room, because it's what they'll see.
 
-## 4. What to say while it runs
+## 4. Sequence while it runs
 
-1. **Pasted:** "No code, no git commands. Watch what it reads first." It
-   should read AGENTS.md and the skill. Point it out: it's reading the rules.
-2. **The plan appears:** read it aloud. It should name one new industry file
-   plus its registration. "This is my job: I approve a plan, not code."
-   Approve it.
-3. **It works:** go to slide 11 (Porter). Check back every few minutes.
-4. **`npm run check`:** show lint, types, tests and build passing. If a
-   test fails, read it aloud: "the harness caught something." Let the agent
-   fix it if there's time.
-5. **The git:** Claude Code shows each command (`git push`, `gh pr create`,
-   `gh issue comment`) and asks permission before running it. AGENTS.md
-   also says to ask before anything public. Approve each one, and say "yes"
-   out loud. "My
-   agent does the git. I make the calls."
-6. **On GitHub:** the draft PR, its description, CI running or green, and
-   the agent's comment on the issue: "That's agent comms. Anyone else on
-   this repo, human or agent, can see it and respond."
-7. **Wrapping up the demo:** "It's a draft. I'll review it after class
-   before anything reaches the live site."
+1. **Prompt pasted.** Claude Code reads AGENTS.md and the skill first.
+   Point this out.
+2. **Plan shown.** Read it aloud. It should name one new industry file and
+   its registration. Approve it.
+3. **Agent working.** Go to slide 11 (Porter). Check progress every few
+   minutes.
+4. **`npm run check`.** Show lint, types, tests and build passing. If a
+   test fails, read the failure aloud and let the agent fix it if time
+   allows.
+5. **Git steps.** Claude Code shows each command (`git push`,
+   `gh pr create`, `gh issue comment`) and asks permission before running
+   it, as AGENTS.md also requires for public actions. Approve each one.
+6. **On GitHub.** Show the draft pull request, its description, the CI
+   status, and the agent's comment on the issue, which other contributors
+   can see and respond to.
+7. **End of demo.** The pull request stays a draft until it is reviewed
+   after class.
 
-Ask the room about the rationale the agent wrote: "Would you change any of
-these ratings?" That links back to Porter.
+Ask the class whether they would change any of the ratings in the agent's
+rationale.
 
 ## 5. Fallback: prepared branches and PRs (tonight)
 
@@ -120,8 +118,8 @@ git push -u origin demo/<id>
 ```
 
 Open each one as a **draft** PR titled `Demo: add <industry> industry` and
-leave it unmerged. In the room: "Here's the same prompt, run in advance,
-same checks." Afterwards, keep either the live PR or the fallback for the
+leave it unmerged. In the room, explain that it is the same prompt, run in advance, with the
+same checks. Afterwards, keep either the live PR or the fallback for the
 winner, and close the rest.
 
 ## 6. If something breaks
