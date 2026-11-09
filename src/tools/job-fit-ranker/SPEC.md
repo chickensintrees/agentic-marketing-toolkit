@@ -11,9 +11,9 @@
 > `#/job-fit-ranker` (Ranking, the default view), `#/job-fit-ranker/criteria`,
 > `#/job-fit-ranker/jobs`.
 >
-> Status: **draft for Bill's review.** A static, clickable mockup is at
+> Status: **approved by Bill, 9 November 2026** (version 1 enters jobs by
+> hand). The static mockup is at
 > [`design/job-fit-ranker/index.html`](../../../design/job-fit-ranker/index.html).
-> Open questions are in §7.
 
 ## 1. What this is
 
@@ -88,7 +88,7 @@ This tool's own non-goals:
 6. **Area filter:** an optional "Within ___ minutes" field hides jobs whose commute is longer. Jobs with no commute entered are kept. The chart says how many jobs are hidden.
 7. **Sort:** by overall score (the default) or by any single criterion's rating, using a labelled select.
 8. **Data table:** below the chart, a table with the same numbers (rank, job, each criterion's rating, score, must-have status) for screen readers and for print.
-9. The chart is an inline SVG drawn in code with `role="img"` and an `aria-label` that summarizes the top three jobs. The bars themselves are HTML buttons or SVG elements with button semantics.
+9. The chart is a `figure` whose caption (visually hidden) summarizes the top three jobs. Each bar is an HTML button holding a small inline SVG drawn in code (`aria-hidden`), so the bars stay focusable and are read by their accessible names (§2.4.4).
 
 ### 2.5 Scoring (pure logic in `lib/`)
 
@@ -219,10 +219,12 @@ This tool's tests must include:
 
 ## 6. Changelog
 
+- **0.2.0** — Approved for building. Version 1 enters jobs by hand (§7.1). The chart is a captioned `figure` of bar buttons rather than one `role="img"` SVG, because an image role would hide the buttons from screen readers (§2.4.9).
 - **0.1.0** — Initial specification (draft for review), with a static mockup in `design/job-fit-ranker/`.
 
-## 7. Open questions for Bill
+## 7. Decisions and open questions
 
-1. **Live listings.** "Available jobs in the area" can't be fetched without a backend or an API, which the suite rules out (suite §1). This draft has the user enter jobs and offers a fictional example set. Is that right for version 1?
-2. **Fit with the suite.** The suite is "marketing and strategy tools". This is a decision tool for the students' own job search. Should it be on Home with the marketing tools, or in a separate "For your career" group?
-3. **Name.** "Job Fit Ranker" (`job-fit-ranker`), or something else?
+1. **Live listings — decided (Bill, 9 November 2026).** Version 1 has the user enter the jobs they are considering; the bundled examples are fictional. Fetching listings would need a backend or an API, which the suite rules out (suite §1).
+2. **Fit with the suite — open.** Version 1 lists the tool on Home after Five Forces Explorer, like any other tool. A separate "For your career" group would be a suite change (suite §2.3).
+3. **Name — open.** "Job Fit Ranker" (`job-fit-ranker`) until Bill chooses otherwise.
+4. **Home drawing — follow-up.** Home shows a blank ruled plate for this tool until a drawing is added to `src/shell/plates.tsx`, which is shell code and gets its own pull request.
