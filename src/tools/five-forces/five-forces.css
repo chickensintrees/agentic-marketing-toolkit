@@ -326,6 +326,11 @@
   font-variant-numeric: tabular-nums;
 }
 
+.panel-numeral.is-empty {
+  font-weight: 300;
+  color: var(--color-text-muted);
+}
+
 .panel-level {
   margin-left: auto;
   display: grid;

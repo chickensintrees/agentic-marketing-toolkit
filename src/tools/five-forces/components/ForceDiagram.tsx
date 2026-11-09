@@ -219,7 +219,7 @@ export function ForceDiagram({
             >
               {rivalry ?? '–'}
             </text>
-            <text className="ffd-label ffd-label-rivalry ffd-anim" y={28 + 0.36 * rr} aria-hidden="true">
+            <text className="ffd-label ffd-label-rivalry" y={rivalry === null ? rr + 44 : 28 + 0.36 * rr} aria-hidden="true">
               {SHORT_NAMES.rivalry.toUpperCase()}
             </text>
           </>

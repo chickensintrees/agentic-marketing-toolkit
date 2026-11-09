@@ -67,7 +67,7 @@ export function ForcePanel({ analysis, force, onChange }: ForcePanelProps) {
       </div>
 
       <div className="panel-rating" aria-hidden="true">
-        <span className="panel-numeral">{rating ?? '–'}</span>
+        <span className={['panel-numeral', rating === null ? 'is-empty' : ''].join(' ')}>{rating ?? '–'}</span>
         <span className="mono muted">/ 5</span>
         <span className="panel-level mono">
           <span>{rating === null ? 'Not rated' : RATING_LABELS[rating]}</span>
