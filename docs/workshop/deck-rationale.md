@@ -3,108 +3,117 @@
 Guest lecture: Bill Moore, West Virginia University, marketing MBA class.
 Monday 9 November 2026, 60 minutes.
 
-> **Source note.** The ChatGPT planning conversation could not be read from
-> this working session. Running the decoder was blocked by the session's
-> permission policy, and the share page only serves a JavaScript shell. This
-> rationale is built from the orchestrator's brief, which summarizes Bill's
-> asks: he rejected the title, wants live participation, wants harness
-> engineering starting from the word's origin, a live build of the Five
-> Forces app, and the class building a project together. It also uses
-> `SPEC.md` on `main`. If Bill's own words change any of this, they win.
+> **Revision 2.** Rebuilt against Bill's own words: his five messages in the
+> ChatGPT planning chat and his five messages tonight (relayed verbatim by
+> the orchestrator). Revision 1 made "if you can write a brief, you can
+> build software" the thesis. That idea is now a supporting point, not the
+> spine.
 
-## The one sentence
+## What Bill said he wants (the brief, condensed)
 
-**If you can write a brief, you can build software.**
+- Show his work demos. Get students thinking about building their own
+  software and tools with Claude Code, Codex, Cursor, Lovable or Replit.
+- Teach the basics of GitHub, **how to connect GitHub to their coding
+  agent**, and how to collaborate through it: commit, push, pull, merge,
+  pull request. "Your homework is a pull request." It is voluntary unless
+  the instructor assigns it, and Bill helps anyone who wants to contribute.
+- Several Slido moments (word clouds) that feed the discussion.
+- A Porter's Five Forces app as the example, built and shown in class,
+  that students can change and extend through pull requests.
+- Harness engineering, starting from where the word comes from.
+- Tonight: start from first principles; the old title is wrong. **"Teach
+  them how to collaborate on a large project via agents … how products are
+  built in the new agentic world … work together on a repo through agent
+  comms and PRs." "We are building a product together as a class … a suite
+  of tooling for their MBA journeys and beyond." "Show the students how to
+  connect their coding agents to the GitHub API. This is the key. Then
+  their agents can manage git for them."**
 
-This is the line we want students repeating a week later. Marketers already
-write briefs: objective, audience, mandatories, what success looks like. A
-coding agent needs the same thing, written down and checked. The talk proves
-the sentence live and then adds the honest condition: *the brief has to be
-inside a harness* (rules and automatic checks), because an agent is powerful
-and not always right.
+## The thesis
+
+**Products are now built by many people and their agents working on one
+repo. Connect your agent to GitHub and it handles the git, the harness
+keeps every agent pointed the same way, and this class can build a real
+product together.**
+
+### The one line they repeat a week later
+
+**"My agent does the git. I make the calls."**
+
+It names the key unlock (an agent connected to GitHub can fork, branch,
+commit, push, open pull requests and comment) and the human's role in the
+same breath. It is also an honest, safe habit for beginners. The harness
+backs it up: AGENTS.md tells agents to ask before anything public, never to
+ask for a token in chat, and never to push to `main`.
 
 ## Who is in the room
 
-- **Marketing MBA students.** They know Porter's Five Forces (they are
-  studying it in this class), positioning, briefs, and strategy. Most have
-  never used a terminal, GitHub, or a pull request, and many have used
-  ChatGPT-style chat. They are curious and skeptical in roughly equal
-  measure.
-- **The professor.** Wants the session to reinforce the course content
-  (Porter), not just entertain. They decide whether contributing is
-  assigned.
-- **What they don't need:** jargon, a code walkthrough, or a sales pitch for
-  any one tool.
+- **Marketing MBA students.** They know Porter (they're studying it now),
+  briefs, positioning, and how teams ship campaigns. Few have used a
+  terminal, GitHub, or a pull request. Many have used chat assistants. They
+  are curious and skeptical in roughly equal measure.
+- **The professor.** Wants the session to reinforce the course (Porter),
+  and decides whether contributing is assigned.
 
 ## Outcomes
 
 | | |
 |---|---|
-| **Feel** | "I could do this." The distance between having an idea and having working software is now about knowing what you want. |
-| **Know** | (1) A coding agent turns a clear written spec into working software. (2) A **harness** (spec, rules, skills, automatic checks) is what makes the agent's power useful and safe, the way a harness turns a horse's strength into a cart that goes where the driver wants. (3) The scarce skill is judgment: knowing what good looks like and separating evidence from assumption. Strategists already train for that. |
-| **Be able to do** | Paste one starter prompt into a coding agent and, with its help, fork the class project, run it, make a small change, and open a pull request. This is voluntary unless the instructor assigns it, and Bill offers help. |
+| **Feel** | "I can be part of building a real product, and I'm in control of my agent." |
+| **Know** | (1) How products get built now: many people and agents working on one repo, coordinating through a spec, messages, branches and pull requests, with tests and CI as the referee. (2) **Connecting your agent to GitHub is the unlock.** After a browser sign-in, it handles the git and the agent-to-agent comms (PRs and comments), and you approve. (3) A **harness** (spec, AGENTS.md, skills, checks) is how one repo stays coherent with dozens of contributors, the way a harness turns a horse's strength into a cart going where the driver steers. |
+| **Be able to do** | Paste the starter prompt into a coding agent, connect it to GitHub with a browser sign-in, and with its help fork, change, and open a pull request against the **Agentic Marketing Toolkit**. Or, with no paid tool, make a one-file change through GitHub's web editor. |
 
-## The arc (60 minutes)
-
-The spine is the real app plus one real agent change made in the room.
-Everything else serves that.
+## The arc (60 minutes, 17 slides)
 
 | Act | Min | What happens | Participation |
 |---|---|---|---|
-| **1. The thing on the screen** | 0–6 | Open on the live Five Forces Explorer: "This didn't exist yesterday." Then Slido join and a word cloud. | Poll 1: word cloud |
-| **2. Who's talking, and why a brief** | 6–12 | Bill in 60 seconds (GENE, media, BCG). The creative brief next to `SPEC.md`: same skeleton. | — |
-| **3. The harness** | 12–20 | Etymology: power source → harness → useful load, under a human's control. Horse → cart. Agent → useful work. The four parts in this repo: spec, rules, skills, checks. | — |
-| **4. Build it live** | 20–38 | The class votes on what to add. Bill gives the agent the prompt. **While it works**, the class runs Porter on the AI-coding-agent industry itself in the app (custom industry, with ratings from a poll). Then back to the agent: the checks run, a pull request is opened, and a human decides. | Poll 2: what to build. Poll 3: rate one force. |
-| **5. What changes for marketers** | 38–44 | The bottleneck moved from *making* to *knowing what good looks like*. The app's evidence labels (illustrative / assumption / sourced) are the lesson in miniature. | — |
-| **6. Build it with us** | 44–48 | The contribution path: one prompt, your agent, a pull request. Voluntary unless assigned; Bill helps. | Handout + QR |
-| **7. Questions and close** | 48–60 | Slido Q&A, then the one sentence. | Slido Q&A |
+| **1. The product on the screen** | 0–7 | The live Agentic Marketing Toolkit, with tool #1, Five Forces Explorer: "This didn't exist yesterday." Slido join and a word cloud: *what tool do you wish you had for your MBA?* | Poll 1: word cloud |
+| **2. Bill's work** | 7–11 | GENE and a couple of demos, quickly: proof that someone from media builds with agents. | — |
+| **3. How this was built last night** | 11–20 | The real build graph: an orchestrator wrote SPEC.md first, split the work, and ran builder, research, reviewer and fixer agents plus separate sessions (including the one that made this deck). They talked through messages, Bill redirected mid-flight, and everything merged through PRs with CI as referee. Then **the harness** (etymology, its parts), which is what kept all those agents aligned. | — |
+| **4. The key: connect your agent to GitHub** | 20–38 | Show the connection (browser sign-in, `gh auth status`). The class votes on an industry, and Bill gives his agent one prompt. **The agent does the git**: branch, commit, push, draft PR, a comment on the class issue. While it works, the class runs Porter on the AI-coding-agent industry in Five Forces. Then the checks go green, and a human decides. | Poll 2: what to build. Poll 3: rate a force. |
+| **5. This class is a product team** | 38–45 | The Agentic Marketing Toolkit is a suite. Five Forces is tool #1, and the word-cloud answers are candidate tools #2–#n. Each tool is a folder with its own SPEC.md, and anyone can extend an existing one. It is the same pattern as last night, at class scale. | Word cloud revisited |
+| **6. Your turn** | 45–50 | What you need, the starter prompt, what you approve, the no-paid-plan path (web editor), how to get help. Voluntary unless assigned, and Bill's ongoing support. | Handout |
+| **7. Questions and close** | 50–60 | Slido Q&A, then the line. | Q&A |
 
-**Live-demo risk.** The agent may be slow and the Wi-Fi may be bad. The
-Porter exercise in Act 4 is designed to fill the agent's wait time with
-course content, so a slow agent is never dead air. Every risky moment has a
-prepared fallback: a pre-built branch and PR per poll option, screenshots in
-the deck, and a local build of the app (see `run-of-show.md` and
-`live-demo-script.md`).
+**The supporting idea, "a brief is a spec":** it moves to the speaker notes
+on the harness slide. Marketers already write briefs, and SPEC.md is one.
+That's why the spec is the part of the harness they'll find most natural.
 
-15 slides. Most of the hour is the app, the agent, and the room.
+**Live-demo risk:** Bill's agent is connected to GitHub **tonight**, not
+live, so the room sees `gh auth status` and screenshots of the sign-in, not
+a fresh login over venue Wi-Fi. A prepared fallback branch and PR exists
+per poll option. The Porter exercise fills the agent's wait. Hard stops are
+in `run-of-show.md`.
 
 ## Title shortlist
 
 | # | Title | Why it could work |
 |---|---|---|
-| 1 | **If You Can Write a Brief, You Can Build Software** | It is the thesis, it speaks the audience's own craft (the brief), and it makes a claim the talk then proves live. |
-| 2 | **Horsepower and Harness** | Memorable and visual, and it carries the harness-engineering idea. It needs the talk to explain it. |
-| 3 | **Built Last Night** | Honest, intriguing, and true. The app was built with agents the night before. It says little about the takeaway. |
-| 4 | **The Brief Is the Product** | A sharp marketing-world reframe, but it is abstract before you've seen the demo. |
-| 5 | **Your Judgment, Written Down** | It names what a harness is, from the human side. It is quieter and less of a hook. |
-| 6 | **One Class, One Codebase** | It centers the shared project, but undersells the idea students can take to any job. |
-| 7 | **Five Forces, One Agent, Sixty Minutes** | It is concrete and ties to the course. It reads like an agenda, not an idea. |
+| 1 | **How Products Get Built Now** (subtitle: *Many people, many agents, one repo*) | It is Bill's own framing ("how products are built in the new agentic world"). It promises a lesson that outlasts any tool, and it fits an MBA audience. |
+| 2 | **One Repo, Many Agents** | Short and concrete. It names the collaboration model directly. |
+| 3 | **My Agent Does the Git** | It is the key unlock and the repeatable line. Playful, but it may sound too technical as a title for marketers. |
+| 4 | **Building a Product Together, With Agents** | It says exactly what the class will do. Plain, maybe too plain. |
+| 5 | **The Class Is the Product Team** | It makes the invitation the headline, but undersells the agent lesson. |
+| 6 | **Built Overnight by People and Agents** | The case study as a hook. True and intriguing, but it looks backward rather than forward. |
+| 7 | **Harnessing Agents to Build Together** | It uses the talk's central metaphor, but "harness" means nothing until the talk explains it. |
 
-**Recommendation: #1, "If You Can Write a Brief, You Can Build Software,"**
-with the subtitle *"Harness engineering for people who don't code."* It is
-the sentence we want them to repeat, so the title does double duty. It
-flatters a skill they already have instead of a tool they don't. And it
-avoids the "Stop X. Start Y." pattern Bill disliked.
+**Recommendation: #1, "How Products Get Built Now: many people, many
+agents, one repo."** It's the lesson Bill named, in his words. It sets up
+the overnight case study and the class-as-product-team close. And it leaves
+the punchline, "My agent does the git. I make the calls.", to land inside
+the talk instead of being spent on the cover.
 
-## What was deliberately left out, and why
+## What was left out, and why
 
-The old 28-slide deck itself was not available to this session. The
-decisions below come from the brief's description of it ("Stop Renting Your
-Tools. Start Building Them.", 28 slides):
-
-- **The rent-versus-build framing.** It positions the talk as anti-SaaS. It
-  invites a debate about buying software, which isn't the point and is
-  arguably the wrong advice for most marketers. The real point is *who
-  writes the brief*, whichever tool you use.
-- **Length.** 28 slides would crowd out the live build and the Q&A. 15
-  slides is enough, because the app and the agent carry the middle of the
-  hour.
-- **A long autobiography.** It is cut to one slide. The portfolio earns
-  credibility (GENE's Webby, Davos, Cannes Lions), and the demo does the
-  rest.
-- **Tool tours and code.** No slide explains React, Git internals, or
-  compares vendors. Students see a prompt, a plan, a check, and a pull
-  request: the parts a non-engineer actually touches.
-- **Hypothetical futures and statistics.** The talk shows what exists and
-  makes no adoption numbers or productivity claims. None were verified, and
-  the live demo is better evidence.
+- **The rent-versus-build framing and the old title.** It turns the talk
+  into an argument about buying software. Bill's point is collaborating on
+  building one.
+- **28 slides.** It would crowd out the live build, the case study, and Q&A.
+- **A long biography.** One slide of work demos, because Bill asked for them
+  and they buy credibility.
+- **Git theory.** No diagrams of commits or merge mechanics. Students see
+  what a non-engineer touches: a sign-in, a prompt, a plan, an approval, a
+  pull request, a green check. The agent does the rest.
+- **Unverified numbers.** No adoption or productivity statistics. Plan
+  prices and tool facts come from the orchestrator's check of official docs
+  tonight, and are labeled with that date.
