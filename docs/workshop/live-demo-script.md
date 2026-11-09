@@ -1,6 +1,6 @@
 # Live demo script
 
-This covers slides 7 and 11–13. An agent connected to GitHub carries out the
+This covers slides 7 and 10–13. An agent connected to GitHub carries out the
 git steps, and a person approves each public action. Bill chooses one
 industry, or takes one suggestion from the room. Claude Code adds it to Five
 Forces inside the harness, runs the checks, pushes a branch, opens a draft
@@ -148,3 +148,24 @@ or the fallback, and close the other.
 | `npm run check` fails and can't be fixed in time | A failing check means the harness is working. Open the fallback PR. |
 | GitHub is down or slow | Show `git log -1` and the passing check locally, and skip the PR. |
 | Wi-Fi is gone | Use the phone hotspot. If that fails too, use the screenshots on slides 7 and 13. |
+
+## 7. The live site (slide 10)
+
+About 90 seconds in the browser, at `#/five-forces`, before the prompt:
+
+1. **The Plate.** Pick the whitewater rafting emblem (the raft). The
+   diagram redraws: line weight shows each force's pressure on profit. If a
+   "Replace your edits" bar appears, choose **Replace**.
+2. **Select a force** on the diagram, for example buyer power. The panel
+   shows its 1–5 rating and the drivers ticked for this preset. Open
+   **About this force** for the explanation behind it.
+3. **The Summary.** Open **Summary**. Show the schedule of forces, then set
+   **Compare with** to U.S. passenger airlines: the comparison appears as
+   dashed bars and a difference column.
+
+If the site won't load, use the slide's screenshot, or the local build
+(`npm run preview`).
+
+The industry added in the demo is not on the live site until its pull
+request is merged. In a local `npm run dev` it appears just before Custom
+industry, with the same emblem as Custom industry until one is drawn for it.

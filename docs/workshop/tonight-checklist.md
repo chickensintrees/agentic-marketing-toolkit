@@ -21,8 +21,9 @@ In order. Items marked **decide** need your call.
 - [ ] Mark PR #2 ready for review and merge it to `main` (until then `main`
       has no AGENTS.md, skills or docs), and enable GitHub Pages. Open
       https://chickensintrees.github.io/agentic-marketing-toolkit/ and
-      `#/five-forces` on a laptop and a phone. Check Learn, Analyze
-      (whitewater rafting), and Summary (radar chart, Compare).
+      `#/five-forces` on a laptop and a phone. Check the Plate (pick the
+      whitewater rafting emblem, select a force) and the Summary (Compare
+      with U.S. passenger airlines).
 - [ ] On `main`, confirm that these exist: the `add-industry` skill,
       `npm run check`, the "question" issue template, AGENTS.md (with the
       setup steps the starter prompt relies on), and
@@ -55,7 +56,10 @@ In order. Items marked **decide** need your call.
 - [ ] Slide 2: check that billmoore.ai loads on the venue network.
 - [ ] Slide 7: GitHub sign-in screenshot.
 - [ ] Slide 8: prepare the BCG demos (`[DEMO: BCG work]`).
-- [x] Slide 10: screenshot of the Summary view (already in the deck).
+- [ ] Slide 10: replace the Summary screenshot, which shows the old radar
+      chart, with the redesigned Summary
+      (`design/ink-plate/app-shots/summary-1440.png`, or a fresh one from
+      the live site).
 - [ ] Slide 11: `[INDUSTRY]` (said aloud) and `#[ISSUE]`.
 - [ ] Slide 12: the build graph (the orchestrator is sending it).
 - [ ] Slide 13: screenshot of a draft PR with passing checks and the

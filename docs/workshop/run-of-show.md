@@ -34,7 +34,7 @@ view goes in its own tab.
 | 0:18 | 4 | 7 Connecting an agent to GitHub | In the terminal, run `gh auth status`. | Signed out: show the sign-in screenshot and plan to use the fallback PR. |
 | 0:22 | 4 | 8 Work at BCG | Live demos of BCG work (GENE). | Demo won't load: describe it from the notes. |
 | 0:26 | 2 | 9 The Agentic Marketing Toolkit | Tool 1 and the proposed tools. | — |
-| 0:28 | 2 | 10 Live site | In the browser: Five Forces Learn, Analyze (whitewater rafting), Summary (radar chart, Compare). | Site down: use the slide's screenshot, or the local build (`npm run preview`). |
+| 0:28 | 2 | 10 Live site | In the browser: the Five Forces Plate (pick the whitewater rafting emblem, select a force), then the Summary (Compare with U.S. passenger airlines). See `live-demo-script.md` §7. | Site down: use the slide's screenshot, or the local build (`npm run preview`). |
 | 0:30 | 2 | 11 The prompt | Name the industry (Bill's choice, or one suggestion from the room). Paste the prompt into Claude Code, then read and approve the plan. **The agent should be running by 0:32.** | Agent won't start: open the fallback PR (`live-demo-script.md` §5). |
 | 0:32 | 5 | 12 How this was built | Talk through it while the agent works. Check the terminal periodically. | No graph: talk through the four steps. |
 | 0:37 | 4 | 13 From change to merge | `npm run check` passes. On GitHub, show the draft PR, the CI status and the agent's issue comment. | Stalled or failing at 0:40: say so and open the fallback PR. |

@@ -209,16 +209,17 @@ Each tool is a separate folder with its own SPEC.md.
 
 ## 10. Live site (0:28)
 
-[Screenshot: the Five Forces Explorer Summary view, comparing U.S.
-passenger airlines with subscription video streaming on the radar chart]
+[Screenshot: the Five Forces Explorer Summary: the U.S. passenger airlines
+plate and its schedule of forces, compared with subscription video streaming]
 
 chickensintrees.github.io/agentic-marketing-toolkit
 
 > **Notes:** Switch to the browser for about 90 seconds. In Five Forces,
-> show Learn (open one force card), then Analyze (load the whitewater
-> rafting preset), then Summary (the radar chart, then Compare with U.S.
-> airlines). If the site won't load, use this screenshot, or run the local
-> build with `npm run preview`.
+> pick the whitewater rafting emblem; the plate redraws with its ratings.
+> Select one force on the diagram to show its rating and drivers, and open
+> "About this force". Then open the Summary: the schedule of forces, then
+> Compare with U.S. passenger airlines. If the site won't load, use this
+> screenshot, or run the local build with `npm run preview`.
 
 ## 11. The prompt (0:30)
 
