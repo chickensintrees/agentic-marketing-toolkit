@@ -1,0 +1,459 @@
+<title>Five Forces Monochrome</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a strict 12-column grid on a bare field; the diagram is the interface, type is signage. */
+:root {
+  --paper: #f6f6f4;
+  --ink: #111111;
+  --mute: #5c5c59;
+  --rule: #d4d4cf;
+  --ring: #b3b3ac;
+  --accent: #a8460f;
+  --sans: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --max: 1320px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #0e0e0d; --ink: #f2f2ee; --mute: #a6a6a0; --rule: #2c2c2a; --ring: #3b3b38; --accent: #f0a46b; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #0e0e0d; --ink: #f2f2ee; --mute: #a6a6a0; --rule: #2c2c2a; --ring: #3b3b38; --accent: #f0a46b; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--paper); color: var(--ink); }
+body { margin: 0; font-family: var(--sans); font-size: 18px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.mono { font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.wrap { max-width: var(--max); margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* top bar */
+.bar { border-bottom: 1px solid var(--ink); }
+.bar .wrap { display: flex; justify-content: space-between; align-items: center; padding-block: 18px; gap: 16px; }
+.bar a { text-decoration: none; }
+.bar nav { display: flex; gap: 28px; }
+.bar nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+/* buttons: hard rectangles */
+.btn { display: inline-flex; align-items: center; gap: 14px; height: 56px; padding: 0 26px; border: 2px solid var(--ink); font-family: var(--mono); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; text-decoration: none; transition: background .15s, color .15s; }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: var(--paper); color: var(--ink); }
+
+/* ---------- HOME ---------- */
+.home { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 24px; padding-block: 40px 40px; align-items: center; }
+.home-type { grid-column: 1 / span 6; display: grid; gap: 36px; align-content: center; }
+.toolno { font-family: var(--mono); font-size: 15px; letter-spacing: .08em; display: flex; gap: 18px; color: var(--mute); }
+.toolno b { color: var(--ink); font-weight: 500; }
+.display { margin: 0; font-weight: 820; font-stretch: 118%; font-size: clamp(76px, 10vw, 164px); line-height: .84; letter-spacing: -.035em; text-wrap: balance; }
+.home-fig { grid-column: 8 / span 5; display: grid; gap: 14px; text-decoration: none; max-width: 470px; justify-self: end; width: 100%; }
+.home-fig svg { width: 100%; height: auto; display: block; }
+.figcap { display: flex; justify-content: space-between; border-top: 1px solid var(--ink); padding-top: 12px; gap: 12px; }
+.figcap span:last-child { font-variant-numeric: tabular-nums; letter-spacing: .3em; }
+
+.shelf { border-top: 1px solid var(--ink); padding-block: 22px 72px; }
+.shelf h2 { margin: 0 0 22px; font-weight: 500; }
+.shelf ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); border-left: 1px solid var(--rule); border-top: 1px solid var(--rule); }
+.shelf li a { display: grid; grid-template-rows: auto 1fr auto; gap: 18px; height: 100%; padding: 22px 20px 20px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); text-decoration: none; transition: background .2s, color .2s; }
+.shelf li a:hover, .shelf li a:focus-visible { background: var(--ink); color: var(--paper); outline: none; }
+.shelf svg { width: 56px; height: 56px; }
+.shelf .nm { font-size: 20px; font-weight: 600; font-stretch: 105%; line-height: 1.1; }
+.shelf .no { color: var(--mute); }
+.shelf li a:hover .no, .shelf li a:focus-visible .no { color: inherit; }
+.mk * { fill: none; stroke: currentColor; stroke-width: 3; }
+.mk .f { fill: currentColor; stroke: none; }
+
+/* ---------- CANVAS ---------- */
+.ctop { display: flex; align-items: end; justify-content: space-between; gap: 24px; padding-block: 28px 20px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.ctop h1 { margin: 0; font-weight: 820; font-stretch: 118%; font-size: 48px; letter-spacing: -.03em; line-height: .9; }
+.strip { display: flex; gap: 0; overflow-x: auto; border: 1px solid var(--ink); max-width: 100%; }
+.ind { flex: 0 0 auto; display: grid; justify-items: center; gap: 8px; padding: 12px 16px 10px; min-width: 104px; border-right: 1px solid var(--ink); transition: background .2s, color .2s; }
+.ind:last-child { border-right: 0; }
+.ind svg { width: 44px; height: 44px; }
+.ind .mono { font-size: 11.5px; white-space: nowrap; }
+.ind[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.ind:hover:not([aria-pressed="true"]) { background: var(--rule); }
+
+.cgrid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 24px; padding-block: 28px 56px; }
+.dia { grid-column: 1 / span 7; min-width: 0; display: grid; gap: 10px; align-content: start; }
+.dia svg { width: 100%; max-width: 760px; max-height: max(420px, calc(100vh - 300px)); height: auto; display: block; margin: 0 auto; touch-action: manipulation; }
+.legend { color: var(--mute); text-align: center; }
+.panel { grid-column: 8 / span 5; min-width: 0; border-left: 1px solid var(--ink); padding-left: 32px; display: grid; gap: 26px; align-content: start; }
+.phead { display: grid; gap: 10px; }
+.phead h2 { margin: 0; font-size: 34px; font-weight: 760; font-stretch: 110%; letter-spacing: -.02em; line-height: 1; text-wrap: balance; }
+.phead p { margin: 0; color: var(--mute); font-size: 18px; max-width: 34ch; }
+.big { display: flex; align-items: baseline; gap: 14px; }
+.big .n { font-size: 132px; font-weight: 880; font-stretch: 125%; line-height: .8; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.big .of { color: var(--mute); }
+.big .lvl { margin-left: auto; text-align: right; display: grid; gap: 6px; }
+.edited { color: var(--accent); display: inline-flex; gap: 8px; align-items: center; }
+.edited::before { content: ""; width: 9px; height: 9px; background: var(--accent); }
+.rate { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.rate button { height: 56px; border: 2px solid var(--ink); font-family: var(--mono); font-size: 15px; transition: background .15s, color .15s; }
+.rate button.on { background: var(--ink); color: var(--paper); }
+.rate button[aria-checked="true"] { box-shadow: inset 0 0 0 4px var(--paper), inset 0 0 0 6px var(--ink); }
+.ends { display: flex; justify-content: space-between; color: var(--mute); margin-top: -16px; }
+.drv { display: grid; gap: 0; border-top: 1px solid var(--ink); }
+.drv h3 { margin: 0; padding: 12px 0; display: flex; justify-content: space-between; font-weight: 500; }
+.drv ul { list-style: none; margin: 0; padding: 0; }
+.drv li button { width: 100%; display: grid; grid-template-columns: 22px 1fr; gap: 14px; align-items: start; text-align: left; padding: 10px 0; border-top: 1px solid var(--rule); font-size: 17px; line-height: 1.25; }
+.drv li button .box { width: 16px; height: 16px; border: 2px solid var(--ink); margin-top: 3px; }
+.drv li button[aria-pressed="true"] .box { background: var(--ink); }
+.drv li button[aria-pressed="false"] { color: var(--mute); }
+.linkish { font-family: var(--mono); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 4px; }
+.why { margin: 0; font-size: 16px; color: var(--mute); border-left: 3px solid var(--ink); padding-left: 14px; }
+.pfoot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 6px; }
+
+/* diagram svg */
+.ring { fill: none; stroke: var(--ring); stroke-width: 2; stroke-dasharray: 1 9; stroke-linecap: round; }
+.tick { fill: var(--mute); font-family: var(--mono); font-size: 17px; }
+.barr, .shp { fill: var(--ink); }
+.anim { transition: transform .75s cubic-bezier(.2,.8,.2,1); }
+.num { fill: var(--paper); font-family: var(--sans); font-weight: 800; font-stretch: 112%; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.lbl { fill: var(--ink); font-family: var(--mono); font-size: 22px; letter-spacing: .1em; }
+.fg { cursor: pointer; outline: none; }
+.fg .crop { fill: none; stroke: var(--ink); stroke-width: 3; opacity: 0; transition: opacity .2s; vector-effect: non-scaling-stroke; }
+.fg.sel .crop, .fg:focus-visible .crop { opacity: 1; }
+.fg:focus-visible .lbl, .fg.sel .lbl { text-decoration: underline; font-weight: 500; }
+.fg .hit { fill: transparent; }
+.dot { fill: var(--accent); }
+.lbl.rl { font-size: 20px; }
+
+/* ---------- SUMMARY ---------- */
+.sgrid { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); column-gap: 24px; padding-block: 48px 64px; align-items: start; }
+.sfig { grid-column: 1 / span 5; display: grid; gap: 14px; }
+.sfig svg { margin-top: 18px; max-height: calc(100vh - 330px); }
+.sfig svg { width: 100%; height: auto; }
+.sfig h1 { margin: 0; font-size: clamp(40px, 4.4vw, 64px); font-weight: 820; font-stretch: 115%; line-height: .92; letter-spacing: -.03em; text-wrap: balance; }
+.stab { grid-column: 7 / span 6; display: grid; gap: 0; padding-top: 8px; }
+.row { display: grid; grid-template-columns: 40px 1fr auto 64px; gap: 20px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.row:first-child { border-top: 1px solid var(--ink); }
+.row svg { width: 34px; height: 34px; }
+.row .fn { font-size: 22px; font-weight: 640; font-stretch: 105%; }
+.row .fn small { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); font-weight: 400; margin-top: 4px; }
+.sq { display: flex; gap: 4px; }
+.sq i { width: 18px; height: 18px; border: 2px solid var(--ink); }
+.sq i.on { background: var(--ink); }
+.row .rn { font-size: 48px; font-weight: 860; font-stretch: 125%; text-align: right; line-height: .9; font-variant-numeric: tabular-nums; }
+.sact { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; padding-top: 28px; }
+.status { color: var(--mute); }
+pre.md { grid-column: 1 / -1; margin: 32px 0 0; padding: 24px; border: 1px solid var(--ink); font-family: var(--mono); font-size: 13px; line-height: 1.6; overflow-x: auto; white-space: pre; }
+
+/* responsive */
+@media (max-width: 980px) {
+  .home-type, .home-fig, .dia, .panel, .sfig, .stab { grid-column: 1 / -1; }
+  .home { row-gap: 48px; padding-block: 40px; }
+  .home-fig { max-width: 520px; }
+  .panel { border-left: 0; padding-left: 0; border-top: 1px solid var(--ink); padding-top: 24px; margin-top: 20px; }
+  .shelf ol { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .stab { margin-top: 40px; }
+}
+@media (max-width: 560px) {
+  .wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .bar nav { gap: 16px; }
+  .bar .brand-long { display: none; }
+  .shelf ol { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .shelf li a { padding: 16px 14px; }
+  .shelf .nm { font-size: 17px; }
+  .ctop { padding-block: 20px 16px; }
+  .ctop h1 { font-size: 36px; }
+  .strip { width: 100%; }
+  .ind { min-width: 0; padding: 10px 14px; }
+  .lbl { font-size: 34px; }
+  .tick { font-size: 26px; }
+  .lbl.rl { font-size: 30px; }
+  .legend { font-size: 11px; }
+  .big .n { font-size: 104px; }
+  .phead h2 { font-size: 28px; }
+  .row { grid-template-columns: 30px 1fr 52px; gap: 12px; }
+  .row .sq { grid-column: 2; grid-row: 2; }
+  .row .rn { grid-row: 1 / span 2; grid-column: 3; font-size: 40px; }
+  .row svg { grid-row: 1 / span 2; width: 28px; height: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .anim, .shelf li a, .ind, .btn { transition: none !important; } }
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="#home" class="mono"><span class="brand-long">Agentic Marketing </span>Toolkit</a>
+    <nav class="mono" aria-label="Views">
+      <a href="#five-forces" data-nav="five-forces">Five Forces</a>
+      <a href="#summary" data-nav="summary">Summary</a>
+      <a href="https://github.com/chickensintrees/agentic-marketing-toolkit">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="v-home" data-view="home" class="wrap">
+    <div class="home">
+      <div class="home-type">
+        <div class="toolno"><b>01</b><span>Porter 1979 / 2008</span></div>
+        <h1 class="display">Five<br>Forces</h1>
+        <div><a class="btn solid" href="#five-forces">Open <span aria-hidden="true">→</span></a></div>
+      </div>
+      <a class="home-fig" href="#five-forces" aria-label="Open Five Forces">
+        <svg id="homeGlyph" viewBox="-500 -500 1000 1000" aria-hidden="true"></svg>
+        <div class="figcap mono"><span id="homeName">—</span><span id="homeNums" aria-hidden="true"></span></div>
+      </a>
+    </div>
+    <div class="shelf">
+      <h2 class="mono">Build next</h2>
+      <ol id="shelf"></ol>
+    </div>
+  </section>
+
+  <!-- CANVAS -->
+  <section id="v-canvas" data-view="five-forces" class="wrap" hidden>
+    <div class="ctop">
+      <h1>Five Forces</h1>
+      <div class="strip" role="group" aria-label="Industry" id="strip"></div>
+    </div>
+    <div class="cgrid">
+      <div class="dia">
+        <svg id="main" viewBox="-500 -500 1000 1000" role="group" aria-label="Five forces diagram"></svg>
+        <div class="legend mono">Closer · larger · heavier = stronger</div>
+      </div>
+      <div class="panel" id="panel" aria-live="polite">
+        <div class="phead">
+          <h2 id="pName"></h2>
+          <p id="pQ"></p>
+        </div>
+        <div class="big">
+          <span class="n" id="pN"></span><span class="of mono">/ 5</span>
+          <span class="lvl mono"><span id="pLvl"></span><span id="pEd" class="edited" hidden>Edited</span></span>
+        </div>
+        <div class="rate" role="radiogroup" aria-label="Rating" id="rate"></div>
+        <div class="ends mono"><span>Low</span><span>High</span></div>
+        <div class="drv">
+          <h3 class="mono"><span>Drivers</span><button class="linkish" id="allBtn" aria-expanded="false"></button></h3>
+          <ul id="drvList"></ul>
+        </div>
+        <div class="pfoot">
+          <button class="linkish" id="whyBtn" aria-expanded="false">Why this rating?</button>
+          <a class="btn solid" href="#summary">Summary <span aria-hidden="true">→</span></a>
+        </div>
+        <p class="why" id="why" hidden></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section id="v-summary" data-view="summary" class="wrap" hidden>
+    <div class="sgrid">
+      <div class="sfig">
+        <h1 id="sName"></h1>
+        <div class="mono status">Illustrative example · not market research</div>
+        <svg id="sumGlyph" viewBox="-500 -500 1000 1000" aria-hidden="true"></svg>
+      </div>
+      <div class="stab">
+        <div id="rows"></div>
+        <div class="sact">
+          <button class="btn solid" id="copyBtn">Copy Markdown</button>
+          <button class="btn" id="mdBtn" aria-expanded="false">View</button>
+          <a class="btn" href="#five-forces">Edit</a>
+          <span class="mono status" id="copyStatus" role="status"></span>
+        </div>
+      </div>
+      <pre class="md" id="md" hidden></pre>
+    </div>
+  </section>
+</main>
+
+<script>
+const DATA = {"forces":[["rivalry","Competitive rivalry","How intensely do existing competitors fight, and on what basis?"],["newEntrants","Threat of new entrants","How easy is it for new competitors to enter?"],["supplierPower","Supplier power","How much leverage do suppliers have over the industry?"],["buyerPower","Buyer power","How much leverage do customers have over the industry?"],["substitutes","Threat of substitutes","How easily can buyers meet the same need another way?"]],"drv":[["numerous-or-balanced-competitors","Numerous or equally balanced competitors"],["slow-industry-growth","Slow industry growth"],["high-exit-barriers","High exit barriers"],["commitment-beyond-economics","Rivals committed beyond economic goals"],["cannot-read-signals","Rivals cannot read each other’s signals"],["similar-products-low-switching","Similar products and low switching costs"],["high-fixed-low-marginal-costs","High fixed costs and low marginal costs"],["large-capacity-increments","Capacity added in large increments"],["perishable-product","Perishable product or capacity"],["weak-supply-side-scale","Little advantage from supply-side scale"],["weak-network-effects","Weak network effects (demand-side scale)"],["low-customer-switching-costs","Low customer switching costs"],["modest-capital-requirements","Modest capital requirements"],["few-incumbency-advantages","Few incumbency advantages"],["open-distribution-access","Open access to distribution channels"],["few-regulatory-hurdles","Few licensing or regulatory hurdles"],["little-expected-retaliation","Little expected retaliation"],["concentrated-suppliers","Suppliers more concentrated than the industry"],["industry-not-key-customer","Industry is not an important customer to suppliers"],["high-switching-costs","High costs to switch suppliers"],["differentiated-inputs","Differentiated supplier inputs"],["no-substitute-inputs","No substitute for the supplier’s input"],["forward-integration-threat","Credible threat of forward integration"],["few-or-large-buyers","Few buyers or large-volume purchases"],["standardized-products","Standardized or undifferentiated products"],["low-buyer-switching-costs","Low buyer switching costs"],["backward-integration-threat","Credible threat of backward integration"],["large-share-of-buyer-costs","Purchase is a large share of buyers’ costs or budgets"],["buyers-under-cost-pressure","Buyers earn low profits or face tight budgets"],["little-effect-on-buyer-quality","Product has little effect on buyers’ own quality"],["little-effect-on-buyer-other-costs","Product has little effect on buyers’ other costs"],["attractive-price-performance","Attractive price–performance trade-off"],["low-cost-to-switch-to-substitute","Low cost for buyers to switch to the substitute"],["improving-substitutes","Substitutes improving quickly"],["do-without-or-diy","Easy to do without or do it yourself"]],"out":{"us-airlines":{"name":"U.S. passenger airlines","a":{"rivalry":[5,["numerous-or-balanced-competitors","similar-products-low-switching","high-fixed-low-marginal-costs","perishable-product"],"Several large carriers of broadly similar strength compete on many of the same routes, and many travelers see a seat as a seat and shop mainly on price."],"newEntrants":[3,["low-customer-switching-costs","open-distribution-access","modest-capital-requirements"],"Travelers switch airlines easily, online booking lets a start-up reach customers directly, and aircraft can be leased rather than bought."],"supplierPower":[4,["concentrated-suppliers","high-switching-costs","no-substitute-inputs"],"Large commercial aircraft and engines come from a small number of manufacturers, and changing aircraft types brings retraining and maintenance costs."],"buyerPower":[4,["standardized-products","low-buyer-switching-costs","large-share-of-buyer-costs"],"Each traveler is a small buyer, but online fare comparison makes prices transparent and switching between airlines nearly costless."],"substitutes":[3,["attractive-price-performance","low-cost-to-switch-to-substitute"],"On shorter trips, driving, and in a few corridors rail or bus, can compete with flying on total door-to-door time and cost."]}},"coffee-shops":{"name":"Coffee shops","a":{"rivalry":[4,["numerous-or-balanced-competitors","high-fixed-low-marginal-costs","perishable-product"],"Most cities have many cafés within a short walk or drive, from national chains to independents, plus fast-food restaurants and convenience stores that also sell coffee."],"newEntrants":[4,["modest-capital-requirements","low-customer-switching-costs","weak-supply-side-scale"],"Opening a single café takes a lease, equipment, and permits, but far less capital than most industries, and customers happily try a new place."],"supplierPower":[2,["differentiated-inputs","no-substitute-inputs"],"Coffee beans, milk, cups, and equipment are available from many suppliers, so most inputs give cafés plenty of choice."],"buyerPower":[3,["low-buyer-switching-costs","buyers-under-cost-pressure"],"Individual customers buy in small amounts and have no bargaining leverage, but they can walk to the café next door at no cost."],"substitutes":[4,["attractive-price-performance","low-cost-to-switch-to-substitute","do-without-or-diy"],"Brewing at home or at the office, including with single-serve pods, delivers coffee for a fraction of café prices with almost no switching cost."]}},"soft-drinks":{"name":"Carbonated soft drinks","a":{"rivalry":[3,["numerous-or-balanced-competitors","slow-industry-growth"],"The category is led by a few large, well-matched brand owners in a mature market, so growth often comes at a rival’s expense."],"newEntrants":[2,["modest-capital-requirements","low-customer-switching-costs"],"Small brands can launch using contract bottlers and sell online or through specialty stores, and shoppers readily try new flavors."],"supplierPower":[2,["concentrated-suppliers","high-switching-costs"],"Most ingredients, such as sweeteners, carbon dioxide, and water, are commodities available from multiple sources."],"buyerPower":[3,["few-or-large-buyers","buyers-under-cost-pressure","backward-integration-threat"],"Large grocery chains, mass merchants, and restaurant chains buy in very large volumes and control shelf space and fountain contracts."],"substitutes":[4,["attractive-price-performance","low-cost-to-switch-to-substitute","improving-substitutes"],"Consumers can easily choose water, sparkling water, juice, sports and energy drinks, coffee, or tea instead."]}},"video-streaming":{"name":"Subscription video streaming","a":{"rivalry":[4,["numerous-or-balanced-competitors","high-fixed-low-marginal-costs","commitment-beyond-economics"],"Many well-funded services compete for the same households’ subscriptions and viewing time."],"newEntrants":[3,["low-customer-switching-costs","open-distribution-access"],"Streaming technology is widely available, and new services can reach viewers through app stores, smart TVs, and the open internet, where subscribers can sign up or cancel in minutes."],"supplierPower":[4,["differentiated-inputs","no-substitute-inputs","forward-integration-threat"],"Hit series, films, and live sports are highly differentiated inputs with no close substitutes."],"buyerPower":[3,["low-buyer-switching-costs","buyers-under-cost-pressure"],"Each subscriber is a tiny buyer with no individual bargaining power."],"substitutes":[4,["attractive-price-performance","low-cost-to-switch-to-substitute","do-without-or-diy"],"Viewers can fill the same time with free ad-supported video, short-form social video, gaming, traditional TV, or simply doing without."]}},"whitewater-rafting":{"name":"Commercial whitewater rafting","a":{"rivalry":[3,["numerous-or-balanced-competitors","high-fixed-low-marginal-costs","perishable-product"],"Several outfitters typically run trips on the same stretches of river and compete for the same visitors."],"newEntrants":[2,["low-customer-switching-costs","modest-capital-requirements"],"Visitors have no switching costs and often book whichever outfitter they find first online, and rafts, gear, and vans require less capital than many businesses."],"supplierPower":[3,["differentiated-inputs","no-substitute-inputs"],"Experienced, trained guides are the most critical input: they shape both safety and the customer experience, and outfitters compete to hire and keep them each season."],"buyerPower":[3,["low-buyer-switching-costs","large-share-of-buyer-costs","few-or-large-buyers"],"Most customers are individuals and families who can compare outfitters online and switch freely, and for a family a guided trip can be a meaningful share of the vacation budget."],"substitutes":[4,["attractive-price-performance","low-cost-to-switch-to-substitute","do-without-or-diy"],"Visitors can fill a day with many other outdoor activities, such as hiking, mountain biking, climbing, zip lines, or fishing, or choose a different vacation altogether, often for less money."]}}}};
+const NS = 'http://www.w3.org/2000/svg';
+const ORDER = ['rivalry','newEntrants','supplierPower','buyerPower','substitutes'];
+const SHORT = { rivalry:'Rivalry', newEntrants:'Entrants', supplierPower:'Suppliers', buyerPower:'Buyers', substitutes:'Substitutes' };
+const LEVEL = ['', 'Very low', 'Low', 'Moderate', 'High', 'Very high'];
+// direction (unit vector) and rotation for each outer force; rivalry sits at the origin
+const GEO = {
+  newEntrants:   { dx: 0, dy: -1, rot: 180, kind: 'tri' },
+  supplierPower: { dx: -1, dy: 0, rot: 90,  kind: 'sq' },
+  buyerPower:    { dx: 1, dy: 0,  rot: -90, kind: 'sq' },
+  substitutes:   { dx: 0, dy: 1,  rot: 0,   kind: 'tri' },
+};
+const dist = r => 430 - 35 * r;     // stronger force sits closer to the centre
+const half = r => 24 + 14 * r;      // and is larger
+const weight = r => 4 + 3.4 * r;    // and its line of pressure heavier
+const radius = r => 40 + 22 * r;    // rivalry mass
+
+// force definitions, with drivers split by force (forces.ts order: 9, 8, 6, 8, 4)
+const COUNTS = [9, 8, 6, 8, 4];
+const FORCES = {}; let k = 0;
+DATA.forces.forEach(([id, name, q], i) => { FORCES[id] = { id, name, q, drivers: DATA.drv.slice(k, k + COUNTS[i]) }; k += COUNTS[i]; });
+const PRESETS = Object.entries(DATA.out).map(([id, p]) => ({ id, name: p.name, a: p.a }));
+const NICK = { 'us-airlines':'Airlines', 'coffee-shops':'Coffee', 'soft-drinks':'Soft drinks', 'video-streaming':'Streaming', 'whitewater-rafting':'Rafting' };
+
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); if (parent) parent.appendChild(e); return e; };
+const tri = '0,-1.1 1.2,0.95 -1.2,0.95';
+
+/* Build a diagram into an <svg>. Returns update(ratings, selected, edited). */
+function diagram(svg, { labels = false, rings = false, interactive = false, numerals = false, mini = false } = {}) {
+  svg.innerHTML = '';
+  const fill = mini ? 'currentColor' : null;
+  if (rings) {
+    for (let r = 1; r <= 5; r++) el('circle', { class: 'ring', r: dist(r) }, svg);
+    for (let r = 1; r <= 5; r++) { const t = el('text', { class: 'tick', x: dist(r) * .7071 + 8, y: -dist(r) * .7071 - 8 }, svg); t.textContent = r; }
+  }
+  const bars = {}, parts = {};
+  for (const id in GEO) { bars[id] = el('rect', { class: 'barr anim', x: -.5, y: 0, width: 1, height: 1 }, svg); if (fill) bars[id].style.fill = fill; }
+  const mk = (id) => {
+    const g = el('g', { class: 'fg' }, svg);
+    if (interactive) { g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button'); g.dataset.force = id; }
+    const p = { g };
+    if (id === 'rivalry') p.shape = el('circle', { class: 'shp anim', r: 1 }, g);
+    else if (GEO[id].kind === 'sq') p.shape = el('rect', { class: 'shp anim', x: -1, y: -1, width: 2, height: 2 }, g);
+    else p.shape = el('polygon', { class: 'shp anim', points: tri }, g);
+    if (fill) p.shape.style.fill = fill;
+    if (interactive) { p.crop = el('path', { class: 'crop anim', d: 'M-1.3,-.8V-1.3H-.8M.8,-1.3H1.3V-.8M1.3,.8V1.3H.8M-.8,1.3H-1.3V.8' }, g); }
+    if (numerals) { p.num = el('text', { class: 'num anim' }, g); }
+    if (labels) {
+      const L = { rivalry: null, newEntrants: [0, -462, 'middle'], supplierPower: [-492, -132, 'start'], buyerPower: [492, -132, 'end'], substitutes: [0, 482, 'middle'] }[id];
+      if (L) { p.lbl = el('text', { class: 'lbl', x: L[0], y: L[1], 'text-anchor': L[2] }, g); p.lbl.textContent = SHORT[id].toUpperCase(); }
+    }
+    if (interactive) p.hit = el('rect', { class: 'hit' }, g);
+    parts[id] = p;
+  };
+  ORDER.slice(1).forEach(mk); mk('rivalry');
+  if (labels) { // rivalry label sits under the outer forces; place after so it renders on top of the disc
+    const t = el('text', { class: 'lbl', x: 0, y: 0, 'text-anchor': 'middle' }, parts.rivalry.g); parts.rivalry.lbl = t; t.textContent = 'RIVALRY'; t.style.fill = 'var(--paper)';
+  }
+  return function update(R, selected, edited = {}) {
+    for (const id in GEO) {
+      const r = R[id], G = GEO[id], d = dist(r), h = half(r);
+      bars[id].style.transform = `rotate(${G.rot}deg) scale(${weight(r)}, ${d})`;
+      const p = parts[id];
+      p.shape.style.transform = `translate(${G.dx * d}px, ${G.dy * d}px) rotate(${G.rot}deg) scale(${h})`;
+      if (p.crop) p.crop.style.transform = `translate(${G.dx * d}px, ${G.dy * d}px) scale(${h})`;
+      if (p.num) { const off = G.kind === 'tri' ? .3 * h : 0; p.num.style.transform = `translate(${G.dx * (d + off)}px, ${G.dy * (d + off)}px)`; p.num.textContent = r; p.num.style.fontSize = (22 + 7 * r) + 'px'; }
+      if (p.hit) { const x = G.dx * d, y = G.dy * d, s = h * 1.35; p.hit.setAttribute('x', x - s); p.hit.setAttribute('y', y - s); p.hit.setAttribute('width', 2 * s); p.hit.setAttribute('height', 2 * s); }
+    }
+    const rr = radius(R.rivalry), p = parts.rivalry;
+    p.shape.style.transform = `scale(${rr})`;
+    if (p.crop) p.crop.style.transform = `scale(${rr})`;
+    if (p.num) { p.num.textContent = R.rivalry; p.num.style.fontSize = (50 + 16 * R.rivalry) + 'px'; p.num.style.transform = `translate(0px, ${labels ? -14 - 2 * R.rivalry : 0}px)`; }
+    if (p.lbl) { p.lbl.setAttribute('y', 28 + 0.36 * rr); p.lbl.classList.add('rl'); }
+    if (p.hit) { p.hit.setAttribute('x', -rr); p.hit.setAttribute('y', -rr); p.hit.setAttribute('width', 2 * rr); p.hit.setAttribute('height', 2 * rr); }
+    for (const id of ORDER) {
+      const g = parts[id].g;
+      g.classList.toggle('sel', id === selected);
+      if (interactive) g.setAttribute('aria-label', `${FORCES[id].name}, ${R[id]} of 5${edited[id] ? ', edited' : ''}`);
+    }
+  };
+}
+
+/* ---------- state ---------- */
+const S = { ind: PRESETS[0], R: {}, D: {}, sel: 'rivalry', all: false, why: false };
+function load(p) { S.ind = p; for (const id of ORDER) { S.R[id] = p.a[id][0]; S.D[id] = new Set(p.a[id][1]); } }
+load(PRESETS[0]);
+const edited = () => Object.fromEntries(ORDER.map(id => [id, S.R[id] !== S.ind.a[id][0]]));
+
+/* ---------- home ---------- */
+const homeUp = diagram(document.getElementById('homeGlyph'), { rings: true, numerals: true });
+let hi = 0;
+function homeShow() { const p = PRESETS[hi % PRESETS.length]; const R = Object.fromEntries(ORDER.map(id => [id, p.a[id][0]])); homeUp(R); document.getElementById('homeName').textContent = p.name; document.getElementById('homeNums').textContent = ORDER.map(id => R[id]).join(''); }
+homeShow();
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => { if (!document.getElementById('v-home').hidden) { hi++; homeShow(); } }, 2600);
+
+const MARKS = {
+  swot: '<rect x="6" y="6" width="24" height="24" class="f"/><rect x="34" y="6" width="24" height="24"/><rect x="6" y="34" width="24" height="24"/><rect x="34" y="34" width="24" height="24"/>',
+  stp: '<circle cx="32" cy="32" r="26"/><circle cx="32" cy="32" r="15"/><circle cx="32" cy="32" r="6" class="f"/>',
+  persona: '<circle cx="32" cy="20" r="12" class="f"/><path d="M8 60 V50 a24 16 0 0 1 48 0 V60"/>',
+  mix: '<rect x="6" y="6" width="22" height="22" class="f"/><rect x="36" y="6" width="22" height="22"/><rect x="6" y="36" width="22" height="22"/><rect x="36" y="36" width="22" height="22" class="f"/>',
+  vp: '<rect x="4" y="16" width="30" height="30"/><circle cx="44" cy="31" r="16" class="f"/>',
+  journey: '<polyline points="4,44 18,22 32,38 46,14 60,30"/><circle cx="18" cy="22" r="4" class="f"/><circle cx="46" cy="14" r="4" class="f"/><circle cx="32" cy="38" r="4" class="f"/>',
+  perceptual: '<line x1="32" y1="4" x2="32" y2="60"/><line x1="4" y1="32" x2="60" y2="32"/><circle cx="18" cy="16" r="5" class="f"/><circle cx="46" cy="22" r="5" class="f"/><circle cx="40" cy="48" r="5" class="f"/>',
+  pestel: '<rect x="4" y="34" width="6" height="26" class="f"/><rect x="14" y="20" width="6" height="40" class="f"/><rect x="24" y="40" width="6" height="20" class="f"/><rect x="34" y="10" width="6" height="50" class="f"/><rect x="44" y="28" width="6" height="32" class="f"/><rect x="54" y="44" width="6" height="16" class="f"/>',
+  breakeven: '<line x1="4" y1="40" x2="60" y2="22"/><line x1="4" y1="60" x2="60" y2="4"/><circle cx="31" cy="31" r="5" class="f"/>',
+  clv: '<path d="M4 58 H60"/><rect x="8" y="46" width="8" height="12" class="f"/><rect x="20" y="38" width="8" height="20" class="f"/><rect x="32" y="28" width="8" height="30" class="f"/><rect x="44" y="14" width="8" height="44" class="f"/>',
+};
+const WANTED = [['swot','SWOT'],['stp','STP'],['persona','Personas'],['mix','Marketing mix'],['vp','Value proposition'],['journey','Journey map'],['perceptual','Perceptual map'],['pestel','PESTEL'],['breakeven','Break-even & pricing'],['clv','Lifetime value']];
+document.getElementById('shelf').innerHTML = WANTED.map(([m, n], i) => `<li><a href="https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/build-a-tool.md"><svg class="mk" viewBox="0 0 64 64" aria-hidden="true">${MARKS[m]}</svg><span class="nm">${n}</span><span class="no mono">${String(i + 2).padStart(2, '0')} · open</span></a></li>`).join('');
+
+/* ---------- canvas ---------- */
+const strip = document.getElementById('strip');
+const stripUps = PRESETS.map(p => {
+  const b = document.createElement('button'); b.className = 'ind'; b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', p.name);
+  const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '-500 -500 1000 1000'); s.setAttribute('aria-hidden', 'true');
+  b.appendChild(s); const t = document.createElement('span'); t.className = 'mono'; t.textContent = NICK[p.id]; b.appendChild(t);
+  strip.appendChild(b);
+  const up = diagram(s, { mini: true }); up(Object.fromEntries(ORDER.map(id => [id, p.a[id][0]])));
+  b.onclick = () => { load(p); render(); };
+  return b;
+});
+
+const mainSvg = document.getElementById('main');
+const mainUp = diagram(mainSvg, { labels: true, rings: true, interactive: true, numerals: true });
+mainSvg.addEventListener('click', e => { const g = e.target.closest('.fg'); if (g) { S.sel = g.dataset.force; S.all = false; S.why = false; render(); } });
+mainSvg.addEventListener('keydown', e => { const g = e.target.closest('.fg'); if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); S.sel = g.dataset.force; S.all = false; S.why = false; render(); } });
+
+const rate = document.getElementById('rate');
+for (let r = 1; r <= 5; r++) { const b = document.createElement('button'); b.setAttribute('role', 'radio'); b.textContent = r; b.setAttribute('aria-label', `${r}, ${LEVEL[r]}`); b.onclick = () => { S.R[S.sel] = r; render(); }; rate.appendChild(b); }
+rate.addEventListener('keydown', e => { const d = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1 }[e.key]; if (!d) return; e.preventDefault(); S.R[S.sel] = Math.min(5, Math.max(1, S.R[S.sel] + d)); render(); rate.children[S.R[S.sel] - 1].focus(); });
+
+document.getElementById('allBtn').onclick = () => { S.all = !S.all; render(); };
+document.getElementById('whyBtn').onclick = () => { S.why = !S.why; render(); };
+
+function render() {
+  const E = edited();
+  stripUps.forEach((b, i) => b.setAttribute('aria-pressed', PRESETS[i] === S.ind));
+  mainUp(S.R, S.sel, E);
+  const F = FORCES[S.sel], r = S.R[S.sel];
+  document.getElementById('pName').textContent = F.name;
+  document.getElementById('pQ').textContent = F.q;
+  document.getElementById('pN').textContent = r;
+  document.getElementById('pLvl').textContent = LEVEL[r];
+  document.getElementById('pEd').hidden = !E[S.sel];
+  [...rate.children].forEach((b, i) => { b.classList.toggle('on', i < r); b.setAttribute('aria-checked', i + 1 === r); b.tabIndex = i + 1 === r ? 0 : -1; });
+  const on = S.D[S.sel];
+  const list = S.all ? F.drivers : F.drivers.filter(([id]) => on.has(id));
+  document.getElementById('drvList').innerHTML = list.map(([id, label]) => `<li><button data-d="${id}" aria-pressed="${on.has(id)}"><span class="box" aria-hidden="true"></span><span>${label}</span></button></li>`).join('');
+  const ab = document.getElementById('allBtn'); ab.textContent = S.all ? 'Present only' : `All ${F.drivers.length}`; ab.setAttribute('aria-expanded', S.all);
+  const why = document.getElementById('why'); why.hidden = !S.why; why.textContent = S.ind.a[S.sel][2];
+  document.getElementById('whyBtn').setAttribute('aria-expanded', S.why);
+  renderSummary();
+}
+document.getElementById('drvList').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; const s = S.D[S.sel]; const id = b.dataset.d; s.has(id) ? s.delete(id) : s.add(id); S.all = true; render(); document.querySelector(`[data-d="${id}"]`)?.focus(); });
+
+/* ---------- summary ---------- */
+const sumUp = diagram(document.getElementById('sumGlyph'), { labels: true, rings: true, numerals: true });
+const ICON = { rivalry: '<circle r="420" />', newEntrants: `<polygon points="${tri}" transform="rotate(180) scale(400)"/>`, supplierPower: '<rect x="-360" y="-360" width="720" height="720"/>', buyerPower: '<rect x="-360" y="-360" width="720" height="720"/>', substitutes: `<polygon points="${tri}" transform="scale(400)"/>` };
+function markdown() {
+  const lines = [`# Five Forces Analysis: ${S.ind.name}`, '', `**Prepared:** ${new Date().toISOString().slice(0, 10)}`, '', '| Force | Rating | Evidence |', '|---|---|---|'];
+  for (const id of ORDER) lines.push(`| ${FORCES[id].name} | ${S.R[id]} – ${LEVEL[S.R[id]]} | Illustrative example (not verified) |`);
+  for (const id of ORDER) { const d = FORCES[id].drivers.filter(([x]) => S.D[id].has(x)).map(x => x[1]); lines.push('', `## ${FORCES[id].name}`, `**Rating:** ${S.R[id]} – ${LEVEL[S.R[id]]}`, `**Drivers present:** ${d.join(', ') || 'None selected'}`); }
+  lines.push('', '---', '_Generated with Five Forces Explorer. Ratings marked "Illustrative" are teaching examples, not verified market research._');
+  return lines.join('\n');
+}
+function renderSummary() {
+  sumUp(S.R);
+  document.getElementById('sName').textContent = S.ind.name;
+  const E = edited();
+  document.getElementById('rows').innerHTML = ORDER.map(id => `<div class="row"><svg viewBox="-500 -500 1000 1000" aria-hidden="true"><g style="fill:var(--ink)">${ICON[id]}</g></svg><div class="fn">${FORCES[id].name}<small>${LEVEL[S.R[id]]} · ${S.D[id].size} driver${S.D[id].size === 1 ? '' : 's'}${E[id] ? ' · <span class="edited">Edited</span>' : ''}</small></div><div class="sq" aria-hidden="true">${[1,2,3,4,5].map(i => `<i class="${i <= S.R[id] ? 'on' : ''}"></i>`).join('')}</div><div class="rn" aria-label="${S.R[id]} of 5">${S.R[id]}</div></div>`).join('');
+  document.getElementById('md').textContent = markdown();
+}
+document.getElementById('copyBtn').onclick = () => {
+  const st = document.getElementById('copyStatus'), txt = markdown();
+  const fallback = () => { const m = document.getElementById('md'); m.hidden = false; document.getElementById('mdBtn').setAttribute('aria-expanded', 'true'); const rg = document.createRange(); rg.selectNodeContents(m); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(rg); st.textContent = 'Selected · press Ctrl+C'; };
+  try { navigator.clipboard.writeText(txt).then(() => { st.textContent = 'Copied'; }, fallback); } catch (e) { fallback(); }
+};
+document.getElementById('mdBtn').onclick = e => { const m = document.getElementById('md'); m.hidden = !m.hidden; e.currentTarget.setAttribute('aria-expanded', !m.hidden); e.currentTarget.textContent = m.hidden ? 'View' : 'Hide'; };
+
+/* ---------- routing ---------- */
+function route() {
+  const v = (location.hash || '#home').slice(1);
+  const view = ['home', 'five-forces', 'summary'].includes(v) ? v : 'home';
+  document.querySelectorAll('[data-view]').forEach(s => s.hidden = s.dataset.view !== view);
+  document.querySelectorAll('[data-nav]').forEach(a => a.dataset.nav === view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  window.scrollTo(0, 0);
+}
+addEventListener('hashchange', route);
+render(); route();
+</script>
