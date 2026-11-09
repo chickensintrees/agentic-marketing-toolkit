@@ -1,6 +1,6 @@
 // Shell tests. See SPEC.md §6.
 
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import App from './App'
@@ -25,10 +25,15 @@ describe('suite shell', () => {
         `#/${tool.id}`,
       )
     }
+    // Each wanted tool shows its name; its pitch opens on request.
     for (const wanted of WANTED_TOOLS) {
       expect(screen.getByRole('heading', { level: 3, name: wanted.name })).toBeInTheDocument()
-      expect(screen.getByText(wanted.pitch)).toBeInTheDocument()
+      expect(screen.getByText(wanted.pitch)).not.toBeVisible()
     }
+    expect(within(screen.getByRole('main')).getByRole('link', { name: 'Contribute' })).toHaveAttribute(
+      'href',
+      CONTRIBUTING_URL,
+    )
     expect(screen.getByRole('link', { name: 'How to propose and build a tool' })).toHaveAttribute(
       'href',
       BUILD_A_TOOL_URL,
@@ -41,7 +46,10 @@ describe('suite shell', () => {
     expect(screen.getByRole('main')).toBeInTheDocument()
     expect(screen.getByRole('contentinfo')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'GitHub repository' })).toHaveAttribute('href', REPO_URL)
-    expect(screen.getByRole('link', { name: 'Contribute' })).toHaveAttribute('href', CONTRIBUTING_URL)
+    expect(within(screen.getByRole('contentinfo')).getByRole('link', { name: 'Contribute' })).toHaveAttribute(
+      'href',
+      CONTRIBUTING_URL,
+    )
     expect(screen.getByText(/These tools are teaching aids/)).toBeInTheDocument()
   })
 
@@ -62,7 +70,15 @@ describe('suite shell', () => {
   it('passes the subpath to the tool', () => {
     window.location.hash = '#/five-forces/summary'
     render(<App />)
-    expect(screen.getByRole('heading', { level: 2, name: 'Summary' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 2, name: 'Nothing to summarize yet' })).toBeInTheDocument()
+  })
+
+  it("a wanted tool's pitch opens on request", async () => {
+    const user = userEvent.setup()
+    render(<App />)
+    const [first] = WANTED_TOOLS
+    await user.click(screen.getByRole('button', { name: first.name }))
+    expect(screen.getByText(first.pitch)).toBeVisible()
   })
 
   it('shows Home for an unknown route', () => {
@@ -77,14 +93,14 @@ describe('suite shell', () => {
     render(<App />)
     await user.click(screen.getByRole('link', { name: /Open Five Forces Explorer/ }))
     await waitFor(() => expect(mainHeading()).toHaveTextContent('Five Forces Explorer'))
-    await user.click(screen.getByRole('link', { name: 'Analyze' }))
+    await user.click(screen.getByRole('link', { name: 'Summary' }))
     await waitFor(() =>
-      expect(screen.getByRole('heading', { level: 2, name: 'Analyze an industry' })).toBeInTheDocument(),
+      expect(screen.getByRole('heading', { level: 2, name: 'Nothing to summarize yet' })).toBeInTheDocument(),
     )
 
     window.history.back()
     await waitFor(() =>
-      expect(screen.getByRole('heading', { level: 2, name: 'Learn the framework' })).toBeInTheDocument(),
+      expect(screen.getByRole('group', { name: 'Five forces diagram' })).toBeInTheDocument(),
     )
     window.history.back()
     await waitFor(() => expect(mainHeading()).toHaveTextContent(PRODUCT_NAME))

@@ -1,73 +1,81 @@
+import { Disclosure } from '../shared/components/Disclosure'
 import { BUILD_A_TOOL_URL, CONTRIBUTING_URL, PRODUCT_NAME } from '../config'
 import { TOOLS } from '../tools'
 import { WANTED_TOOLS } from '../tools/wanted'
 import { formatHash } from './router'
+import { ToolVisual } from './ToolVisual'
+import { WantedMark } from './WantedMark'
 
-/** Home: hero, one card per registered tool, and the wanted-tools list. SPEC §2.3. */
+const number = (n: number) => String(n).padStart(2, '0')
+
+/** Home: the product name, one numbered entry per tool, and the "Build next" grid. SPEC §2.3. */
 export function Home() {
   return (
     <div className="home">
-      <section className="hero" aria-labelledby="home-heading">
-        <p className="eyebrow">Free and open source</p>
+      <div className="home-title">
         <h1 id="home-heading">{PRODUCT_NAME}</h1>
-        <p className="hero-lead">
-          Small, practical tools that help MBA students learn the classic frameworks of
-          marketing and strategy, and apply them to real markets.
-        </p>
-        <p className="hero-sub">
-          It is built by a class: each student works with a coding agent and adds to the
-          toolkit through GitHub pull requests.{' '}
-          <a href={CONTRIBUTING_URL}>See how to contribute</a>.
-        </p>
-      </section>
+        <a className="mono" href={CONTRIBUTING_URL}>
+          Contribute
+        </a>
+      </div>
 
-      <section className="home-section" aria-labelledby="tools-heading">
-        <h2 id="tools-heading">Tools</h2>
-        <ul className="tool-cards">
-          {TOOLS.map((tool) => (
-            <li key={tool.id}>
-              <article className="card tool-card">
-                <h3>{tool.name}</h3>
-                {tool.framework ? (
-                  <p className="tool-framework">
-                    <span className="visually-hidden">Framework: </span>
-                    {tool.framework}
+      <section aria-labelledby="tools-heading">
+        <h2 id="tools-heading" className="visually-hidden">
+          Tools
+        </h2>
+        <ol className="tool-list">
+          {TOOLS.map((tool, i) => {
+            const href = formatHash({ kind: 'tool', toolId: tool.id, subpath: '' })
+            return (
+              <li key={tool.id} className="tool-entry">
+                <div className="tool-entry-text">
+                  <p className="tool-number mono">
+                    <span className="tool-index">{number(i + 1)}</span>
+                    {tool.framework ? (
+                      <span>
+                        <span className="visually-hidden">Framework: </span>
+                        {tool.framework}
+                      </span>
+                    ) : null}
                   </p>
-                ) : null}
-                <p className="tool-tagline">{tool.tagline}</p>
-                <a
-                  className="button button-primary"
-                  href={formatHash({ kind: 'tool', toolId: tool.id, subpath: '' })}
-                >
-                  Open <span className="visually-hidden">{tool.name}</span>
-                  <span aria-hidden="true"> →</span>
+                  <h3 className="tool-name">{tool.name}</h3>
+                  <p className="tool-tagline">{tool.tagline}</p>
+                  <a className="button button-primary" href={href}>
+                    Open <span className="visually-hidden">{tool.name}</span>
+                    <span aria-hidden="true"> →</span>
+                  </a>
+                </div>
+                <a className="tool-entry-visual" href={href} tabIndex={-1} aria-hidden="true">
+                  <ToolVisual toolId={tool.id} />
                 </a>
-              </article>
-            </li>
-          ))}
-        </ul>
+              </li>
+            )
+          })}
+        </ol>
       </section>
 
-      <section className="home-section" aria-labelledby="wanted-heading">
-        <h2 id="wanted-heading">Help build the next tool</h2>
-        <p className="section-lead">
-          These are the tools the class wants next. Pick one, write a short proposal, and
-          build it with your coding agent. Every tool follows the same simple pattern, so
-          you never have to understand the whole codebase.
-        </p>
-        <ul className="wanted-list">
-          {WANTED_TOOLS.map((wanted) => (
-            <li key={wanted.id} className="wanted-item">
-              <h3 className="wanted-name">{wanted.name}</h3>
-              <p className="wanted-pitch">{wanted.pitch}</p>
-            </li>
-          ))}
-        </ul>
-        <p className="wanted-cta">
-          <a className="button button-secondary" href={BUILD_A_TOOL_URL}>
+      <section className="build-next" aria-labelledby="wanted-heading">
+        <div className="build-next-head">
+          <h2 id="wanted-heading" className="mono">
+            Build next
+          </h2>
+          <a className="mono" href={BUILD_A_TOOL_URL}>
             How to propose and build a tool
           </a>
-        </p>
+        </div>
+        <ul className="wanted-grid">
+          {WANTED_TOOLS.map((wanted, i) => (
+            <li key={wanted.id} className="wanted-item">
+              <WantedMark id={wanted.id} />
+              <Disclosure summary={wanted.name} headingLevel={3} className="wanted-disclosure">
+                <p className="wanted-pitch">{wanted.pitch}</p>
+              </Disclosure>
+              <span className="wanted-number mono muted" aria-hidden="true">
+                {number(TOOLS.length + i + 1)} · to build
+              </span>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   )

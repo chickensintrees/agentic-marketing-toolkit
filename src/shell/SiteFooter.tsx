@@ -3,7 +3,7 @@ import { CONTRIBUTING_URL, DISCLAIMER, REPO_URL } from '../config'
 /** Repository link, Contribute link, and the disclaimer. SPEC §2.1. */
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer no-print">
       <div className="container footer-inner">
         <p className="footer-disclaimer">{DISCLAIMER}</p>
         <ul className="footer-links">
