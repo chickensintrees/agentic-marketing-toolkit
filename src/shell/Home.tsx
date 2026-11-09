@@ -39,7 +39,7 @@ export function Home() {
                   className="button button-primary"
                   href={formatHash({ kind: 'tool', toolId: tool.id, subpath: '' })}
                 >
-                  Open<span className="visually-hidden"> {tool.name}</span>
+                  Open <span className="visually-hidden">{tool.name}</span>
                   <span aria-hidden="true"> →</span>
                 </a>
               </article>
