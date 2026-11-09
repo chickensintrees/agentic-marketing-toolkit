@@ -25,14 +25,22 @@ export const FORCE_ORDER: readonly ForceId[] = [
   'substitutes',
 ]
 
+/** Compact force names for the radar chart and the Analyze step list. */
+export const SHORT_NAMES: Record<ForceId, string> = {
+  rivalry: 'Rivalry',
+  newEntrants: 'New entrants',
+  supplierPower: 'Supplier power',
+  buyerPower: 'Buyer power',
+  substitutes: 'Substitutes',
+}
+
 export const FORCES: ForceDefinition[] = [
   {
     id: 'rivalry',
     name: 'Competitive rivalry',
-    shortName: 'Rivalry',
     question: 'How intensely do existing competitors fight, and on what basis?',
     summary:
-      'Rivalry among existing competitors shows up as price discounting, new product launches, advertising campaigns, and service improvements. How much it erodes profits depends on how intensely firms compete and on what basis: competition on price is the most damaging because it hands profits directly to customers.',
+      'Rivalry among existing competitors takes familiar forms: price discounting, new product launches, advertising campaigns, and service improvements. How much it erodes profits depends on how intensely firms compete and on what basis. The first five drivers below raise the intensity of rivalry; the last four make price competition, the most damaging basis, more likely, because it transfers profits directly to customers.',
     drivers: [
       {
         id: 'numerous-or-balanced-competitors',
@@ -57,6 +65,12 @@ export const FORCES: ForceDefinition[] = [
         label: 'Rivals committed beyond economic goals',
         description:
           'Rivals that want leadership for its own sake, or that serve a parent company’s wider strategy, may accept low returns and fight harder.',
+      },
+      {
+        id: 'cannot-read-signals',
+        label: 'Rivals cannot read each other’s signals',
+        description:
+          'Firms that are unfamiliar with one another, compete in very different ways, or pursue different goals tend to misjudge each other’s moves, so they collide more often.',
       },
       {
         id: 'similar-products-low-switching',
@@ -88,6 +102,7 @@ export const FORCES: ForceDefinition[] = [
       'Industry growth is slow, so one firm’s gain is another’s loss.',
       'Products look alike to buyers and switching is cheap, so competition moves to price.',
       'High fixed costs, perishable inventory, or excess capacity tempt firms to cut prices.',
+      'Rivals are unfamiliar with one another or pursue different goals, so they misread each other’s moves.',
     ],
     lowWhen: [
       'A clear leader, or a few players serving different customer segments, sets the tone.',
@@ -103,10 +118,9 @@ export const FORCES: ForceDefinition[] = [
   {
     id: 'newEntrants',
     name: 'Threat of new entrants',
-    shortName: 'New entrants',
     question: 'How easy is it for new competitors to enter?',
     summary:
-      'New entrants bring new capacity and a desire to win share, which puts pressure on prices, costs, and the investment needed to compete. The threat depends on how high the barriers to entry are and how hard incumbents are expected to fight back, so each driver below is a barrier that is missing or weak.',
+      'New entrants bring new capacity and a desire to win share, which puts pressure on prices, costs, and the investment needed to compete. The threat depends on two things: how high the barriers to entry are, and how hard newcomers expect incumbents to fight back. The first seven drivers below are Porter’s seven barriers to entry, each phrased as missing or weak; the last, expected retaliation, is a separate consideration.',
     drivers: [
       {
         id: 'weak-supply-side-scale',
@@ -154,7 +168,7 @@ export const FORCES: ForceDefinition[] = [
         id: 'little-expected-retaliation',
         label: 'Little expected retaliation',
         description:
-          'If incumbents are unlikely to respond aggressively, because they lack resources or the market is growing fast enough for everyone, entrants expect a softer landing.',
+          'Separate from the barriers: if incumbents have not fought newcomers hard before, lack the cash, spare capacity, or channel clout to respond, or the market is growing fast enough to make room, entrants expect a softer landing.',
       },
     ],
     highWhen: [
@@ -177,7 +191,6 @@ export const FORCES: ForceDefinition[] = [
   {
     id: 'supplierPower',
     name: 'Supplier power',
-    shortName: 'Supplier power',
     question: 'How much leverage do suppliers have over the industry?',
     summary:
       'Powerful suppliers, including suppliers of labor, capture more of the value for themselves by charging higher prices, limiting quality or services, or shifting costs to industry participants. An industry that cannot pass those costs on in its own prices sees its profits squeezed.',
@@ -238,10 +251,9 @@ export const FORCES: ForceDefinition[] = [
   {
     id: 'buyerPower',
     name: 'Buyer power',
-    shortName: 'Buyer power',
     question: 'How much leverage do customers have over the industry?',
     summary:
-      'Powerful customers capture more of the value by forcing prices down, demanding better quality or more service (which drives costs up), and playing industry participants off against each other. Buyers are powerful when they have negotiating leverage and when they are price sensitive.',
+      'Powerful customers capture more of the value by forcing prices down, demanding better quality or more service (which drives costs up), and playing industry participants off against each other. Buyers are powerful when they have negotiating leverage (the first four drivers below) and when they are price sensitive (the last four).',
     drivers: [
       {
         id: 'few-or-large-buyers',
@@ -285,6 +297,12 @@ export const FORCES: ForceDefinition[] = [
         description:
           'If the product barely affects the quality of what the buyer makes, or for consumers how well things turn out, buyers focus on price.',
       },
+      {
+        id: 'little-effect-on-buyer-other-costs',
+        label: 'Product has little effect on buyers’ other costs',
+        description:
+          'A product that pays for itself by cutting the buyer’s labor, material, or other costs is judged on value; one that saves the buyer nothing elsewhere is judged on price.',
+      },
     ],
     highWhen: [
       'A few buyers purchase large volumes relative to the size of any one seller.',
@@ -306,7 +324,6 @@ export const FORCES: ForceDefinition[] = [
   {
     id: 'substitutes',
     name: 'Threat of substitutes',
-    shortName: 'Substitutes',
     question: 'How easily can buyers meet the same need another way?',
     summary:
       'A substitute performs the same or a similar function by a different means, such as videoconferencing instead of business travel. When substitutes are attractive, they put a ceiling on the prices an industry can charge.',

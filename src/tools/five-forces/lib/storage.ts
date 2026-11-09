@@ -1,4 +1,4 @@
-// localStorage persistence with validation. See SPEC.md §2.6.
+// localStorage persistence with validation. See this tool's SPEC.md §2.6.
 // Everything here tolerates missing, unavailable (throwing), or corrupted
 // storage and falls back to a fresh blank state.
 
@@ -13,7 +13,9 @@ import type {
 } from '../types'
 import { STEP_COUNT, createBlankAnalysis, findPreset } from './analysis'
 
-export const STORAGE_KEY = 'five-forces-explorer:v1'
+// Namespaced per the suite's tool contract (SPEC.md §3.1):
+// agentic-marketing-toolkit:<tool-id>:<version>
+export const STORAGE_KEY = 'agentic-marketing-toolkit:five-forces:v1'
 
 export interface PersistedState {
   analysis: Analysis

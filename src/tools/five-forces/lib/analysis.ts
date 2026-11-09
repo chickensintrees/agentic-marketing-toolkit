@@ -1,5 +1,5 @@
 // Pure analysis logic: creating, editing, and summarizing an Analysis.
-// No React here. See SPEC.md §2.3–§2.4.
+// No React here. See this tool's SPEC.md §2.3–§2.4.
 
 import { FORCE_ORDER, getForce } from '../data/forces'
 import { INDUSTRY_PRESETS } from '../data/industries'

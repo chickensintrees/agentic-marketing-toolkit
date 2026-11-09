@@ -19,7 +19,7 @@ const preset: IndustryPreset = {
         'perishable-product',
       ],
       rationale:
-        'Several large carriers of broadly similar strength compete on many of the same routes, and many travelers see a seat as a seat and shop mainly on price. Aircraft, crews, and airport facilities are largely fixed costs, and an empty seat earns nothing once the plane departs, which creates strong pressure to discount. Fare changes are highly visible and quickly matched.',
+        'Several large carriers of broadly similar strength compete on many of the same routes, and many travelers see a seat as a seat and shop mainly on price. Aircraft, crews, and airport facilities are largely fixed costs, and an empty seat earns nothing once the plane departs, which creates strong pressure to discount. Fare cuts on contested routes tend to be matched quickly, so discounts spread.',
       evidence: 'illustrative',
       source: '',
     },

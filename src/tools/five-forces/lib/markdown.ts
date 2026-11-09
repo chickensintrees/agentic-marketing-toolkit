@@ -1,8 +1,9 @@
-// Markdown export. See SPEC.md §2.5.
+// Markdown export. See this tool's SPEC.md §2.5.
 //
 // Each bold "field" line is its own paragraph (separated by a blank line) so
 // that the lines stay on separate lines when the Markdown is rendered.
 
+import { slugify } from '../../../shared/download'
 import { FORCES } from '../data/forces'
 import type { Analysis } from '../types'
 import {
@@ -108,12 +109,6 @@ export function buildMarkdown(analysis: Analysis, prepared: Date): string {
 
 /** A file name such as `five-forces-us-passenger-airlines-2026-11-09.md`. */
 export function markdownFileName(analysis: Analysis, prepared: Date): string {
-  const slug = industryTitle(analysis)
-    .toLowerCase()
-    .normalize('NFKD')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 60)
-    .replace(/-+$/g, '')
+  const slug = slugify(industryTitle(analysis))
   return `five-forces-${slug || 'analysis'}-${formatDate(prepared)}.md`
 }

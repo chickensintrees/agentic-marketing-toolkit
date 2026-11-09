@@ -1,4 +1,4 @@
-// Shared data types. See SPEC.md §3.1.
+// Five Forces data types. See this tool's SPEC.md §3.1.
 
 export type ForceId =
   | 'rivalry'
@@ -19,10 +19,9 @@ export interface Driver {
 export interface ForceDefinition {
   id: ForceId
   name: string // "Threat of new entrants"
-  shortName: string // compact label for charts and the step list, e.g. "New entrants"
   question: string // "How easy is it for new competitors to enter?"
   summary: string
-  drivers: Driver[] // 4–8 drivers
+  drivers: Driver[] // 4–9 drivers
   highWhen: string[]
   lowWhen: string[]
   example: string
