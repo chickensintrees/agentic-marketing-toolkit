@@ -1,0 +1,518 @@
+<title>Five Forces Plate</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a printed plate. Running head, one engraved figure, marginal notes beside it. */
+:root {
+  --paper: #efe9dc;      /* uncoated book stock */
+  --paper-hi: #f7f3ea;   /* cartouche ground */
+  --ink: #1b1815;        /* letterpress black */
+  --ink-2: #4b443b;      /* secondary text, 8:1 on paper */
+  --rule: #8c8374;       /* hairlines only, never text */
+  --accent: #8f2a1c;     /* rubrication red, 7:1 on paper */
+  --display: "EB Garamond", "Garamond", "Iowan Old Style", Georgia, serif;
+  --text: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--paper); color: var(--ink); }
+body {
+  margin: 0; font: 400 17px/1.45 var(--text);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 40px;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1240px; margin: 0 auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sc { font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .09em; font-weight: 500; }
+
+/* Running head */
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding: 18px 0 10px; border-bottom: 1px solid var(--ink); position: relative; }
+.head::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; border-bottom: .5px solid var(--ink); }
+.mark { font-family: var(--display); font-size: 21px; font-style: italic; text-decoration: none; }
+nav { display: flex; gap: 22px; margin-left: auto; }
+nav a { font-family: var(--display); font-variant-caps: all-small-caps; letter-spacing: .1em; font-size: 19px;
+  text-decoration: none; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+nav a[aria-current="page"] { border-bottom-color: var(--accent); }
+nav a:hover { border-bottom-color: var(--rule); }
+
+h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; }
+.view { padding-top: 26px; }
+
+/* ---------- Home ---------- */
+.home { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.home h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -.01em; }
+.plate-link { display: block; text-decoration: none; margin-top: 26px; }
+.frame { border: 1px solid var(--ink); padding: 6px; }
+.frame > .inner { border: .5px solid var(--ink); padding: 14px; }
+.plate-link:hover .frame, .plate-link:focus-visible .frame { border-color: var(--accent); }
+.cap { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-top: 10px; }
+.cap .fig { font-family: var(--display); font-size: 19px; }
+.cap .fig b { font-weight: 500; font-variant-caps: all-small-caps; letter-spacing: .08em; margin-right: .4em; }
+.cap .go { font-family: var(--display); font-style: italic; font-size: 19px; color: var(--accent); }
+.shelf h2 { font-size: 20px; font-variant-caps: all-small-caps; letter-spacing: .1em; font-weight: 500;
+  border-bottom: .5px solid var(--ink); padding-bottom: 6px; margin-top: 8px; }
+.shelf ol { list-style: none; margin: 0; padding: 18px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 18px; }
+.shelf a { display: block; text-decoration: none; }
+.shelf svg { display: block; width: 100%; height: auto; border: .5px dashed var(--rule); background: var(--paper); }
+.shelf a:hover svg, .shelf a:focus-visible svg { border-style: solid; border-color: var(--ink); }
+.shelf .t { display: block; font-family: var(--display); font-size: 17px; line-height: 1.2; margin-top: 6px; }
+.shelf .t b { font-weight: 500; font-variant-caps: all-small-caps; letter-spacing: .06em; color: var(--ink-2); margin-right: .3em; }
+
+/* ---------- Canvas ---------- */
+.canvas-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap;
+  padding-bottom: 14px; border-bottom: .5px solid var(--rule); }
+.canvas-top h1 { font-size: clamp(32px, 3.6vw, 48px); line-height: 1.05; }
+.canvas-top h1 .k { display: block; font-size: 17px; letter-spacing: .1em; font-variant-caps: all-small-caps; font-weight: 500; color: var(--ink-2); margin-bottom: 4px; }
+.picker { display: flex; gap: 6px; }
+.picker button { width: 64px; padding: 6px 4px 8px; border-bottom: 2px solid transparent; display: grid; justify-items: center; }
+.picker button svg { width: 46px; height: 46px; display: block; }
+.picker button[aria-pressed="true"] { border-bottom-color: var(--accent); }
+.picker button[aria-pressed="false"] svg { opacity: .62; }
+.picker button:hover svg { opacity: 1; }
+.stage { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 40px; padding-top: 18px; align-items: start; }
+.stage figure { margin: 0; min-width: 0; }
+.stage figure svg { width: 100%; max-width: 760px; height: auto; display: block; margin: 0 auto; }
+figcaption { font-family: var(--display); font-size: 18px; text-align: center; margin-top: 6px; }
+figcaption b { font-weight: 500; font-variant-caps: all-small-caps; letter-spacing: .08em; margin-right: .35em; }
+figcaption i { color: var(--ink-2); }
+
+.force { cursor: pointer; outline: none; }
+.force:focus-visible .box { stroke: var(--accent); stroke-width: 2.5; }
+.force:hover .box { stroke-width: 1.8; }
+
+/* Marginal notes */
+.notes { border-left: .5px solid var(--ink); padding-left: 24px; min-width: 0; }
+.notes .fn { font-family: var(--display); font-size: 17px; font-variant-caps: all-small-caps; letter-spacing: .1em; color: var(--ink-2); font-weight: 500; }
+.notes h2 { font-size: 34px; line-height: 1.05; margin-top: 2px; }
+.notes .q { font-style: italic; color: var(--ink-2); margin: 8px 0 18px; }
+.scale { display: grid; grid-template-columns: repeat(5, 1fr); border-top: .5px solid var(--ink); border-bottom: .5px solid var(--ink); }
+.scale button { display: grid; justify-items: center; gap: 6px; padding: 12px 0 8px; position: relative; }
+.scale button + button { border-left: .5px solid var(--rule); }
+.scale button svg { width: 44px; height: 20px; }
+.scale button span { font-family: var(--display); font-size: 18px; line-height: 1; }
+.scale button[aria-checked="true"] { background: var(--paper-hi); }
+.scale button[aria-checked="true"]::after { content: ""; position: absolute; left: 10%; right: 10%; bottom: -1px; border-bottom: 3px solid var(--accent); }
+.scale-ends { display: flex; justify-content: space-between; font-family: var(--display); font-style: italic; font-size: 15px; color: var(--ink-2); margin-top: 4px; }
+.drivers { list-style: none; margin: 18px 0 0; padding: 0; }
+.drivers li + li { border-top: .5px solid var(--rule); }
+.drivers label { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 8px 0; cursor: pointer; line-height: 1.3; }
+.drivers input { appearance: none; -webkit-appearance: none; margin: 3px 0 0; width: 15px; height: 15px; border: 1px solid var(--ink); background: var(--paper); display: grid; place-items: center; }
+.drivers input:checked { background: var(--ink); box-shadow: inset 0 0 0 2.5px var(--paper); }
+.drivers input:not(:checked) + span { color: var(--ink-2); }
+.more { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--accent); margin-top: 8px; text-decoration: underline; text-decoration-thickness: .5px; text-underline-offset: 3px; }
+details { margin-top: 16px; }
+summary { font-family: var(--display); font-style: italic; font-size: 17px; cursor: pointer; color: var(--ink-2); }
+details p { margin: 6px 0 0; font-size: 16px; }
+.adj { font-family: var(--display); font-style: italic; color: var(--accent); font-size: 16px; margin-left: 6px; }
+.empty { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink-2); margin: 4px 0 18px; }
+.key { display: grid; gap: 7px; }
+.key div { display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 10px; font-family: var(--display); font-size: 16px; }
+.next { margin-top: 26px; display: inline-block; font-family: var(--display); font-size: 19px; text-decoration: none; border-bottom: 1px solid var(--ink); }
+.next:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- Summary ---------- */
+.sum { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 52px; align-items: start; padding-top: 18px; }
+.sum figure { margin: 0; }
+.sum figure svg { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; }
+table { width: 100%; border-collapse: collapse; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+caption { text-align: left; font-family: var(--display); font-size: 18px; padding-bottom: 8px; }
+caption b { font-weight: 500; font-variant-caps: all-small-caps; letter-spacing: .08em; margin-right: .35em; }
+th, td { text-align: left; padding: 10px 6px; border-top: .5px solid var(--rule); vertical-align: middle; }
+thead th { font-family: var(--display); font-weight: 500; font-variant-caps: all-small-caps; letter-spacing: .09em; color: var(--ink-2); border-top: 0; font-size: 16px; }
+tbody th { font-family: var(--display); font-weight: 400; font-size: 20px; }
+td.n { font-family: var(--display); font-size: 22px; font-variant-numeric: lining-nums tabular-nums; text-align: right; }
+td svg { width: 120px; height: 18px; display: block; }
+.heavy { margin: 18px 0 0; font-family: var(--display); font-size: 21px; }
+.heavy i { color: var(--accent); }
+.exports { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+.exports button { font-family: var(--display); font-size: 19px; padding: 8px 16px; border: 1px solid var(--ink); }
+.exports button:hover { background: var(--ink); color: var(--paper); }
+.status { font-family: var(--display); font-style: italic; color: var(--accent); min-height: 1.4em; margin-top: 8px; }
+textarea.fallback { width: 100%; height: 160px; font: 13px/1.4 ui-monospace, Menlo, monospace; background: var(--paper-hi); color: var(--ink); border: .5px solid var(--ink); margin-top: 8px; }
+
+@media (max-width: 980px) {
+  .home, .stage, .sum { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .notes { border-left: 0; padding-left: 0; border-top: .5px solid var(--ink); padding-top: 16px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  nav { gap: 14px; } nav a { font-size: 17px; }
+  .head { padding-top: 12px; }
+  .view { padding-top: 16px; }
+  .shelf ol { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 10px; }
+  .shelf .t { font-size: 14px; }
+  .picker { width: 100%; justify-content: space-between; gap: 0; }
+  .picker button { width: 19%; }
+  .picker button svg { width: 40px; height: 40px; }
+  .stage { padding-top: 6px; }
+  .notes h2 { font-size: 28px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .arrow, .box, .frame-r { transition: stroke-width .25s ease; }
+}
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <a class="mark" href="#home">Agentic Marketing Toolkit</a>
+    <nav aria-label="Sections">
+      <a href="#home" data-r="home">Toolkit</a>
+      <a href="#forces" data-r="forces">Five Forces</a>
+      <a href="#summary" data-r="summary">Summary</a>
+    </nav>
+  </header>
+  <main id="main"></main>
+</div>
+
+<script>
+const D = {"forces":[{"id":"rivalry","name":"Competitive rivalry","q":"How intensely do existing competitors fight, and on what basis?","d":["numerous-or-balanced-competitors","slow-industry-growth","high-exit-barriers","commitment-beyond-economics","cannot-read-signals","similar-products-low-switching","high-fixed-low-marginal-costs","large-capacity-increments","perishable-product"]},{"id":"newEntrants","name":"Threat of new entrants","q":"How easy is it for new competitors to enter?","d":["weak-supply-side-scale","weak-network-effects","low-customer-switching-costs","modest-capital-requirements","few-incumbency-advantages","open-distribution-access","few-regulatory-hurdles","little-expected-retaliation"]},{"id":"supplierPower","name":"Supplier power","q":"How much leverage do suppliers have over the industry?","d":["concentrated-suppliers","industry-not-key-customer","high-switching-costs","differentiated-inputs","no-substitute-inputs","forward-integration-threat"]},{"id":"buyerPower","name":"Buyer power","q":"How much leverage do customers have over the industry?","d":["few-or-large-buyers","standardized-products","low-buyer-switching-costs","backward-integration-threat","large-share-of-buyer-costs","buyers-under-cost-pressure","little-effect-on-buyer-quality","little-effect-on-buyer-other-costs"]},{"id":"substitutes","name":"Threat of substitutes","q":"How easily can buyers meet the same need another way?","d":["attractive-price-performance","low-cost-to-switch-to-substitute","improving-substitutes","do-without-or-diy"]}],"drivers":{"numerous-or-balanced-competitors":"Numerous or equally balanced competitors","slow-industry-growth":"Slow industry growth","high-exit-barriers":"High exit barriers","commitment-beyond-economics":"Rivals committed beyond economic goals","cannot-read-signals":"Rivals cannot read each other’s signals","similar-products-low-switching":"Similar products and low switching costs","high-fixed-low-marginal-costs":"High fixed costs and low marginal costs","large-capacity-increments":"Capacity added in large increments","perishable-product":"Perishable product or capacity","weak-supply-side-scale":"Little advantage from supply-side scale","weak-network-effects":"Weak network effects (demand-side scale)","low-customer-switching-costs":"Low customer switching costs","modest-capital-requirements":"Modest capital requirements","few-incumbency-advantages":"Few incumbency advantages","open-distribution-access":"Open access to distribution channels","few-regulatory-hurdles":"Few licensing or regulatory hurdles","little-expected-retaliation":"Little expected retaliation","concentrated-suppliers":"Suppliers more concentrated than the industry","industry-not-key-customer":"Industry is not an important customer to suppliers","high-switching-costs":"High costs to switch suppliers","differentiated-inputs":"Differentiated supplier inputs","no-substitute-inputs":"No substitute for the supplier’s input","forward-integration-threat":"Credible threat of forward integration","few-or-large-buyers":"Few buyers or large-volume purchases","standardized-products":"Standardized or undifferentiated products","low-buyer-switching-costs":"Low buyer switching costs","backward-integration-threat":"Credible threat of backward integration","large-share-of-buyer-costs":"Purchase is a large share of buyers’ costs or budgets","buyers-under-cost-pressure":"Buyers earn low profits or face tight budgets","little-effect-on-buyer-quality":"Product has little effect on buyers’ own quality","little-effect-on-buyer-other-costs":"Product has little effect on buyers’ other costs","attractive-price-performance":"Attractive price–performance trade-off","low-cost-to-switch-to-substitute":"Low cost for buyers to switch to the substitute","improving-substitutes":"Substitutes improving quickly","do-without-or-diy":"Easy to do without or do it yourself"},"ind":{"coffee-shops":{"name":"Coffee shops","scope":"Independent and chain coffee shops in one mid-sized U.S. city","a":{"rivalry":{"r":4,"d":["numerous-or-balanced-competitors","high-fixed-low-marginal-costs","perishable-product"],"why":"Most cities have many cafés within a short walk or drive, from national chains to independents, plus fast-food restaurants and convenience stores that also sell coffee."},"newEntrants":{"r":4,"d":["modest-capital-requirements","low-customer-switching-costs","weak-supply-side-scale"],"why":"Opening a single café takes a lease, equipment, and permits, but far less capital than most industries, and customers happily try a new place."},"supplierPower":{"r":2,"d":["differentiated-inputs","no-substitute-inputs"],"why":"Coffee beans, milk, cups, and equipment are available from many suppliers, so most inputs give cafés plenty of choice."},"buyerPower":{"r":3,"d":["low-buyer-switching-costs","buyers-under-cost-pressure"],"why":"Individual customers buy in small amounts and have no bargaining leverage, but they can walk to the café next door at no cost."},"substitutes":{"r":4,"d":["attractive-price-performance","low-cost-to-switch-to-substitute","do-without-or-diy"],"why":"Brewing at home or at the office, including with single-serve pods, delivers coffee for a fraction of café prices with almost no switching cost."}}},"us-airlines":{"name":"U.S. passenger airlines","scope":"U.S. domestic scheduled passenger air travel","a":{"rivalry":{"r":5,"d":["numerous-or-balanced-competitors","similar-products-low-switching","high-fixed-low-marginal-costs","perishable-product"],"why":"Several large carriers of broadly similar strength compete on many of the same routes, and many travelers see a seat as a seat and shop mainly on price."},"newEntrants":{"r":3,"d":["low-customer-switching-costs","open-distribution-access","modest-capital-requirements"],"why":"Travelers switch airlines easily, online booking lets a start-up reach customers directly, and aircraft can be leased rather than bought."},"supplierPower":{"r":4,"d":["concentrated-suppliers","high-switching-costs","no-substitute-inputs"],"why":"Large commercial aircraft and engines come from a small number of manufacturers, and changing aircraft types brings retraining and maintenance costs."},"buyerPower":{"r":4,"d":["standardized-products","low-buyer-switching-costs","large-share-of-buyer-costs"],"why":"Each traveler is a small buyer, but online fare comparison makes prices transparent and switching between airlines nearly costless."},"substitutes":{"r":3,"d":["attractive-price-performance","low-cost-to-switch-to-substitute"],"why":"On shorter trips, driving, and in a few corridors rail or bus, can compete with flying on total door-to-door time and cost."}}},"soft-drinks":{"name":"Carbonated soft drinks","scope":"Branded carbonated soft drinks sold in the United States (brand owners and their bottlers)","a":{"rivalry":{"r":3,"d":["numerous-or-balanced-competitors","slow-industry-growth"],"why":"The category is led by a few large, well-matched brand owners in a mature market, so growth often comes at a rival’s expense."},"newEntrants":{"r":2,"d":["modest-capital-requirements","low-customer-switching-costs"],"why":"Small brands can launch using contract bottlers and sell online or through specialty stores, and shoppers readily try new flavors."},"supplierPower":{"r":2,"d":["concentrated-suppliers","high-switching-costs"],"why":"Most ingredients, such as sweeteners, carbon dioxide, and water, are commodities available from multiple sources."},"buyerPower":{"r":3,"d":["few-or-large-buyers","buyers-under-cost-pressure","backward-integration-threat"],"why":"Large grocery chains, mass merchants, and restaurant chains buy in very large volumes and control shelf space and fountain contracts."},"substitutes":{"r":4,"d":["attractive-price-performance","low-cost-to-switch-to-substitute","improving-substitutes"],"why":"Consumers can easily choose water, sparkling water, juice, sports and energy drinks, coffee, or tea instead."}}},"video-streaming":{"name":"Subscription video streaming","scope":"Subscription video-on-demand services for U.S. households","a":{"rivalry":{"r":4,"d":["numerous-or-balanced-competitors","high-fixed-low-marginal-costs","commitment-beyond-economics"],"why":"Many well-funded services compete for the same households’ subscriptions and viewing time."},"newEntrants":{"r":3,"d":["low-customer-switching-costs","open-distribution-access"],"why":"Streaming technology is widely available, and new services can reach viewers through app stores, smart TVs, and the open internet, where subscribers can sign up or cancel in minutes."},"supplierPower":{"r":4,"d":["differentiated-inputs","no-substitute-inputs","forward-integration-threat"],"why":"Hit series, films, and live sports are highly differentiated inputs with no close substitutes."},"buyerPower":{"r":3,"d":["low-buyer-switching-costs","buyers-under-cost-pressure"],"why":"Each subscriber is a tiny buyer with no individual bargaining power."},"substitutes":{"r":4,"d":["attractive-price-performance","low-cost-to-switch-to-substitute","do-without-or-diy"],"why":"Viewers can fill the same time with free ad-supported video, short-form social video, gaming, traditional TV, or simply doing without."}}},"whitewater-rafting":{"name":"Commercial whitewater rafting","scope":"Guided whitewater rafting trips sold by commercial outfitters in one regional river destination, such as the New River Gorge area of West Virginia","a":{"rivalry":{"r":3,"d":["numerous-or-balanced-competitors","high-fixed-low-marginal-costs","perishable-product"],"why":"Several outfitters typically run trips on the same stretches of river and compete for the same visitors."},"newEntrants":{"r":2,"d":["low-customer-switching-costs","modest-capital-requirements"],"why":"Visitors have no switching costs and often book whichever outfitter they find first online, and rafts, gear, and vans require less capital than many businesses."},"supplierPower":{"r":3,"d":["differentiated-inputs","no-substitute-inputs"],"why":"Experienced, trained guides are the most critical input: they shape both safety and the customer experience, and outfitters compete to hire and keep them each season."},"buyerPower":{"r":3,"d":["low-buyer-switching-costs","large-share-of-buyer-costs","few-or-large-buyers"],"why":"Most customers are individuals and families who can compare outfitters online and switch freely, and for a family a guided trip can be a meaningful share of the vacation budget."},"substitutes":{"r":4,"d":["attractive-price-performance","low-cost-to-switch-to-substitute","do-without-or-diy"],"why":"Visitors can fill a day with many other outdoor activities, such as hiking, mountain biking, climbing, zip lines, or fishing, or choose a different vacation altogether, often for less money."}}}}};
+const SHORT = { rivalry: 'Rivalry', newEntrants: 'New entrants', supplierPower: 'Supplier power', buyerPower: 'Buyer power', substitutes: 'Substitutes' };
+const ORDER = ['rivalry', 'newEntrants', 'supplierPower', 'buyerPower', 'substitutes'];
+const FIGNO = { rivalry: '1.1', newEntrants: '1.2', supplierPower: '1.3', buyerPower: '1.4', substitutes: '1.5' };
+const IND_ORDER = ['coffee-shops', 'us-airlines', 'soft-drinks', 'video-streaming', 'whitewater-rafting'];
+const SHORT_IND = { 'coffee-shops': 'Coffee shops', 'us-airlines': 'Airlines', 'soft-drinks': 'Soft drinks', 'video-streaming': 'Streaming', 'whitewater-rafting': 'Rafting' };
+const forceById = Object.fromEntries(D.forces.map(f => [f.id, f]));
+
+// Working state: a copy of each preset the student can adjust.
+const state = { ind: 'coffee-shops', sel: null, showAll: false, work: {} };
+for (const id of IND_ORDER) {
+  state.work[id] = {};
+  for (const f of ORDER) state.work[id][f] = { r: D.ind[id].a[f].r, d: [...D.ind[id].a[f].d] };
+}
+const isAdjusted = (id, f) => {
+  const w = state.work[id][f], p = D.ind[id].a[f];
+  return w.r !== p.r || w.d.length !== p.d.length || w.d.some(x => !p.d.includes(x));
+};
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const weight = r => 0.8 + (r - 1) * 1.65;          // arrow shaft weight, 0.8 to 7.4
+const hatchGap = r => [16, 11, 7.5, 5, 3.4][r - 1]; // engraving density
+
+/* ---------- Emblems: line engravings, 48 unit grid ---------- */
+const EMB = {
+  'coffee-shops': `
+    <path d="M18 9c-2 3 2 4 0 7M24 7c-2 3 2 4 0 8M30 9c-2 3 2 4 0 7" fill="none" stroke-width="1"/>
+    <path d="M11 20h25v7a12.5 12.5 0 0 1-25 0z" fill="var(--paper)"/>
+    <path d="M12.5 24h22M12.8 27h21.4M13.5 30h20M14.8 33h17.4M17 36h13" stroke-width=".6"/>
+    <path d="M36 23.5a5 5 0 0 1 0 10" fill="none"/>
+    <path d="M6 43h36M10 45.5h28" fill="none"/>`,
+  'us-airlines': `
+    <path d="M24 4c1.8 0 2.8 2.6 2.8 5.5v9l15 8.5v3.2l-15-4.2v9l5 4v2.6l-7.8-2.2-7.8 2.2v-2.6l5-4v-9l-15 4.2V27l15-8.5v-9C21.2 6.6 22.2 4 24 4z" fill="var(--paper)"/>
+    <path d="M27 21l12 6.8M27 23.6l9 5M21 21l-12 6.8M21 23.6l-9 5" stroke-width=".6" fill="none"/>
+    <path d="M24 8v28" stroke-width=".6"/>`,
+  'soft-drinks': `
+    <path d="M20.5 4h7v6c0 3 4.5 5.5 4.5 11v19c0 2-1.2 3.5-3.5 3.5h-9c-2.3 0-3.5-1.5-3.5-3.5V21c0-5.5 4.5-8 4.5-11z" fill="var(--paper)"/>
+    <path d="M16 24h16M16 33h16" fill="none"/>
+    <path d="M16.5 26.5h15M16.5 28.5h15M16.5 30.5h15" stroke-width=".6"/>
+    <circle cx="21" cy="38" r=".9"/><circle cx="26" cy="36.5" r="1.2"/><circle cx="23.5" cy="40.5" r=".7"/>
+    <path d="M19.5 4h9" stroke-width="2"/>`,
+  'video-streaming': `
+    <rect x="5" y="9" width="38" height="25" fill="var(--paper)"/>
+    <path d="M7.5 11.5h33v20h-33z" stroke-width=".6" fill="none"/>
+    <path d="M20 16.5v10l9-5z"/>
+    <path d="M24 34v5M15 41.5h18" fill="none"/>`,
+  'whitewater-rafting': `
+    <path d="M7 28c4 4 30 4 34 0l-2.5 5.5c-3 2.5-26 2.5-29 0z" fill="var(--paper)"/>
+    <path d="M10 31h28" stroke-width=".6"/>
+    <circle cx="17" cy="20" r="2.4" fill="var(--paper)"/><circle cx="29" cy="20" r="2.4" fill="var(--paper)"/>
+    <path d="M17 22.5v5.5M29 22.5v5.5M13 15l9 20M33 15l-8 19" fill="none"/>
+    <path d="M3 38c4-3 6 3 10 0s6 3 10 0 6 3 10 0 6 3 10 0M6 43c4-3 6 3 10 0s6 3 10 0 6 3 10 0" fill="none" stroke-width=".9"/>`,
+};
+const emblem = (id, extra = '') => `<svg viewBox="0 0 48 48" aria-hidden="true" ${extra}><g fill="var(--ink)" stroke="var(--ink)" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round">${EMB[id]}</g></svg>`;
+
+/* ---------- The plate ---------- */
+// Geometry in a 760 x 620 field. Rivalry at the centre, four forces press inward.
+const G = {
+  rivalry: { x: 380, y: 310, w: 180, h: 128 },
+  newEntrants: { x: 380, y: 52, w: 196, h: 84 },
+  supplierPower: { x: 98, y: 310, w: 184, h: 84 },
+  buyerPower: { x: 662, y: 310, w: 184, h: 84 },
+  substitutes: { x: 380, y: 568, w: 196, h: 84 },
+};
+// Phone geometry: narrower field, two-line side labels, tighter frames.
+const G2 = {
+  rivalry: { x: 200, y: 262, w: 98, h: 112 },
+  newEntrants: { x: 200, y: 40, w: 184, h: 72 },
+  supplierPower: { x: 53, y: 262, w: 102, h: 100 },
+  buyerPower: { x: 347, y: 262, w: 102, h: 100 },
+  substitutes: { x: 200, y: 484, w: 184, h: 72 },
+};
+const SHORT2 = { newEntrants: ['New entrants'], supplierPower: ['Supplier', 'power'], buyerPower: ['Buyer', 'power'], substitutes: ['Substitutes'] };
+const compact = () => window.innerWidth < 600;
+const DIR = { newEntrants: [0, 1], supplierPower: [1, 0], buyerPower: [-1, 0], substitutes: [0, -1] };
+
+function pips(cx, cy, r, accent, step = 15, sz = 8) {
+  let s = '';
+  for (let i = 0; i < 5; i++) {
+    const x = cx - (step * 4 + sz) / 2 + i * step;
+    s += `<rect x="${x}" y="${cy}" width="${sz}" height="${sz}" fill="${i < r ? (accent ? 'var(--accent)' : 'var(--ink)') : 'var(--paper-hi)'}" stroke="${accent ? 'var(--accent)' : 'var(--ink)'}" stroke-width=".9"/>`;
+  }
+  return s;
+}
+
+function plate(indId, opts = {}) {
+  const P = opts.prefix || 'p';
+  const W = state.work[indId];
+  const sel = opts.interactive ? state.sel : null;
+  let defs = '';
+  for (let r = 1; r <= 5; r++) {
+    const g = hatchGap(r);
+    defs += `<pattern id="${P}h${r}" width="${g}" height="${g}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="${g}" stroke="var(--ink)" stroke-width=".7"/></pattern>`;
+    defs += `<pattern id="${P}x${r}" width="${g}" height="${g}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V${g}M0 0H${g}" stroke="var(--ink)" stroke-width=".6" fill="none"/></pattern>`;
+  }
+  let body = '';
+  const K = !!opts.compact, GG = K ? G2 : G, ST = K ? 3 : 6;
+  const rv = W.rivalry.r, c = GG.rivalry;
+
+  // Arrows first, so the boxes sit on top of their tails.
+  for (const f of ORDER.slice(1)) {
+    const b = GG[f], r = W[f].r, [dx, dy] = DIR[f];
+    const sw = weight(r), head = K ? 8 + r * 2 : 9 + r * 2.6, half = K ? 4 + r * 1.5 : 5 + r * 1.9;
+    const outer = ST * rv + (K ? 4 : 6);
+    let x1, y1, x2, y2;
+    if (dy) { x1 = x2 = b.x; y1 = b.y + dy * b.h / 2; y2 = c.y - dy * (c.h / 2 + outer); }
+    else { y1 = y2 = b.y; x1 = b.x + dx * b.w / 2; x2 = c.x - dx * (c.w / 2 + outer); }
+    const len = Math.hypot(x2 - x1, y2 - y1);
+    const sx = x2 - dx * head, sy = y2 - dy * head;
+    const col = sel === f ? 'var(--accent)' : 'var(--ink)';
+    const px = -dy, py = dx; // perpendicular
+    let ticks = '';
+    for (let i = 0; i < (K && dx ? 0 : r); i++) {
+      const t = 10 + i * 7;
+      const tx = x1 + dx * t, ty = y1 + dy * t, l = sw / 2 + 5;
+      ticks += `<line x1="${tx + px * l}" y1="${ty + py * l}" x2="${tx - px * l}" y2="${ty - py * l}" stroke="${col}" stroke-width="1"/>`;
+    }
+    body += `<g class="arrow-g" data-f="${f}">
+      <line class="arrow" x1="${x1}" y1="${y1}" x2="${sx}" y2="${sy}" stroke="${col}" stroke-width="${sw}"/>
+      <path d="M${x2} ${y2}L${sx + px * half} ${sy + py * half}L${sx + dx * head * .28} ${sy + dy * head * .28}L${sx - px * half} ${sy - py * half}Z" fill="${col}"/>
+      ${ticks}</g>`;
+    void len;
+  }
+
+  // Rivalry: nested frames, one per point of pressure, cross-hatched core.
+  let frames = '';
+  for (let i = rv; i >= 1; i--) {
+    const o = i * ST;
+    frames += `<rect class="frame-r" x="${c.x - c.w / 2 - o}" y="${c.y - c.h / 2 - o}" width="${c.w + 2 * o}" height="${c.h + 2 * o}" fill="none" stroke="${sel === 'rivalry' ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${i === rv ? 1 : .6}"/>`;
+  }
+  const forceG = (f, inner) => {
+    const fo = forceById[f], r = W[f].r;
+    const attrs = opts.interactive
+      ? `class="force" tabindex="0" role="button" aria-pressed="${sel === f}" aria-label="${esc(fo.name)}, pressure ${r} of 5" data-f="${f}"`
+      : `aria-hidden="true"`;
+    return `<g ${attrs}>${inner}</g>`;
+  };
+  body += forceG('rivalry', `${frames}
+    <rect class="box" x="${c.x - c.w / 2}" y="${c.y - c.h / 2}" width="${c.w}" height="${c.h}" fill="url(#${P}x${rv})" stroke="${sel === 'rivalry' ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${sel === 'rivalry' ? 2.5 : 1.2}"/>
+    ${K ? `<rect x="${c.x - 42}" y="${c.y - 48}" width="84" height="96" fill="var(--paper-hi)" stroke="var(--ink)" stroke-width=".6"/>`
+        : `<rect x="${c.x - 70}" y="${c.y - 46}" width="140" height="92" fill="var(--paper-hi)" stroke="var(--ink)" stroke-width=".6"/>`}
+    <g transform="translate(${c.x - 15} ${c.y - 42}) scale(.625)" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">${EMB[indId]}</g>
+    <text x="${c.x}" y="${c.y + 18}" text-anchor="middle" font-family="EB Garamond, Georgia, serif" font-size="${K ? 18 : 21}" letter-spacing="${K ? 1 : 1.6}" fill="var(--ink)" style="font-variant-caps:all-small-caps">Rivalry</text>
+    ${K ? pips(c.x, c.y + 28, rv, sel === 'rivalry', 14, 8) : pips(c.x, c.y + 28, rv, sel === 'rivalry')}`);
+
+  for (const f of ORDER.slice(1)) {
+    const b = GG[f], r = W[f].r, on = sel === f;
+    const two = K && SHORT2[f].length === 2;
+    const cw = K ? (two ? 90 : 160) : 144, ch = K ? (two ? 84 : 52) : 48;
+    const lab = K
+      ? SHORT2[f].map((s, i) => `<text x="${b.x}" y="${b.y - (two ? 18 : 4) + i * 20}" text-anchor="middle" font-family="EB Garamond, Georgia, serif" font-size="19" letter-spacing="1" fill="var(--ink)" style="font-variant-caps:all-small-caps">${s}</text>`).join('') + pips(b.x, b.y + (two ? 18 : 8), r, on, 14, 8)
+      : `<text x="${b.x}" y="${b.y - 2}" text-anchor="middle" font-family="EB Garamond, Georgia, serif" font-size="19" letter-spacing="1.3" fill="var(--ink)" style="font-variant-caps:all-small-caps">${SHORT[f]}</text>${pips(b.x, b.y + 7, r, on)}`;
+    body += forceG(f, `
+      <rect class="box" x="${b.x - b.w / 2}" y="${b.y - b.h / 2}" width="${b.w}" height="${b.h}" fill="url(#${P}h${r})" stroke="${on ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${on ? 2.5 : 1.2}"/>
+      ${on ? `<rect x="${b.x - b.w / 2 + 4}" y="${b.y - b.h / 2 + 4}" width="${b.w - 8}" height="${b.h - 8}" fill="none" stroke="var(--accent)" stroke-width=".6"/>` : ''}
+      <rect x="${b.x - cw / 2}" y="${b.y - ch / 2}" width="${cw}" height="${ch}" fill="var(--paper-hi)" stroke="var(--ink)" stroke-width=".6"/>
+      ${lab}`);
+  }
+  const title = `Five forces plate for ${D.ind[indId].name}: ` + ORDER.map(f => `${SHORT[f]} ${W[f].r} of 5`).join(', ');
+  return `<svg viewBox="0 0 ${K ? 400 : 760} ${K ? 524 : 620}" role="img" aria-label="${esc(title)}" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs>
+    <rect width="${K ? 400 : 760}" height="${K ? 524 : 620}" fill="var(--paper)"/>${body}</svg>`;
+}
+
+/* ---------- Plates in preparation (thumbnails, drawn as drafts) ---------- */
+const S = 'stroke="var(--ink)" fill="none" stroke-width="1"';
+const THUMBS = [
+  ['II', 'SWOT', `<path d="M20 10h80v60H20zM60 10v60M20 40h80" ${S}/><text x="40" y="29" text-anchor="middle" font-family="EB Garamond,serif" font-size="13" fill="var(--ink)">S</text><text x="80" y="29" text-anchor="middle" font-family="EB Garamond,serif" font-size="13" fill="var(--ink)">W</text><text x="40" y="59" text-anchor="middle" font-family="EB Garamond,serif" font-size="13" fill="var(--ink)">O</text><text x="80" y="59" text-anchor="middle" font-family="EB Garamond,serif" font-size="13" fill="var(--ink)">T</text>`],
+  ['III', 'Segment, target, position', `<circle cx="44" cy="40" r="26" ${S}/><path d="M44 14v52M18 40h52M26 22l36 36" ${S} stroke-width=".5"/><path d="M44 14a26 26 0 0 1 26 26H44z" fill="var(--ink)" opacity=".85"/><path d="M78 40h22" ${S}/><path d="M100 40l-6-4v8z" fill="var(--ink)"/>`],
+  ['IV', 'Customer persona', `<circle cx="60" cy="30" r="12" ${S}/><path d="M34 72c0-16 12-26 26-26s26 10 26 26" ${S}/><path d="M50 52l-6 20M58 50l-4 22M66 50l2 22M72 52l6 20" ${S} stroke-width=".5"/>`],
+  ['V', 'Marketing mix', `<rect x="22" y="12" width="36" height="26" ${S}/><rect x="62" y="12" width="36" height="26" ${S}/><rect x="22" y="42" width="36" height="26" ${S}/><rect x="62" y="42" width="36" height="26" ${S}/><circle cx="60" cy="40" r="7" fill="var(--paper)" stroke="var(--ink)"/><path d="M26 16l28 18M66 46l28 18" ${S} stroke-width=".5"/>`],
+  ['VI', 'Value proposition', `<rect x="14" y="16" width="44" height="44" ${S}/><circle cx="86" cy="38" r="22" ${S}/><path d="M58 38h6" ${S}/><path d="M18 22l36 32M18 32l26 24M18 42l16 14" ${S} stroke-width=".5"/>`],
+  ['VII', 'Journey map', `<path d="M10 56C26 56 28 22 44 22s18 34 34 34 20-38 32-38" ${S} stroke-width="1.4"/><circle cx="10" cy="56" r="3" fill="var(--ink)"/><circle cx="44" cy="22" r="3" fill="var(--paper)" stroke="var(--ink)"/><circle cx="78" cy="56" r="3" fill="var(--ink)"/><circle cx="110" cy="18" r="3" fill="var(--paper)" stroke="var(--ink)"/><path d="M10 68h100" ${S} stroke-width=".5"/>`],
+  ['VIII', 'Perceptual map', `<path d="M60 8v64M20 40h80" ${S}/><circle cx="38" cy="24" r="4" fill="var(--ink)"/><circle cx="46" cy="30" r="4" fill="var(--ink)"/><circle cx="42" cy="20" r="4" fill="var(--ink)"/><circle cx="82" cy="58" r="4" fill="var(--ink)"/><circle cx="80" cy="22" r="9" ${S} stroke-dasharray="2 2"/>`],
+  ['IX', 'PESTEL', `<circle cx="60" cy="40" r="6" fill="var(--ink)"/>${[0, 1, 2, 3, 4, 5].map(i => { const a = i * Math.PI / 3 - Math.PI / 2; return `<path d="M${60 + Math.cos(a) * 10} ${40 + Math.sin(a) * 10}L${60 + Math.cos(a) * 30} ${40 + Math.sin(a) * 30}" ${S}/><circle cx="${60 + Math.cos(a) * 30}" cy="${40 + Math.sin(a) * 30}" r="4" fill="var(--paper)" stroke="var(--ink)"/>`; }).join('')}`],
+  ['X', 'Break-even & pricing', `<path d="M16 70V10M16 70h92" ${S}/><path d="M16 46L104 22" ${S}/><path d="M16 70L100 14" ${S} stroke-width="1.6"/><circle cx="59.5" cy="41" r="3.2" fill="var(--paper)" stroke="var(--ink)"/><path d="M59.5 44v26" ${S} stroke-dasharray="2 2"/><path d="M60 41L16 46 16 70z" fill="none" stroke="var(--ink)" stroke-width=".5"/>`],
+];
+
+/* ---------- Views ---------- */
+const main = document.getElementById('main');
+
+function viewHome() {
+  return `<section class="view home">
+    <div>
+      <h1>Agentic Marketing Toolkit</h1>
+      <a class="plate-link" href="#forces" aria-label="Open Plate I, the Five Forces">
+        <div class="frame"><div class="inner">${plate('us-airlines', { prefix: 'home' })}</div></div>
+        <div class="cap"><span class="fig"><b>Plate I.</b>The Five Forces</span><span class="go">Open the plate</span></div>
+      </a>
+    </div>
+    <div class="shelf">
+      <h2>Plates in preparation</h2>
+      <ol>${THUMBS.map(([n, t, svg]) => `<li><a href="https://github.com/chickensintrees/agentic-marketing-toolkit/blob/main/docs/students/build-a-tool.md" target="_blank" rel="noopener" aria-label="Plate ${n}, ${t}: help build it">
+        <svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="var(--paper)"/>${svg}</svg>
+        <span class="t"><b>${n}.</b>${t}</span></a></li>`).join('')}</ol>
+    </div>
+  </section>`;
+}
+
+function notesHtml() {
+  const id = state.ind, f = state.sel;
+  if (!f) {
+    return `<p class="empty">Select a force on the plate.</p>
+      <div class="key" aria-label="Key">
+        ${[1, 3, 5].map(r => `<div><svg viewBox="0 0 70 14" aria-hidden="true"><line x1="0" y1="7" x2="58" y2="7" stroke="var(--ink)" stroke-width="${weight(r)}"/><path d="M70 7L56 ${7 - 4 - r}L56 ${7 + 4 + r}Z" fill="var(--ink)"/></svg><span>${['', 'Light pressure', '', 'Moderate', '', 'Heavy pressure'][r]}</span></div>`).join('')}
+      </div>
+      <a class="next" href="#summary">Read the summary</a>`;
+  }
+  const fo = forceById[f], w = state.work[id][f];
+  const preset = D.ind[id].a[f];
+  const list = state.showAll ? fo.d : fo.d.filter(x => w.d.includes(x) || preset.d.includes(x));
+  const hidden = fo.d.length - list.length;
+  return `<div class="fn">Fig. ${FIGNO[f]}${isAdjusted(id, f) ? '<span class="adj">adjusted</span>' : ''}</div>
+    <h2 id="fh">${esc(fo.name)}</h2>
+    <p class="q">${esc(fo.q)}</p>
+    <div class="scale" role="radiogroup" aria-labelledby="fh">
+      ${[1, 2, 3, 4, 5].map(r => `<button role="radio" aria-checked="${w.r === r}" aria-label="Pressure ${r} of 5" data-r="${r}" tabindex="${w.r === r ? 0 : -1}">
+        <svg viewBox="0 0 44 20" aria-hidden="true"><line x1="2" y1="10" x2="42" y2="10" stroke="${w.r === r ? 'var(--accent)' : 'var(--ink)'}" stroke-width="${weight(r)}"/></svg><span>${r}</span></button>`).join('')}
+    </div>
+    <div class="scale-ends"><span>light</span><span>heavy</span></div>
+    <ul class="drivers" aria-label="Drivers">
+      ${list.map(x => `<li><label><input type="checkbox" id="d-${x}" data-d="${x}" ${w.d.includes(x) ? 'checked' : ''}><span>${esc(D.drivers[x])}</span></label></li>`).join('')}
+    </ul>
+    ${hidden ? `<button class="more" data-act="all">${hidden} more drivers</button>` : ''}
+    <details><summary>Why this rating</summary><p>${esc(preset.why)} <i>Illustrative.</i></p></details>`;
+}
+
+function viewForces() {
+  const id = state.ind;
+  return `<section class="view">
+    <div class="canvas-top">
+      <h1><span class="k">Plate I · The Five Forces</span>${esc(D.ind[id].name)}</h1>
+      <div class="picker" role="group" aria-label="Example industry">
+        ${IND_ORDER.map(i => `<button aria-pressed="${i === id}" data-ind="${i}" aria-label="${esc(D.ind[i].name)}" title="${esc(D.ind[i].name)}">${emblem(i)}</button>`).join('')}
+      </div>
+    </div>
+    <div class="stage">
+      <figure>
+        <div id="plate">${plate(id, { interactive: true, compact: compact() })}</div>
+        <figcaption><b>Fig. 1.</b><i>Line weight shows pressure on profit.</i></figcaption>
+      </figure>
+      <aside class="notes" id="notes" aria-live="polite">${notesHtml()}</aside>
+    </div>
+  </section>`;
+}
+
+function markdown() {
+  const id = state.ind, W = state.work[id];
+  let s = `# Five Forces: ${D.ind[id].name}\n\n_${D.ind[id].scope}. Illustrative example._\n\n| Force | Pressure (1–5) | Drivers |\n|---|---|---|\n`;
+  for (const f of ORDER) s += `| ${forceById[f].name} | ${W[f].r} | ${W[f].d.map(x => D.drivers[x]).join(', ')} |\n`;
+  return s;
+}
+
+function viewSummary() {
+  const id = state.ind, W = state.work[id];
+  const max = Math.max(...ORDER.map(f => W[f].r));
+  const heavy = ORDER.filter(f => W[f].r === max).map(f => SHORT[f]);
+  return `<section class="view">
+    <div class="canvas-top">
+      <h1><span class="k">Plate I · Summary</span>${esc(D.ind[id].name)}</h1>
+      <div class="picker" role="group" aria-label="Example industry">
+        ${IND_ORDER.map(i => `<button aria-pressed="${i === id}" data-ind="${i}" aria-label="${esc(D.ind[i].name)}" title="${esc(D.ind[i].name)}">${emblem(i)}</button>`).join('')}
+      </div>
+    </div>
+    <div class="sum">
+      <figure>${plate(id, { prefix: 'sum', compact: compact() })}</figure>
+      <div>
+        <table>
+          <caption><b>Table 1.</b>Schedule of forces</caption>
+          <thead><tr><th scope="col">Force</th><th scope="col">Weight</th><th scope="col" style="text-align:right">Pressure</th></tr></thead>
+          <tbody>${ORDER.map(f => `<tr><th scope="row">${SHORT[f]}${isAdjusted(id, f) ? ' <span class="adj">adj.</span>' : ''}</th>
+            <td><svg viewBox="0 0 120 18" aria-hidden="true"><line x1="0" y1="9" x2="${24 * W[f].r}" y2="9" stroke="var(--ink)" stroke-width="${weight(W[f].r)}"/><line x1="0" y1="9" x2="120" y2="9" stroke="var(--rule)" stroke-width=".5" stroke-dasharray="1 3"/></svg></td>
+            <td class="n">${W[f].r}<span style="font-size:15px;color:var(--ink-2)">&thinsp;/&thinsp;5</span></td></tr>`).join('')}</tbody>
+        </table>
+        <p class="heavy">Heaviest: <i>${heavy.join(' and ')}</i></p>
+        <div class="exports">
+          <button data-act="md">Copy as Markdown</button>
+          <button data-act="svg">Copy the plate (SVG)</button>
+        </div>
+        <div class="status" id="status" role="status"></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function route() {
+  const r = (location.hash || '#home').slice(1);
+  const v = ['home', 'forces', 'summary'].includes(r) ? r : 'home';
+  document.querySelector('.mark').hidden = v === 'home';
+  document.querySelectorAll('nav a').forEach(a => { if (a.dataset.r === v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  main.innerHTML = v === 'home' ? viewHome() : v === 'forces' ? viewForces() : viewSummary();
+  state.view = v;
+}
+
+function refreshCanvas(focusSel) {
+  document.getElementById('plate').innerHTML = plate(state.ind, { interactive: true, compact: compact() });
+  document.getElementById('notes').innerHTML = notesHtml();
+  if (focusSel) document.querySelector(focusSel)?.focus();
+}
+
+function selectForce(f) { state.sel = state.sel === f ? null : f; state.showAll = false; refreshCanvas(`.force[data-f="${state.sel || f}"]`); }
+
+async function copy(text, label) {
+  const st = document.getElementById('status');
+  try { await navigator.clipboard.writeText(text); st.textContent = `${label} copied.`; }
+  catch { st.innerHTML = `Select and copy:<textarea class="fallback" id="fallback" readonly>${esc(text)}</textarea>`; document.getElementById('fallback').select(); }
+}
+
+main.addEventListener('click', e => {
+  const t = e.target;
+  const ind = t.closest('[data-ind]');
+  if (ind) { state.ind = ind.dataset.ind; route(); return; }
+  const fg = t.closest('.force, .arrow-g');
+  if (fg) { selectForce(fg.dataset.f); return; }
+  const rb = t.closest('.scale button');
+  if (rb) { state.work[state.ind][state.sel].r = +rb.dataset.r; refreshCanvas(`.scale button[data-r="${rb.dataset.r}"]`); return; }
+  const act = t.closest('[data-act]');
+  if (act?.dataset.act === 'all') { state.showAll = true; refreshCanvas('.drivers input'); }
+  if (act?.dataset.act === 'md') copy(markdown(), 'Markdown');
+  if (act?.dataset.act === 'svg') copy(plate(state.ind, { prefix: 'x' }).replace(/var\(--paper-hi\)/g, '#f7f3ea').replace(/var\(--paper\)/g, '#efe9dc').replace(/var\(--ink\)/g, '#1b1815').replace(/var\(--accent\)/g, '#8f2a1c').replace(/var\(--rule\)/g, '#8c8374'), 'SVG');
+});
+main.addEventListener('change', e => {
+  const d = e.target.dataset.d; if (!d) return;
+  const w = state.work[state.ind][state.sel];
+  w.d = e.target.checked ? [...w.d, d] : w.d.filter(x => x !== d);
+  const keep = `#d-${d}`;
+  refreshCanvas(keep);
+});
+main.addEventListener('keydown', e => {
+  const fg = e.target.closest?.('.force');
+  if (fg && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectForce(fg.dataset.f); }
+  const rb = e.target.closest?.('.scale button');
+  if (rb && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+    e.preventDefault();
+    const w = state.work[state.ind][state.sel];
+    w.r = Math.min(5, Math.max(1, w.r + (e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 1 : -1)));
+    refreshCanvas(`.scale button[data-r="${w.r}"]`);
+  }
+});
+window.addEventListener('hashchange', route);
+let wasCompact = compact();
+window.addEventListener('resize', () => { if (compact() !== wasCompact) { wasCompact = compact(); route(); } });
+route();
+</script>

@@ -1,0 +1,13 @@
+# Ink and paper: the strategy textbook plate
+
+**Idea:** the Five Forces diagram is drawn like an engraved plate in a strategy text, and pressure is something you can see in the weight of the ink.
+
+- **Typography.** EB Garamond for headings, small-caps labels and figure numbers ("Plate I", "Fig. 1.3", "Table 1"); Source Serif 4 (the lecture deck's serif) for text. Old-style figures throughout. No sans, no uppercase eyebrows.
+- **Palette.** Paper `#efe9dc`, cartouche paper `#f7f3ea`, ink `#1b1815`, secondary ink `#4b443b` (about 8:1), hairline `#8c8374` (rules only), one rubrication red `#8f2a1c` (about 7:1), used only for the selected force and the current place.
+- **How intensity reads, without color:** arrow shaft weight (0.8 to 7.4 units), arrowhead size, tally ticks on the shaft (one per point), engraving density of the box hatching, five pips in each cartouche, and for rivalry one nested printer's frame per point of pressure.
+- **Visuals are all code.** Inline SVG: the plate, line-engraved emblems for the five industries (cup, aircraft, bottle, screen, raft), and draft-style thumbnails for "plates in preparation" (SWOT, STP, persona, 4Ps, value proposition, journey, perceptual map, PESTEL, break-even). Dashed frames mark tools that don't exist yet.
+- **Flow.** Home = Plate I plus the shelf. Canvas = pick an emblem, tap a force, set its weight on a five-step line-weight scale, tick drivers; "Why this rating" opens one line of illustrative rationale. Summary = the plate beside a "schedule of forces" table, with Markdown and SVG copy. On phones the plate switches to a portrait layout so labels stay at a readable size.
+- **Why it isn't SaaS.** No cards, shadows, radii, pills, gradients or blue buttons. Structure comes from print conventions (running head, double rule, figure and table numbers, marginal notes), and those conventions carry real information. About 25 words show by default on the canvas.
+- **Accessibility.** Forces are focusable buttons (Enter/Space); the rating is a radio group with arrow keys; the SVG has a full text label; text contrast is at least 4.5:1.
+- **Optional raster (Bill's pipeline):** five industry emblems as true copperplate engravings, 512x512 transparent PNG each:
+  > "Small copperplate engraving vignette of a {coffee cup on a saucer with steam | passenger jet seen from above | plain glass soda bottle with bubbles | television screen with a play symbol | inflatable river raft with two paddlers on whitewater}, 19th-century textbook plate style, fine parallel hatching and cross-hatching, black ink only on transparent background, no text, no border, centered, generous margin."
