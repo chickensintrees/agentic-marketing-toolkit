@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { Button } from '../../../shared/components/Button'
-import { Card } from '../../../shared/components/Card'
 import { StatusMessage, type StatusTone } from '../../../shared/components/StatusMessage'
 import { copyText } from '../../../shared/clipboard'
 import { downloadTextFile } from '../../../shared/download'
@@ -24,11 +22,8 @@ export function ExportPanel({ analysis }: ExportPanelProps) {
     const ok = await copyText(buildMarkdown(analysis, new Date()))
     setStatus(
       ok
-        ? { tone: 'success', text: 'Copied the Markdown to your clipboard.' }
-        : {
-            tone: 'error',
-            text: 'Could not copy to the clipboard in this browser. Try “Download .md” instead.',
-          },
+        ? { tone: 'success', text: 'Copied the Markdown.' }
+        : { tone: 'error', text: 'This browser blocked the clipboard. Try “Download .md”.' },
     )
   }
 
@@ -39,25 +34,24 @@ export function ExportPanel({ analysis }: ExportPanelProps) {
     setStatus(
       ok
         ? { tone: 'success', text: `Downloaded ${fileName}.` }
-        : { tone: 'error', text: 'Could not create the download in this browser.' },
+        : { tone: 'error', text: 'This browser blocked the download.' },
     )
   }
 
   return (
-    <Card as="section" className="export-panel no-print" aria-labelledby="export-heading">
-      <h3 id="export-heading">Export</h3>
-      <p>
-        Copy your analysis as Markdown to paste into a document or discussion post, download
-        it as a file, or print this page.
-      </p>
+    <section className="export-panel no-print" aria-label="Export">
       <div className="button-row">
-        <Button variant="primary" onClick={copy}>
+        <button type="button" className="button button-primary" onClick={copy}>
           Copy as Markdown
-        </Button>
-        <Button onClick={download}>Download .md</Button>
-        <Button onClick={() => window.print()}>Print</Button>
+        </button>
+        <button type="button" className="button" onClick={download}>
+          Download .md
+        </button>
+        <button type="button" className="button" onClick={() => window.print()}>
+          Print
+        </button>
       </div>
       <StatusMessage tone={status?.tone}>{status?.text ?? null}</StatusMessage>
-    </Card>
+    </section>
   )
 }

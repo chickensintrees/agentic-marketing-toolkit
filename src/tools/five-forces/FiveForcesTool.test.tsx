@@ -13,214 +13,262 @@ function Harness({ initial = '' }: { initial?: string }) {
   return <FiveForcesTool subpath={subpath} navigate={setSubpath} />
 }
 
-function stepButton(name: RegExp) {
-  const steps = screen.getByRole('navigation', { name: 'Analysis steps' })
-  return within(steps).getByRole('button', { name })
-}
+type User = ReturnType<typeof userEvent.setup>
 
 function viewLink(name: string) {
   const nav = screen.getByRole('navigation', { name: 'Five Forces Explorer' })
   return within(nav).getByRole('link', { name })
 }
 
-async function loadAirlines(user: ReturnType<typeof userEvent.setup>) {
-  await user.selectOptions(screen.getByLabelText('Industry'), 'us-airlines')
+function industry(name: string) {
+  const picker = screen.getByRole('group', { name: 'Industry' })
+  return within(picker).getByRole('button', { name })
+}
+
+/** A force on the plate, found by the start of its accessible name. */
+function force(name: string) {
+  return screen.getByRole('button', { name: new RegExp(`^${name},`) })
+}
+
+async function loadAirlines(user: User) {
+  await user.click(industry('U.S. passenger airlines'))
 }
 
 describe('Five Forces Explorer', () => {
-  it('has one h1 and view navigation that marks the current view', () => {
-    render(<Harness initial="analyze" />)
+  it('has one h1 naming the tool and the industry, and a view nav marking the current view', async () => {
+    const user = userEvent.setup()
+    render(<Harness />)
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Five Forces Explorer')
-    expect(viewLink('Analyze')).toHaveAttribute('aria-current', 'page')
-    expect(viewLink('Learn')).not.toHaveAttribute('aria-current')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Untitled industry')
+    expect(viewLink('Plate')).toHaveAttribute('aria-current', 'page')
+    expect(viewLink('Summary')).not.toHaveAttribute('aria-current')
+    await loadAirlines(user)
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('U.S. passenger airlines')
+    expect(industry('U.S. passenger airlines')).toHaveAttribute('aria-pressed', 'true')
   })
 
-  it('main journey: load a preset, change a rating, evidence becomes an assumption, Summary reflects it', async () => {
+  it('draws every rating and names it in words on the plate', async () => {
     const user = userEvent.setup()
-    render(<Harness initial="analyze" />)
-
+    render(<Harness />)
+    expect(force('Competitive rivalry')).toHaveAccessibleName('Competitive rivalry, not rated')
     await loadAirlines(user)
-    expect(screen.getByLabelText('Industry name')).toHaveValue('U.S. passenger airlines')
-    expect(screen.getByText(/5 of 5/)).toBeInTheDocument()
+    expect(force('Competitive rivalry')).toHaveAccessibleName('Competitive rivalry, 5 of 5')
+    expect(force('Buyer power')).toHaveAccessibleName('Buyer power, 4 of 5')
+    expect(screen.getByRole('group', { name: /Five forces plate for U.S. passenger airlines/ })).toBeInTheDocument()
+    expect(screen.getByText('5 of 5 rated')).toBeInTheDocument()
+  })
 
-    await user.click(stepButton(/Buyer power/))
-    expect(screen.getByRole('heading', { level: 3, name: 'Buyer power' })).toBeInTheDocument()
+  it('main journey: select a force, change its rating, evidence becomes an assumption, Summary reflects it', async () => {
+    const user = userEvent.setup()
+    render(<Harness />)
+    await loadAirlines(user)
+
+    await user.click(force('Buyer power'))
+    expect(force('Buyer power')).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('heading', { level: 2, name: 'Buyer power' })).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: '4 High' })).toBeChecked()
-    expect(screen.getByRole('radio', { name: 'Illustrative example (not verified)' })).toBeChecked()
+    expect(screen.getByText(/pressure on profit/, { selector: '.weight-ends-mid' })).toBeInTheDocument()
+    expect(screen.getByText('Illustrative example (not verified)', { selector: '.panel-evidence' })).toBeInTheDocument()
 
     await user.click(screen.getByRole('radio', { name: '2 Low' }))
     expect(screen.getByRole('radio', { name: '2 Low' })).toBeChecked()
-    expect(screen.getByRole('radio', { name: 'My judgment / assumption' })).toBeChecked()
+    expect(force('Buyer power')).toHaveAccessibleName('Buyer power, 2 of 5')
     expect(screen.getByRole('status')).toHaveTextContent(/its evidence is now/)
-    expect(
-      screen.queryByRole('radio', { name: 'Illustrative example (not verified)' }),
-    ).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Rationale and evidence' }))
+    expect(screen.getByRole('radio', { name: 'My judgment / assumption' })).toBeChecked()
+    expect(screen.queryByRole('radio', { name: 'Illustrative example (not verified)' })).not.toBeInTheDocument()
 
     await user.click(viewLink('Summary'))
     expect(screen.getByRole('heading', { level: 2, name: 'Summary' })).toBeInTheDocument()
-    expect(screen.getByText('4 illustrative')).toBeInTheDocument()
-    expect(screen.getByText('1 assumption')).toBeInTheDocument()
-    const recap = screen.getByRole('heading', { level: 4, name: 'Buyer power' }).closest('article')!
-    expect(within(recap).getByText('2 – Low')).toBeInTheDocument()
-    expect(within(recap).getByText('My judgment / assumption')).toBeInTheDocument()
-    expect(screen.getByRole('img', { name: /Buyer power 2/ })).toBeInTheDocument()
+    expect(screen.getByText('4 illustrative · 1 assumption')).toBeInTheDocument()
+    const row = screen.getByRole('rowheader', { name: 'Buyer power' }).closest('tr')!
+    expect(within(row).getByText('2')).toBeInTheDocument()
+    const notes = screen.getAllByRole('region', { name: 'Buyer power' })[0]
+    expect(within(notes).getByText('2 – Low')).toBeInTheDocument()
+    expect(within(notes).getByText(/My judgment \/ assumption/)).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: /Buyer power 2 of 5/ })).toBeInTheDocument()
   })
 
-  it('custom industry flow, with a confirmation before discarding input', async () => {
+  it('shows the ticked drivers first and the rest on demand', async () => {
     const user = userEvent.setup()
-    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
-    render(<Harness initial="analyze" />)
+    render(<Harness />)
+    await loadAirlines(user)
+    await user.click(force('Supplier power'))
+    expect(screen.queryByRole('checkbox', { name: 'Differentiated supplier inputs' })).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /more drivers/ }))
+    const box = screen.getByRole('checkbox', { name: 'Differentiated supplier inputs' })
+    expect(box).not.toBeChecked()
+    await user.click(box)
+    expect(box).toBeChecked()
+  })
 
-    expect(screen.getByLabelText('Industry')).toHaveValue('custom')
+  it('custom industry flow, with an on-page confirmation before discarding input', async () => {
+    const user = userEvent.setup()
+    const confirm = vi.spyOn(window, 'confirm')
+    render(<Harness />)
+
+    await user.click(industry('Custom industry'))
+    await user.click(screen.getByRole('button', { name: 'Edit profile' }))
     await user.type(screen.getByLabelText('Industry name'), 'Craft breweries')
     await user.type(screen.getByLabelText('Scope'), 'Independent craft breweries in Appalachia')
+    await user.click(screen.getByRole('button', { name: 'Done' }))
 
-    // Switching to a preset now asks first; declining keeps the custom work.
-    await loadAirlines(user)
-    expect(confirm).toHaveBeenCalledTimes(1)
-    expect(screen.getByLabelText('Industry name')).toHaveValue('Craft breweries')
-
-    await user.click(screen.getByRole('button', { name: /Next: Rivalry/ }))
-    expect(screen.getByRole('heading', { level: 3, name: 'Competitive rivalry' })).toBeInTheDocument()
-    expect(screen.queryByRole('radio', { name: /Illustrative/ })).not.toBeInTheDocument()
+    await user.click(force('Competitive rivalry'))
+    expect(screen.getByRole('heading', { level: 2, name: 'Competitive rivalry' })).toBeInTheDocument()
     await user.click(screen.getByRole('radio', { name: '4 High' }))
     await user.click(screen.getByRole('checkbox', { name: 'Slow industry growth' }))
+    await user.click(screen.getByRole('button', { name: 'Rationale and evidence' }))
+    expect(screen.queryByRole('radio', { name: /Illustrative/ })).not.toBeInTheDocument()
     await user.type(screen.getByLabelText('Rationale'), 'Many small brewers chase the same taps.')
     await user.click(screen.getByRole('radio', { name: 'Supported by a source' }))
-    expect(screen.getByText(/Until you do, this force is reported as/)).toBeInTheDocument()
+    expect(screen.getByText(/Until then this force reads/)).toBeInTheDocument()
+
+    // Switching to a preset asks on the page; keeping the work leaves it intact.
+    await loadAirlines(user)
+    const dialog = screen.getByRole('alertdialog')
+    expect(dialog).toHaveTextContent('Replace your edits with U.S. passenger airlines?')
+    await user.click(within(dialog).getByRole('button', { name: 'Keep editing' }))
+    expect(screen.queryByRole('alertdialog')).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Craft breweries')
+    expect(confirm).not.toHaveBeenCalled()
 
     await user.click(viewLink('Summary'))
-    expect(screen.getByRole('heading', { level: 3, name: 'Craft breweries' })).toBeInTheDocument()
-    expect(screen.getByText('1 source missing')).toBeInTheDocument()
-    expect(screen.getByText(/Not rated yet/)).toBeInTheDocument()
-    expect(screen.getByText(/Rate all five forces to see an indicative label/)).toBeInTheDocument()
-    const strongest = screen.getByRole('heading', { name: 'Strongest force' }).closest('section')!
+    expect(screen.getByText(/1 source missing/)).toBeInTheDocument()
+    const strongest = screen.getByText('Strongest').closest('p')!
     expect(within(strongest).getByText('Competitive rivalry')).toBeInTheDocument()
-    const recap = screen.getByRole('heading', { level: 4, name: 'Competitive rivalry' }).closest('article')!
-    expect(within(recap).getByText('Slow industry growth')).toBeInTheDocument()
-    expect(within(recap).getByText('Assumption (source missing)')).toBeInTheDocument()
+    expect(screen.queryByText(/Overall \(indicative\)/)).not.toBeInTheDocument()
+    const notes = screen.getAllByRole('region', { name: 'Competitive rivalry' })[0]
+    expect(within(notes).getByText(/Slow industry growth/)).toBeInTheDocument()
+    expect(within(notes).getByText(/Assumption \(source missing\)/)).toBeInTheDocument()
+
+    // Confirming the switch replaces the custom work.
+    await loadAirlines(user)
+    await user.click(screen.getByRole('button', { name: 'Replace' }))
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('U.S. passenger airlines')
   })
 
-  it('compare select overlays a second, dashed series and adds the difference column', async () => {
+  it('compare select adds a dashed second series and the difference column', async () => {
     const user = userEvent.setup()
-    const { container } = render(<Harness initial="analyze" />)
+    const { container } = render(<Harness />)
     await loadAirlines(user)
     await user.click(viewLink('Summary'))
 
-    expect(container.querySelector('[data-series="comparison"]')).toBeNull()
+    expect(container.querySelector('.bar-compare')).toBeNull()
     expect(screen.queryByRole('columnheader', { name: 'Difference' })).not.toBeInTheDocument()
 
     await user.selectOptions(screen.getByLabelText('Compare with'), 'video-streaming')
-    expect(container.querySelector('[data-series="comparison"]')).not.toBeNull()
+    expect(container.querySelectorAll('.bar-compare').length).toBeGreaterThan(0)
     expect(screen.getByRole('columnheader', { name: 'Difference' })).toBeInTheDocument()
-    expect(screen.getByRole('columnheader', { name: 'Subscription video streaming' })).toBeInTheDocument()
-    const rivalryRow = screen.getByRole('rowheader', { name: 'Competitive rivalry' }).closest('tr')!
+    expect(screen.getByRole('columnheader', { name: 'Compare: Subscription video streaming' })).toBeInTheDocument()
+    const rivalryRow = screen.getByRole('rowheader', { name: 'Rivalry' }).closest('tr')!
     expect(within(rivalryRow).getByText('+1')).toBeInTheDocument()
-    expect(screen.getByRole('list', { name: 'Chart legend' })).toHaveTextContent(/dashed line/)
-    expect(screen.getByRole('img', { name: /Compared with Subscription video streaming/ })).toBeInTheDocument()
+    expect(screen.getByText(/Subscription video streaming \(illustrative, dashed\)/)).toBeInTheDocument()
 
     await user.selectOptions(screen.getByLabelText('Compare with'), '')
-    expect(container.querySelector('[data-series="comparison"]')).toBeNull()
+    expect(container.querySelector('.bar-compare')).toBeNull()
   })
 
   it('shows the strongest forces and the indicative structure once all five are rated', async () => {
     const user = userEvent.setup()
-    render(<Harness initial="analyze" />)
+    render(<Harness />)
     await loadAirlines(user)
     await user.click(viewLink('Summary'))
-    expect(screen.getByRole('heading', { name: 'Strongest force' })).toBeInTheDocument()
+    expect(screen.getByText('Strongest')).toBeInTheDocument()
     // 5 + 3 + 4 + 4 + 3 = 19 / 5 = 3.8
     expect(screen.getByText('Challenging structure')).toBeInTheDocument()
     expect(screen.getByText('Mean rating 3.8 of 5')).toBeInTheDocument()
+    expect(screen.getByText(/Averages hide what matters/)).toBeInTheDocument()
     expect(
       screen.getByText('Example ratings are illustrative teaching material, not verified market research.'),
     ).toBeInTheDocument()
   })
 
-  it('subpath navigation: each subpath shows its view, unknown subpaths show Learn', () => {
+  it('subpath navigation: summary shows the Summary; anything else shows the Plate', () => {
     const navigate = vi.fn()
     const { rerender } = render(<FiveForcesTool subpath="summary" navigate={navigate} />)
     expect(screen.getByRole('heading', { level: 2, name: 'Summary' })).toBeInTheDocument()
+    expect(viewLink('Summary')).toHaveAttribute('aria-current', 'page')
 
-    rerender(<FiveForcesTool subpath="analyze" navigate={navigate} />)
-    expect(screen.getByRole('heading', { level: 2, name: 'Analyze an industry' })).toBeInTheDocument()
-
-    rerender(<FiveForcesTool subpath="nonsense" navigate={navigate} />)
-    expect(screen.getByRole('heading', { level: 2, name: 'Learn the framework' })).toBeInTheDocument()
-
-    rerender(<FiveForcesTool subpath="" navigate={navigate} />)
-    expect(viewLink('Learn')).toHaveAttribute('aria-current', 'page')
+    for (const subpath of ['analyze', 'learn', 'nonsense', '']) {
+      rerender(<FiveForcesTool subpath={subpath} navigate={navigate} />)
+      expect(viewLink('Plate')).toHaveAttribute('aria-current', 'page')
+      expect(force('Competitive rivalry')).toBeInTheDocument()
+    }
+    expect(viewLink('Plate')).toHaveAttribute('href', '#/five-forces')
     expect(viewLink('Summary')).toHaveAttribute('href', '#/five-forces/summary')
   })
 
-  it('view links and calls to action call navigate()', async () => {
+  it('view links and the Implications panel call navigate()', async () => {
     const user = userEvent.setup()
     const navigate = vi.fn()
     render(<FiveForcesTool subpath="" navigate={navigate} />)
     await user.click(viewLink('Summary'))
     expect(navigate).toHaveBeenLastCalledWith('summary')
-    await user.click(screen.getByRole('button', { name: /Analyze an industry/ }))
-    expect(navigate).toHaveBeenLastCalledWith('analyze')
+    await user.click(screen.getByRole('button', { name: 'Implications' }))
+    await user.type(screen.getByLabelText(/Which force or forces matter most/), 'Rivalry')
+    expect(screen.getByLabelText(/Which force or forces matter most/)).toHaveValue('Rivalry')
+    await user.click(screen.getByRole('button', { name: 'View the summary' }))
+    expect(navigate).toHaveBeenLastCalledWith('summary')
   })
 
-  it('Summary has an empty state that points to Analyze', async () => {
+  it('Summary has an empty state that points back to the plate', async () => {
     const user = userEvent.setup()
     const navigate = vi.fn()
     render(<FiveForcesTool subpath="summary" navigate={navigate} />)
-    expect(screen.getByRole('heading', { name: 'Nothing to summarize yet' })).toBeInTheDocument()
+    expect(screen.getByText('Nothing is rated yet.')).toBeInTheDocument()
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: /Go to Analyze/ }))
-    expect(navigate).toHaveBeenCalledWith('analyze')
+    await user.click(screen.getByRole('button', { name: 'Rate a force on the plate' }))
+    expect(navigate).toHaveBeenCalledWith('')
   })
 
-  it('persists the analysis and the current step across a remount', async () => {
+  it('persists the analysis and the open force across a remount', async () => {
     const user = userEvent.setup()
-    const first = render(<Harness initial="analyze" />)
+    const first = render(<Harness />)
     await loadAirlines(user)
-    await user.click(stepButton(/Supplier power/))
+    await user.click(force('Supplier power'))
     await user.click(screen.getByRole('radio', { name: '1 Very low' }))
     first.unmount()
 
     expect(localStorage.getItem(STORAGE_KEY)).not.toBeNull()
-    render(<Harness initial="analyze" />)
-    expect(screen.getByRole('heading', { level: 3, name: 'Supplier power' })).toBeInTheDocument()
+    render(<Harness />)
+    expect(screen.getByRole('heading', { level: 2, name: 'Supplier power' })).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: '1 Very low' })).toBeChecked()
-    await user.click(stepButton(/Industry/))
-    expect(screen.getByLabelText('Industry')).toHaveValue('us-airlines')
+    expect(industry('U.S. passenger airlines')).toHaveAttribute('aria-pressed', 'true')
   })
 
-  it('Start over clears the analysis after confirmation', async () => {
+  it('Start over clears the analysis after an on-page confirmation', async () => {
     const user = userEvent.setup()
-    vi.spyOn(window, 'confirm').mockReturnValue(true)
-    render(<Harness initial="analyze" />)
+    render(<Harness />)
     await loadAirlines(user)
     await user.click(screen.getByRole('button', { name: 'Start over' }))
-    expect(screen.getByLabelText('Industry')).toHaveValue('custom')
-    expect(screen.getByText(/0 of 5/)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: 'Clear' }))
+    expect(industry('Custom industry')).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByText('0 of 5 rated')).toBeInTheDocument()
   })
 
   it('copies the Markdown export and reports success', async () => {
     const user = userEvent.setup()
-    render(<Harness initial="analyze" />)
+    render(<Harness />)
     await loadAirlines(user)
     await user.click(viewLink('Summary'))
     const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue()
     await user.click(screen.getByRole('button', { name: 'Copy as Markdown' }))
-    expect(writeText).toHaveBeenCalledWith(
-      expect.stringContaining('# Five Forces Analysis: U.S. passenger airlines'),
-    )
-    expect(await screen.findByText('Copied the Markdown to your clipboard.')).toBeInTheDocument()
+    expect(writeText).toHaveBeenCalledWith(expect.stringContaining('# Five Forces Analysis: U.S. passenger airlines'))
+    expect(await screen.findByText('Copied the Markdown.')).toBeInTheDocument()
   })
 
-  it('Learn: a force card expands to its full detail', async () => {
+  it('learning content is on demand: about this force, and about the framework', async () => {
     const user = userEvent.setup()
     render(<Harness />)
-    const toggle = screen.getByRole('button', { name: /Threat of new entrants/ })
+    await user.click(force('Threat of new entrants'))
+    const toggle = screen.getByRole('button', { name: 'About this force' })
     expect(toggle).toHaveAttribute('aria-expanded', 'false')
     await user.click(toggle)
     expect(toggle).toHaveAttribute('aria-expanded', 'true')
-    expect(screen.getByText(/Little expected retaliation/)).toBeVisible()
-    expect(screen.getByRole('heading', { name: 'Factors, not forces' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'What makes this force stronger' })).toBeVisible()
+    await user.click(screen.getByRole('button', { name: 'About the framework' }))
+    expect(screen.getByRole('heading', { name: 'Factors, not forces' })).toBeVisible()
+    expect(screen.getByText(/How competitive forces shape strategy/)).toBeVisible()
   })
 })
