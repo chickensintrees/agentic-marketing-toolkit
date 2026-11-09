@@ -123,6 +123,10 @@ actually build these things"
 | ~02:45 | Create labels and starter issues in the repo? | "Yes, create them (Recommended)" |
 | ~02:53 | How should poll 1 end? | "…what would you have them build? And Stop referencing "MBA" in the deck." |
 | ~02:53 | Open with a live tour of the toolkit? | "Just add a simple placeholder I will pull up the live site. Stop adding all these cutesy superflous text throughout. Every word on screen must earn it's place. Leave the editorializing t o the speaker" |
+| ~03:25 | Which ChatGPT-plan items to restore? | "None of this... I'm talking about the bits about showing them how to use github, the basics" |
+| ~03:25 | Which Slido polls? | "I think 1 slido for what to build and a Q and A at the end, but we need to explain everything before we ask the class what they would build" |
+| ~03:25 | Add tooling as a harness component? | "Yes, add Tools" |
+| ~03:25 | A prompt that builds the app, or only a contributor prompt? | "A simple prompt that gets them setup to work with our repo. Walks them through github conenction, forks the app, etc." |
 
 ### 2.4 Comments on the deck artifact
 
@@ -258,6 +262,10 @@ Each principle is traceable to Bill's words.
 | ~02:03 | The product spec is written before code (SPEC.md), following Bill's Rule 5 (spec first). | Orchestrator |
 | ~02:33 | Starter prompt v3: the agent connects to GitHub with a browser sign-in and asks before anything public. | Orchestrator, following D9 |
 | ~03:05 | "My agent does the git. I make the calls." removed from the deck as a slogan. | Orchestrator, following D11 |
+| ~03:25 | Restore none of the listed ChatGPT-era slides; the gap was GitHub basics: a vocabulary slide and a "How a contribution moves" diagram slide. | Bill |
+| ~03:25 | One Slido poll ("what would you have them build?"), asked after everything is explained; Slido Q&A at the end. The industry vote and the force-rating poll are removed. | Bill |
+| ~03:25 | Harness components are five: spec, rules, skills, tools, checks. | Bill |
+| ~03:25 | One simple setup prompt that has the agent read AGENTS.md, connect to GitHub, fork and run the project; the detailed steps live in AGENTS.md (starter prompt v4). | Bill (wording by the orchestrator) |
 
 ---
 
@@ -314,6 +322,8 @@ and 8 are covered by the GitHub basics slide now being added.
 ---
 
 ## 8. Open questions for Bill
+
+_Resolved at ~03:25 (see §2.3 and §6): questions 1–5. Still open: 6 (assignment) and 7 (design direction)._
 
 1. **Slides to restore.** Which of these ChatGPT-era items should come back:
    - "You don't have to become a software engineer" (item 4);
