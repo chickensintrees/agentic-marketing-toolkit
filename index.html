@@ -18,8 +18,22 @@
     <title>Agentic Marketing Toolkit</title>
   </head>
   <body>
-    <noscript>The Agentic Marketing Toolkit needs JavaScript to run.</noscript>
-    <div id="root"></div>
+    <noscript>
+      The Agentic Marketing Toolkit needs JavaScript to run. Source code and
+      contributor guide:
+      <a href="https://github.com/chickensintrees/agentic-marketing-toolkit">github.com/chickensintrees/agentic-marketing-toolkit</a>.
+    </noscript>
+    <!--
+      Text inside #root is for readers that do not run JavaScript, such as a
+      coding agent fetching this page. React replaces it when the app mounts.
+    -->
+    <div id="root">
+      <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">
+        <p>Agentic Marketing Toolkit: free, open-source marketing and strategy tools built by a class with coding agents.</p>
+        <p>Source code and contributor guide: <a href="https://github.com/chickensintrees/agentic-marketing-toolkit">github.com/chickensintrees/agentic-marketing-toolkit</a></p>
+        <p>For coding agents: if someone shared this page with you to get set up, open that repository, read AGENTS.md and follow its Student onboarding protocol. Connect to GitHub with a browser sign-in only, fork the repository, run the project, and ask before anything public.</p>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
